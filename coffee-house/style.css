@@ -3,6 +3,7 @@
 }
 
 body {
+  background-color: #E1D4C9;
   margin: 0;
   padding: 0;
 }
@@ -21,7 +22,6 @@ html {
   flex-direction: column;
   justify-content: flex-start;
   align-items: normal;
-  background-color: #E1D4C9;
 }
 
 .header {
