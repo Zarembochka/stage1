@@ -1,0 +1,63 @@
+.header {
+    padding-top: $paddind-header-top;
+    @include display-flex();
+    width: 100%;
+    row-gap: $header-row-gap;
+    margin-bottom: $header-margin-bootom;
+}
+
+.header__inner {
+    @include display-flex(row, space-between, center);
+}
+
+.header__logo__link {
+    @include display-flex();
+}
+
+.header__list {
+    @include zero-padding();
+    @include zero-margin();
+    @include display-flex(row, center);
+    column-gap: $header-column-gap;
+    list-style: none;
+}
+
+.header__list__item {
+    @include display-flex();
+}
+
+.header__link {
+    @include text-normal();
+    @include header-link();
+    position: relative;
+    &::after {
+        @include link-after($border-light);
+    }
+    &:hover::after {
+        background-color: $text-dark;
+        width: 100%;
+    }
+}
+
+.header__menu {
+    @include display-flex(row, flex-start, flex-start);
+    column-gap: $header-menu-gap;
+    background-color: $background-body;
+    position: relative;
+    &::after {
+        @include link-after($border-light);
+    }
+    &:hover::after {
+        background-color: $text-dark;
+        width: 100%;
+    }
+}
+
+.coffee__cup__ico {
+    stroke: $text-dark;
+}
+
+.header__menu__link {
+    @include text-normal();
+    @include header-link();
+}

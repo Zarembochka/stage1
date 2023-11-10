@@ -16,3 +16,39 @@
     justify-content: $justify;
     align-items: $align;
 }
+
+@mixin text-normal() {
+    font-family: $font-family;
+    font-feature-settings: $font-feature;
+    font-size: $font-size-normal;
+    line-height: $line-height;
+    font-style: $font-style-normal;
+}
+
+@mixin text-italic() {
+    font-style: $font-style-italic;
+    color: $text-accent;
+}
+
+@mixin header-link() {
+    color: $text-dark;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    cursor: pointer;
+    padding-bottom: $header-link-padding-bottom;
+}
+
+@mixin link-after($color) {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 2px;
+    left: 50%;
+    bottom: 0;
+    background-color: $color;
+    transform: translateX(-50%);
+    transition-property: width, background-color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
