@@ -52,3 +52,20 @@
     transition-duration: 500ms;
     transition-timing-function: ease-out;
 }
+
+@mixin offer-title() {
+    font-size: $font-size-title-enjoy;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-title-enjoy;
+    color: $text-light;
+}
+
+@mixin offer-subtitle() {
+    color: $text-light;
+    font-weight: $font-style-normal;
+}
+
+@mixin button-text() {
+    color: $text-dark;
+    font-weight: $font-weight-bold;
+}

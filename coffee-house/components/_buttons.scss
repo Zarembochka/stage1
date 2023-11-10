@@ -1,0 +1,34 @@
+.button {
+    border: none;
+    width: fit-content;
+    @include text-normal();
+    cursor: pointer;
+}
+
+.button-offer {
+    background-color: $background-body;
+    width: $button-menu-width;
+    padding: $button-menu-padding-top 0;
+    border-radius: $button-border-radius;
+    @include button-text();
+    @include display-flex(row, center, flex-start);
+    position: relative;
+    &:hover .button-offer-title {
+        transform: translateX(-13px);
+    }
+    &:hover .button-offer-ico {
+        opacity: 1;
+    }
+}
+
+.button-offer-title {
+    transition: transform 300ms ease-in;
+}
+
+.button-offer-ico {
+    position: absolute;
+    top: 34%;
+    left: 58%;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}

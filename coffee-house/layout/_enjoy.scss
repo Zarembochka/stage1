@@ -1,0 +1,34 @@
+.enjoy {
+    @include display-flex();
+    width: 100%;
+    height: auto;
+    background-image: url(images/enjoy/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: $enjoy-border-radius;
+    padding: $enjoy-padding;
+    margin-bottom: $section-margin-bottom;
+}
+
+.enjoy__offer {
+    @include display-flex();
+    row-gap: $header-column-gap;
+    width: 45.689%;
+    height: auto;
+}
+
+.offer__title {
+    @include zero-margin();
+    @include text-normal();
+    @include offer-title();
+}
+
+.offer__title-italic {
+    @include text-italic();
+}
+
+.offer__subtitle {
+    @include text-normal();
+    @include offer-subtitle();
+    @include zero-margin();
+}
