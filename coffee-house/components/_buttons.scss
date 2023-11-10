@@ -32,3 +32,38 @@
     opacity: 0;
     transition: opacity 300ms ease-in;
 }
+
+.button-arrow {
+    @include display-flex(column, center, center);
+    background-color: $background-body;
+    border-radius: $button-border-radius;
+    border: 1px solid $border-dark;
+    width: $button-arrow-diametr;
+    height: $button-arrow-diametr;
+    transition: background-color 500ms ease-out;
+    &:hover {
+        background-color: $background-container;
+    }
+    &:hover .button-arrow-ico {
+        stroke: $background-body;
+    }
+}
+
+.button-arrow-ico {
+    stroke: $text-dark;
+    transition: stroke 500ms ease-out;
+}
+
+.button-pagination {
+    font-size: 0;
+    width: $button-pagination-width;
+    height: $button-pagination-height;
+    border-radius: $button-border-radius;
+    background-color: $border-light;
+    border: none;
+    cursor: pointer;
+}
+
+.button-pagination-active {
+    background-color: $border-dark;
+}

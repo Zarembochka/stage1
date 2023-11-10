@@ -241,4 +241,134 @@ html {
   transition: opacity 300ms ease-in;
 }
 
+.button-arrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #E1D4C9;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  width: 60px;
+  height: 60px;
+  transition: background-color 500ms ease-out;
+}
+.button-arrow:hover {
+  background-color: #665F55;
+}
+.button-arrow:hover .button-arrow-ico {
+  stroke: #E1D4C9;
+}
+
+.button-arrow-ico {
+  stroke: #403F3D;
+  transition: stroke 500ms ease-out;
+}
+
+.button-pagination {
+  font-size: 0;
+  width: 40px;
+  height: 4px;
+  border-radius: 100px;
+  background-color: #C1B6AD;
+  border: none;
+  cursor: pointer;
+}
+
+.button-pagination-active {
+  background-color: #665F55;
+}
+
+.favorites {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 40px;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.section__title {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  font-size: 60px;
+  line-height: 1.25;
+  color: #403F3D;
+}
+
+.section__title-italic {
+  font-style: italic;
+  color: #B0907A;
+}
+
+.slider__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  width: 100%;
+}
+
+.slider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.slider__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  width: 480px;
+  row-gap: 20px;
+}
+
+.slider__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 16px;
+}
+
+.slider__title {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  font-size: 24px;
+  color: #403F3D;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.slider__text {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  text-align: center;
+  color: #403F3D;
+}
+
+.slider__pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 12px;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -69,3 +69,16 @@
     color: $text-dark;
     font-weight: $font-weight-bold;
 }
+
+@mixin title() {
+    font-size: $font-size-title;
+    line-height: $line-height-title;
+    color: $text-dark;
+}
+
+@mixin slider-title() {
+    font-size: $font-size-medium;
+    color: $text-dark;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-title;
+}
