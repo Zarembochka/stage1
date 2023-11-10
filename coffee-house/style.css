@@ -500,4 +500,137 @@ html {
   width: 100%;
 }
 
+.footer {
+  background-color: #665F55;
+  padding: 100px;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 100px;
+}
+
+.footer__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: normal;
+  row-gap: 40px;
+  width: 50%;
+}
+
+.footer__title {
+  color: #E1D4C9;
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social__ico {
+  stroke: #E1D4C9;
+  transition: stroke 500ms ease-out;
+}
+
+.social__link {
+  text-decoration: none;
+  border-radius: 100px;
+  border: 1px solid #C1B6AD;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 500ms ease-out;
+}
+.social__link:hover {
+  background-color: #E1D4C9;
+}
+.social__link:hover .social__ico {
+  stroke: #403F3D;
+}
+
+.contacts__title {
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  margin: 0;
+  color: #E1D4C9;
+  font-size: 24px;
+}
+
+.contacts__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  row-gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contacts__list__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 8px;
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  color: #E1D4C9;
+}
+.contacts__list__item:last-of-type {
+  padding-bottom: 4px;
+}
+
+.contacts__list__link {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 8px;
+  text-decoration: none;
+  padding-bottom: 4px;
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  color: #E1D4C9;
+  position: relative;
+}
+.contacts__list__link::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: 0;
+  background-color: #E1D4C9;
+  transform: translateX(-50%);
+  transition-property: width, background-color;
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+}
+.contacts__list__link:hover::after {
+  width: 100%;
+}
+
 /*# sourceMappingURL=style.css.map */
