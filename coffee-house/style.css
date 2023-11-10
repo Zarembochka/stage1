@@ -1,3 +1,27 @@
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  background-color: #E1D4C9;
+}
 
 /*# sourceMappingURL=style.css.map */

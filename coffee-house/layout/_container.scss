@@ -1,0 +1,9 @@
+.container {
+    max-width: $max-width;
+    width: 100%;
+    @include center-position();
+    padding-left: $padding-desktop;
+    padding-right: $padding-desktop;
+    @include display-flex();
+    background-color: $background-body;
+}

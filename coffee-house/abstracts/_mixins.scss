@@ -1,0 +1,18 @@
+@mixin center-position() {
+    margin: 0 auto;
+}
+
+@mixin zero-padding() {
+    padding: 0;
+}
+
+@mixin zero-margin() {
+    margin: 0;
+}
+
+@mixin display-flex ($direction: column, $justify: flex-start, $align: normal) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
