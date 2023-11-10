@@ -1,0 +1,32 @@
+.mobileapp {
+    @include display-flex(row, flex-start, center);
+    column-gap: $mobileapp-column-gap;
+    width: 100%;
+    margin-bottom: $section-margin-bottom;
+}
+
+.offer {
+    width: 46.3235%;
+    @include display-flex(column);
+    row-gap: $mobileapp-row-gap;
+}
+
+.offer__text {
+    @include zero-margin();
+    @include text-normal();
+    color: $text-dark;
+}
+
+.offer__download {
+    @include display-flex(row);
+    column-gap: $mobileapp-download-column-gap;
+}
+
+.offer__download__description {
+    @include display-flex(column, flex-start, flex-start);
+    row-gap: $mobileapp-download-row-gap;
+}
+
+.offer__image {
+    width: 100%;
+}

@@ -67,3 +67,35 @@
 .button-pagination-active {
     background-color: $border-dark;
 }
+
+.button-mobile {
+    @include display-flex(row, flex-start, center);
+    column-gap: $button-mobile-row-gap;
+    background-color: $background-body;
+    border-radius: $button-border-radius;
+    border: 1px solid $border-dark;
+    color: $text-dark;
+    font-weight: $font-weight-bold;
+    padding: $button-mobile-padding-top $button-mobile-padding-left;
+    width: $button-mobile-width;
+    transition-property: background-color, color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in;
+    &:hover {
+        background-color: $background-container;
+        color: $text-light;
+    }
+    &:hover .button-mobile-ico {
+        fill: $text-light;
+    }
+}
+
+.button-mobile-ico {
+    fill: $text-dark;
+    transition: fill 500ms ease-in;
+}
+
+.button__text-small {
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+}

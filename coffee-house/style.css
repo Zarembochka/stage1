@@ -279,6 +279,41 @@ html {
   background-color: #665F55;
 }
 
+.button-mobile {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 8px;
+  background-color: #E1D4C9;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  color: #403F3D;
+  font-weight: 600;
+  padding: 12px 20px;
+  width: 200px;
+  transition-property: background-color, color;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in;
+}
+.button-mobile:hover {
+  background-color: #665F55;
+  color: #E1D4C9;
+}
+.button-mobile:hover .button-mobile-ico {
+  fill: #E1D4C9;
+}
+
+.button-mobile-ico {
+  fill: #403F3D;
+  transition: fill 500ms ease-in;
+}
+
+.button__text-small {
+  font-size: 10px;
+  line-height: 1.4;
+}
+
 .favorites {
   display: flex;
   flex-direction: column;
@@ -414,6 +449,55 @@ html {
 
 .about__box-large {
   max-height: 590px;
+}
+
+.mobileapp {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 100px;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.offer {
+  width: 46.3235%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  row-gap: 40px;
+}
+
+.offer__text {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-feature-settings: "clig" off, "liga" off;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  color: #403F3D;
+}
+
+.offer__download {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 20px;
+}
+
+.offer__download__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  row-gap: 2px;
+}
+
+.offer__image {
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
