@@ -568,6 +568,7 @@ html {
   margin: 0;
   color: #E1D4C9;
   font-size: 24px;
+  line-height: 1.25;
 }
 
 .contacts__list {
@@ -596,7 +597,7 @@ html {
   color: #E1D4C9;
 }
 .contacts__list__item:last-of-type {
-  padding-bottom: 4px;
+  padding-bottom: 6px;
 }
 
 .contacts__list__link {
@@ -631,6 +632,10 @@ html {
 }
 .contacts__list__link:hover::after {
   width: 100%;
+}
+
+.contacts__list__text {
+  letter-spacing: 0.3px;
 }
 
 .menu {

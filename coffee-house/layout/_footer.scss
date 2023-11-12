@@ -50,11 +50,13 @@
     @include zero-margin();
     color: $text-light;
     font-size: $font-size-medium;
+    line-height: $line-height-title;
 }
 
 .contacts__list {
     @include display-flex();
-    row-gap: $contacts-row-gap;
+    //row-gap: $contacts-row-gap;
+    row-gap: 16px;
     list-style: none;
     @include zero-margin();
     @include zero-padding();
@@ -67,7 +69,7 @@
     @include text-normal();
     color: $text-light;
     &:last-of-type {
-        padding-bottom: $header-link-padding-bottom;
+        padding-bottom: 6px;
     }
 }
 
@@ -86,4 +88,8 @@
     &:hover::after {
           width: 100%;
     }
+}
+
+.contacts__list__text {
+    letter-spacing: 0.3px;
 }
