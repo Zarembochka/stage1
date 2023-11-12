@@ -1,0 +1,96 @@
+.menu {
+    @include display-flex(column, flex-start, center);
+    row-gap: $menu-gap;
+    margin-bottom: $section-margin-bottom;
+}
+
+.menu__title {
+    max-width: $menu-title-max-width;
+    text-align: center;
+}
+
+.menu__form {
+    @include display-flex(row, center, center);
+    column-gap: $menu-form-column-gap;
+}
+
+.menu__form__input {
+    display: none;
+    &:checked + .menu__form__label {
+        color: $text-light;
+        background-color: $background-container;
+    }
+    &:hover + .menu__form__label {
+        color: $text-light;
+        background-color: $background-container;
+    }
+}
+
+.menu__form__ico {
+    padding:  $menu-form-ico-padding-top $menu-form-ico-padding-left;
+    border-radius: $menu-form-border-radius;
+    background-color: $border-light;
+}
+
+.menu__form__label {
+    @include display-flex(row, center, center);
+    column-gap: $menu-form-label-column-gap;
+    @include text-normal();
+    color: $text-dark;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    padding: $menu-form-label-padding;
+    padding-right: $menu-form-label-padding-right;
+    border-radius: $menu-form-border-radius;
+    border: 1px solid $border-light;
+    transition-property: background-color, color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+.menu__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $menu-gap;
+}
+
+.menu__item__image__wrapper {
+    overflow: hidden;
+    max-width: 310px;
+    max-height: 310px;
+    border-radius: 40px;
+    @include display-flex(row, center, center);
+    &:hover > .menu__item__image {
+        transform: scale(0.91);
+    }
+}
+
+.menu__item__image {
+    width: 110%;
+    transition: transform 500ms ease-out;
+}
+
+.menu__item__description {
+    padding: 20px;
+    @include text-normal();
+    color: $text-dark;
+    @include display-flex(column);
+    height: 196px;
+}
+
+.menu__item__title {
+    @include zero-margin();
+    @include text-normal();
+    font-size: $font-size-medium;
+    color: $text-dark;
+    line-height: $line-height-title;
+    margin-bottom: 12px;
+    font-weight: $font-weight-bold;
+}
+
+.menu__item__price {
+    margin-top: auto;
+    font-size: $font-size-medium;
+    line-height: $line-height-title;
+    font-weight: $font-weight-bold;
+}

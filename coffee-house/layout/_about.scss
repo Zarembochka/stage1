@@ -19,7 +19,7 @@
     transition: transform 500ms ease-out;
 }
 
-.about__box {
+.about__wrapper {
     width: 48.5%;
     max-height: $about-image-small-height;
     border-radius: $about-border-radius;
@@ -30,6 +30,6 @@
     }
 }
 
-.about__box-large {
+.about__wrapper-large {
     max-height: $about-image-large-height;
 }
