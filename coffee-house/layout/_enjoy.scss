@@ -32,3 +32,33 @@
     @include offer-subtitle();
     @include zero-margin();
 }
+
+.offer__link {
+    background-color: $background-body;
+    text-decoration: none;
+    width: 200px;
+    padding: 20px 0;
+    border-radius: $button-border-radius;
+    @include text-normal();
+    @include button-text();
+    @include display-flex(row, center, flex-start);
+    position: relative;
+    &:hover .offer__link__title {
+        transform: translateX(-13px);
+    }
+    &:hover .offer__link__ico {
+        opacity: 1;
+    }
+}
+
+.offer__link__title {
+    transition: transform 300ms ease-in;
+}
+
+.offer__link__ico {
+    position: absolute;
+    top: 34%;
+    left: 58%;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}

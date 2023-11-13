@@ -5,34 +5,6 @@
     cursor: pointer;
 }
 
-.button-offer {
-    background-color: $background-body;
-    width: $button-menu-width;
-    padding: $button-menu-padding-top 0;
-    border-radius: $button-border-radius;
-    @include button-text();
-    @include display-flex(row, center, flex-start);
-    position: relative;
-    &:hover .button-offer-title {
-        transform: translateX(-13px);
-    }
-    &:hover .button-offer-ico {
-        opacity: 1;
-    }
-}
-
-.button-offer-title {
-    transition: transform 300ms ease-in;
-}
-
-.button-offer-ico {
-    position: absolute;
-    top: 34%;
-    left: 58%;
-    opacity: 0;
-    transition: opacity 300ms ease-in;
-}
-
 .button-arrow {
     @include display-flex(column, center, center);
     background-color: $background-body;
@@ -66,36 +38,4 @@
 
 .button-pagination-active {
     background-color: $border-dark;
-}
-
-.button-mobile {
-    @include display-flex(row, flex-start, center);
-    column-gap: $button-mobile-row-gap;
-    background-color: $background-body;
-    border-radius: $button-border-radius;
-    border: 1px solid $border-dark;
-    color: $text-dark;
-    font-weight: $font-weight-bold;
-    padding: $button-mobile-padding-top $button-mobile-padding-left;
-    width: $button-mobile-width;
-    transition-property: background-color, color;
-    transition-duration: 500ms;
-    transition-timing-function: ease-in;
-    &:hover {
-        background-color: $background-container;
-        color: $text-light;
-    }
-    &:hover .button-mobile-ico {
-        fill: $text-light;
-    }
-}
-
-.button-mobile-ico {
-    fill: $text-dark;
-    transition: fill 500ms ease-in;
-}
-
-.button__text-small {
-    font-size: $font-size-small;
-    line-height: $line-height-small;
 }

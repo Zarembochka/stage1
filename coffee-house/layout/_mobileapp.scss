@@ -22,9 +22,42 @@
     column-gap: $mobileapp-download-column-gap;
 }
 
+.offer__download__link {
+    text-decoration: none;
+    @include display-flex(row, flex-start, center);
+    column-gap: 8px;
+    border-radius: $button-border-radius;
+    border: 1px solid $border-dark;
+    @include text-normal();
+    @include button-text();
+    padding: 12px 20px;
+    width: $button-mobile-width;
+    transition-property: background-color, color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in;
+    &:hover {
+        background-color: $background-container;
+        color: $text-light;
+    }
+    &:hover .offer__download__ico {
+        fill: $text-light;
+    }
+}
+
+.offer__download__ico {
+    fill: $text-dark;
+    transition: fill 500ms ease-in;
+}
+
+.offer__download__text-small {
+    font-size: $font-size-small;
+    line-height: $line-height-small;
+}
+
+
 .offer__download__description {
     @include display-flex(column, flex-start, flex-start);
-    row-gap: $mobileapp-download-row-gap;
+    row-gap: 2px;
 }
 
 .offer__image {
