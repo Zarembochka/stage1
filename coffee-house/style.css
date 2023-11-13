@@ -127,6 +127,32 @@ html {
   width: 100%;
 }
 
+.header__menu-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  column-gap: 8px;
+  background-color: #E1D4C9;
+  position: relative;
+}
+.header__menu-menu::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: 0;
+  background-color: #C1B6AD;
+  transform: translateX(-50%);
+  transition-property: width, background-color;
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+  background-color: #403F3D;
+  width: 100%;
+}
+
 .coffee__cup__ico {
   stroke: #403F3D;
 }
@@ -718,6 +744,15 @@ html {
   gap: 40px;
 }
 
+.menu__item {
+  cursor: pointer;
+  border-radius: 40px;
+  border: 1px solid #C1B6AD;
+}
+.menu__item:hover .menu__item__image {
+  transform: scale(0.91);
+}
+
 .menu__item__image__wrapper {
   overflow: hidden;
   max-width: 310px;
@@ -727,9 +762,6 @@ html {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
-.menu__item__image__wrapper:hover > .menu__item__image {
-  transform: scale(0.91);
 }
 
 .menu__item__image {

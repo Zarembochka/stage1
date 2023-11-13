@@ -54,15 +54,21 @@
     gap: $menu-gap;
 }
 
+.menu__item {
+    cursor: pointer;
+    border-radius: 40px;
+    border: 1px solid $border-light;
+    &:hover  .menu__item__image {
+        transform: scale(0.91);
+    }
+}
+
 .menu__item__image__wrapper {
     overflow: hidden;
     max-width: 310px;
     max-height: 310px;
     border-radius: 40px;
     @include display-flex(row, center, center);
-    &:hover > .menu__item__image {
-        transform: scale(0.91);
-    }
 }
 
 .menu__item__image {

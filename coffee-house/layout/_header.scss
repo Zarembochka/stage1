@@ -53,6 +53,18 @@
     }
 }
 
+.header__menu-menu {
+    @include display-flex(row, flex-start, flex-start);
+    column-gap: $header-menu-gap;
+    background-color: $background-body;
+    position: relative;
+    &::after {
+        @include link-after($border-light);
+        background-color: $text-dark;
+        width: 100%;
+    }
+}
+
 .coffee__cup__ico {
     stroke: $text-dark;
 }
