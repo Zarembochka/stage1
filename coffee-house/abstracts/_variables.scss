@@ -27,7 +27,7 @@ $font-family: 'Inter', sans-serif;
 $font-size-small: 10px;
 $font-size-normal: 16px;
 $font-size-medium: 24px;
-$font-size-title: 60px;
+$font-size-title: 59.9px;
 $font-weight-bold: 600;
 $font-weight-normal: 400;
 $line-height-small: 1.4;
@@ -35,7 +35,8 @@ $line-height: 1.5;
 $line-height-title: 1.25;
 $font-style-normal: normal;
 $font-style-italic: italic;
-$font-feature: 'clig' off, 'liga' off;
+//$font-feature: 'clig' off, 'liga' off;
+$font-feature: none;
 
 $font-size-title-enjoy: 72px;
 $line-height-title-enjoy: 1.05;

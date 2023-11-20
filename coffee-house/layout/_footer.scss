@@ -68,9 +68,6 @@
     text-decoration: none;
     @include text-normal();
     color: $text-light;
-    &:last-of-type {
-        padding-bottom: 6px;
-    }
 }
 
 

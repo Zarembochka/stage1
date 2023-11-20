@@ -10,8 +10,13 @@
     @include display-flex(row, space-between, center);
 }
 
+
 .header__logo__link {
     @include display-flex();
+}
+
+.header__logo__link-main {
+    pointer-events: none;
 }
 
 .header__list {
@@ -33,9 +38,11 @@
     &::after {
         @include link-after($border-light);
     }
-    &:hover::after {
-        background-color: $text-dark;
-        width: 100%;
+    @media (hover:hover) {
+        &:hover::after {
+            background-color: $text-dark;
+            width: 100%;
+        }
     }
 }
 
@@ -58,6 +65,7 @@
     column-gap: $header-menu-gap;
     background-color: $background-body;
     position: relative;
+    pointer-events: none;
     &::after {
         @include link-after($border-light);
         background-color: $text-dark;

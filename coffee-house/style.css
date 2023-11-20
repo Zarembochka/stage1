@@ -49,6 +49,10 @@ html {
   align-items: normal;
 }
 
+.header__logo__link-main {
+  pointer-events: none;
+}
+
 .header__list {
   padding: 0;
   margin: 0;
@@ -69,7 +73,7 @@ html {
 
 .header__link {
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -94,9 +98,11 @@ html {
   transition-duration: 500ms;
   transition-timing-function: ease-out;
 }
-.header__link:hover::after {
-  background-color: #403F3D;
-  width: 100%;
+@media (hover: hover) {
+  .header__link:hover::after {
+    background-color: #403F3D;
+    width: 100%;
+  }
 }
 
 .header__menu {
@@ -135,6 +141,7 @@ html {
   column-gap: 8px;
   background-color: #E1D4C9;
   position: relative;
+  pointer-events: none;
 }
 .header__menu-menu::after {
   content: "";
@@ -159,7 +166,7 @@ html {
 
 .header__menu__link {
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -198,7 +205,7 @@ html {
 .offer__title {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -215,7 +222,7 @@ html {
 
 .offer__subtitle {
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -231,7 +238,7 @@ html {
   padding: 20px 0;
   border-radius: 100px;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -266,7 +273,7 @@ html {
   border: none;
   width: fit-content;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -324,11 +331,11 @@ html {
 .section__title {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
-  font-size: 60px;
+  font-size: 59.9px;
   line-height: 1.25;
   color: #403F3D;
 }
@@ -374,7 +381,7 @@ html {
 .slider__title {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -387,7 +394,7 @@ html {
 .slider__text {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -470,7 +477,7 @@ html {
 .offer__text {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -495,7 +502,7 @@ html {
   border-radius: 100px;
   border: 1px solid #665F55;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -598,7 +605,7 @@ html {
 
 .contacts__title {
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -627,14 +634,11 @@ html {
   column-gap: 8px;
   text-decoration: none;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
   color: #E1D4C9;
-}
-.contacts__list__item:last-of-type {
-  padding-bottom: 6px;
 }
 
 .contacts__list__link {
@@ -646,7 +650,7 @@ html {
   text-decoration: none;
   padding-bottom: 4px;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -703,6 +707,7 @@ html {
 .menu__form__input:checked + .menu__form__label {
   color: #E1D4C9;
   background-color: #665F55;
+  pointer-events: none;
 }
 .menu__form__input:hover + .menu__form__label {
   color: #E1D4C9;
@@ -722,7 +727,7 @@ html {
   align-items: center;
   column-gap: 8px;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -745,9 +750,8 @@ html {
 }
 
 .menu__item {
-  cursor: pointer;
   border-radius: 40px;
-  border: 1px solid #C1B6AD;
+  outline: 1px solid #C1B6AD;
 }
 .menu__item:hover .menu__item__image {
   transform: scale(0.91);
@@ -772,7 +776,7 @@ html {
 .menu__item__description {
   padding: 20px;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;
@@ -787,7 +791,7 @@ html {
 .menu__item__title {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-feature-settings: "clig" off, "liga" off;
+  font-feature-settings: none;
   font-size: 16px;
   line-height: 1.5;
   font-style: normal;

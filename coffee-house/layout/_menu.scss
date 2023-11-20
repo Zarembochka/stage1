@@ -19,6 +19,7 @@
     &:checked + .menu__form__label {
         color: $text-light;
         background-color: $background-container;
+        pointer-events: none;
     }
     &:hover + .menu__form__label {
         color: $text-light;
@@ -55,9 +56,9 @@
 }
 
 .menu__item {
-    cursor: pointer;
+    // cursor: pointer;
     border-radius: 40px;
-    border: 1px solid $border-light;
+    outline: 1px solid $border-light;
     &:hover  .menu__item__image {
         transform: scale(0.91);
     }
