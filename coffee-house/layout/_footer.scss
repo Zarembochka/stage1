@@ -1,15 +1,23 @@
 .footer {
     background-color: $background-container;
-    padding: $footer-padding;
+    padding: 100px;
     border-radius: $footer-border-radius;
     @include display-flex(row);
     column-gap: $footer-column-gap;
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        padding: 100px 60px;
+        row-gap: $footer-column-gap;
+    }
 }
 
 .footer__info {
     @include display-flex(column, center, normal);
     row-gap: $footer-row-gap;
-    width: $footer-column-width;
+    width: 50%;
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
 }
 
 .footer__title {

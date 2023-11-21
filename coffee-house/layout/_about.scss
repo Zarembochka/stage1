@@ -21,6 +21,9 @@
     object-fit: cover;
     width: 110%;
     transition: transform 500ms ease-out;
+    @media (max-width: 1024px) {
+        width: 105%;
+    }
 }
 
 .about__wrapper {
@@ -33,9 +36,6 @@
         &:hover > .about__image {
             transform: scale(0.91);
         }
-    }
-    &:hover > .about__image {
-        transform: scale(0.91);
     }
     @media (max-width: 768px) {
         width: 100%;
