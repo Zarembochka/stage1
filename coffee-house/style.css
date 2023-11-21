@@ -51,6 +51,22 @@ html {
   background-color: #E1D4C9;
   transition: transform 0.3s ease-in-out;
 }
+@media (max-width: 768px) {
+  .header__nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: calc(100vh - 100px);
+    transform: translateX(100%);
+    position: fixed;
+    z-index: 5;
+    top: 100px;
+    right: 0;
+    padding: 60px 40px;
+    row-gap: 100px;
+  }
+}
 
 .header__logo__link {
   display: flex;
@@ -73,6 +89,13 @@ html {
   flex-grow: 1;
   column-gap: 40px;
   list-style: none;
+}
+@media (max-width: 768px) {
+  .header__list {
+    flex-direction: column;
+    row-gap: 60px;
+    flex-grow: 0;
+  }
 }
 
 .header__list__item {
@@ -115,6 +138,13 @@ html {
     width: 100%;
   }
 }
+@media (max-width: 768px) {
+  .header__link {
+    font-size: 32px;
+    line-height: 1.25;
+    padding-bottom: 0;
+  }
+}
 
 .header__menu {
   display: flex;
@@ -143,6 +173,11 @@ html {
   .header__menu:hover::after {
     background-color: #403F3D;
     width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .header__menu {
+    column-gap: 16px;
   }
 }
 
@@ -179,6 +214,13 @@ html {
   height: 20px;
   stroke-width: 1.5px;
 }
+@media (max-width: 768px) {
+  .coffee__cup__ico {
+    width: 40px;
+    height: 40px;
+    stroke-width: 1px;
+  }
+}
 
 .header__menu__link {
   font-family: "Inter", sans-serif;
@@ -192,9 +234,23 @@ html {
   cursor: pointer;
   padding-bottom: 4px;
 }
+@media (max-width: 768px) {
+  .header__menu__link {
+    font-size: 32px;
+    line-height: 1.25;
+  }
+}
 
 .burger {
   display: none;
+}
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: normal;
+  }
 }
 
 .enjoy {

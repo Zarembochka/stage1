@@ -15,6 +15,17 @@
     width: 100%;
     background-color: $background-body;
     transition: transform 0.3s ease-in-out;
+    @media (max-width: 768px) {
+        @include display-flex(column, flex-start, center);
+        height: calc(100vh - 100px);
+        transform: translateX(100%);
+        position: fixed;
+        z-index: 5;
+        top: 100px;
+        right: 0;
+        padding: 60px 40px;
+        row-gap: $section-margin-bottom;
+    }
 }
 
 .header__logo__link {
@@ -32,6 +43,11 @@
     flex-grow: 1;
     column-gap: $header-column-gap;
     list-style: none;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        row-gap: 60px;
+        flex-grow: 0;
+    }
 }
 
 .header__list__item {
@@ -51,6 +67,10 @@
             width: 100%;
         }
     }
+    @media (max-width: 768px) {
+        @include text-menu-tablet();
+        padding-bottom: 0;
+    }
 }
 
 .header__menu {
@@ -66,6 +86,9 @@
             background-color: $text-dark;
             width: 100%;
         }
+    }
+    @media (max-width: 768px) {
+        column-gap: 16px;
     }
 }
 
@@ -87,13 +110,24 @@
     width: 20px;
     height: 20px;
     stroke-width: 1.5px;
+    @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+        stroke-width: 1px;
+    }
 }
 
 .header__menu__link {
     @include text-normal();
     @include header-link();
+    @media (max-width: 768px) {
+        @include text-menu-tablet();
+    }
 }
 
 .burger {
     display: none;
+    @media (max-width: 768px) {
+        @include display-flex();
+    }
 }
