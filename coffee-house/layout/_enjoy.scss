@@ -4,16 +4,21 @@
     height: auto;
     background-image: url(images/enjoy/background.jpg);
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center center;
+    background-size: cover;
     border-radius: $enjoy-border-radius;
     padding: $enjoy-padding;
     margin-bottom: $section-margin-bottom;
+    @media (max-width: 1024px) {
+        padding: 100px 60px;
+    }
 }
 
 .enjoy__offer {
     @include display-flex();
     row-gap: $header-column-gap;
-    width: 45.689%;
+    //width: 45.689%;
+    width: 530px;
     height: auto;
 }
 
@@ -43,16 +48,21 @@
     @include button-text();
     @include display-flex(row, center, flex-start);
     position: relative;
-    &:hover .offer__link__title {
-        transform: translateX(-13px);
-    }
-    &:hover .offer__link__ico {
-        opacity: 1;
+    @media (hover:hover) {
+        &:hover .offer__link__title {
+            transform: translateX(-13px);
+        }
+        &:hover .offer__link__ico {
+            opacity: 1;
+        }
     }
 }
 
 .offer__link__title {
     transition: transform 300ms ease-in;
+    @media (max-width: 1024px) {
+        transform: translateX(-13px);
+    }
 }
 
 .offer__link__ico {
@@ -60,5 +70,11 @@
     top: 34%;
     left: 58%;
     opacity: 0;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.5px;
     transition: opacity 300ms ease-in;
+    @media (max-width: 1024px) {
+        opacity: 1;
+    }
 }

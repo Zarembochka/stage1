@@ -262,10 +262,16 @@ html {
   height: auto;
   background-image: url(images/enjoy/background.jpg);
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
+  background-size: cover;
   border-radius: 40px;
   padding: 100px;
   margin-bottom: 100px;
+}
+@media (max-width: 1024px) {
+  .enjoy {
+    padding: 100px 60px;
+  }
 }
 
 .enjoy__offer {
@@ -274,7 +280,7 @@ html {
   justify-content: flex-start;
   align-items: normal;
   row-gap: 40px;
-  width: 45.689%;
+  width: 530px;
   height: auto;
 }
 
@@ -326,15 +332,22 @@ html {
   align-items: flex-start;
   position: relative;
 }
-.offer__link:hover .offer__link__title {
-  transform: translateX(-13px);
-}
-.offer__link:hover .offer__link__ico {
-  opacity: 1;
+@media (hover: hover) {
+  .offer__link:hover .offer__link__title {
+    transform: translateX(-13px);
+  }
+  .offer__link:hover .offer__link__ico {
+    opacity: 1;
+  }
 }
 
 .offer__link__title {
   transition: transform 300ms ease-in;
+}
+@media (max-width: 1024px) {
+  .offer__link__title {
+    transform: translateX(-13px);
+  }
 }
 
 .offer__link__ico {
@@ -342,7 +355,15 @@ html {
   top: 34%;
   left: 58%;
   opacity: 0;
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.5px;
   transition: opacity 300ms ease-in;
+}
+@media (max-width: 1024px) {
+  .offer__link__ico {
+    opacity: 1;
+  }
 }
 
 .button {
