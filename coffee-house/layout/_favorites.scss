@@ -53,3 +53,17 @@
     @include display-flex(row);
     column-gap: $slider-pagination-column-gap;
 }
+
+.progress__pagination {
+    width: 40px;
+    height: 4px;
+    border-radius: $button-border-radius;
+    &::-webkit-progress-bar {
+        background-color: $border-light;
+        border-radius: $button-border-radius;
+    }
+    &::-webkit-progress-value {
+        background-color: $border-dark;
+        border-radius: $button-border-radius;
+    }
+}

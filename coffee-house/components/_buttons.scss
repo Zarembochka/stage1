@@ -26,16 +26,3 @@
     transition: stroke 500ms ease-out;
 }
 
-.button-pagination {
-    font-size: 0;
-    width: $button-pagination-width;
-    height: $button-pagination-height;
-    border-radius: $button-border-radius;
-    background-color: $border-light;
-    border: none;
-    cursor: pointer;
-}
-
-.button-pagination-active {
-    background-color: $border-dark;
-}

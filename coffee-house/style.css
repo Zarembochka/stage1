@@ -304,20 +304,6 @@ html {
   transition: stroke 500ms ease-out;
 }
 
-.button-pagination {
-  font-size: 0;
-  width: 40px;
-  height: 4px;
-  border-radius: 100px;
-  background-color: #C1B6AD;
-  border: none;
-  cursor: pointer;
-}
-
-.button-pagination-active {
-  background-color: #665F55;
-}
-
 .favorites {
   display: flex;
   flex-direction: column;
@@ -408,6 +394,20 @@ html {
   justify-content: flex-start;
   align-items: normal;
   column-gap: 12px;
+}
+
+.progress__pagination {
+  width: 40px;
+  height: 4px;
+  border-radius: 100px;
+}
+.progress__pagination::-webkit-progress-bar {
+  background-color: #C1B6AD;
+  border-radius: 100px;
+}
+.progress__pagination::-webkit-progress-value {
+  background-color: #665F55;
+  border-radius: 100px;
 }
 
 .about {
@@ -639,6 +639,10 @@ html {
   line-height: 1.5;
   font-style: normal;
   color: #E1D4C9;
+}
+
+.contacts__list__item-menu {
+  margin-bottom: 4px;
 }
 
 .contacts__list__link {

@@ -70,6 +70,10 @@
     color: $text-light;
 }
 
+.contacts__list__item-menu {
+    margin-bottom: 4px;
+}
+
 
 .contacts__list__link {
     @include display-flex(row);
