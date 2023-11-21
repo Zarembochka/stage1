@@ -3,12 +3,19 @@
     column-gap: $mobileapp-column-gap;
     width: 100%;
     margin-bottom: $section-margin-bottom;
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        row-gap: $mobileapp-column-gap;
+    }
 }
 
 .offer {
     width: 46.3235%;
     @include display-flex(column);
     row-gap: $mobileapp-row-gap;
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
 }
 
 .offer__text {
@@ -62,4 +69,6 @@
 
 .offer__image {
     width: 100%;
+    max-width: 630px;
+    margin: 0 auto;
 }

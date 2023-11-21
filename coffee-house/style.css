@@ -609,6 +609,12 @@ html {
   width: 100%;
   margin-bottom: 100px;
 }
+@media (max-width: 1024px) {
+  .mobileapp {
+    flex-direction: column;
+    row-gap: 100px;
+  }
+}
 
 .offer {
   width: 46.3235%;
@@ -617,6 +623,11 @@ html {
   justify-content: flex-start;
   align-items: normal;
   row-gap: 40px;
+}
+@media (max-width: 1024px) {
+  .offer {
+    width: 100%;
+  }
 }
 
 .offer__text {
@@ -687,6 +698,8 @@ html {
 
 .offer__image {
   width: 100%;
+  max-width: 630px;
+  margin: 0 auto;
 }
 
 .footer {
