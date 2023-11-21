@@ -1,0 +1,35 @@
+.about {
+    @include display-flex();
+    row-gap: $about-gap;
+    width: 100%;
+    margin-bottom: $section-margin-bottom;
+}
+
+.about__inner {
+    @include display-flex(column, flex-start, flex-end);
+    width: 100%;
+    max-height: $about-max-height;
+    gap: $about-gap;
+    flex-wrap: wrap;
+}
+
+.about__image {
+    object-fit: cover;
+    width: 110%;
+    transition: transform 500ms ease-out;
+}
+
+.about__wrapper {
+    width: 48.5%;
+    max-height: $about-image-small-height;
+    border-radius: $about-border-radius;
+    overflow: hidden;
+    @include display-flex(column, center, center);
+    &:hover > .about__image {
+        transform: scale(0.91);
+    }
+}
+
+.about__wrapper-large {
+    max-height: $about-image-large-height;
+}

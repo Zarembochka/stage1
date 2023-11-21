@@ -1,0 +1,64 @@
+.enjoy {
+    @include display-flex();
+    width: 100%;
+    height: auto;
+    background-image: url(images/enjoy/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: $enjoy-border-radius;
+    padding: $enjoy-padding;
+    margin-bottom: $section-margin-bottom;
+}
+
+.enjoy__offer {
+    @include display-flex();
+    row-gap: $header-column-gap;
+    width: 45.689%;
+    height: auto;
+}
+
+.offer__title {
+    @include zero-margin();
+    @include text-normal();
+    @include offer-title();
+}
+
+.offer__title-italic {
+    @include text-italic();
+}
+
+.offer__subtitle {
+    @include text-normal();
+    @include offer-subtitle();
+    @include zero-margin();
+}
+
+.offer__link {
+    background-color: $background-body;
+    text-decoration: none;
+    width: 200px;
+    padding: 20px 0;
+    border-radius: $button-border-radius;
+    @include text-normal();
+    @include button-text();
+    @include display-flex(row, center, flex-start);
+    position: relative;
+    &:hover .offer__link__title {
+        transform: translateX(-13px);
+    }
+    &:hover .offer__link__ico {
+        opacity: 1;
+    }
+}
+
+.offer__link__title {
+    transition: transform 300ms ease-in;
+}
+
+.offer__link__ico {
+    position: absolute;
+    top: 34%;
+    left: 58%;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}

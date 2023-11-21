@@ -1,0 +1,28 @@
+.button {
+    border: none;
+    width: fit-content;
+    @include text-normal();
+    cursor: pointer;
+}
+
+.button-arrow {
+    @include display-flex(column, center, center);
+    background-color: $background-body;
+    border-radius: $button-border-radius;
+    border: 1px solid $border-dark;
+    width: $button-arrow-diametr;
+    height: $button-arrow-diametr;
+    transition: background-color 500ms ease-out;
+    &:hover {
+        background-color: $background-container;
+    }
+    &:hover .button-arrow-ico {
+        stroke: $background-body;
+    }
+}
+
+.button-arrow-ico {
+    stroke: $text-dark;
+    transition: stroke 500ms ease-out;
+}
+

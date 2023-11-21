@@ -1,0 +1,96 @@
+.footer {
+    background-color: $background-container;
+    padding: $footer-padding;
+    border-radius: $footer-border-radius;
+    @include display-flex(row);
+    column-gap: $footer-column-gap;
+}
+
+.footer__info {
+    @include display-flex(column, center, normal);
+    row-gap: $footer-row-gap;
+    width: $footer-column-width;
+}
+
+.footer__title {
+    color: $text-light;
+}
+
+.social {
+    @include display-flex(row);
+    column-gap: $social-column-gap;
+    list-style: none;
+    @include zero-margin();
+    @include zero-padding();
+}
+
+.social__ico {
+    stroke: $background-body;
+    transition: stroke 500ms ease-out;
+}
+
+.social__link {
+    text-decoration: none;
+    border-radius: $social-border-radius;
+    border: 1px solid $border-light;
+    width: $social-diametr;
+    height: $social-diametr;
+    @include display-flex(column, center, center);
+    transition: background-color 500ms ease-out;
+    &:hover {
+        background-color: $background-body;
+    }
+    &:hover .social__ico {
+        stroke: $text-dark;
+    }
+}
+
+.contacts__title {
+    @include text-normal();
+    @include zero-margin();
+    color: $text-light;
+    font-size: $font-size-medium;
+    line-height: $line-height-title;
+}
+
+.contacts__list {
+    @include display-flex();
+    //row-gap: $contacts-row-gap;
+    row-gap: 16px;
+    list-style: none;
+    @include zero-margin();
+    @include zero-padding();
+}
+
+.contacts__list__item {
+    @include display-flex(row);
+    column-gap: $contacts-column-gap;
+    text-decoration: none;
+    @include text-normal();
+    color: $text-light;
+}
+
+.contacts__list__item-menu {
+    margin-bottom: 4px;
+}
+
+
+.contacts__list__link {
+    @include display-flex(row);
+    column-gap: $contacts-column-gap;
+    text-decoration: none;
+    padding-bottom: $header-link-padding-bottom;
+    @include text-normal();
+    color: $text-light;
+    position: relative;
+    &::after {
+        @include link-after($text-light);
+    }
+    &:hover::after {
+          width: 100%;
+    }
+}
+
+.contacts__list__text {
+    letter-spacing: 0.3px;
+}

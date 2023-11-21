@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $background-body;
+    @include zero-margin();
+    @include zero-padding();
+}
+
+html {
+    scroll-behavior: smooth;
+}

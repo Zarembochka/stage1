@@ -1,0 +1,106 @@
+//container
+$max-width: 1440px;
+$padding-desktop: 40px;
+
+//colors
+$text-dark: #403F3D;
+$text-light: #E1D4C9;
+$text-accent: #B0907A;
+
+$background-body: #E1D4C9;
+$background-container: #665F55;
+$background-backdrop: #2D2D2D;
+
+$border-light: #C1B6AD;
+$border-dark: #665F55;
+
+//header
+$paddind-header-top: 20px;
+$header-column-gap: 40px;
+$header-row-gap: 20px;
+$header-menu-gap: 8px;
+$header-margin-bootom: 20px;
+$header-link-padding-bottom: 4px;
+
+//text
+$font-family: 'Inter', sans-serif;
+$font-size-small: 10px;
+$font-size-normal: 16px;
+$font-size-medium: 24px;
+$font-size-title: 59.9px;
+$font-weight-bold: 600;
+$font-weight-normal: 400;
+$line-height-small: 1.4;
+$line-height: 1.5;
+$line-height-title: 1.25;
+$font-style-normal: normal;
+$font-style-italic: italic;
+//$font-feature: 'clig' off, 'liga' off;
+$font-feature: none;
+
+$font-size-title-enjoy: 72px;
+$line-height-title-enjoy: 1.05;
+
+//section
+$section-margin-bottom: 100px;
+
+//enjoy
+$enjoy-padding: 100px;
+$enjoy-border-radius: 40px;
+
+//Buttons
+$button-border-radius: 100px;
+
+$button-arrow-diametr: 60px;
+
+$button-mobile-width: 200px;
+
+//favorites
+$favorites-row-gap: 40px;
+
+//slider
+$slider-content-width: 480px;
+$slider-content-row-gap: 20px;
+$slider-description-row-gap: 16px;
+$slider-pagination-column-gap: 12px;
+
+//about
+$about-gap: 40px;
+$about-border-radius: 20px;
+$about-max-height: 1060px;
+$about-image-small-height: 430px;
+$about-image-large-height: 590px;
+
+//mobileapp
+$mobileapp-column-gap: 100px;
+$mobileapp-row-gap: 40px;
+$mobileapp-download-column-gap: 20px;
+
+//footer
+$footer-padding: 100px;
+$footer-border-radius: 40px;
+$footer-column-gap: 100px;
+$footer-row-gap: 40px;
+$footer-column-width: 50%;
+
+//social
+$social-column-gap: 12px;
+$social-diametr: 60px;
+$social-border-radius: 100px;
+
+//contacts
+$contacts-row-gap: 16px;
+$contacts-column-gap: 8px;
+
+//menu
+$menu-gap: 40px;
+$menu-title-max-width: 800px;
+
+//menu-form
+$menu-form-column-gap: 16px;
+$menu-form-ico-padding-top: 3px;
+$menu-form-ico-padding-left: 7px;
+$menu-form-border-radius: 100px;
+$menu-form-label-column-gap: 8px;
+$menu-form-label-padding: 8px;
+$menu-form-label-padding-right: 16px;
