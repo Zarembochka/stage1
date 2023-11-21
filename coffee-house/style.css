@@ -443,6 +443,12 @@ html {
   color: #403F3D;
 }
 
+@media (max-width: 1024px) {
+  .section__title-center {
+    text-align: center;
+  }
+}
+
 .section__title-italic {
   font-style: italic;
   color: #B0907A;
@@ -547,6 +553,12 @@ html {
   gap: 40px;
   flex-wrap: wrap;
 }
+@media (max-width: 768px) {
+  .about__inner {
+    flex-direction: row;
+    max-height: fit-content;
+  }
+}
 
 .about__image {
   object-fit: cover;
@@ -564,12 +576,28 @@ html {
   justify-content: center;
   align-items: center;
 }
+@media (hover: hover) {
+  .about__wrapper:hover > .about__image {
+    transform: scale(0.91);
+  }
+}
 .about__wrapper:hover > .about__image {
   transform: scale(0.91);
+}
+@media (max-width: 768px) {
+  .about__wrapper {
+    width: 100%;
+  }
 }
 
 .about__wrapper-large {
   max-height: 590px;
+}
+
+@media (max-width: 768px) {
+  .about__wrapper-small {
+    display: none;
+  }
 }
 
 .mobileapp {

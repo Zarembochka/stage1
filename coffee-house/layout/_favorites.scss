@@ -11,6 +11,12 @@
     @include title();
 }
 
+.section__title-center {
+    @media (max-width: 1024px) {
+        text-align: center;
+    }
+}
+
 .section__title-italic {
     @include text-italic();
 }
