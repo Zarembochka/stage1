@@ -419,6 +419,14 @@ html {
   background-color: #665F55;
 }
 
+.button-more {
+  display: none;
+}
+@media (max-width: 768px) {
+  .button-more {
+    display: flex;
+  }
+}
 @media (hover: hover) {
   .button-more:hover .button-more-ico {
     stroke: #E1D4C9;

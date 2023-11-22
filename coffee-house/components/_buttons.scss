@@ -48,6 +48,10 @@
 }
 
 .button-more {
+    display: none;
+    @media (max-width: 768px) {
+        display: flex;
+    }
     @media (hover:hover) {
         &:hover .button-more-ico {
             stroke: $background-body;
