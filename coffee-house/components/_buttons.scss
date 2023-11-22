@@ -26,3 +26,20 @@
     transition: stroke 500ms ease-out;
 }
 
+.button-burger {
+    @include display-flex(column, space-evenly, center);
+    background-color: $background-body;
+    border-radius: $button-border-radius;
+    border: 1px solid $border-dark;
+    padding: 10px 0;
+    width: 44px;
+    height: 44px;
+    transition: background-color 500ms ease-out;
+}
+
+.burger__span {
+    width: 16px;
+    height: 1.5px;
+    background-color: $border-dark;
+}
+

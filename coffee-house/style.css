@@ -42,6 +42,16 @@ html {
   align-items: center;
 }
 
+.header__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #E1D4C9;
+  transition: transform 0.3s ease-in-out;
+}
+
 .header__logo__link {
   display: flex;
   flex-direction: column;
@@ -59,7 +69,8 @@ html {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: normal;
+  align-items: center;
+  flex-grow: 1;
   column-gap: 40px;
   list-style: none;
 }
@@ -128,9 +139,11 @@ html {
   transition-duration: 500ms;
   transition-timing-function: ease-out;
 }
-.header__menu:hover::after {
-  background-color: #403F3D;
-  width: 100%;
+@media (hover: hover) {
+  .header__menu:hover::after {
+    background-color: #403F3D;
+    width: 100%;
+  }
 }
 
 .header__menu-menu {
@@ -162,6 +175,9 @@ html {
 
 .coffee__cup__ico {
   stroke: #403F3D;
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.5px;
 }
 
 .header__menu__link {
@@ -175,6 +191,10 @@ html {
   text-decoration: none;
   cursor: pointer;
   padding-bottom: 4px;
+}
+
+.burger {
+  display: none;
 }
 
 .enjoy {
@@ -302,6 +322,26 @@ html {
 .button-arrow-ico {
   stroke: #403F3D;
   transition: stroke 500ms ease-out;
+}
+
+.button-burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #E1D4C9;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  padding: 10px 0;
+  width: 44px;
+  height: 44px;
+  transition: background-color 500ms ease-out;
+}
+
+.burger__span {
+  width: 16px;
+  height: 1.5px;
+  background-color: #665F55;
 }
 
 .favorites {

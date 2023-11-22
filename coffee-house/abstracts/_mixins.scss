@@ -25,6 +25,11 @@
     font-style: $font-style-normal;
 }
 
+@mixin text-menu-tablet {
+    font-size: $font-size-tablet;
+    line-height: $line-height-title;
+}
+
 @mixin text-italic() {
     font-style: $font-style-italic;
     color: $text-accent;

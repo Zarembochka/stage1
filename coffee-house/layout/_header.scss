@@ -10,6 +10,12 @@
     @include display-flex(row, space-between, center);
 }
 
+.header__nav {
+    @include display-flex(row, space-between, center);
+    width: 100%;
+    background-color: $background-body;
+    transition: transform 0.3s ease-in-out;
+}
 
 .header__logo__link {
     @include display-flex();
@@ -22,7 +28,8 @@
 .header__list {
     @include zero-padding();
     @include zero-margin();
-    @include display-flex(row, center);
+    @include display-flex(row, center, center);
+    flex-grow: 1;
     column-gap: $header-column-gap;
     list-style: none;
 }
@@ -54,9 +61,11 @@
     &::after {
         @include link-after($border-light);
     }
-    &:hover::after {
-        background-color: $text-dark;
-        width: 100%;
+    @media (hover:hover) {
+        &:hover::after {
+            background-color: $text-dark;
+            width: 100%;
+        }
     }
 }
 
@@ -75,9 +84,16 @@
 
 .coffee__cup__ico {
     stroke: $text-dark;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.5px;
 }
 
 .header__menu__link {
     @include text-normal();
     @include header-link();
+}
+
+.burger {
+    display: none;
 }
