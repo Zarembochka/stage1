@@ -7,6 +7,9 @@
         flex-direction: column;
         row-gap: $mobileapp-column-gap;
     }
+    @media (max-width: 640px) {
+        row-gap: 40px;
+    }
 }
 
 .offer {
@@ -26,7 +29,10 @@
 
 .offer__download {
     @include display-flex(row);
-    column-gap: $mobileapp-download-column-gap;
+    gap: $mobileapp-download-column-gap;
+    @media (max-width: 640px) {
+        flex-direction: column;
+    }
 }
 
 .offer__download__link {

@@ -19,16 +19,22 @@
 
 .about__image {
     object-fit: cover;
+    display: block;
     width: 110%;
+    height: 110%;
     transition: transform 500ms ease-out;
-    @media (max-width: 1024px) {
-        width: 105%;
+    // @media (max-width: 1024px) {
+    //     width: 105%;
+    // }
+    @media (max-width: 640px) {
+        height: 726px;
+        width: 726px;
     }
 }
 
 .about__wrapper {
     width: 48.5%;
-    max-height: 430px;
+    height: 430px;
     border-radius: $about-border-radius;
     overflow: hidden;
     @include display-flex(column, center, center);
@@ -38,12 +44,13 @@
         }
     }
     @media (max-width: 768px) {
+        height: 590px;
         width: 100%;
     }
 }
 
 .about__wrapper-large {
-    max-height: 590px;
+    height: 590px;
 }
 
 .about__wrapper-small {

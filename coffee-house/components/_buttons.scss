@@ -26,6 +26,9 @@
             stroke: $background-body;
         }
     }
+    @media (max-width: 640px) {
+        display: none;
+    }
 }
 
 .button-arrow-ico, .button-more-ico {

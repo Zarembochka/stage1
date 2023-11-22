@@ -9,6 +9,11 @@
         padding: 100px 60px;
         row-gap: $footer-column-gap;
     }
+    @media (max-width: 640px) {
+        margin-top: -4px;
+        padding: 60px 16px;
+        row-gap: 40px;
+    }
 }
 
 .footer__info {

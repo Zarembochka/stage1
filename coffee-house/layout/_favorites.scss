@@ -9,6 +9,9 @@
     @include zero-margin();
     @include text-normal();
     @include title();
+    @media (max-width: 640px) {
+        font-size: $font-size-tablet;
+    }
 }
 
 .section__title-center {
@@ -29,12 +32,20 @@
 .slider {
     @include display-flex(row, space-between, center);
     width: 100%;
+    @media (max-width: 640px) {
+        justify-content: center;
+    }
 }
 
 .slider__content {
     @include display-flex();
-    width: $slider-content-width;
+    max-width: $slider-content-width;
+    width: calc(100% - 2*60px);
     row-gap: $slider-content-row-gap;
+    @media (max-width: 640px) {
+        max-width: 100%;
+        width: 100%;
+    }
 }
 
 .slider__description {
@@ -53,6 +64,10 @@
     @include text-normal();
     text-align: center;
     color: $text-dark;
+}
+
+.slider__image {
+    width: 100%;
 }
 
 .slider__pagination {

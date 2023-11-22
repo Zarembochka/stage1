@@ -12,6 +12,9 @@
     @media (max-width: 1024px) {
         padding: 100px 60px;
     }
+    @media (max-width: 640px) {
+        padding: 60px 16px;
+    }
 }
 
 .enjoy__offer {
@@ -19,13 +22,19 @@
     row-gap: $header-column-gap;
     //width: 45.689%;
     width: 530px;
-    height: auto;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 }
 
 .offer__title {
     @include zero-margin();
     @include text-normal();
     @include offer-title();
+    @media (max-width: 640px) {
+        font-size: 42px;
+        line-height: 1.15;
+    }
 }
 
 .offer__title-italic {
