@@ -21,9 +21,11 @@
         background-color: $background-container;
         pointer-events: none;
     }
-    &:hover + .menu__form__label {
-        color: $text-light;
-        background-color: $background-container;
+    @media (hover:hover) {
+        &:hover + .menu__form__label {
+            color: $text-light;
+            background-color: $background-container;
+        }
     }
 }
 
@@ -53,20 +55,35 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: $menu-gap;
+    @media (max-width: 1202px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 910px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .menu__item {
     // cursor: pointer;
     border-radius: 40px;
+    max-width: 310px;
     outline: 1px solid $border-light;
-    &:hover  .menu__item__image {
-        transform: scale(0.91);
+    @media (hover:hover) {
+        &:hover  .menu__item__image {
+            transform: scale(0.95);
+        }
+    }
+}
+
+.menu__item-hide {
+    @media (max-width: 768px) {
+        display: none;
     }
 }
 
 .menu__item__image__wrapper {
     overflow: hidden;
-    max-width: 310px;
+    //max-width: 310px;
     max-height: 310px;
     border-radius: 40px;
     @include display-flex(row, center, center);
@@ -75,6 +92,9 @@
 .menu__item__image {
     width: 110%;
     transition: transform 500ms ease-out;
+    @media (max-width: 1024px) {
+        width: 105%;
+    }
 }
 
 .menu__item__description {

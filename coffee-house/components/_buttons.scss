@@ -5,7 +5,7 @@
     cursor: pointer;
 }
 
-.button-arrow {
+.button-round {
     @include display-flex(column, center, center);
     background-color: $background-body;
     border-radius: $button-border-radius;
@@ -13,33 +13,45 @@
     width: $button-arrow-diametr;
     height: $button-arrow-diametr;
     transition: background-color 500ms ease-out;
-    &:hover {
-        background-color: $background-container;
-    }
-    &:hover .button-arrow-ico {
-        stroke: $background-body;
+    @media (hover:hover) {
+        &:hover {
+            background-color: $background-container;
+        }
     }
 }
 
-.button-arrow-ico {
+.button-arrow {
+    @media (hover:hover) {
+        &:hover .button-arrow-ico {
+            stroke: $background-body;
+        }
+    }
+}
+
+.button-arrow-ico, .button-more-ico {
     stroke: $text-dark;
     transition: stroke 500ms ease-out;
 }
 
 .button-burger {
-    @include display-flex(column, space-evenly, center);
-    background-color: $background-body;
-    border-radius: $button-border-radius;
-    border: 1px solid $border-dark;
+    //@include display-flex(column, space-evenly, center);
+    justify-content: space-evenly;
     padding: 10px 0;
     width: 44px;
     height: 44px;
-    transition: background-color 500ms ease-out;
 }
 
 .burger__span {
     width: 16px;
     height: 1.5px;
     background-color: $border-dark;
+}
+
+.button-more {
+    @media (hover:hover) {
+        &:hover .button-more-ico {
+            stroke: $background-body;
+        }
+    }
 }
 

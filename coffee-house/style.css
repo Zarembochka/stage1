@@ -377,7 +377,7 @@ html {
   cursor: pointer;
 }
 
-.button-arrow {
+.button-round {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -389,36 +389,40 @@ html {
   height: 60px;
   transition: background-color 500ms ease-out;
 }
-.button-arrow:hover {
-  background-color: #665F55;
-}
-.button-arrow:hover .button-arrow-ico {
-  stroke: #E1D4C9;
+@media (hover: hover) {
+  .button-round:hover {
+    background-color: #665F55;
+  }
 }
 
-.button-arrow-ico {
+@media (hover: hover) {
+  .button-arrow:hover .button-arrow-ico {
+    stroke: #E1D4C9;
+  }
+}
+
+.button-arrow-ico, .button-more-ico {
   stroke: #403F3D;
   transition: stroke 500ms ease-out;
 }
 
 .button-burger {
-  display: flex;
-  flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
-  background-color: #E1D4C9;
-  border-radius: 100px;
-  border: 1px solid #665F55;
   padding: 10px 0;
   width: 44px;
   height: 44px;
-  transition: background-color 500ms ease-out;
 }
 
 .burger__span {
   width: 16px;
   height: 1.5px;
   background-color: #665F55;
+}
+
+@media (hover: hover) {
+  .button-more:hover .button-more-ico {
+    stroke: #E1D4C9;
+  }
 }
 
 .favorites {
@@ -583,7 +587,7 @@ html {
 }
 @media (hover: hover) {
   .about__wrapper:hover > .about__image {
-    transform: scale(0.91);
+    transform: scale(0.95);
   }
 }
 @media (max-width: 768px) {
@@ -885,9 +889,11 @@ html {
   background-color: #665F55;
   pointer-events: none;
 }
-.menu__form__input:hover + .menu__form__label {
-  color: #E1D4C9;
-  background-color: #665F55;
+@media (hover: hover) {
+  .menu__form__input:hover + .menu__form__label {
+    color: #E1D4C9;
+    background-color: #665F55;
+  }
 }
 
 .menu__form__ico {
@@ -924,18 +930,36 @@ html {
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
 }
+@media (max-width: 1202px) {
+  .menu__inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 910px) {
+  .menu__inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 .menu__item {
   border-radius: 40px;
+  max-width: 310px;
   outline: 1px solid #C1B6AD;
 }
-.menu__item:hover .menu__item__image {
-  transform: scale(0.91);
+@media (hover: hover) {
+  .menu__item:hover .menu__item__image {
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 768px) {
+  .menu__item-hide {
+    display: none;
+  }
 }
 
 .menu__item__image__wrapper {
   overflow: hidden;
-  max-width: 310px;
   max-height: 310px;
   border-radius: 40px;
   display: flex;
@@ -947,6 +971,11 @@ html {
 .menu__item__image {
   width: 110%;
   transition: transform 500ms ease-out;
+}
+@media (max-width: 1024px) {
+  .menu__item__image {
+    width: 105%;
+  }
 }
 
 .menu__item__description {

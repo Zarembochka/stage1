@@ -34,7 +34,7 @@
     @include display-flex(column, center, center);
     @media (hover: hover) {
         &:hover > .about__image {
-            transform: scale(0.91);
+            transform: scale(0.95);
         }
     }
     @media (max-width: 768px) {
