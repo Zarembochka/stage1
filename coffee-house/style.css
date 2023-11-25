@@ -954,6 +954,11 @@ html {
   align-items: center;
   column-gap: 16px;
 }
+@media (max-width: 640px) {
+  .menu__form {
+    column-gap: 8px;
+  }
+}
 
 .menu__form__input {
   display: none;
@@ -1012,6 +1017,11 @@ html {
 @media (max-width: 910px) {
   .menu__inner {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .menu__inner {
+    grid-template-columns: 1fr;
   }
 }
 
