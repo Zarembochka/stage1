@@ -22,12 +22,17 @@
     &:checked + .menu__form__label {
         color: $text-light;
         background-color: $background-container;
+        border: 1px solid $background-container;
         pointer-events: none;
     }
     @media (hover:hover) {
         &:hover + .menu__form__label {
             color: $text-light;
             background-color: $background-container;
+            border: 1px solid $background-container;
+        }
+        &:hover + .menu__form__label > .menu__form__ico {
+            background-color: $background-body;
         }
     }
 }
@@ -36,6 +41,7 @@
     padding:  $menu-form-ico-padding-top $menu-form-ico-padding-left;
     border-radius: $menu-form-border-radius;
     background-color: $border-light;
+    transition: background-color 500ms ease-out;
 }
 
 .menu__form__label {
@@ -49,7 +55,7 @@
     padding-right: $menu-form-label-padding-right;
     border-radius: $menu-form-border-radius;
     border: 1px solid $border-light;
-    transition-property: background-color, color;
+    transition-property: background-color, color, border;
     transition-duration: 500ms;
     transition-timing-function: ease-out;
 }

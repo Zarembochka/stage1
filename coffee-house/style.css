@@ -784,6 +784,7 @@ html {
   justify-content: flex-start;
   align-items: normal;
   column-gap: 100px;
+  margin-bottom: 40px;
 }
 @media (max-width: 1024px) {
   .footer {
@@ -966,12 +967,17 @@ html {
 .menu__form__input:checked + .menu__form__label {
   color: #E1D4C9;
   background-color: #665F55;
+  border: 1px solid #665F55;
   pointer-events: none;
 }
 @media (hover: hover) {
   .menu__form__input:hover + .menu__form__label {
     color: #E1D4C9;
     background-color: #665F55;
+    border: 1px solid #665F55;
+  }
+  .menu__form__input:hover + .menu__form__label > .menu__form__ico {
+    background-color: #E1D4C9;
   }
 }
 
@@ -979,6 +985,7 @@ html {
   padding: 3px 7px;
   border-radius: 100px;
   background-color: #C1B6AD;
+  transition: background-color 500ms ease-out;
 }
 
 .menu__form__label {
@@ -999,7 +1006,7 @@ html {
   padding-right: 16px;
   border-radius: 100px;
   border: 1px solid #C1B6AD;
-  transition-property: background-color, color;
+  transition-property: background-color, color, border;
   transition-duration: 500ms;
   transition-timing-function: ease-out;
 }
