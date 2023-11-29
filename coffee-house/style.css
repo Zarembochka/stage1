@@ -12,6 +12,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.show-menu {
+  overflow-y: hidden;
+}
+
 .container {
   max-width: 1440px;
   width: 100%;
@@ -70,6 +74,9 @@ html {
     padding: 60px 40px;
     row-gap: 100px;
   }
+}
+.header.show .header__nav {
+  transform: translateX(0);
 }
 
 .header__logo__link {
@@ -193,7 +200,6 @@ html {
   column-gap: 8px;
   background-color: #E1D4C9;
   position: relative;
-  pointer-events: none;
 }
 .header__menu-menu::after {
   content: "";
@@ -210,6 +216,9 @@ html {
   transition-timing-function: ease-out;
   background-color: #403F3D;
   width: 100%;
+}
+.header__menu-menu .header__menu__link {
+  cursor: default;
 }
 
 .coffee__cup__ico {
@@ -431,16 +440,34 @@ html {
 }
 
 .button-burger {
-  justify-content: space-evenly;
+  position: relative;
   padding: 10px 0;
   width: 44px;
   height: 44px;
 }
 
 .burger__span {
+  position: absolute;
+  top: 20px;
+  left: 13px;
   width: 16px;
   height: 1.5px;
   background-color: #665F55;
+  transition: transform 500ms ease-in-out;
+}
+
+.burger__span-first {
+  top: 16px;
+}
+.header.show .burger__span-first {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.burger__span-second {
+  top: 24px;
+}
+.header.show .burger__span-second {
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 .button-more {
@@ -516,20 +543,24 @@ html {
   }
 }
 
+.slider__wrapper {
+  overflow-x: hidden;
+  max-width: 480px;
+  width: calc(100% - 120px);
+}
+@media (max-width: 640px) {
+  .slider__wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
 .slider__content {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: normal;
-  max-width: 480px;
-  width: calc(100% - 120px);
   row-gap: 20px;
-}
-@media (max-width: 640px) {
-  .slider__content {
-    max-width: 100%;
-    width: 100%;
-  }
 }
 
 .slider__description {

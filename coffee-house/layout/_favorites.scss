@@ -37,15 +37,19 @@
     }
 }
 
-.slider__content {
-    @include display-flex();
+.slider__wrapper {
+    overflow-x: hidden;
     max-width: $slider-content-width;
     width: calc(100% - 2*60px);
-    row-gap: $slider-content-row-gap;
     @media (max-width: 640px) {
         max-width: 100%;
         width: 100%;
     }
+}
+
+.slider__content {
+    @include display-flex();
+    row-gap: $slider-content-row-gap;
 }
 
 .slider__description {

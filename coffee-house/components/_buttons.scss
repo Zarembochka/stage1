@@ -37,17 +37,36 @@
 }
 
 .button-burger {
-    //@include display-flex(column, space-evenly, center);
-    justify-content: space-evenly;
+    //justify-content: space-evenly;
+    position: relative;
     padding: 10px 0;
     width: 44px;
     height: 44px;
 }
 
 .burger__span {
+    position: absolute;
+    top: 20px;
+    left: 13px;
     width: 16px;
     height: 1.5px;
     background-color: $border-dark;
+    transition: transform 500ms ease-in-out;
+}
+
+
+.burger__span-first {
+    top: 16px;
+    .header.show & {
+        transform: translateY(4px) rotate(45deg);
+    }
+}
+
+.burger__span-second {
+    top: 24px;
+    .header.show & {
+        transform: translateY(-4px) rotate(-45deg);
+    }
 }
 
 .button-more {
