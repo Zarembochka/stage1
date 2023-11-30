@@ -275,42 +275,49 @@ html {
 }
 
 .enjoy {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: normal;
-  width: 100%;
-  height: auto;
-  background-image: url(images/enjoy/background.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  border-radius: 40px;
-  padding: 100px;
   margin-bottom: 100px;
 }
-@media (max-width: 1024px) {
-  .enjoy {
-    padding: 100px 60px;
-  }
+
+.enjoy__inner {
+  position: relative;
 }
-@media (max-width: 640px) {
-  .enjoy {
-    padding: 60px 16px;
-  }
+
+.enjoy__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 40px;
 }
 
 .enjoy__offer {
+  padding: 100px;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: normal;
   row-gap: 40px;
-  width: 530px;
+  width: 730px;
+}
+@media (max-width: 1024px) {
+  .enjoy__offer {
+    padding: 100px 60px;
+  }
 }
 @media (max-width: 768px) {
   .enjoy__offer {
     width: 100%;
+  }
+}
+@media (max-width: 700px) {
+  .enjoy__offer {
+    padding: 60px 16px;
   }
 }
 
@@ -326,7 +333,7 @@ html {
   line-height: 1.05;
   color: #E1D4C9;
 }
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   .offer__title {
     font-size: 42px;
     line-height: 1.15;
