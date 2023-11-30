@@ -11,6 +11,7 @@
 </head>
 <body>
     <script src="./js/burger.js" defer></script>
+    <script src="./js/slider.js" defer></script>
     <svg style="display: none;">
         <symbol id="coffee__cup" viewBox="0 0 20 20" fill="none">
             <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -100,18 +101,48 @@
                             </svg>
                         </button>
                         <div class="slider__wrapper">
-                            <div class="slider__content">
-                                <img class="slider__image" src="./images/favorites/coffee-1.png" alt="coffee image">
-                                <div class="slider__description">
-                                    <h3 class="slider__title">
-                                        S’mores Frappuccino
-                                    </h3>
-                                    <p class="slider__text">
-                                        This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.
-                                    </p>
-                                    <p class="slider__title">
-                                        $5.50
-                                    </p>
+                            <div class="slider__inner">
+                                <div class="slider__content slider__content-active">
+                                    <img class="slider__image" src="./images/favorites/coffee-1.png" alt="coffee image">
+                                    <div class="slider__description">
+                                        <h3 class="slider__title">
+                                            S’mores Frappuccino
+                                        </h3>
+                                        <p class="slider__text">
+                                            This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.
+                                        </p>
+                                        <p class="slider__title">
+                                            $5.50
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="slider__content">
+                                    <img class="slider__image" src="./images/favorites/coffee-2.png" alt="coffee image">
+                                    <div class="slider__description">
+                                        <h3 class="slider__title">
+                                            Caramel Macchiato
+                                        </h3>
+                                        <p class="slider__text">
+                                            Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.
+                                        </p>
+                                        <p class="slider__title">
+                                            $5.00
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="slider__content">
+                                    <img class="slider__image" src="./images/favorites/coffee-3.png" alt="coffee image">
+                                    <div class="slider__description">
+                                        <h3 class="slider__title">
+                                            Ice coffee
+                                        </h3>
+                                        <p class="slider__text">
+                                            A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.
+                                        </p>
+                                        <p class="slider__title">
+                                            $4.50
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -123,9 +154,9 @@
                     </div>
                 </div>
                 <div class="slider__pagination">
-                    <progress max="100" value="100" class="progress__pagination"></progress>
-                    <progress max="100" value="0" class="progress__pagination"></progress>
-                    <progress max="100" value="0" class="progress__pagination"></progress>
+                    <progress max="500" value="0" class="progress__pagination progress__pagination-active"></progress>
+                    <progress max="500" value="0" class="progress__pagination"></progress>
+                    <progress max="500" value="0" class="progress__pagination"></progress>
                  </div>
             </section>
 

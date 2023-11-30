@@ -87,3 +87,12 @@
     font-weight: $font-weight-bold;
     line-height: $line-height-title;
 }
+
+@keyframes width-out {
+    from {
+        value: 100%;
+    }
+    to {
+        value: 0%;
+    }
+}
