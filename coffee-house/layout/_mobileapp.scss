@@ -3,12 +3,22 @@
     column-gap: $mobileapp-column-gap;
     width: 100%;
     margin-bottom: $section-margin-bottom;
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        row-gap: $mobileapp-column-gap;
+    }
+    @media (max-width: 640px) {
+        row-gap: 40px;
+    }
 }
 
 .offer {
     width: 46.3235%;
     @include display-flex(column);
     row-gap: $mobileapp-row-gap;
+    @media (max-width: 1024px) {
+        width: 100%;
+    }
 }
 
 .offer__text {
@@ -19,7 +29,10 @@
 
 .offer__download {
     @include display-flex(row);
-    column-gap: $mobileapp-download-column-gap;
+    gap: $mobileapp-download-column-gap;
+    @media (max-width: 640px) {
+        flex-direction: column;
+    }
 }
 
 .offer__download__link {
@@ -62,4 +75,6 @@
 
 .offer__image {
     width: 100%;
+    max-width: 630px;
+    margin: 0 auto;
 }

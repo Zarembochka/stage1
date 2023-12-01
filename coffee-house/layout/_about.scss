@@ -8,28 +8,53 @@
 .about__inner {
     @include display-flex(column, flex-start, flex-end);
     width: 100%;
-    max-height: $about-max-height;
+    max-height: 1060px;
     gap: $about-gap;
     flex-wrap: wrap;
+    @media (max-width: 768px) {
+        flex-direction: row;
+        max-height: fit-content;
+    }
 }
 
 .about__image {
     object-fit: cover;
+    display: block;
     width: 110%;
+    height: 110%;
     transition: transform 500ms ease-out;
+    // @media (max-width: 1024px) {
+    //     width: 105%;
+    // }
+    @media (max-width: 640px) {
+        height: 726px;
+        width: 726px;
+    }
 }
 
 .about__wrapper {
     width: 48.5%;
-    max-height: $about-image-small-height;
+    height: 430px;
     border-radius: $about-border-radius;
     overflow: hidden;
     @include display-flex(column, center, center);
-    &:hover > .about__image {
-        transform: scale(0.91);
+    @media (hover: hover) {
+        &:hover > .about__image {
+            transform: scale(0.95);
+        }
+    }
+    @media (max-width: 768px) {
+        height: 590px;
+        width: 100%;
     }
 }
 
 .about__wrapper-large {
-    max-height: $about-image-large-height;
+    height: 590px;
+}
+
+.about__wrapper-small {
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
