@@ -48,12 +48,14 @@
     transition-property: background-color, color;
     transition-duration: 500ms;
     transition-timing-function: ease-in;
-    &:hover {
-        background-color: $background-container;
-        color: $text-light;
-    }
-    &:hover .offer__download__ico {
-        fill: $text-light;
+    @media (hover:hover) {
+        &:hover {
+            background-color: $background-container;
+            color: $text-light;
+        }
+        &:hover .offer__download__ico {
+            fill: $text-light;
+        }
     }
 }
 
