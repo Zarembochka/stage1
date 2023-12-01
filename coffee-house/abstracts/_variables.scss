@@ -1,6 +1,7 @@
 //container
 $max-width: 1440px;
 $padding-desktop: 40px;
+$padding-mobile: 16px;
 
 //colors
 $text-dark: #403F3D;
@@ -68,9 +69,6 @@ $slider-pagination-column-gap: 12px;
 //about
 $about-gap: 40px;
 $about-border-radius: 20px;
-$about-max-height: 1060px;
-$about-image-small-height: 430px;
-$about-image-large-height: 590px;
 
 //mobileapp
 $mobileapp-column-gap: 100px;
@@ -78,11 +76,9 @@ $mobileapp-row-gap: 40px;
 $mobileapp-download-column-gap: 20px;
 
 //footer
-$footer-padding: 100px;
 $footer-border-radius: 40px;
 $footer-column-gap: 100px;
 $footer-row-gap: 40px;
-$footer-column-width: 50%;
 
 //social
 $social-column-gap: 12px;
@@ -98,7 +94,6 @@ $menu-gap: 40px;
 $menu-title-max-width: 800px;
 
 //menu-form
-$menu-form-column-gap: 16px;
 $menu-form-ico-padding-top: 3px;
 $menu-form-ico-padding-left: 7px;
 $menu-form-border-radius: 100px;
