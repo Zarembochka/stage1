@@ -51,11 +51,13 @@
     height: $social-diametr;
     @include display-flex(column, center, center);
     transition: background-color 500ms ease-out;
-    &:hover {
-        background-color: $background-body;
-    }
-    &:hover .social__ico {
-        stroke: $text-dark;
+    @media (hover:hover) {
+        &:hover {
+            background-color: $background-body;
+        }
+        &:hover .social__ico {
+            stroke: $text-dark;
+        }
     }
 }
 
@@ -100,8 +102,10 @@
     &::after {
         @include link-after($text-light);
     }
-    &:hover::after {
-          width: 100%;
+    @media (hover:hover) {
+       &:hover::after {
+        width: 100%;
+      }
     }
 }
 
