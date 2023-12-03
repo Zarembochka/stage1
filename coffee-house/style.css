@@ -476,6 +476,11 @@ html {
   width: 44px;
   height: 44px;
 }
+@media (hover: hover) {
+  .button-burger:hover .burger__span {
+    background-color: #E1D4C9;
+  }
+}
 
 .burger__span {
   position: absolute;
@@ -484,7 +489,9 @@ html {
   width: 16px;
   height: 1.5px;
   background-color: #665F55;
-  transition: transform 500ms ease-in-out;
+  transform-origin: transform, background-color;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
 }
 
 .burger__span-first {

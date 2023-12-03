@@ -42,6 +42,11 @@
     padding: 10px 0;
     width: 44px;
     height: 44px;
+    @media (hover:hover) {
+        &:hover .burger__span {
+            background-color: $background-body;
+        }
+    }
 }
 
 .burger__span {
@@ -51,7 +56,9 @@
     width: 16px;
     height: 1.5px;
     background-color: $border-dark;
-    transition: transform 500ms ease-in-out;
+    transform-origin: transform, background-color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
 }
 
 
