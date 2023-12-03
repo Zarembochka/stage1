@@ -79,5 +79,8 @@
             stroke: $background-body;
         }
     }
+    .menu__inner.showAll + & {
+        display: none;
+    }
 }
 
