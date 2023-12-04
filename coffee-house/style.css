@@ -446,8 +446,6 @@ html {
   width: 16px;
   height: 1.5px;
   background-color: #665F55;
-<<<<<<< HEAD
-=======
   transform-origin: transform, background-color;
   transition-duration: 500ms;
   transition-timing-function: ease-in-out;
@@ -465,7 +463,6 @@ html {
 }
 .header.show .burger__span-second {
   transform: translateY(-4px) rotate(-45deg);
->>>>>>> 57650ad (fix: hover effect on burger menu)
 }
 
 .button-more {
