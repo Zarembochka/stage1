@@ -436,11 +436,33 @@ html {
   width: 44px;
   height: 44px;
 }
+@media (hover: hover) {
+  .button-burger:hover .burger__span {
+    background-color: #E1D4C9;
+  }
+}
 
 .burger__span {
   width: 16px;
   height: 1.5px;
   background-color: #665F55;
+  transform-origin: transform, background-color;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
+}
+
+.burger__span-first {
+  top: 16px;
+}
+.header.show .burger__span-first {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.burger__span-second {
+  top: 24px;
+}
+.header.show .burger__span-second {
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 .button-more {
