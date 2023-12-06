@@ -12,6 +12,7 @@
 <body>
     <script src="./js/products.js" defer></script>
     <script src="./js/burger.js" defer></script>
+    <script src="./js/modal.js" defer></script>
     <svg style="display: none;">
         <symbol id="coffee__cup" viewBox="0 0 20 20" fill="none">
             <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -71,7 +72,7 @@
                 </h1>
                 <form class="menu__form">
                     <div class="menu__form__item">
-                        <input class="menu__form__input" type="radio" name="user__choice" id="coffee" value="coffee" checked>
+                        <input class="menu__form__input input-radio" type="radio" name="user__choice" id="coffee" value="coffee" checked>
                         <label class="menu__form__label" for="coffee">
                             <svg class="menu__form__ico" width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path d="M0.5 16.12H16.5V0.12H0.5V16.12Z" fill="url(#pattern0)">
@@ -88,7 +89,7 @@
                         </label>
                     </div>
                     <div class="menu__form__item">
-                        <input class="menu__form__input" type="radio" name="user__choice" id="tea" value="tea">
+                        <input class="menu__form__input input-radio" type="radio" name="user__choice" id="tea" value="tea">
                         <label class="menu__form__label" for="tea">
                             <svg class="menu__form__ico" width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path d="M0.5 16.12H16.5V0.12H0.5V16.12Z" fill="url(#pattern1)">
@@ -105,7 +106,7 @@
                         </label>
                     </div>
                     <div class="menu__form__item">
-                        <input class="menu__form__input" type="radio" name="user__choice" id="dessert" value="dessert">
+                        <input class="menu__form__input input-radio" type="radio" name="user__choice" id="dessert" value="dessert">
                         <label class="menu__form__label" for="dessert">
                             <svg class="menu__form__ico" width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path d="M0.5 16.12H16.5V0.12H0.5V16.12Z" fill="url(#pattern2)">
@@ -207,6 +208,12 @@
                 </ul>
             </div>
         </footer>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal__inner">
+        </div>
     </div>
 </body>
 </html>

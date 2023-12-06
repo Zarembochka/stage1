@@ -24,15 +24,16 @@ function burger() {
 }
 
 function stopScroll() {
+    document.body.style.paddingRight = calcRightPadding();
     document.body.classList.toggle('show-menu');
 }
 
 function allowScroll() {
+    document.body.style.paddingRight = '';
     document.body.classList.remove('show-menu');
 }
 
 function clickOnTheLink() {
-    console.log(1);
     header.classList.remove('show');
     allowScroll();
 }

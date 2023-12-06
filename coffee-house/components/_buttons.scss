@@ -91,3 +91,21 @@
     }
 }
 
+.button-close {
+    @include display-flex(column, center, center);
+    padding: 9px 0;
+    width: 100%;
+    background-color: $background-body;
+    border-radius: 100px;
+    border: 1px solid $border-dark;
+    transition-property: color, background-color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+    @media (hover:hover) {
+        &:hover {
+            color: $background-body;
+            background-color: $background-container;
+        }
+    }
+}
+

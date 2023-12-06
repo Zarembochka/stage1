@@ -525,6 +525,27 @@ html {
   display: none;
 }
 
+.button-close {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 9px 0;
+  width: 100%;
+  background-color: #E1D4C9;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  transition-property: color, background-color;
+  transition-duration: 500ms;
+  transition-timing-function: ease-in-out;
+}
+@media (hover: hover) {
+  .button-close:hover {
+    color: #E1D4C9;
+    background-color: #665F55;
+  }
+}
+
 .favorites {
   display: flex;
   flex-direction: column;
@@ -1074,7 +1095,6 @@ html {
   color: #E1D4C9;
   background-color: #665F55;
   border: 1px solid #665F55;
-  pointer-events: none;
 }
 @media (hover: hover) {
   .menu__form__input:hover + .menu__form__label {
@@ -1087,10 +1107,21 @@ html {
   }
 }
 
+.input-radio:checked + .menu__form__label {
+  pointer-events: none;
+}
+
 .menu__form__ico {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   padding: 3px 7px;
   border-radius: 100px;
   background-color: #C1B6AD;
+  color: #403F3D;
   transition: background-color 500ms ease-out;
 }
 
@@ -1108,8 +1139,7 @@ html {
   color: #403F3D;
   font-weight: 600;
   cursor: pointer;
-  padding: 8px;
-  padding-right: 16px;
+  padding: 7px 15px 7px 7px;
   border-radius: 100px;
   border: 1px solid #C1B6AD;
   transition-property: background-color, color, border;
@@ -1147,6 +1177,7 @@ html {
 }
 
 .menu__item {
+  cursor: pointer;
   border-radius: 40px;
   max-width: 310px;
   outline: 1px solid #C1B6AD;
@@ -1217,6 +1248,140 @@ html {
   font-size: 24px;
   line-height: 1.25;
   font-weight: 600;
+}
+
+.menu__item__id {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.modal-show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal__inner {
+  max-width: 800px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 20px;
+  background-color: #E1D4C9;
+  border-radius: 40px;
+  transition: transform 0.5s ease-in-out;
+  position: relative;
+  transform: translateY(-25%);
+}
+.modal.modal-show .modal__inner {
+  transform: translateY(0%);
+}
+
+.modal__image {
+  width: 100%;
+  height: 100%;
+  max-width: 310px;
+  max-height: 310px;
+  border-radius: 40px;
+}
+
+.modal__content {
+  font-family: "Inter", sans-serif;
+  font-feature-settings: none;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: normal;
+  color: #403F3D;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  row-gap: 20px;
+}
+
+.modal__content__size {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  row-gap: 8px;
+}
+
+.modal__content__additives {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+  row-gap: 8px;
+}
+
+.modal__content__size__title {
+  margin: 0;
+  font-weight: 400;
+  color: #403F3D;
+  line-height: 1.5;
+}
+
+.modal__size {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 8px;
+}
+
+.modal__form__ico {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: center;
+  border-radius: 100px;
+  background-color: #C1B6AD;
+  transition: background-color 500ms ease-out;
+}
+
+.modal__form__total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: normal;
+  margin: 0;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.modal__content__price__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  column-gap: 8px;
+  padding: 11px 0 12px;
+  border-top: 1px solid #C1B6AD;
+}
+
+.modal__form__total__info {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 /*# sourceMappingURL=style.css.map */

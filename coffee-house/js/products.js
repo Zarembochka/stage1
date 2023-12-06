@@ -298,7 +298,7 @@ const products = [
     },
   
     {
-      "id": 1,
+      "id": 9,
       "name": "Moroccan",
       "src": "./images/menu/tea/tea-1.jpg",
       "description": "Fragrant black tea with the addition of tangerine, cinnamon, honey, lemon and mint",
@@ -335,7 +335,7 @@ const products = [
     },
   
     {
-      "id": 2,
+      "id": 10,
       "name": "Ginger",
       "src": "./images/menu/tea/tea-2.jpg",
       "description": "Original black tea with fresh ginger, lemon and honey",
@@ -372,7 +372,7 @@ const products = [
     },
   
     {
-      "id": 3,
+      "id": 11,
       "name": "Cranberry",
       "src": "./images/menu/tea/tea-3.jpg",
       "description": "Invigorating black tea with cranberry and honey",
@@ -409,7 +409,7 @@ const products = [
     },
   
     {
-      "id": 4,
+      "id": 12,
       "name": "Sea buckthorn",
       "src": "./images/menu/tea/tea-4.jpg",
       "description": "Toning sweet black tea with sea buckthorn, fresh thyme and cinnamon",
@@ -446,7 +446,7 @@ const products = [
     },
   
     {
-      "id": 1,
+      "id": 13,
       "name": "Marble cheesecake",
       "src": "./images/menu/dessert/dessert-1.jpg",
       "description": "Philadelphia cheese with lemon zest on a light sponge cake and red currant jam",
@@ -483,7 +483,7 @@ const products = [
     },
   
     {
-      "id": 2,
+      "id": 14,
       "name": "Red velvet",
       "src": "./images/menu/dessert/dessert-2.jpg",
       "description": "Layer cake with cream cheese frosting",
@@ -520,7 +520,7 @@ const products = [
     },
   
     {
-      "id": 3,
+      "id": 15,
       "name": "Cheesecakes",
       "src": "./images/menu/dessert/dessert-3.jpg",
       "description": "Soft cottage cheese pancakes with sour cream and fresh berries and sprinkled with powdered sugar",
@@ -557,7 +557,7 @@ const products = [
     },
   
     {
-      "id": 4,
+      "id": 16,
       "name": "Creme brulee",
       "src": "./images/menu/dessert/dessert-4.jpg",
       "description": "Delicate creamy dessert in a caramel basket with wild berries",
@@ -594,7 +594,7 @@ const products = [
     },
   
     {
-      "id": 5,
+      "id": 17,
       "name": "Pancakes",
       "src": "./images/menu/dessert/dessert-5.jpg",
       "description": "Tender pancakes with strawberry jam and fresh strawberries",
@@ -631,7 +631,7 @@ const products = [
     },
   
     {
-      "id": 6,
+      "id": 18,
       "name": "Honey cake",
       "src": "./images/menu/dessert/dessert-6.jpg",
       "description": "Classic honey cake with delicate custard",
@@ -668,7 +668,7 @@ const products = [
     },
   
     {
-      "id": 7,
+      "id": 19,
       "name": "Chocolate cake",
       "src": "./images/menu/dessert/dessert-7.jpg",
       "description": "Cake with hot chocolate filling and nuts with dried apricots",
@@ -705,7 +705,7 @@ const products = [
     },
   
     {
-      "id": 8,
+      "id": 20,
       "name": "Black forest",
       "src": "./images/menu/dessert/dessert-8.jpg",
       "description": "A combination of thin sponge cake with cherry jam and light chocolate mousse",
@@ -786,6 +786,7 @@ function animationFade(event) {
         event.srcElement.style.opacity = 0;
         event.srcElement.classList.remove('menu__inner-fadeout');
         loadProducts(currentCategory);
+        addListenerForModal();
     }
 
     if (event.animationName === 'fade-in') {
@@ -805,6 +806,7 @@ function loadMenuItem(element, index) {
     const menuItem = createMenuItem(index);
     createMenuItemImage(menuItem, element);
     createMenuItemDescription(menuItem, element);
+    createMenuItemId(menuItem, element);
     menuInner.append(menuItem);
 }
 
@@ -818,7 +820,7 @@ function createMenuItem(index) {
 }
 
 function createMenuItemDescription(item, element) {
-    const menuDescription = createMenuItemDescriptionWrapper();
+    const menuDescription = createMenuItemDescriptionWrapper('menu__item__description');
     createMenuItemDescriptionTitle(menuDescription, element);
     createMenuItemDescriptionText(menuDescription, element);
     createMenuItemDescriptionPrice(menuDescription, element);
@@ -827,8 +829,8 @@ function createMenuItemDescription(item, element) {
 
 function createMenuItemImage(item, element) {
     const itemWrapper = createImageWrapper();
-    const itemImage = createImage(element);
-
+    const itemImage = createImage(element, 'menu__item__image');
+  
     itemWrapper.append(itemImage);
     item.append(itemWrapper);
 }
@@ -839,15 +841,15 @@ function createImageWrapper() {
     return itemWrapper;
 }
 
-function createMenuItemDescriptionWrapper() {
+function createMenuItemDescriptionWrapper(className) {
     const itemDescription = document.createElement('div');
-    itemDescription.classList.add('menu__item__description');
+    itemDescription.classList.add(className);
     return itemDescription;
 }
 
-function createImage(element) {
+function createImage(element, className) {
     const itemImage = document.createElement('img');
-    itemImage.classList.add('menu__item__image');
+    itemImage.classList.add(className);
     itemImage.src = element.src;
     itemImage.alt = `${element.category} image`;
     return itemImage;
@@ -890,6 +892,13 @@ function checkVisibilityBtnLoadMore(length) {
   if (length <= 4) {
     menuInner.classList.add('showAll');
   }
+}
+
+function createMenuItemId(item, element) {
+  const id = document.createElement('span');
+  id.classList.add('menu__item__id');
+  id.textContent = element.id;
+  item.append(id);
 }
 
 loadProducts(currentCategory);

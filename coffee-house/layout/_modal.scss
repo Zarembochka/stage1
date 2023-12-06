@@ -1,0 +1,101 @@
+.modal {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 100vw;
+    height: 100vh;
+    @include display-flex(column, center, center);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.modal-show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal__inner {
+    max-width: 800px;
+    padding: 16px;
+    @include display-flex(row);
+    column-gap: 20px;
+    background-color: $background-body;
+    border-radius: 40px;
+    transition: transform 0.5s ease-in-out;
+    position: relative;
+    transform: translateY(-25%);
+    .modal.modal-show & {
+        transform: translateY(0%);
+    }
+}
+
+.modal__image {
+    width: 100%;
+    height: 100%;
+    max-width: 310px;
+    max-height: 310px;
+    border-radius: 40px;
+}
+
+.modal__content {
+    @include text-normal();
+    color: $text-dark;
+    @include display-flex();
+    row-gap: 20px;
+}
+
+.modal__content__size {
+    @include display-flex();
+    row-gap: 8px;
+}
+
+.modal__content__additives {
+    @include display-flex();
+    row-gap: 8px;
+}
+
+.modal__content__size__title {
+    @include zero-margin();
+    font-weight: $font-weight-normal;
+    color: $text-dark;
+    line-height: $line-height;
+}
+
+.modal__size {
+    @include display-flex(row, flex-start);
+    column-gap: 8px;
+}
+
+.modal__form__ico {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    vertical-align: center;
+    border-radius: $menu-form-border-radius;
+    background-color: $border-light;
+    transition: background-color 500ms ease-out;
+}
+
+.modal__form__total {
+    @include display-flex(row, space-between);
+    @include zero-margin();
+    font-weight: $font-weight-bold;
+    font-size: $font-size-medium;
+    line-height: $line-height-title;
+}
+
+.modal__content__price__info {
+    @include display-flex(row);
+    column-gap: 8px;
+    padding: 11px 0 12px;
+    border-top: 1px solid $border-light;
+}
+
+.modal__form__total__info {
+    font-size: $font-size-small;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-small;
+}
