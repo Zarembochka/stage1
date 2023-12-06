@@ -21,10 +21,6 @@ sliderWrapper.addEventListener('touchstart', setSliderTouchPause);
 sliderWrapper.addEventListener('mouseout', removeSliderMousePause);
 sliderWrapper.addEventListener('touchend', removeSliderTouchPause);
 
-// sliderWrapper.addEventListener('touchmove', function() {
-//     console.log(2);
-// });
-
 function setSliderMousePause() {
     isPaused = true;
 }
@@ -59,11 +55,12 @@ function SliderTouchMove(event) {
 
 function checkShowAnotherSlide(startX, endX) {
     if (endX - startX >= touchMoveForNextSlide) {
-        showNextSlide();
+        showPreviousSlide();
+        //showNextSlide();
         return;
     }
     if (Math.abs(startX - endX) >= touchMoveForNextSlide) {
-        showPreviousSlide();
+        showNextSlide();
         return;
     }
 }
@@ -74,7 +71,6 @@ function showNextSlide() {
         slideIndex = 0;
     }
     showSlide();
-    //showSlideByTime();
 }
 
 function showPreviousSlide() {
@@ -83,7 +79,6 @@ function showPreviousSlide() {
         slideIndex = 2;
     }
     showSlide();
-    //showSlideByTime();
 }
 
 function showSlide() {
