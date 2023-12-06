@@ -36,10 +36,6 @@ function hideModal() {
     allowScroll();
 }
 
-function calcRightPadding() {
-    return window.innerWidth - document.body.clientWidth + 'px';
-}
-
 function findElementFromJson(id) {
     return products.find((element) => element.id === +id);
 }
