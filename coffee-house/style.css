@@ -1293,6 +1293,16 @@ html {
 .modal.modal-show .modal__inner {
   transform: translateY(0%);
 }
+@media screen and (max-width: 768px) {
+  .modal__inner {
+    max-width: 688px;
+  }
+}
+@media screen and (max-width: 726px) {
+  .modal__inner {
+    max-width: calc(100vw - 38px);
+  }
+}
 
 .modal__image {
   width: 100%;
@@ -1300,6 +1310,11 @@ html {
   max-width: 310px;
   max-height: 310px;
   border-radius: 40px;
+}
+@media screen and (max-width: 767px) {
+  .modal__image {
+    display: none;
+  }
 }
 
 .modal__content {
@@ -1344,7 +1359,12 @@ html {
   flex-direction: row;
   justify-content: flex-start;
   align-items: normal;
-  column-gap: 8px;
+  gap: 8px;
+}
+@media screen and (max-width: 768px) {
+  .modal__size {
+    flex-wrap: wrap;
+  }
 }
 
 .modal__form__ico {
