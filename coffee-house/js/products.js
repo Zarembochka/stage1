@@ -1,7 +1,5 @@
 import products from './products.json'assert {type: 'json'};
 
-console.log(products);
-
 const menuInner = document.querySelector('.menu__inner');
 const menuForm = document.querySelector('.menu__form');
 const btnLoadMore = document.querySelector('.button-more');
