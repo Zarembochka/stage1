@@ -1,3 +1,8 @@
+import productsList from './productsList.json'assert {type: 'json'};
+
+import { createImage, createMenuItemDescriptionWrapper,
+    createMenuItemDescriptionTitle, createMenuItemDescriptionText } from './products.js';
+
 const modal = document.querySelector('.modal');
 const modalInner = document.querySelector('.modal__inner');
 
@@ -5,7 +10,7 @@ modalInner.addEventListener('click', clickOnTheModal);
 
 modal.addEventListener('click', checkTheClick);
 
-function addListenerForModal() {
+export function addListenerForModal() {
     const menuItems = document.querySelectorAll('.menu__item');
     menuItems.forEach((element) => element.addEventListener('click', showModal));
 }
@@ -37,7 +42,7 @@ function hideModal() {
 }
 
 function findElementFromJson(id) {
-    return products.find((element) => element.id === +id);
+    return productsList.find((element) => element.id === +id);
 }
 
 function clearModal() {
@@ -283,7 +288,7 @@ function calculatePriceForAllAdditives(item, element) {
     return currentPrice;
 }
 
-addListenerForModal();
+//addListenerForModal();
 
 
 
