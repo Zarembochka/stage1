@@ -26,6 +26,7 @@ function setSliderMousePause() {
 }
 
 function setSliderTouchPause(event) {
+    event.preventDefault();
     setSliderMousePause();
     if (isPaused) {
         startTouchX = event.touches[0].clientX;
