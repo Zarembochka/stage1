@@ -1,6 +1,3 @@
-import products from './products.json'assert {type: 'json'};
-import * as productsFunctions from './products';
-
 const modal = document.querySelector('.modal');
 const modalInner = document.querySelector('.modal__inner');
 
@@ -53,12 +50,12 @@ function prepareModal(element) {
 }
 
 function prepareModalImage(element) {
-    const modalImage = productsFunctions.createImage(element, 'modal__image');
+    const modalImage = createImage(element, 'modal__image');
     modalInner.append(modalImage);
 }
 
 function prepareModalContent(element) {
-    const modalContent = productsFunctions.createMenuItemDescriptionWrapper('modal__content');
+    const modalContent = createMenuItemDescriptionWrapper('modal__content');
     createMenuItemTitle(modalContent, element);
     createMenuItemSizeChoice(modalContent, element);
     addListenerForSizeChoice(modalContent, element);
@@ -71,28 +68,28 @@ function prepareModalContent(element) {
 }
 
 function createMenuItemTitle(item, element) {
-    const modalTitle = productsFunctions.createMenuItemDescriptionWrapper('modal__content__title');
-    productsFunctions.createMenuItemDescriptionTitle(modalTitle, element);
-    productsFunctions.createMenuItemDescriptionText(modalTitle, element);
+    const modalTitle = createMenuItemDescriptionWrapper('modal__content__title');
+    createMenuItemDescriptionTitle(modalTitle, element);
+    createMenuItemDescriptionText(modalTitle, element);
     item.append(modalTitle);
 }
 
 function createMenuItemSizeChoice(item, element) {
-    const sizeChoiceWrapper = productsFunctions.createMenuItemDescriptionWrapper('modal__content__size');
+    const sizeChoiceWrapper = createMenuItemDescriptionWrapper('modal__content__size');
     createBlockTitle(sizeChoiceWrapper, 'Size', 'modal__content__size__title');
     createModalSizeChoice(sizeChoiceWrapper, element);
     item.append(sizeChoiceWrapper);
 }
 
 function createMenuItemAdditivesChoice(item, element) {
-    const sizeAdditivesWrapper = productsFunctions.createMenuItemDescriptionWrapper('modal__content__additives');
+    const sizeAdditivesWrapper = createMenuItemDescriptionWrapper('modal__content__additives');
     createBlockTitle(sizeAdditivesWrapper, 'Additives', 'modal__content__size__title');
     createModalAdditivesChoice(sizeAdditivesWrapper, element);
     item.append(sizeAdditivesWrapper);
 }
 
 function createMenuItemPriceInfo(item) {
-    const priceInfoWrapper = productsFunctions.createMenuItemDescriptionWrapper('modal__content__price__info');
+    const priceInfoWrapper = createMenuItemDescriptionWrapper('modal__content__price__info');
     createPriceInfoIco(priceInfoWrapper);
     createPriceInfoInfo(priceInfoWrapper);
     item.append(priceInfoWrapper);
