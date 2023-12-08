@@ -827,13 +827,13 @@ function createMenuItemDescription(item, element) {
     item.append(menuDescription);
 }
 
-function createMenuItemImage(item, element) {
-    const itemWrapper = createImageWrapper();
-    const itemImage = createImage(element, 'menu__item__image');
+// function createMenuItemImage(item, element) {
+//     const itemWrapper = createImageWrapper();
+//     const itemImage = createImage(element, 'menu__item__image');
   
-    itemWrapper.append(itemImage);
-    item.append(itemWrapper);
-}
+//     itemWrapper.append(itemImage);
+//     item.append(itemWrapper);
+// }
 
 function createImageWrapper() {
     const itemWrapper = document.createElement('div');
