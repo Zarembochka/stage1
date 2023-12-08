@@ -41,7 +41,9 @@ function removeSliderTouchPause() {
     removeSliderMousePause();
     if (!isPaused) {
         sliderWrapper.removeEventListener('touchmove', SliderTouchMove);
-        checkShowAnotherSlide(startTouchX, endTouchX);
+        if (endTouchX !== 0) {
+            checkShowAnotherSlide(startTouchX, endTouchX);
+        }
         startTouchX = 0;
         endTouchX = 0;
     }
