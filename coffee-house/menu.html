@@ -10,6 +10,9 @@
     <title>Menu - Coffee House</title>
 </head>
 <body>
+    <script type="module" src="./js/products.js" defer></script>
+    <script src="./js/burger.js" defer></script>
+    <script src="./js/modal.js" defer></script>
     <svg style="display: none;">
         <symbol id="coffee__cup" viewBox="0 0 20 20" fill="none">
             <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -43,7 +46,7 @@
                     </ul>
 
                     <div class="header__menu-menu">
-                        <a class="header__menu__link" href="#">Menu</a>
+                        <a class="header__menu__link header__menu__link-menu" href="#">Menu</a>
                         <svg class="coffee__cup__ico" width="20" height="20">
                             <use xlink:href="#coffee__cup">
                             </use>
@@ -52,8 +55,8 @@
                 </div>
                 <div class="burger">
                     <button class="button button-round button-burger">
-                        <span class="burger__span"></span>
-                        <span class="burger__span"></span>
+                        <span class="burger__span burger__span-first"></span>
+                        <span class="burger__span burger__span-second"></span>
                     </button>
                 </div>
             </div>
@@ -69,7 +72,7 @@
                 </h1>
                 <form class="menu__form">
                     <div class="menu__form__item">
-                        <input class="menu__form__input" type="radio" name="user__choice" id="coffee" checked>
+                        <input class="menu__form__input input-radio" type="radio" name="user__choice" id="coffee" value="coffee" checked>
                         <label class="menu__form__label" for="coffee">
                             <svg class="menu__form__ico" width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path d="M0.5 16.12H16.5V0.12H0.5V16.12Z" fill="url(#pattern0)">
@@ -86,7 +89,7 @@
                         </label>
                     </div>
                     <div class="menu__form__item">
-                        <input class="menu__form__input" type="radio" name="user__choice" id="tea">
+                        <input class="menu__form__input input-radio" type="radio" name="user__choice" id="tea" value="tea">
                         <label class="menu__form__label" for="tea">
                             <svg class="menu__form__ico" width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path d="M0.5 16.12H16.5V0.12H0.5V16.12Z" fill="url(#pattern1)">
@@ -103,7 +106,7 @@
                         </label>
                     </div>
                     <div class="menu__form__item">
-                        <input class="menu__form__input" type="radio" name="user__choice" id="dessert">
+                        <input class="menu__form__input input-radio" type="radio" name="user__choice" id="dessert" value="dessert">
                         <label class="menu__form__label" for="dessert">
                             <svg class="menu__form__ico" width="30" height="30" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <path d="M0.5 16.12H16.5V0.12H0.5V16.12Z" fill="url(#pattern2)">
@@ -122,135 +125,8 @@
                 </form>
 
                 <div class="menu__inner">
-                    <div class="menu__item">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image" src="./images/menu/coffee-1.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Irish coffee
-                            </h3>
-                            <span class="menu__item__text">
-                                Fragrant black coffee with Jameson Irish whiskey and whipped milk
-                            </span>
-                            <span class="menu__item__price">
-                                $7.00
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-2.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Kahlua coffee
-                            </h3>
-                            <span class="menu__item__text">
-                                Classic coffee with milk and Kahlua liqueur under a cap of frothed milk
-                            </span>
-                            <span class="menu__item__price">
-                                $7.00
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-3.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Honey raf
-                            </h3>
-                            <span class="menu__item__text">
-                                Espresso with frothed milk, cream and aromatic honey
-                            </span>
-                            <span class="menu__item__price">
-                                $5.50
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-4.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Ice cappuccino
-                            </h3>
-                            <span class="menu__item__text">
-                                Cappuccino with soft thick foam in summer version with ice
-                            </span>
-                            <span class="menu__item__price">
-                                $5.00
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item menu__item-hide">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-5.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Espresso
-                            </h3>
-                            <span class="menu__item__text">
-                                Classic black coffee
-                            </span>
-                            <span class="menu__item__price">
-                                $4.50
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item menu__item-hide">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-6.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Latte
-                            </h3>
-                            <span class="menu__item__text">
-                                Espresso coffee with the addition of steamed milk and dense milk foam
-                            </span>
-                            <span class="menu__item__price">
-                                $5.50
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item menu__item-hide">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-7.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Latte macchiato
-                            </h3>
-                            <span class="menu__item__text">
-                                Espresso with frothed milk and chocolate
-                            </span>
-                            <span class="menu__item__price">
-                                $5.50
-                            </span>
-                        </div>
-                    </div>
-                    <div class="menu__item menu__item-hide">
-                        <div class="menu__item__image__wrapper">
-                            <img class="menu__item__image"  src="./images/menu/coffee-8.jpg" alt="coffee image">
-                        </div>
-                        <div class="menu__item__description">
-                            <h3 class="menu__item__title">
-                                Coffee with cognac
-                            </h3>
-                            <span class="menu__item__text">
-                                Fragrant black coffee with cognac and whipped cream
-                            </span>
-                            <span class="menu__item__price">
-                                $6.50
-                            </span>
-                        </div>
-                    </div>
                 </div>
+
                 <button class="button button-round button-more">
                     <svg class="button-more-ico" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M21.8883 13.5C21.1645 18.3113 17.013 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C16.1006 2 19.6248 4.46819 21.1679 8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -332,6 +208,12 @@
                 </ul>
             </div>
         </footer>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal__inner">
+        </div>
     </div>
 </body>
 </html>

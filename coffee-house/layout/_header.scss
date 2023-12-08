@@ -20,11 +20,14 @@
         height: calc(100vh - 100px);
         transform: translateX(100%);
         position: fixed;
-        z-index: 5;
+        z-index: 15;
         top: 100px;
         right: 0;
         padding: 60px 40px;
         row-gap: $section-margin-bottom;
+    }
+    .header.show & {
+        transform: translateX(0);
     }
 }
 
@@ -97,11 +100,13 @@
     column-gap: $header-menu-gap;
     background-color: $background-body;
     position: relative;
-    pointer-events: none;
     &::after {
         @include link-after($border-light);
         background-color: $text-dark;
         width: 100%;
+    }
+    .header__menu__link {
+        cursor: default;
     }
 }
 

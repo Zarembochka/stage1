@@ -10,6 +10,8 @@
     <title>Coffee House</title>
 </head>
 <body>
+    <script src="./js/burger.js" defer></script>
+    <script src="./js/slider.js" defer></script>
     <svg style="display: none;">
         <symbol id="coffee__cup" viewBox="0 0 20 20" fill="none">
             <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -43,7 +45,7 @@
                     </ul>
 
                     <div class="header__menu">
-                        <a class="header__menu__link" href="./menu.html">Menu</a>
+                        <a class="header__menu__link header__link" href="./menu.html">Menu</a>
                         <svg class="coffee__cup__ico">
                             <use xlink:href="#coffee__cup">
                             </use>
@@ -52,8 +54,8 @@
                 </div>
                 <div class="burger">
                     <button class="button button-round button-burger">
-                        <span class="burger__span"></span>
-                        <span class="burger__span"></span>
+                        <span class="burger__span burger__span-first"></span>
+                        <span class="burger__span burger__span-second"></span>
                     </button>
                 </div>
             </div>
@@ -61,25 +63,30 @@
 
         <main>
             <section class="enjoy">
-                <div class="enjoy__offer">
-                    <h1 class="offer__title">
-                        <span class="offer__title-italic">
-                            Enjoy
-                        </span>
-                        premium coffee at our charming cafe
-                    </h1>
-                    <h2 class="offer__subtitle">
-                        With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.
-                    </h2>
-                    <a class="offer__link" href="./menu.html">
-                        <span class="offer__link__title">
-                            Menu
-                        </span>
-                        <svg class="coffee__cup__ico offer__link__ico" width="20" height="20">
-                            <use xlink:href="#coffee__cup">
-                            </use>
-                        </svg>
-                    </a>
+                <div class="enjoy__inner">
+                    <video autoplay muted loop playsinline class="enjoy__video">
+                        <source src="./video/video-bg.webm" type="video/mp4">
+                    </video>
+                    <div class="enjoy__offer">
+                        <h1 class="offer__title">
+                            <span class="offer__title-italic">
+                                Enjoy
+                            </span>
+                            premium coffee at our charming cafe
+                        </h1>
+                        <h2 class="offer__subtitle">
+                            With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.
+                        </h2>
+                        <a class="offer__link" href="./menu.html">
+                            <span class="offer__link__title">
+                                Menu
+                            </span>
+                            <svg class="coffee__cup__ico offer__link__ico" width="20" height="20">
+                                <use xlink:href="#coffee__cup">
+                                </use>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </section>
 
@@ -98,18 +105,50 @@
                                 <path d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <div class="slider__content">
-                            <img class="slider__image" src="./images/favorites/coffee-1.png" alt="coffee image">
-                            <div class="slider__description">
-                                <h3 class="slider__title">
-                                    S’mores Frappuccino
-                                </h3>
-                                <p class="slider__text">
-                                    This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.
-                                </p>
-                                <p class="slider__title">
-                                    $5.50
-                                </p>
+                        <div class="slider__wrapper">
+                            <div class="slider__inner">
+                                <div class="slider__content slider__content-active">
+                                    <img class="slider__image" src="./images/favorites/coffee-1.png" alt="coffee image">
+                                    <div class="slider__description">
+                                        <h3 class="slider__title">
+                                            S’mores Frappuccino
+                                        </h3>
+                                        <p class="slider__text">
+                                            This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.
+                                        </p>
+                                        <p class="slider__title">
+                                            $5.50
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="slider__content">
+                                    <img class="slider__image" src="./images/favorites/coffee-2.png" alt="coffee image">
+                                    <div class="slider__description">
+                                        <h3 class="slider__title">
+                                            Caramel Macchiato
+                                        </h3>
+                                        <p class="slider__text">
+                                            Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.
+                                        </p>
+                                        <p class="slider__title">
+                                            $5.00
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="slider__content">
+                                    <img class="slider__image" src="./images/favorites/coffee-3.png" alt="coffee image">
+                                    <div class="slider__description">
+                                        <h3 class="slider__title">
+                                            Ice coffee
+                                        </h3>
+                                        <p class="slider__text">
+                                            A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.
+                                        </p>
+                                        <p class="slider__title">
+                                            $4.50
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <button class="button button-round button-arrow arrow-right">
@@ -120,9 +159,9 @@
                     </div>
                 </div>
                 <div class="slider__pagination">
-                    <progress max="100" value="100" class="progress__pagination"></progress>
-                    <progress max="100" value="0" class="progress__pagination"></progress>
-                    <progress max="100" value="0" class="progress__pagination"></progress>
+                    <progress max="500" value="0" class="progress__pagination progress__pagination-active"></progress>
+                    <progress max="500" value="0" class="progress__pagination"></progress>
+                    <progress max="500" value="0" class="progress__pagination"></progress>
                  </div>
             </section>
 

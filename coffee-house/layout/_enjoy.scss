@@ -1,29 +1,38 @@
 .enjoy {
-    @include display-flex();
-    width: 100%;
-    height: auto;
-    background-image: url(images/enjoy/background.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    border-radius: $enjoy-border-radius;
-    padding: $enjoy-padding;
     margin-bottom: $section-margin-bottom;
-    @media (max-width: 1024px) {
-        padding: 100px 60px;
-    }
-    @media (max-width: 640px) {
-        padding: 60px 16px;
-    }
+}
+
+.enjoy__inner {
+    position: relative;
+}
+
+.enjoy__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $enjoy-border-radius;
 }
 
 .enjoy__offer {
+    padding: $enjoy-padding;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 5;
     @include display-flex();
     row-gap: $header-column-gap;
-    //width: 45.689%;
-    width: 530px;
+    width: 730px;
+    @media (max-width: 1024px) {
+        padding: 100px 60px;
+    }
     @media (max-width: 768px) {
         width: 100%;
+    }
+    @media (max-width: 700px) {
+        padding: 60px 16px;
     }
 }
 
@@ -31,7 +40,7 @@
     @include zero-margin();
     @include text-normal();
     @include offer-title();
-    @media (max-width: 640px) {
+    @media (max-width: 700px) {
         font-size: 42px;
         line-height: 1.15;
     }
