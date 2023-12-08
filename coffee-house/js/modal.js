@@ -1,3 +1,5 @@
+import products from './products.json'assert {type: 'json'};
+
 const modal = document.querySelector('.modal');
 const modalInner = document.querySelector('.modal__inner');
 
