@@ -1,6 +1,6 @@
-import productsFile from './products.json'assert {type: 'json'};
+import products from './products.json'assert {type: 'json'};
 
-const products = JSON.parse(productsFile);
+console.log(products);
 
 const menuInner = document.querySelector('.menu__inner');
 const menuForm = document.querySelector('.menu__form');
