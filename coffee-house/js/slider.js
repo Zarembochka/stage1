@@ -16,7 +16,7 @@ const touchMoveForNextSlide = 50;
 btnArrowRight.addEventListener('click', showNextSlide);
 btnArrowLeft.addEventListener('click', showPreviousSlide);
 
-sliderWrapper.addEventListener('mouseover', setSliderMousePause);
+sliderWrapper.addEventListener('mouseenter', setSliderMousePause);
 sliderWrapper.addEventListener('touchstart', setSliderTouchPause);
 sliderWrapper.addEventListener('mouseout', removeSliderMousePause);
 sliderWrapper.addEventListener('touchend', removeSliderTouchPause);
