@@ -1,6 +1,6 @@
-import productsFromJSON from './products.json'assert {type: 'json'};
+import productsList from './productsList.json'assert {type: 'json'};
 
-const products = productsFromJSON;
+import { addListenerForModal } from './modal.js';
 
 const menuInner = document.querySelector('.menu__inner');
 const menuForm = document.querySelector('.menu__form');
@@ -40,6 +40,11 @@ function changeCurrentCategory() {
   menuInner.classList.add('menu__inner-fadein');
 };
 
+// export function addListenerForModal() {
+//   const menuItems = document.querySelectorAll('.menu__item');
+//   menuItems.forEach((element) => element.addEventListener('click', showModal));
+// }
+
 function animationFade(event) {
     if (event.animationName === 'fade-out') {
         event.srcElement.style.opacity = 0;
@@ -56,7 +61,7 @@ function animationFade(event) {
 
 function loadProducts(category) {
     menuInner.innerHTML = '';
-    const currentProducts = products.filter((element) => element.category === category);
+    const currentProducts = productsList.filter((element) => element.category === category);
     currentProducts.forEach((element, index) => loadMenuItem(element, index));
     checkVisibilityBtnLoadMore(currentProducts.length);
 }
@@ -86,19 +91,13 @@ function createMenuItemDescription(item, element) {
     item.append(menuDescription);
 }
 
-function createImageWrapper() {
-    const itemWrapper = document.createElement('div');
-    itemWrapper.classList.add('menu__item__image__wrapper');
-    return itemWrapper;
-}
-
-function createMenuItemDescriptionWrapper(className) {
+export function createMenuItemDescriptionWrapper(className) {
     const itemDescription = document.createElement('div');
     itemDescription.classList.add(className);
     return itemDescription;
 }
 
-function createImage(element, className) {
+export function createImage(element, className) {
     const itemImage = document.createElement('img');
     itemImage.classList.add(className);
     itemImage.src = element.src;
@@ -118,14 +117,14 @@ function createMenuItemImage(item, element) {
     item.append(itemWrapper);
 }
 
-function createMenuItemDescriptionTitle(item, element) {
+export function createMenuItemDescriptionTitle(item, element) {
     const itemTitle = document.createElement('h3');
     itemTitle.classList.add('menu__item__title');
     itemTitle.textContent = element.name;
     item.append(itemTitle);
 }
 
-function createMenuItemDescriptionText(item, element) {
+export function createMenuItemDescriptionText(item, element) {
     const itemText = document.createElement('span');
     itemText.classList.add('menu__item__text');
     itemText.textContent = element.description;
@@ -153,3 +152,5 @@ function createMenuItemId(item, element) {
 }
 
 loadProducts(currentCategory);
+addListenerForModal();
+
