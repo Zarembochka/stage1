@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    max-height: 100vh;
+}
+
+.title {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.main {
+    @include display-flex(row);
+    width: 100%;
+    font-size: $font-size;
+}
+
+.hangman {
+    width: 40%;
+    position: relative;
+}
+
+.quiz {
+    width: 60%;
+    @include display-flex(column);
+}

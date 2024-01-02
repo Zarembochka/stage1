@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  max-height: 100vh;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
+  width: 100%;
+  font-size: 24px;
+}
+
+.hangman {
+  width: 40%;
+  position: relative;
+}
+
+.quiz {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: normal;
+}
+
+/*# sourceMappingURL=style.css.map */
