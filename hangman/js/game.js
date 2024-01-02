@@ -1,3 +1,5 @@
+import { etap0 } from "./etaps.js";
+
 let container;
 let hangman;
 let quiz;
@@ -61,8 +63,13 @@ function prepareToGame() {
     createContainer();
     createHeader();
     createMain();
+    drawHangman();
     prepareQuiz();
     createKeyboard();
+}
+
+function drawHangman() {
+    hangman.innerHTML = etap0;
 }
 
 function checkKeyDown(event) {
