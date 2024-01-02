@@ -28,3 +28,42 @@ body {
     width: 60%;
     @include display-flex(column);
 }
+
+.keyboard {
+    width: 100%;
+    max-width: 550px;
+    @include display-flex(row, center);
+    row-gap: 20px;
+    column-gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    cursor: pointer;
+    font-size: $font-size;
+    border-radius: 50%;
+    border: 1px solid rgb(87, 54, 216);
+    @include display-flex(row, center, center);
+    &:disabled {
+        cursor: default;
+    }
+    &:active {
+        outline: 1px solid rgb(56, 14, 223);
+    }
+    transition: background-color 0.3s ease-in-out;
+}
+
+.keyboard__btn {
+    width: 45px;
+    height: 45px;
+    background-color: rgb(104, 79, 204);
+    color: white;
+    &:disabled {
+        background-color: rgb(153, 133, 231);
+    }
+    @media screen and (hover: hover) {
+        &:hover:enabled {
+            background-color: rgb(70, 51, 146);
+        }
+    }
+}
