@@ -64,12 +64,17 @@ function fillQuiz() {
 }
 
 function getQuizItemFromList() {
-    const id = getRandomQuizId();
+    const previousId = getIdFromLS();
+    let id = getRandomQuizId();
+    while (id === previousId) {
+        id = getRandomQuizId();
+    }
+    saveIdToLS(id);
     return quizList[id];
 }
 
 function getRandomQuizId() {
-    return Math.floor(Math.random() * (quizList.length + 1));
+    return Math.floor(Math.random() * quizList.length);
 }
 
 function fillQuizCount() {
@@ -171,6 +176,14 @@ function increaseGuessingCount() {
     quessesCount += 1;
     fillQuizCount();
     drawHangman();
+}
+
+function saveIdToLS(id) {
+    localStorage.setItem("id_LH", id);
+}
+
+function getIdFromLS() {
+    return +localStorage.getItem("id_LH");
 }
 
 prepareToGame();
