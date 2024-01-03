@@ -1,4 +1,4 @@
-import { etap0 } from "./etaps.js";
+import { etaps } from "./etaps.js";
 
 let container;
 let hangman;
@@ -7,6 +7,10 @@ let quizQuestion;
 let quizAnswer;
 let quizCount;
 let keyboard;
+const maxGuessesCount = 6;
+let quessesCount;
+let secretWord;
+let secretWordInDOM;
 
 function createElement(name, classname) {
     const newElement = document.createElement(name);
@@ -37,16 +41,46 @@ function createMain() {
 }
 
 function prepareQuiz() {
-    quizQuestion = createElement("div", "quiz__question");
-    quiz.append(quizQuestion);
-    quizAnswer = createElement("div", "quiz__answer");
+    quessesCount = 0;
+    quizAnswer = createElement("ul", "quiz__answer");
     quiz.append(quizAnswer);
-    quizCount = createElement("div", "quiz__count");
+    quizQuestion = createElement("span", "quiz__text");
+    quiz.append(quizQuestion);
+    quizCount = createElement("span", "quiz__text");
     quiz.append(quizCount);
     keyboard = createElement("div", "keyboard");
     quiz.append(keyboard);
     keyboard.addEventListener("click", checkKeyDown);
     document.addEventListener("keypress", checkKeyPress);
+}
+
+function fillQuiz() {
+    fillAnswerToQuiz();
+    fillQuestionToQuiz("An animal that lives in the sea");
+    fillQuizCount();
+}
+
+function fillQuizCount() {
+    quizCount.textContent = `Incorrect guesses: ${quessesCount}/${maxGuessesCount}`;
+}
+
+function fillAnswerToQuiz() {
+    secretWord = "Krokodyl";
+    console.log(secretWord);
+    showAnswer(secretWord);
+    secretWordInDOM = quizAnswer.querySelectorAll(".quiz__char");
+}
+
+function showAnswer(word) {
+    for (let i = 0; i <= word.length; i += 1) {
+        const char = createElement("li", "quiz__char");
+        quizAnswer.append(char);
+    }
+}
+
+function fillQuestionToQuiz(question) {
+    const questionToShow = `Hint. ${question}`;
+    quizQuestion.textContent = questionToShow;
 }
 
 function createKeyboard() {
@@ -63,18 +97,24 @@ function prepareToGame() {
     createContainer();
     createHeader();
     createMain();
-    drawHangman();
     prepareQuiz();
     createKeyboard();
+    drawHangman();
+}
+
+function startGame() {
+    quessesCount = 0;
+    fillQuiz();
 }
 
 function drawHangman() {
-    hangman.innerHTML = etap0;
+    hangman.innerHTML = etaps[quessesCount];
 }
 
 function checkKeyDown(event) {
     const btn = event.target;
     btn.setAttribute("disabled", true);
+    checkMatches(btn.textContent);
 }
 
 function checkKeyPress(event) {
@@ -82,8 +122,44 @@ function checkKeyPress(event) {
     const code = event.code;
     const btn = keyboard.querySelector(`[code=${code}]`);
     try {
-        btn.setAttribute("disabled", true);
+        if (!btn.getAttribute("disabled")) {
+            btn.setAttribute("disabled", true);
+            checkMatches(btn.textContent);
+        }
     } catch {}
 }
 
+function replaceNullWithLetter(index, letter) {
+    const item = secretWordInDOM[index];
+    item.textContent = letter;
+}
+
+function showLettersInSecretWord(char) {
+    for (let i = 0; i <= secretWord.length - 1; i += 1) {
+        const letter = secretWord[i].toUpperCase();
+        if (letter === char) {
+            replaceNullWithLetter(i, char);
+        }
+    }
+}
+
+function checkMatchesInSecretWord(char) {
+    return secretWord.toUpperCase().includes(char);
+}
+
+function checkMatches(char) {
+    if (checkMatchesInSecretWord(char)) {
+        showLettersInSecretWord(char);
+        return;
+    }
+    increaseGuessingCount();
+}
+
+function increaseGuessingCount() {
+    quessesCount += 1;
+    fillQuizCount();
+    drawHangman();
+}
+
 prepareToGame();
+startGame();

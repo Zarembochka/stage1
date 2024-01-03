@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .container {
@@ -19,12 +21,16 @@ body {
   justify-content: flex-start;
   align-items: normal;
   width: 100%;
-  font-size: 24px;
 }
 
 .hangman {
   width: 40%;
+  height: 480px;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: normal;
 }
 
 .quiz {
@@ -33,6 +39,31 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: normal;
+}
+
+.quiz__answer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: normal;
+  column-gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.quiz__char {
+  padding: 5px;
+  border-bottom: 2px solid black;
+  width: 20px;
+  height: 24px;
+  user-select: none;
+}
+
+.quiz__text {
+  text-align: center;
+  margin-bottom: 30px;
+  user-select: none;
 }
 
 .keyboard {
@@ -45,6 +76,8 @@ body {
   row-gap: 20px;
   column-gap: 15px;
   flex-wrap: wrap;
+  padding: 20px;
+  margin: 0 auto;
 }
 
 .btn {
@@ -61,18 +94,19 @@ body {
 .btn:disabled {
   cursor: default;
 }
-.btn:active {
+.btn:active:enabled {
   outline: 1px solid rgb(56, 14, 223);
 }
 
 .keyboard__btn {
+  user-select: none;
   width: 45px;
   height: 45px;
   background-color: rgb(104, 79, 204);
   color: white;
 }
 .keyboard__btn:disabled {
-  background-color: rgb(153, 133, 231);
+  background-color: rgb(223, 74, 114);
 }
 @media screen and (hover: hover) {
   .keyboard__btn:hover:enabled {

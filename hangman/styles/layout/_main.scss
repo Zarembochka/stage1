@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    font-size: $font-size;
+    font-weight: bold;
 }
 
 .container {
@@ -16,17 +18,40 @@ body {
 .main {
     @include display-flex(row);
     width: 100%;
-    font-size: $font-size;
 }
 
 .hangman {
     width: 40%;
+    height: 480px;
     position: relative;
+    @include display-flex(row);
 }
 
 .quiz {
     width: 60%;
     @include display-flex(column);
+}
+
+.quiz__answer {
+    @include display-flex(row, center);
+    column-gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: $margin-bottom;
+}
+
+.quiz__char {
+    padding: 5px;
+    border-bottom: 2px solid black;
+    width: 20px;
+    height: $font-size;
+    user-select: none;
+}
+
+.quiz__text {
+    text-align: center;
+    margin-bottom: $margin-bottom;
+    user-select: none;
 }
 
 .keyboard {
@@ -36,34 +61,37 @@ body {
     row-gap: 20px;
     column-gap: 15px;
     flex-wrap: wrap;
+    padding: 20px;
+    margin: 0 auto;
 }
 
 .btn {
     cursor: pointer;
     font-size: $font-size;
     border-radius: 50%;
-    border: 1px solid rgb(87, 54, 216);
+    border: 1px solid $btn-border-color;
     @include display-flex(row, center, center);
     &:disabled {
         cursor: default;
     }
-    &:active {
-        outline: 1px solid rgb(56, 14, 223);
+    &:active:enabled {
+        outline: 1px solid $btn-outline-color;
     }
     transition: background-color 0.3s ease-in-out;
 }
 
 .keyboard__btn {
-    width: 45px;
-    height: 45px;
-    background-color: rgb(104, 79, 204);
+    user-select: none;
+    width: $btn-size;
+    height: $btn-size;
+    background-color: $btn-background;
     color: white;
     &:disabled {
-        background-color: rgb(153, 133, 231);
+        background-color: $btn-background-disabled;
     }
     @media screen and (hover: hover) {
         &:hover:enabled {
-            background-color: rgb(70, 51, 146);
+            background-color: $btn-background-hover;
         }
     }
 }
