@@ -78,7 +78,7 @@ function getRandomQuizId() {
 }
 
 function fillQuizCount() {
-    quizCount.textContent = `Incorrect guesses: ${quessesCount}/${maxGuessesCount}`;
+    quizCount.innerHTML = `Incorrect guesses: <b class = "quiz__text-red">${quessesCount} / ${maxGuessesCount}</b>`;
 }
 
 function fillAnswerToQuiz(answer) {

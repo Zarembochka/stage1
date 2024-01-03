@@ -66,6 +66,10 @@ body {
   user-select: none;
 }
 
+.quiz__text-red {
+  color: rgb(255, 0, 0);
+}
+
 .keyboard {
   width: 100%;
   max-width: 550px;

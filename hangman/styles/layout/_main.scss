@@ -54,6 +54,10 @@ body {
     user-select: none;
 }
 
+.quiz__text-red {
+    color: $color-red;
+}
+
 .keyboard {
     width: 100%;
     max-width: 550px;
