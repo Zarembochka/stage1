@@ -1,3 +1,5 @@
+import quizList from "./quiz.json" assert { type: "json" };
+
 import { etaps } from "./etaps.js";
 
 let container;
@@ -55,17 +57,27 @@ function prepareQuiz() {
 }
 
 function fillQuiz() {
-    fillAnswerToQuiz();
-    fillQuestionToQuiz("An animal that lives in the sea");
+    const quizItem = getQuizItemFromList();
+    fillAnswerToQuiz(quizItem.answer);
+    fillQuestionToQuiz(quizItem.question);
     fillQuizCount();
+}
+
+function getQuizItemFromList() {
+    const id = getRandomQuizId();
+    return quizList[id];
+}
+
+function getRandomQuizId() {
+    return Math.floor(Math.random() * (quizList.length + 1));
 }
 
 function fillQuizCount() {
     quizCount.textContent = `Incorrect guesses: ${quessesCount}/${maxGuessesCount}`;
 }
 
-function fillAnswerToQuiz() {
-    secretWord = "Krokodyl";
+function fillAnswerToQuiz(answer) {
+    secretWord = answer;
     console.log(secretWord);
     showAnswer(secretWord);
     secretWordInDOM = quizAnswer.querySelectorAll(".quiz__char");
