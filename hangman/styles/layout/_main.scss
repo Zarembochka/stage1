@@ -70,6 +70,7 @@ body {
 }
 
 .btn {
+    user-select: none;
     cursor: pointer;
     font-size: $font-size;
     border-radius: 50%;
@@ -82,12 +83,6 @@ body {
         outline: 1px solid $btn-outline-color;
     }
     transition: background-color 0.3s ease-in-out;
-}
-
-.keyboard__btn {
-    user-select: none;
-    width: $btn-size;
-    height: $btn-size;
     background-color: $btn-background;
     color: white;
     &:disabled {
@@ -98,4 +93,9 @@ body {
             background-color: $btn-background-hover;
         }
     }
+}
+
+.keyboard__btn {
+    width: $btn-size;
+    height: $btn-size;
 }

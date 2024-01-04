@@ -13,6 +13,8 @@ const maxGuessesCount = 6;
 let quessesCount;
 let secretWord;
 let secretWordInDOM;
+let modalBackground;
+let modal;
 
 function createElement(name, classname) {
     const newElement = document.createElement(name);
@@ -89,7 +91,7 @@ function fillAnswerToQuiz(answer) {
 }
 
 function showAnswer(word) {
-    for (let i = 0; i <= word.length; i += 1) {
+    for (let i = 0; i <= word.length - 1; i += 1) {
         const char = createElement("li", "quiz__char");
         quizAnswer.append(char);
     }
@@ -116,11 +118,12 @@ function prepareToGame() {
     createMain();
     prepareQuiz();
     createKeyboard();
-    drawHangman();
+    createModal();
 }
 
 function startGame() {
     quessesCount = 0;
+    drawHangman();
     fillQuiz();
 }
 
@@ -143,7 +146,9 @@ function checkKeyPress(event) {
             btn.setAttribute("disabled", true);
             checkMatches(btn.textContent);
         }
-    } catch {}
+    } catch {
+        return;
+    }
 }
 
 function replaceNullWithLetter(index, letter) {
@@ -167,6 +172,7 @@ function checkMatchesInSecretWord(char) {
 function checkMatches(char) {
     if (checkMatchesInSecretWord(char)) {
         showLettersInSecretWord(char);
+        checkWin();
         return;
     }
     increaseGuessingCount();
@@ -176,6 +182,20 @@ function increaseGuessingCount() {
     quessesCount += 1;
     fillQuizCount();
     drawHangman();
+    if (quessesCount === 6) {
+        showModal(false);
+        return;
+    }
+}
+
+function checkWin() {
+    for (let i = 0; i <= secretWordInDOM.length - 1; i += 1) {
+        const letter = secretWordInDOM[i].textContent;
+        if (!letter) {
+            return;
+        }
+    }
+    showModal(true);
 }
 
 function saveIdToLS(id) {
@@ -184,6 +204,84 @@ function saveIdToLS(id) {
 
 function getIdFromLS() {
     return +localStorage.getItem("id_LH");
+}
+
+function createModal() {
+    modalBackground = createElement("div", "modal__background");
+    modal = createElement("div", "modal");
+    modalBackground.append(modal);
+    document.body.append(modalBackground);
+}
+
+function addImageToModal(win) {
+    const img = createElement("img", "modal__img");
+    img.src = "./assets/lost.svg";
+    if (win) {
+        img.src = "./assets/win.svg";
+    }
+    modal.append(img);
+}
+
+function addTitleToModal(win) {
+    const title = createElement("h2", "modal__title");
+    title.textContent = "You lost!";
+    if (win) {
+        title.textContent = "You win!";
+    }
+    modal.append(title);
+}
+
+function addAnswerToModal() {
+    const message = createElement("span", "quiz__text");
+    message.textContent = `The correct answer is ${secretWord}`;
+    modal.append(message);
+}
+
+function addButtonPlayAgain() {
+    const btn = createElement("button", "btn btn-play");
+    btn.textContent = "Play again";
+    modal.append(btn);
+    btn.addEventListener("click", startNewGame);
+}
+
+function startNewGame() {
+    hideModal();
+    clearModal();
+    clearQuiz();
+    removeDisabledAttributeFromKeyboard();
+    startGame();
+}
+
+function prepareModal(win) {
+    addImageToModal(win);
+    addTitleToModal(win);
+    addAnswerToModal();
+    addButtonPlayAgain();
+}
+
+function showModal(win) {
+    prepareModal(win);
+    modalBackground.classList.add("modal-show");
+}
+
+function hideModal() {
+    modalBackground.classList.remove("modal-show");
+}
+
+function clearModal() {
+    modal.innerHTML = "";
+}
+
+function clearQuiz() {
+    quizAnswer.innerHTML = "";
+    quizQuestion.innerHTML = "";
+}
+
+function removeDisabledAttributeFromKeyboard() {
+    const disabledKeys = keyboard.querySelectorAll("[disabled=true]");
+    for (let i = 0; i < disabledKeys.length; i += 1) {
+        disabledKeys[i].removeAttribute("disabled");
+    }
 }
 
 prepareToGame();
