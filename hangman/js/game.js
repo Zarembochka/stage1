@@ -1,9 +1,8 @@
 import quizList from "./quiz.json" assert { type: "json" };
 
-import { etaps } from "./etaps.js";
-
 let container;
 let hangman;
+let hangmanImage;
 let quiz;
 let quizQuestion;
 let quizAnswer;
@@ -38,6 +37,8 @@ function createHeader() {
 function createMain() {
     const main = createElement("main", "main");
     hangman = createElement("div", "hangman");
+    hangmanImage = createElement("img", "hangman__img");
+    hangman.append(hangmanImage);
     quiz = createElement("div", "quiz");
     main.append(hangman);
     main.append(quiz);
@@ -103,7 +104,10 @@ function fillQuestionToQuiz(question) {
 }
 
 function createKeyboard() {
-    const keysCodes = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86, 66, 78, 77];
+    const keysCodes = [
+        81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 65, 83, 68, 70, 71, 72, 74, 75, 76, 90, 88, 67, 86,
+        66, 78, 77,
+    ];
     for (let i = 0; i <= keysCodes.length - 1; i += 1) {
         const key = createElement("button", "btn keyboard__btn");
         key.textContent = String.fromCharCode(keysCodes[i]);
@@ -128,7 +132,7 @@ function startGame() {
 }
 
 function drawHangman() {
-    hangman.innerHTML = etaps[quessesCount];
+    hangmanImage.src = `./assets/hangman-${quessesCount}.svg`;
 }
 
 function checkKeyDown(event) {
@@ -138,7 +142,6 @@ function checkKeyDown(event) {
 }
 
 function checkKeyPress(event) {
-    console.log(event);
     const code = event.code;
     const btn = keyboard.querySelector(`[code=${code}]`);
     try {
@@ -244,6 +247,14 @@ function addButtonPlayAgain() {
     btn.addEventListener("click", startNewGame);
 }
 
+function addBorderToModal(win) {
+    if (win) {
+        modal.classList.add("win");
+        return;
+    }
+    modal.classList.add("lost");
+}
+
 function startNewGame() {
     hideModal();
     clearModal();
@@ -257,6 +268,7 @@ function prepareModal(win) {
     addTitleToModal(win);
     addAnswerToModal();
     addButtonPlayAgain();
+    addBorderToModal(win);
 }
 
 function showModal(win) {
@@ -270,6 +282,8 @@ function hideModal() {
 
 function clearModal() {
     modal.innerHTML = "";
+    modal.classList.remove("lost");
+    modal.classList.remove("win");
 }
 
 function clearQuiz() {

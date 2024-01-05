@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="550" height="480">
+    <rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="#FFFFFF" stroke="none"/>
+    <g style="" class="currentLayer">
+        <title>Layer 1</title>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_1" x="64.03910064697266" y="24.765363693237305" width="15.715084075927734" height="444.3966369628906" style="color: rgb(0, 0, 0);" class="" rx="1" ry="1" fill-opacity="1"/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_3" x="33" y="49" width="345" height="8" style="color: rgb(77, 77, 77);"/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_5" x="47.22905731201172" y="464.1390075683594" width="373.5474853515625" height="5.654292106628418" style="color: rgb(77, 77, 77);" class="" rx="3" ry="3"/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_10" x="112" y="98" width="0" height="1" style="color: rgb(77, 77, 77);"/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_4" x="31.364681243896484" y="81.11113739013672" width="134.76536560058594" height="7.058116912841797" style="color: rgb(77, 77, 77);" class="" transform="rotate(-43.176944732666016 98.74736022949223,84.64019775390628) "/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_2" x="314" y="56" width="1" height="0" style="color: rgb(77, 77, 77);"/>
+    </g>
+    <defs>
+        <filter id="f145" x="-0.25" width="1.5" y="-0.25" height="1.5" inkscape:menu="Non realistic 3D shaders" inkscape:menu-tooltip="Brushed aluminium shader" inkscape:label="Aluminium" color-interpolation-filters="sRGB">
+            <feGaussianBlur result="result8" stdDeviation="7"/>
+            <feComposite in="result8" operator="xor" result="result6" in2="SourceGraphic"/>
+            <feDisplacementMap result="result4" scale="75" yChannelSelector="A" xChannelSelector="A" in2="result6" in="result6"/>
+            <feComposite k1="1" in="result4" operator="arithmetic" result="result2" in2="SourceGraphic"/>
+        </filter>
+    </defs>
+</svg>

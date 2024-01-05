@@ -7,7 +7,15 @@
     { "id": 5, "question": "The most common coding language in use today", "answer": "JavaScript" },
     { "id": 6, "question": "The longest river in the world", "answer": "Nile" },
     { "id": 7, "question": "The largest tree fruit", "answer": "jackfruit" },
-    { "id": 8, "question": "Who discovered that the earth revolves around the sun?", "answer": "Copernicus" },
-    { "id": 9, "question": "Animal is known for its ability to change color to match its surroundings", "answer": "chameleon" },
-    { "id": 10, "question": "Animal is known for its long trunk and large ears", "answer": "elephant" }
+    { "id": 8, "question": "The biggest planet in the solar system", "answer": "Jupiter" },
+    {
+        "id": 9,
+        "question": "The smallest planet in the solar system",
+        "answer": "Mercury"
+    },
+    {
+        "id": 10,
+        "question": "Animal is known for its long trunk and large ears",
+        "answer": "elephant"
+    }
 ]

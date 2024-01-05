@@ -3,34 +3,82 @@ body {
   font-size: 24px;
   font-weight: bold;
 }
+@media screen and (max-width: 560px) {
+  body {
+    font-size: 20px;
+  }
+}
 
 .container {
   max-width: 1440px;
   margin: 0 auto;
   max-height: 100vh;
+  padding: 15px;
 }
 
 .title {
   text-transform: uppercase;
   text-align: center;
+  margin: 0;
+}
+@media screen and (max-width: 995px) {
+  .title {
+    font-size: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: 30px;
+  }
 }
 
 .main {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: normal;
+  align-items: center;
   width: 100%;
+}
+@media screen and (max-width: 995px) {
+  .main {
+    flex-direction: column;
+  }
 }
 
 .hangman {
-  width: 40%;
-  height: 480px;
+  width: 50%;
   position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 995px) {
+  .hangman {
+    width: 100%;
+  }
+}
+
+.hangman__img {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: normal;
+  width: 100%;
+  height: auto;
+  max-width: 550px;
+}
+@media screen and (max-width: 995px) {
+  .hangman__img {
+    max-height: 400px;
+    width: auto;
+  }
+}
+@media screen and (max-width: 460px) {
+  .hangman__img {
+    height: auto;
+    width: 100%;
+  }
 }
 
 .quiz {
@@ -38,7 +86,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: normal;
+  align-items: center;
+}
+@media screen and (max-width: 995px) {
+  .quiz {
+    width: 100%;
+  }
 }
 
 .quiz__answer {
@@ -46,24 +99,50 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: normal;
+  width: 100%;
   column-gap: 15px;
   list-style: none;
   padding: 0;
   margin-bottom: 30px;
+}
+@media screen and (max-width: 995px) {
+  .quiz__answer {
+    margin-bottom: 25px;
+  }
+}
+@media screen and (max-width: 560px) {
+  .quiz__answer {
+    column-gap: 10px;
+  }
 }
 
 .quiz__char {
   padding: 5px;
   border-bottom: 2px solid black;
   width: 20px;
-  height: 24px;
+  height: 27px;
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 560px) {
+  .quiz__char {
+    height: 23px;
+  }
 }
 
 .quiz__text {
   text-align: center;
   margin-bottom: 30px;
   user-select: none;
+  max-width: 550px;
+}
+@media screen and (max-width: 995px) {
+  .quiz__text {
+    margin-bottom: 25px;
+  }
 }
 
 .quiz__text-red {
@@ -80,8 +159,24 @@ body {
   row-gap: 20px;
   column-gap: 15px;
   flex-wrap: wrap;
-  padding: 20px;
   margin: 0 auto;
+}
+@media screen and (max-width: 995px) {
+  .keyboard {
+    row-gap: 18px;
+  }
+}
+@media screen and (max-width: 510px) {
+  .keyboard {
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .keyboard {
+    row-gap: 5px;
+    column-gap: 5px;
+  }
 }
 
 .btn {
@@ -112,10 +207,44 @@ body {
     background-color: rgb(70, 51, 146);
   }
 }
+@media screen and (max-width: 560px) {
+  .btn {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .btn {
+    font-size: 18px;
+  }
+}
 
 .keyboard__btn {
   width: 45px;
   height: 45px;
+}
+@media screen and (max-width: 560px) {
+  .keyboard__btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .keyboard__btn {
+    width: 37px;
+    height: 37px;
+  }
+}
+@media screen and (max-width: 403px) {
+  .keyboard__btn {
+    width: 35px;
+    height: 35px;
+  }
+}
+@media screen and (max-width: 385px) {
+  .keyboard__btn {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .modal__background {
@@ -131,18 +260,26 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   z-index: 5;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .modal {
   background-color: white;
   padding: 30px;
   border-radius: 30px;
-  border: 3px solid rgb(87, 54, 216);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 20px;
+}
+
+.win {
+  border: 3px solid rgb(16, 173, 113);
+}
+
+.lost {
+  border: 3px solid rgb(223, 25, 25);
 }
 
 .modal__img {

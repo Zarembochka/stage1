@@ -8,15 +8,23 @@
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     z-index: 5;
+    background-color: rgba($color: #000000, $alpha: 0.1);
 }
 
 .modal {
     background-color: white;
     padding: 30px;
     border-radius: 30px;
-    border: 3px solid rgb(87, 54, 216);
     @include display-flex(column, center, center);
     row-gap: 20px;
+}
+
+.win {
+    border: 3px solid rgb(16, 173, 113);
+}
+
+.lost {
+    border: 3px solid rgb(223, 25, 25);
 }
 
 .modal__img {
