@@ -111,7 +111,7 @@ function createKeyboard() {
     for (let i = 0; i <= keysCodes.length - 1; i += 1) {
         const key = createElement("button", "btn keyboard__btn");
         key.textContent = String.fromCharCode(keysCodes[i]);
-        key.setAttribute("code", "Key" + String.fromCharCode(keysCodes[i]));
+        key.setAttribute("data-code", "Key" + String.fromCharCode(keysCodes[i]));
         keyboard.append(key);
     }
 }
@@ -133,6 +133,7 @@ function startGame() {
 
 function drawHangman() {
     hangmanImage.src = `./assets/hangman-${quessesCount}.svg`;
+    hangmanImage.alt = `hangman image ${quessesCount}`;
 }
 
 function checkKeyDown(event) {
@@ -143,7 +144,7 @@ function checkKeyDown(event) {
 
 function checkKeyPress(event) {
     const code = event.code;
-    const btn = keyboard.querySelector(`[code=${code}]`);
+    const btn = keyboard.querySelector(`[data-code=${code}]`);
     try {
         if (!btn.getAttribute("disabled")) {
             btn.setAttribute("disabled", true);
@@ -247,14 +248,6 @@ function addButtonPlayAgain() {
     btn.addEventListener("click", startNewGame);
 }
 
-function addBorderToModal(win) {
-    if (win) {
-        modal.classList.add("win");
-        return;
-    }
-    modal.classList.add("lost");
-}
-
 function startNewGame() {
     hideModal();
     clearModal();
@@ -268,7 +261,6 @@ function prepareModal(win) {
     addTitleToModal(win);
     addAnswerToModal();
     addButtonPlayAgain();
-    addBorderToModal(win);
 }
 
 function showModal(win) {
@@ -282,8 +274,6 @@ function hideModal() {
 
 function clearModal() {
     modal.innerHTML = "";
-    modal.classList.remove("lost");
-    modal.classList.remove("win");
 }
 
 function clearQuiz() {

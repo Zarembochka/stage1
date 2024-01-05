@@ -15,16 +15,9 @@
     background-color: white;
     padding: 30px;
     border-radius: 30px;
+    border: 3px solid $btn-background;
     @include display-flex(column, center, center);
     row-gap: 20px;
-}
-
-.win {
-    border: 3px solid rgb(16, 173, 113);
-}
-
-.lost {
-    border: 3px solid rgb(223, 25, 25);
 }
 
 .modal__img {

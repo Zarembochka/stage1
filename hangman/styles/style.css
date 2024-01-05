@@ -267,19 +267,12 @@ body {
   background-color: white;
   padding: 30px;
   border-radius: 30px;
+  border: 3px solid rgb(104, 79, 204);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 20px;
-}
-
-.win {
-  border: 3px solid rgb(16, 173, 113);
-}
-
-.lost {
-  border: 3px solid rgb(223, 25, 25);
 }
 
 .modal__img {
