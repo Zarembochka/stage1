@@ -137,21 +137,25 @@ function drawHangman() {
 }
 
 function checkKeyDown(event) {
-    const btn = event.target;
-    btn.setAttribute("disabled", true);
-    checkMatches(btn.textContent);
+    if (quessesCount < 6) {
+        const btn = event.target;
+        btn.setAttribute("disabled", true);
+        checkMatches(btn.textContent);
+    }
 }
 
 function checkKeyPress(event) {
-    const code = event.code;
-    const btn = keyboard.querySelector(`[data-code=${code}]`);
-    try {
-        if (!btn.getAttribute("disabled")) {
-            btn.setAttribute("disabled", true);
-            checkMatches(btn.textContent);
+    if (quessesCount < 6) {
+        const code = event.code;
+        const btn = keyboard.querySelector(`[data-code=${code}]`);
+        try {
+            if (!btn.getAttribute("disabled")) {
+                btn.setAttribute("disabled", true);
+                checkMatches(btn.textContent);
+            }
+        } catch {
+            return;
         }
-    } catch {
-        return;
     }
 }
 
