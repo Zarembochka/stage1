@@ -80,6 +80,12 @@ body {
     width: 100%;
   }
 }
+@media screen and (max-width: 390px) {
+  .hangman__img {
+    max-height: 300px;
+    width: auto;
+  }
+}
 
 .quiz {
   width: 60%;

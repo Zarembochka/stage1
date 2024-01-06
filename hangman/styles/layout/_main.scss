@@ -57,6 +57,10 @@ body {
         height: auto;
         width: 100%;
     }
+    @media screen and (max-width: 390px) {
+        max-height: 300px;
+        width: auto;
+    }
 }
 
 .quiz {
