@@ -1,0 +1,21 @@
+[
+    { "id": 0, "question": "The most highest mountain in the world", "answer": "Everest" },
+    { "id": 1, "question": "The most smallest country in the world", "answer": "Vatican" },
+    { "id": 2, "question": "The most biggest bird in the world", "answer": "ostrich" },
+    { "id": 3, "question": "The most highest tree in the world", "answer": "sequoia" },
+    { "id": 4, "question": "The most venomous snake in the world", "answer": "taipan" },
+    { "id": 5, "question": "The most common coding language in use today", "answer": "JavaScript" },
+    { "id": 6, "question": "The longest river in the world", "answer": "Nile" },
+    { "id": 7, "question": "The largest tree fruit", "answer": "jackfruit" },
+    { "id": 8, "question": "The biggest planet in the solar system", "answer": "Jupiter" },
+    {
+        "id": 9,
+        "question": "The smallest planet in the solar system",
+        "answer": "Mercury"
+    },
+    {
+        "id": 10,
+        "question": "Animal is known for its long trunk and large ears",
+        "answer": "elephant"
+    }
+]

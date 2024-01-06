@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="434.4860324004196" height="478.1173184595656">
+    <rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="#FFFFFF" stroke="none" class="" style=""/>
+    <g style="" class="currentLayer">
+        <title>Layer 1</title>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_1" x="46.72066116333008" y="25.324023008346558" width="15.715084075927734" height="444.3966369628906" style="color: rgb(0, 0, 0);" class="" rx="1" ry="1" fill-opacity="1"/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_3" x="15.681560516357422" y="49.55865931510925" width="345" height="8" style="color: rgb(77, 77, 77);" class=""/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_5" x="29.91061782836914" y="464.6976668834686" width="373.5474853515625" height="5.654292106628418" style="color: rgb(77, 77, 77);" class="" rx="3" ry="3"/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_10" x="94.68156051635742" y="98.55865931510925" width="0" height="1" style="color: rgb(77, 77, 77);" class=""/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_4" x="14.046241760253906" y="81.66979670524597" width="134.76536560058594" height="7.058116912841797" style="color: rgb(77, 77, 77);" class="" transform="rotate(-43.176944732666016 81.42891693115237,85.19886016845703) "/>
+        <rect fill="#4d4d4d" stroke="#000000" stroke-dashoffset="" fill-rule="nonzero" id="svg_2" x="296.6815605163574" y="56.55865931510925" width="1" height="0" style="color: rgb(77, 77, 77);" class=""/>
+    </g>
+    <defs>
+        <filter id="f145" x="-0.25" width="1.5" y="-0.25" height="1.5" inkscape:menu="Non realistic 3D shaders" inkscape:menu-tooltip="Brushed aluminium shader" inkscape:label="Aluminium" color-interpolation-filters="sRGB">
+            <feGaussianBlur result="result8" stdDeviation="7"/>
+            <feComposite in="result8" operator="xor" result="result6" in2="SourceGraphic"/>
+            <feDisplacementMap result="result4" scale="75" yChannelSelector="A" xChannelSelector="A" in2="result6" in="result6"/>
+            <feComposite k1="1" in="result4" operator="arithmetic" result="result2" in2="SourceGraphic"/>
+        </filter>
+    </defs>
+</svg>
