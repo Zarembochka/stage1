@@ -14,10 +14,14 @@ let secretWord;
 let secretWordInDOM;
 let modalBackground;
 let modal;
+let isPlayed;
 
-function createElement(name, classname) {
+function createElement(name, classname, text) {
     const newElement = document.createElement(name);
     newElement.className = classname;
+    if (text) {
+        newElement.textContent = text;
+    }
     return newElement;
 }
 
@@ -28,34 +32,59 @@ function createContainer() {
 
 function createHeader() {
     const header = createElement("header", "header");
-    const title = createElement("h1", "title");
-    title.textContent = "Hangman game";
+    const title = createElement("h1", "title", "Hangman game");
     header.prepend(title);
     container.prepend(header);
 }
 
-function createMain() {
-    const main = createElement("main", "main");
+function createHangman() {
     hangman = createElement("div", "hangman");
     hangmanImage = createElement("img", "hangman__img");
     hangman.append(hangmanImage);
+}
+
+function createQuiz() {
     quiz = createElement("div", "quiz");
+}
+
+function createMain() {
+    const main = createElement("main", "main");
+    createHangman();
+    createQuiz();
     main.append(hangman);
     main.append(quiz);
     container.append(main);
 }
 
-function prepareQuiz() {
-    quessesCount = 0;
+function createQuizAnswer() {
     quizAnswer = createElement("ul", "quiz__answer");
     quiz.append(quizAnswer);
+}
+
+function createQuizQuestion() {
     quizQuestion = createElement("span", "quiz__text");
     quiz.append(quizQuestion);
-    quizCount = createElement("span", "quiz__text");
-    quiz.append(quizCount);
+}
+
+function createQuizCount() {
+    const quizCountText = createElement("span", "quiz__text", "Incorrect guesses: ");
+    quizCount = createElement("b", "quiz__text-red");
+    quizCountText.append(quizCount);
+    quiz.append(quizCountText);
+}
+
+function createQuizKeyboard() {
     keyboard = createElement("div", "keyboard");
     quiz.append(keyboard);
     keyboard.addEventListener("click", checkKeyDown);
+}
+
+function prepareQuiz() {
+    quessesCount = 0;
+    createQuizAnswer();
+    createQuizQuestion();
+    createQuizCount();
+    createQuizKeyboard();
     document.addEventListener("keypress", checkKeyPress);
 }
 
@@ -81,7 +110,7 @@ function getRandomQuizId() {
 }
 
 function fillQuizCount() {
-    quizCount.innerHTML = `Incorrect guesses: <b class = "quiz__text-red">${quessesCount} / ${maxGuessesCount}</b>`;
+    quizCount.textContent = `${quessesCount} / ${maxGuessesCount}`;
 }
 
 function fillAnswerToQuiz(answer) {
@@ -126,6 +155,7 @@ function prepareToGame() {
 }
 
 function startGame() {
+    isPlayed = true;
     quessesCount = 0;
     drawHangman();
     fillQuiz();
@@ -137,24 +167,28 @@ function drawHangman() {
 }
 
 function checkKeyDown(event) {
-    if (quessesCount < 6) {
-        const btn = event.target;
-        btn.setAttribute("disabled", true);
-        checkMatches(btn.textContent);
+    if (isPlayed) {
+        if (quessesCount < 6) {
+            const btn = event.target;
+            btn.setAttribute("disabled", true);
+            checkMatches(btn.textContent);
+        }
     }
 }
 
 function checkKeyPress(event) {
-    if (quessesCount < 6) {
-        const code = event.code;
-        const btn = keyboard.querySelector(`[data-code=${code}]`);
-        try {
-            if (!btn.getAttribute("disabled")) {
-                btn.setAttribute("disabled", true);
-                checkMatches(btn.textContent);
+    if (isPlayed) {
+        if (quessesCount < 6) {
+            const code = event.code;
+            const btn = keyboard.querySelector(`[data-code=${code}]`);
+            try {
+                if (!btn.getAttribute("disabled")) {
+                    btn.setAttribute("disabled", true);
+                    checkMatches(btn.textContent);
+                }
+            } catch {
+                return;
             }
-        } catch {
-            return;
         }
     }
 }
@@ -191,6 +225,7 @@ function increaseGuessingCount() {
     fillQuizCount();
     drawHangman();
     if (quessesCount === 6) {
+        isPlayed = false;
         showModal(false);
         return;
     }
@@ -203,6 +238,7 @@ function checkWin() {
             return;
         }
     }
+    isPlayed = false;
     showModal(true);
 }
 
@@ -281,8 +317,8 @@ function clearModal() {
 }
 
 function clearQuiz() {
-    quizAnswer.innerHTML = "";
-    quizQuestion.innerHTML = "";
+    quizAnswer.textContent = "";
+    quizQuestion.textContent = "";
 }
 
 function removeDisabledAttributeFromKeyboard() {
