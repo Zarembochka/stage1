@@ -195,6 +195,7 @@ function checkKeyPress(event) {
 
 function replaceNullWithLetter(index, letter) {
     const item = secretWordInDOM[index];
+    item.classList.add("quiz__char-noborder");
     item.textContent = letter;
 }
 
