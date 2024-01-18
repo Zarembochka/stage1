@@ -167,11 +167,13 @@ function drawHangman() {
 }
 
 function checkKeyDown(event) {
-    if (isPlayed) {
-        if (quessesCount < 6) {
-            const btn = event.target;
-            btn.setAttribute("disabled", true);
-            checkMatches(btn.textContent);
+    if (event.target !== keyboard) {
+        if (isPlayed) {
+            if (quessesCount < 6) {
+                const btn = event.target;
+                btn.setAttribute("disabled", true);
+                checkMatches(btn.textContent);
+            }
         }
     }
 }
