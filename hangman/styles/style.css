@@ -38,6 +38,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  user-select: none;
 }
 @media screen and (max-width: 995px) {
   .main {

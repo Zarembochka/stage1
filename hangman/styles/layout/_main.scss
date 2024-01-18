@@ -32,6 +32,7 @@ body {
     @media screen and (max-width: 995px) {
         flex-direction: column;
     }
+    user-select: none;
 }
 
 .hangman {
