@@ -1,12 +1,15 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+    mode: "production",
     entry: "./src/index.js",
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
+        path: path.resolve(__dirname, "./dist"),
+        filename: "js/[name].js",
         clean: true,
+        assetModuleFilename: "assets/[name][ext]",
     },
     module: {
         rules: [
@@ -15,14 +18,17 @@ module.exports = {
                 loader: "html-loader",
             },
             {
+                test: /\.(scss|css)$/i,
+                use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+            },
+            {
                 test: /\.(ico|gif|png|jpg|jpeg|svg)$/i,
                 type: "asset/resource",
             },
         ],
     },
     plugins: [
-        new htmlWebpackPlugin({
-            template: "./src/index.html",
-        }),
+        new htmlWebpackPlugin({ title: "Nonograms", favicon: "./src/assets/images/favicon.svg" }),
+        new miniCssExtractPlugin({ filename: "[name].css" }),
     ],
 };
