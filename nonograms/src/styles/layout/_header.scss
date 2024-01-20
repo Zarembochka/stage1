@@ -1,0 +1,8 @@
+.title {
+    text-transform: uppercase;
+    text-align: center;
+    @include zero-margin();
+    margin: 10px 0;
+    @include text();
+    font-size: $font-size_title;
+}

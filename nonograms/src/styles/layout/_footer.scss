@@ -1,0 +1,26 @@
+.footer {
+    @include text();
+    font-size: $font-size_normal;
+}
+
+.footer__list {
+    @include zero-margin();
+    @include zero-padding();
+    list-style: none;
+    @include display-flex(row, space-between, center);
+}
+
+.footer__link {
+    @include display-flex();
+}
+
+.footer__ico {
+    max-width: 100px;
+    fill: $font-color;
+    transition: fill 0.3s ease-in;
+    @media (hover: hover) {
+        &:hover {
+            fill: darken($font-color, 20%);
+        }
+    }
+}
