@@ -1,3 +1,10 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    background-image: url("./assets/images/bg.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include zero-margin();
+}
