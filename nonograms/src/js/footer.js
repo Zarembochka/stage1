@@ -1,25 +1,11 @@
 import { rsschoolLogo, githubLogo } from "./logos";
+import { createElement } from "./layout";
 
-function createElement(name, classname, text) {
-    const newElement = document.createElement(name);
-    newElement.className = classname;
-    if (text) {
-        newElement.textContent = text;
-    }
-    return newElement;
-}
-
-function createContainer() {
-    const container = createElement("div", "container");
-    document.body.append(container);
-    return container;
-}
-
-function createHeader(container) {
-    const header = createElement("header", "header");
-    const title = createElement("h1", "title", "Nonograms");
-    header.prepend(title);
-    container.prepend(header);
+export function createFooter(container) {
+    const footer = createElement("footer", "footer");
+    const footerList = createFooterList(footer);
+    createFooterListItems(footerList);
+    container.append(footer);
 }
 
 function createFooterList(footer) {
@@ -68,24 +54,3 @@ function createFooterLogo(item, href, src) {
 function createDevelopmentYear(item) {
     item.textContent = "©2024";
 }
-
-function createFooter(container) {
-    const footer = createElement("footer", "footer");
-    const footerList = createFooterList(footer);
-    createFooterListItems(footerList);
-    container.append(footer);
-}
-
-function createMain(container) {
-    const main = createElement("main", "main");
-    container.append(main);
-}
-
-function createLayout() {
-    const container = createContainer();
-    createHeader(container);
-    createMain(container);
-    createFooter(container);
-}
-
-createLayout();
