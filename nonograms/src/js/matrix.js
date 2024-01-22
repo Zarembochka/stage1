@@ -11,3 +11,14 @@ export function getMatrixFromUser(table) {
     }
     return matrix;
 }
+
+export function equalMatrix(userMatrix, matrix) {
+    for (let i = 0; i < userMatrix.length; i += 1) {
+        for (let j = 0; j < userMatrix.length; j += 1) {
+            if (userMatrix[i][j] !== matrix[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

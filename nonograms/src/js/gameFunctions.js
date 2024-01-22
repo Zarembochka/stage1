@@ -1,4 +1,4 @@
-import { getMatrixFromUser } from "./matrix";
+import { isWin } from "./win";
 import { level1 } from "./levels";
 
 export function addGameFunctionToTable(table) {
@@ -17,7 +17,12 @@ function changeColor(event) {
     }
 }
 
-function checkWin(table) {}
+function checkWin(table) {
+    const flagWin = isWin(table, level1);
+    if (flagWin) {
+        console.log("yes!");
+    }
+}
 
 function showCross(event) {
     event.preventDefault();
