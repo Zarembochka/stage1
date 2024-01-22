@@ -1,4 +1,5 @@
 import { createElement } from "./layout";
+import { clearGameField } from "./gameField";
 
 let modalBackground;
 
@@ -37,7 +38,7 @@ function addButtonPlayAgain(modal) {
     const btn = createElement("button", "btn btn-play");
     btn.textContent = "Play again";
     modal.append(btn);
-    //btn.addEventListener("click", startNewGame);
+    btn.addEventListener("click", startNewGame);
 }
 
 export function showModal() {
@@ -45,9 +46,14 @@ export function showModal() {
     modalBackground.classList.add("modal-show");
 }
 
-// function hideModal() {
-//     modalBackground.classList.remove("modal-show");
-// }
+function startNewGame() {
+    hideModal();
+    clearGameField();
+}
+
+function hideModal() {
+    modalBackground.classList.remove("modal-show");
+}
 
 // function clearModal() {
 //     modal.innerHTML = "";

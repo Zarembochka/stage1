@@ -11,11 +11,10 @@ export function addGameFunctionToTable(table) {
 }
 
 function changeColor(event) {
-    if (event.target !== event.currentTarget) {
-        event.target.classList.remove("pointer");
-        event.target.classList.remove("cross");
-        event.target.classList.toggle("color");
-    }
+    const cell = event.target.closest(".game__cell");
+    cell.classList.remove("pointer");
+    cell.classList.remove("cross");
+    cell.classList.toggle("color");
 }
 
 function checkWin(table) {
@@ -38,7 +37,7 @@ function showPointer(event, table) {
     if (event.target !== table) {
         const col = event.target.dataset.col;
         const row = event.target.closest(".game__row");
-        event.target.classList.add("pointer");
+        //event.target.classList.add("pointer");
         const cols = table.querySelectorAll(`.game__cell[data-col="${col}"]`);
         cols.forEach((element) => element.classList.add("pointer"));
         const cells = row.querySelectorAll(".game__cell");

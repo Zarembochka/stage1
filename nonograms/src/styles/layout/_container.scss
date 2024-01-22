@@ -1,7 +1,8 @@
 .container {
-    max-width: 1440px;
+    max-width: 720px;
     margin: 0 auto;
     max-height: 100svh;
     padding: 15px;
     @include display-flex(column, space-between, center);
+    row-gap: 50px;
 }

@@ -5,12 +5,28 @@ table {
 
 .nonograms {
     user-select: none;
-    border: 2px solid $font-color;
-    background-color: rgba($color: #fff, $alpha: 0.25);
+    border: $table-border_bold;
+    border-right: $table-border_normal;
+    border-bottom: $table-border_normal;
+    background-color: rgba($color: #fff, $alpha: 0.75);
 }
 
 td {
     padding: 0;
+}
+
+.nonograms__row:first-of-type {
+    border-bottom: $table-border_bold;
+}
+
+.hints__cols,
+.game {
+    border-left: $table-border_bold;
+}
+
+.hints__rows-row:nth-child(5n),
+.game__row:nth-child(5n) {
+    border-bottom: $table-border_normal;
 }
 
 .hints__cell {
@@ -20,32 +36,33 @@ td {
         border-top: none;
     }
 
-    .hints__cols-row &:last-of-type {
-        border-right: none;
+    .hints__cols-row:last-of-type &,
+    .hints__rows-row:last-of-type & {
+        border-bottom: none;
+    }
+
+    .hints__cols &:nth-child(5n) {
+        width: 26px;
+        border-right: $table-border_normal;
     }
 
     .hints__rows-row &:first-of-type {
         border-left: none;
     }
 
-    .hints__rows-row:last-of-type & {
-        border-bottom: none;
+    .hints__rows-row &:last-of-type {
+        border-right: none;
     }
 }
 
 .game__cell {
     @include table-cell();
     transition: background-color 0.3s ease-in-out;
+    .game &:nth-child(5n) {
+        width: 26px;
+        border-right: $table-border_normal;
+    }
 }
-
-// .tableGame td:nth-child(5) {
-//     width: 26px;
-//     border-right: 2px solid black;
-//   }
-
-//   .tableGame tr:nth-child(5) {
-//     border-bottom: 2px solid black;
-//   }
 
 .color {
     background-color: black;

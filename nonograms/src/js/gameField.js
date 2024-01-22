@@ -2,12 +2,14 @@ import { createElement } from "./layout";
 import { calculateHints } from "./hints";
 import { addGameFunctionToTable } from "./gameFunctions";
 
+let tableGame;
+
 export function createGameField(item, matrix) {
     const hints = calculateHints(matrix);
     const table = createEmptyTable();
     fillTableWithHints(table, hints, matrix.length);
     const lastCell = getLastCell(table);
-    const tableGame = createTableGame(matrix.length);
+    tableGame = createTableGame(matrix.length);
     lastCell.append(tableGame);
     addGameFunctionToTable(tableGame);
     item.append(table);
@@ -89,4 +91,15 @@ function createTableGame(length) {
         table.append(tr);
     }
     return table;
+}
+
+export function clearGameField() {
+    const rows = tableGame.querySelectorAll(".game__row");
+    for (let row of rows) {
+        const cells = row.querySelectorAll(".game__cell");
+        for (let cell of cells) {
+            cell.classList.remove("color");
+            cell.classList.remove("cross");
+        }
+    }
 }

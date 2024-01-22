@@ -23,3 +23,7 @@
     height: 25px;
     border: 1px solid $font-color;
 }
+
+@mixin table-border($border-size: 2px) {
+    border: $border-size solid $font-color;
+}
