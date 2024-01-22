@@ -1,6 +1,7 @@
 .footer {
     @include text();
     font-size: $font-size_normal;
+    width: 100%;
 }
 
 .footer__list {

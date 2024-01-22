@@ -1,0 +1,62 @@
+table {
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.nonograms {
+    user-select: none;
+    border: 2px solid $font-color;
+    background-color: rgba($color: #fff, $alpha: 0.25);
+}
+
+td {
+    padding: 0;
+}
+
+.hints__cell {
+    @include table-cell();
+
+    .hints__cols-row:first-of-type & {
+        border-top: none;
+    }
+
+    .hints__cols-row &:last-of-type {
+        border-right: none;
+    }
+
+    .hints__rows-row &:first-of-type {
+        border-left: none;
+    }
+
+    .hints__rows-row:last-of-type & {
+        border-bottom: none;
+    }
+}
+
+.game__cell {
+    @include table-cell();
+    transition: background-color 0.3s ease-in-out;
+}
+
+// .tableGame td:nth-child(5) {
+//     width: 26px;
+//     border-right: 2px solid black;
+//   }
+
+//   .tableGame tr:nth-child(5) {
+//     border-bottom: 2px solid black;
+//   }
+
+.color {
+    background-color: black;
+}
+
+.cross {
+    background-image: url("./assets/images/cross.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.pointer:not(.color) {
+    background-color: rgb(243, 223, 225);
+}

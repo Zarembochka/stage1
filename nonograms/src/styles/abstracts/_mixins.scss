@@ -17,3 +17,9 @@
     font-family: $font-family;
     color: $font-color;
 }
+
+@mixin table-cell() {
+    width: 25px;
+    height: 25px;
+    border: 1px solid $font-color;
+}

@@ -1,4 +1,6 @@
 import { createFooter } from "./footer";
+import { createGameField } from "./gameField";
+import { level1 } from "./levels";
 
 export function createElement(name, classname, text) {
     const newElement = document.createElement(name);
@@ -24,6 +26,7 @@ function createHeader(container) {
 
 function createMain(container) {
     const main = createElement("main", "main");
+    createGameField(main, level1);
     container.append(main);
 }
 
