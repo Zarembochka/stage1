@@ -1,4 +1,5 @@
 import { createFooter } from "./footer";
+import { createModal } from "./modal";
 import { createGameField } from "./gameField";
 import { level1 } from "./levels";
 
@@ -35,6 +36,7 @@ function createLayout() {
     createHeader(container);
     createMain(container);
     createFooter(container);
+    createModal();
 }
 
 createLayout();

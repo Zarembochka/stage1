@@ -1,0 +1,25 @@
+.btn {
+    user-select: none;
+    cursor: pointer;
+    @include text();
+    font-size: $font-size_normal;
+    border: 1px solid $btn-border-color;
+    @include display-flex(row, center, center);
+    &:active:enabled {
+        outline: 1px solid $btn-outline-color;
+    }
+    transition: background-color 0.3s ease-in-out;
+    background-color: $btn-background;
+    color: $btn-color;
+    @media screen and (hover: hover) {
+        &:hover:enabled {
+            background-color: $btn-background-hover;
+        }
+    }
+}
+
+.btn-play {
+    margin: 0 auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+}

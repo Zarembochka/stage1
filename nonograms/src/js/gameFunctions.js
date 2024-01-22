@@ -1,4 +1,5 @@
 import { isWin } from "./win";
+import { showModal } from "./modal";
 import { level1 } from "./levels";
 
 export function addGameFunctionToTable(table) {
@@ -20,7 +21,7 @@ function changeColor(event) {
 function checkWin(table) {
     const flagWin = isWin(table, level1);
     if (flagWin) {
-        console.log("yes!");
+        showModal();
     }
 }
 
