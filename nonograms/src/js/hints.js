@@ -45,7 +45,7 @@ function getColsHint(arr) {
         const row = [];
         let count = 0;
         for (let j = 0; j < arr[i].length; j += 1) {
-            if (!arr[j][i] && i && count) {
+            if (!arr[j][i] && j && count) {
                 row.push(count);
                 count = 0;
                 continue;
