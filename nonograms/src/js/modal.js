@@ -26,10 +26,10 @@ function addTitleToModal(modal) {
 function addTextToModal(modal) {
     const paragraph = createElement("p", "modal__text");
     const text = createElement("pre", "modal__text");
-    text.innerHTML = `Great!
-    You have solved
-        the nonogram
-            in <i class="modal__text-italic"></i> seconds!`;
+    text.innerHTML = `  Great!
+        You have solved
+            the nonogram
+                in <i class="modal__text-italic"></i> seconds!`;
     paragraph.append(text);
     modal.append(paragraph);
 }

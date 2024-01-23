@@ -14,12 +14,12 @@
 .modal {
     user-select: none;
     box-shadow: 1px -1px 23px -5px $color-shadow;
-    background-image: url("./assets/images/modal.jpg");
+    background-image: url("./assets/images/modal.png");
     background-repeat: no-repeat;
     min-width: 450px;
     border-radius: 10px;
     padding: 20px 30px 30px 60px;
-    @include text();
+    @include text-modal();
     font-size: 36px;
     @include display-flex(column, center, flex-start);
     row-gap: 20px;
@@ -33,13 +33,13 @@
 
 .modal__title {
     @include zero-margin();
-    @include text();
+    @include text-modal();
     font-size: 60px;
 }
 
 .modal__text {
     @include zero-margin();
-    @include text();
+    @include text-modal();
     font-size: 30px;
 }
 

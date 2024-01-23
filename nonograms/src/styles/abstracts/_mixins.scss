@@ -18,6 +18,11 @@
     color: $font-color;
 }
 
+@mixin text-modal() {
+    font-family: $font-family;
+    color: $font-color_modal;
+}
+
 @mixin table-cell() {
     width: 25px;
     height: 25px;
