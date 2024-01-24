@@ -41,9 +41,8 @@
     }
 }
 
-.btn-level {
+.btn-menu {
     //padding: 3px 13px;
-    position: relative;
     @media screen and (hover: hover) {
         .nav__list__item:hover & {
             color: $btn-color;
@@ -51,7 +50,7 @@
     }
 }
 
-.btn-levelChoice {
+.btn-menuItem {
     padding: 0;
     font-size: $font-size_normal;
 }

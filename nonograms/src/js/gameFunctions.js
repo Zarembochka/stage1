@@ -1,9 +1,9 @@
 import { isWin } from "./win";
-import { showModal } from "./modal";
+import { showModal, hideModal } from "./modal";
 import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
-import { hideModal } from "./modal";
+import { showListOptions } from "./nav";
 
 let userLevel;
 let isPlayedGame = false;
@@ -80,7 +80,9 @@ export function playAgain() {
     startNewGame();
 }
 
-export function restartGame() {
+export function restartGame(event) {
+    console.log(event.target.parentElement.parentElement);
+    showListOptions(event.target.parentElement.parentElement);
     isPlayedGame = false;
     clearInterval(timer);
     clearGameField();
