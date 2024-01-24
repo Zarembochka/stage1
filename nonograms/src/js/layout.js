@@ -1,6 +1,7 @@
 import { createHeader } from "./header";
 import { createFooter } from "./footer";
 import { createModal } from "./modal";
+import { sandClockLogo } from "./logos";
 import { startNewGame } from "./gameFunctions";
 
 let mainTitle;
@@ -20,10 +21,18 @@ function createContainer() {
     return container;
 }
 
+function createTimer() {
+    const timer = createElement("div", "main__timer");
+    timer.innerHTML = sandClockLogo;
+    const timerText = createElement("span", "main__timer-text", "00:00");
+    timer.append(timerText);
+    return timer;
+}
+
 function createMain(container) {
     const main = createElement("main", "main");
     mainTitle = createElement("h2", "main__title");
-    const mainTimer = createElement("span", "main__timer", "00:00");
+    const mainTimer = createTimer();
     main.append(mainTitle);
     main.append(mainTimer);
     container.append(main);

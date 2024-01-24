@@ -53,7 +53,3 @@ function addWinningTime(time) {
     const item = modalBackground.querySelector(".modal__text-pink");
     item.textContent = time;
 }
-
-// function clearModal() {
-//     modal.innerHTML = "";
-// }

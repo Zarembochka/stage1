@@ -99,7 +99,7 @@ function startTimer() {
 }
 
 function startInterval() {
-    const mainTimer = document.querySelector(".main__timer");
+    const mainTimer = document.querySelector(".main__timer-text");
     timer = setInterval(() => updateTime(mainTimer), 1000);
 }
 
@@ -110,7 +110,7 @@ function updateTime(item) {
 
 function clearTimerField() {
     userTime = 0;
-    const mainTimer = document.querySelector(".main__timer");
+    const mainTimer = document.querySelector(".main__timer-text");
     mainTimer.textContent = "00:00";
 }
 
