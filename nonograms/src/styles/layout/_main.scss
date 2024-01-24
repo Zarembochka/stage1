@@ -1,0 +1,10 @@
+.main {
+    @include display-flex(column, center, center);
+    row-gap: 20px;
+}
+
+.main__title {
+    @include zero-margin();
+    @include text();
+    font-size: 32px;
+}

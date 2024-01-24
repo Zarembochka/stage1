@@ -1,10 +1,61 @@
-export const level1 = [
-    [0, 1, 0, 1, 0],
-    [1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1],
-    [0, 1, 1, 1, 0],
-    [0, 0, 1, 0, 0],
-];
+export const levelList = ["easy", "medium", "hard"];
+
+const level1Easy = {
+    title: "snowflake",
+    matrix: [
+        [1, 0, 0, 0, 1],
+        [0, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0],
+        [0, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+    ],
+};
+
+const level2Easy = {
+    title: "rhombus",
+    matrix: [
+        [0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 0, 0],
+    ],
+};
+
+const level3Easy = {
+    title: "sandglass",
+    matrix: [
+        [1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1],
+    ],
+};
+
+const level4Easy = {
+    title: "heart",
+    matrix: [
+        [0, 1, 0, 1, 0],
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+        [0, 1, 1, 1, 0],
+        [0, 0, 1, 0, 0],
+    ],
+};
+
+const level5Easy = {
+    title: "castle",
+    matrix: [
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1],
+    ],
+};
+
+export const levelEasyList = [level1Easy, level2Easy, level3Easy, level4Easy, level5Easy];
 
 // export const level2 = [
 //     [0, 0, 1, 0, 0],

@@ -1,5 +1,5 @@
 import { createElement } from "./layout";
-import { clearGameField } from "./gameField";
+import { playAgain } from "./gameFunctions";
 
 let modalBackground;
 
@@ -19,7 +19,6 @@ function prepareModal(modal) {
 
 function addTitleToModal(modal) {
     const title = createElement("h2", "modal__title", "You win!");
-    //title.textContent = "Congratulations!";
     modal.append(title);
 }
 
@@ -38,7 +37,7 @@ function addButtonPlayAgain(modal) {
     const btn = createElement("button", "btn btn-play");
     btn.textContent = "Play again";
     modal.append(btn);
-    btn.addEventListener("click", startNewGame);
+    btn.addEventListener("click", playAgain);
 }
 
 export function showModal() {
@@ -46,12 +45,7 @@ export function showModal() {
     modalBackground.classList.add("modal-show");
 }
 
-function startNewGame() {
-    hideModal();
-    clearGameField();
-}
-
-function hideModal() {
+export function hideModal() {
     modalBackground.classList.remove("modal-show");
 }
 

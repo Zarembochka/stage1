@@ -1,6 +1,11 @@
 import { isWin } from "./win";
 import { showModal } from "./modal";
-import { level1 } from "./levels";
+import { removeGameField, createGameField, clearGameField } from "./gameField";
+import { getRandomEasyLevel } from "./levelsChoice";
+import { fillNonogramsTitle } from "./layout";
+import { hideModal } from "./modal";
+
+let userLevel;
 
 export function addGameFunctionToTable(table) {
     table.addEventListener("click", changeColor);
@@ -18,7 +23,7 @@ function changeColor(event) {
 }
 
 function checkWin(table) {
-    const flagWin = isWin(table, level1);
+    const flagWin = isWin(table, userLevel.matrix);
     if (flagWin) {
         showModal();
     }
@@ -54,4 +59,22 @@ function removePointer(event, table) {
         const cells = row.querySelectorAll(".game__cell");
         cells.forEach((element) => element.classList.remove("pointer"));
     }
+}
+
+export function startNewGame() {
+    userLevel = getRandomEasyLevel();
+    fillNonogramsTitle(userLevel.title);
+    const main = document.querySelector(".main");
+    createGameField(main, userLevel.matrix);
+}
+
+export function playAgain() {
+    hideModal();
+    removeGameField();
+    startNewGame();
+}
+
+export function restartGame() {
+    console.log(1);
+    clearGameField();
 }

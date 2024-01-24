@@ -93,13 +93,15 @@ function createTableGame(length) {
     return table;
 }
 
+export function removeGameField() {
+    const table = document.querySelector(".nonograms");
+    table.remove();
+}
+
 export function clearGameField() {
-    const rows = tableGame.querySelectorAll(".game__row");
-    for (let row of rows) {
-        const cells = row.querySelectorAll(".game__cell");
-        for (let cell of cells) {
-            cell.classList.remove("color");
-            cell.classList.remove("cross");
-        }
+    const cells = tableGame.querySelectorAll(".game__cell");
+    for (let cell of cells) {
+        cell.classList.remove("color");
+        cell.classList.remove("cross");
     }
 }

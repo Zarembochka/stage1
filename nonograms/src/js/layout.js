@@ -1,7 +1,9 @@
+import { createHeader } from "./header";
 import { createFooter } from "./footer";
 import { createModal } from "./modal";
-import { createGameField } from "./gameField";
-import { level1 } from "./levels";
+import { startNewGame } from "./gameFunctions";
+
+let mainTitle;
 
 export function createElement(name, classname, text) {
     const newElement = document.createElement(name);
@@ -18,17 +20,16 @@ function createContainer() {
     return container;
 }
 
-function createHeader(container) {
-    const header = createElement("header", "header");
-    const title = createElement("h1", "title", "Nonograms");
-    header.prepend(title);
-    container.prepend(header);
-}
-
 function createMain(container) {
     const main = createElement("main", "main");
-    createGameField(main, level1);
+    mainTitle = createElement("h2", "main__title");
+    main.append(mainTitle);
     container.append(main);
+    startNewGame();
+}
+
+export function fillNonogramsTitle(title) {
+    mainTitle.textContent = title;
 }
 
 function createLayout() {
