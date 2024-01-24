@@ -15,7 +15,7 @@ export function createGameField(item, matrix) {
     item.append(table);
 }
 
-function createEmptyTable() {
+export function createEmptyTable() {
     const table = createElement("table", "nonograms");
     for (let i = 0; i < 2; i += 1) {
         const tr = createElement("tr", "nonograms__row");

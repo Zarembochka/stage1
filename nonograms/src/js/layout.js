@@ -23,7 +23,9 @@ function createContainer() {
 function createMain(container) {
     const main = createElement("main", "main");
     mainTitle = createElement("h2", "main__title");
+    const mainTimer = createElement("span", "main__timer", "00:00");
     main.append(mainTitle);
+    main.append(mainTimer);
     container.append(main);
     startNewGame();
 }

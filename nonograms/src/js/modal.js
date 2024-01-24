@@ -28,7 +28,7 @@ function addTextToModal(modal) {
     text.innerHTML = `  Great!
         You have solved
             the nonogram
-                in <i class="modal__text-italic"></i> seconds!`;
+                in <i class="modal__text-pink"></i> seconds!`;
     paragraph.append(text);
     modal.append(paragraph);
 }
@@ -40,13 +40,18 @@ function addButtonPlayAgain(modal) {
     btn.addEventListener("click", playAgain);
 }
 
-export function showModal() {
-    //prepareModal(win);
+export function showModal(time) {
+    addWinningTime(time);
     modalBackground.classList.add("modal-show");
 }
 
 export function hideModal() {
     modalBackground.classList.remove("modal-show");
+}
+
+function addWinningTime(time) {
+    const item = modalBackground.querySelector(".modal__text-pink");
+    item.textContent = time;
 }
 
 // function clearModal() {

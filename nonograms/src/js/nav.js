@@ -1,7 +1,7 @@
 import { createElement } from "./layout";
 import { createList } from "./header";
 import { levelList } from "./levels";
-import { restartGame } from "./gameFunctions";
+import { restartGame, saveGame } from "./gameFunctions";
 
 export function createNavListItems(navList) {
     for (let i = 1; i <= 6; i += 1) {
@@ -22,9 +22,9 @@ function fillNavListElement(listItem, index) {
         createBtnRestart(listItem);
         return;
     }
+    //save
     if (index === 3) {
-        //createLevelChoice(listItem);
-        listItem.textContent = "Save";
+        createBtnSave(listItem);
         return;
     }
     if (index === 4) {
@@ -69,4 +69,10 @@ function createBtnRestart(item) {
     const btn = createElement("button", "btn btn-nav btn-restart", "Restart");
     item.append(btn);
     btn.addEventListener("click", restartGame);
+}
+
+function createBtnSave(item) {
+    const btn = createElement("button", "btn btn-nav btn-save", "Save");
+    item.append(btn);
+    btn.addEventListener("click", saveGame);
 }

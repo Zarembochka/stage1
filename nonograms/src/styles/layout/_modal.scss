@@ -43,6 +43,10 @@
     font-size: 30px;
 }
 
+.modal__text-pink {
+    color: $btn-background;
+}
+
 .modal-show {
     visibility: visible;
     opacity: 1;

@@ -8,3 +8,8 @@
     @include text();
     font-size: 32px;
 }
+
+.main__timer {
+    @include text();
+    font-size: $font-size_normal;
+}
