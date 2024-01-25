@@ -1,6 +1,5 @@
 .btn {
     user-select: none;
-    cursor: pointer;
     @include zero-padding();
     @include text();
     font-size: $font-size_normal;
@@ -8,6 +7,9 @@
     transition:
         background-color,
         color 0.3s ease-in-out;
+    &:not(:disabled) {
+        cursor: pointer;
+    }
 }
 
 .btn-play {
@@ -35,7 +37,7 @@
     border: none;
     font-size: 32px;
     @media screen and (hover: hover) {
-        &:hover {
+        &:hover:not(:disabled) {
             color: $btn-color;
         }
     }

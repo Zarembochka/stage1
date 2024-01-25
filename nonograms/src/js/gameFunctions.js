@@ -4,6 +4,7 @@ import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
 import { showListOptions } from "./nav";
+import { saveUserGame } from "./gameOptions";
 
 let userLevel;
 let isPlayedGame = false;
@@ -81,16 +82,11 @@ export function playAgain() {
 }
 
 export function restartGame(event) {
-    console.log(event.target.parentElement.parentElement);
     showListOptions(event.target.parentElement.parentElement);
     isPlayedGame = false;
     clearInterval(timer);
     clearGameField();
     clearTimerField();
-}
-
-export function saveGame() {
-    //clearGameField();
 }
 
 function startTimer() {
@@ -127,4 +123,8 @@ function getTimeToShow(time) {
     const seconds = time - minutes * 60;
     const secondsToShow = seconds.toString().padStart(2, "0");
     return `${minutesToShow}:${secondsToShow}`;
+}
+
+export function saveGame() {
+    saveUserGame(userTime, userLevel);
 }
