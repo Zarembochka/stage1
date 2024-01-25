@@ -8,7 +8,7 @@ import { saveUserGame } from "./gameOptions";
 
 let userLevel;
 let isPlayedGame = false;
-let timer;
+export let timer;
 let userTime = 0;
 
 export function addGameFunctionToTable(table) {
@@ -67,8 +67,24 @@ function removePointer(event, table) {
     }
 }
 
-export function startNewGame() {
-    userLevel = getRandomEasyLevel();
+function getLevel(level) {
+    if (level) {
+        return level;
+    }
+    return getRandomEasyLevel();
+}
+
+function setTimerTime(time) {
+    userTime = time;
+    const mainTimer = document.querySelector(".main__timer-text");
+    mainTimer.textContent = getTimeToShow(userTime);
+}
+
+export function startNewGame(level, time) {
+    userLevel = getLevel(level);
+    if (time) {
+        setTimerTime(time);
+    }
     fillNonogramsTitle(userLevel.title);
     const main = document.querySelector(".main");
     createGameField(main, userLevel.matrix);

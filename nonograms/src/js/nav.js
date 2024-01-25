@@ -2,7 +2,7 @@ import { createElement } from "./layout";
 import { createList } from "./header";
 import { levelList } from "./levels";
 import { restartGame, saveGame } from "./gameFunctions";
-import { isSavedGame } from "./gameOptions";
+import { isSavedGame, continueGame } from "./gameOptions";
 
 export function createNavListItems(navList) {
     for (let i = 1; i <= 4; i += 1) {
@@ -110,5 +110,5 @@ function createBtnContinue(item) {
         btn.setAttribute("disabled", true);
     }
     item.append(btn);
-    //btn.addEventListener("click", saveGame);
+    btn.addEventListener("click", continueGame);
 }
