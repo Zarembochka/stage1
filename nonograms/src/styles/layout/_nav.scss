@@ -26,6 +26,9 @@
         &:hover {
             box-shadow: 1px -1px 23px -5px $color-shadow;
         }
+        &:hover .menu__list {
+            max-height: 114px;
+        }
     }
 }
 
