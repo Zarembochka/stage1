@@ -1,5 +1,5 @@
 import { isWin } from "./win";
-import { showModal, hideModal } from "./modal";
+import { showModal } from "./modal";
 import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
@@ -96,12 +96,12 @@ export function playLevel(level, time) {
     startNewGame(level, time);
 }
 
-export function playAgain() {
-    hideModal();
-    removeGameField();
-    clearTimerField();
-    startNewGame();
-}
+// export function playAgain() {
+//     hideModal();
+//     removeGameField();
+//     clearTimerField();
+//     startNewGame();
+// }
 
 export function restartGame(event) {
     showListOptions(event.target.parentElement.parentElement);

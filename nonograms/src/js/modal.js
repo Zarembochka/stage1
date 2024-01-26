@@ -1,5 +1,4 @@
 import { createElement } from "./layout";
-import { playAgain } from "./gameFunctions";
 
 let modalBackground;
 
@@ -34,10 +33,9 @@ function addTextToModal(modal) {
 }
 
 function addButtonPlayAgain(modal) {
-    const btn = createElement("button", "btn btn-play");
-    btn.textContent = "Play again";
+    const btn = createElement("button", "btn btn-play", "Close");
     modal.append(btn);
-    btn.addEventListener("click", playAgain);
+    btn.addEventListener("click", hideModal);
 }
 
 export function showModal(time) {
@@ -45,7 +43,7 @@ export function showModal(time) {
     modalBackground.classList.add("modal-show");
 }
 
-export function hideModal() {
+function hideModal() {
     modalBackground.classList.remove("modal-show");
 }
 
