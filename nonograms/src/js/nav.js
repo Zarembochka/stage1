@@ -89,7 +89,7 @@ function showListLevel(list) {
 }
 
 export function showListOptions(list) {
-    list.classList.toggle("showList__options");
+    //list.classList.toggle("showList__options");
 }
 
 function createBtnRestart(item) {

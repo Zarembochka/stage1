@@ -103,8 +103,8 @@ export function playLevel(level, time) {
 //     startNewGame();
 // }
 
-export function restartGame(event) {
-    showListOptions(event.target.parentElement.parentElement);
+export function restartGame() {
+    //showListOptions(event.target.parentElement.parentElement);
     isPlayedGame = false;
     clearInterval(timer);
     clearGameField();
@@ -135,12 +135,7 @@ function clearTimerField() {
 }
 
 function getTimeToShow(time) {
-    let minutes;
-    if (time < 60) {
-        minutes = 0;
-    } else {
-        minutes = time % 60;
-    }
+    const minutes = Math.floor(time / 60);
     const minutesToShow = minutes.toString().padStart(2, "0");
     const seconds = time - minutes * 60;
     const secondsToShow = seconds.toString().padStart(2, "0");
