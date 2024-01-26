@@ -55,4 +55,6 @@
 .btn-menuItem {
     padding: 0;
     font-size: $font-size_normal;
+    width: 100%;
+    @include display-flex(row);
 }

@@ -1,11 +1,11 @@
-import { levelEasyList } from "./levels";
+import { levelsObject } from "./levels";
 
 function getRandom(max) {
     return Math.floor(Math.random() * max);
 }
 
 export function getRandomEasyLevel() {
-    const length = levelEasyList.length;
+    const length = levelsObject.easy.length;
     const levelIndex = getRandom(length);
-    return levelEasyList[levelIndex];
+    return levelsObject.easy[levelIndex];
 }

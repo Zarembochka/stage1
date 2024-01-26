@@ -90,6 +90,12 @@ export function startNewGame(level, time) {
     createGameField(main, userLevel.matrix);
 }
 
+export function playLevel(level, time) {
+    removeGameField();
+    clearTimerField();
+    startNewGame(level, time);
+}
+
 export function playAgain() {
     hideModal();
     removeGameField();
@@ -141,6 +147,7 @@ function getTimeToShow(time) {
     return `${minutesToShow}:${secondsToShow}`;
 }
 
-export function saveGame() {
+export function saveGame(event) {
+    showListOptions(event.target.parentElement.parentElement);
     saveUserGame(userTime, userLevel);
 }

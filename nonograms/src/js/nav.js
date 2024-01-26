@@ -3,6 +3,7 @@ import { createList } from "./header";
 import { levelList } from "./levels";
 import { restartGame, saveGame } from "./gameFunctions";
 import { isSavedGame, continueGame } from "./gameOptions";
+import { createLevelList } from "./levelsList";
 
 export function createNavListItems(navList) {
     for (let i = 1; i <= 4; i += 1) {
@@ -35,16 +36,6 @@ function fillNavListElement(listItem, index) {
         listItem.textContent = "Settings";
         return;
     }
-    // if (index === 5) {
-    //     //createLevelChoice(listItem);
-    //     listItem.textContent = "Solution";
-    //     return;
-    // }
-    // if (index === 6) {
-    //     //createLevelChoice(listItem);
-    //     listItem.textContent = "Settings";
-    //     return;
-    // }
 }
 
 function createLevelChoice(item) {
@@ -67,7 +58,10 @@ function createLevelListItems(list) {
     for (let i = 0; i < levelList.length; i += 1) {
         const listItem = createElement("li", "menu__list__item");
         const btnLevelChoice = createElement("button", "btn btn-nav btn-menuItem", levelList[i]);
+        btnLevelChoice.addEventListener("click", showLevelsToChoice);
+        const levelListChoice = createLevelList(levelList[i]);
         listItem.append(btnLevelChoice);
+        listItem.append(levelListChoice);
         list.append(listItem);
     }
 }
@@ -82,6 +76,12 @@ function createGameOptionsItems(list) {
     list.append(listItemRestart);
     list.append(listItemSave);
     list.append(listItemContinue);
+}
+
+function showLevelsToChoice(event) {
+    console.log(event.target.nextElementSibling);
+    const menu = event.target.nextElementSibling;
+    showListLevel(menu);
 }
 
 function showListLevel(list) {
