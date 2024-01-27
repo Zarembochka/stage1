@@ -55,17 +55,12 @@
     visibility: visible;
 }
 
-.showList__options {
-    transform: scaleY(1);
-}
-
 .menu__list__item {
     padding: 5px 0 5px 5px;
     width: 100%;
     position: relative;
     @media screen and (hover: hover) {
         &:hover .levels__list {
-            //max-height: 140px;
             transform: scaleY(1);
             visibility: visible;
         }
@@ -85,10 +80,12 @@
     transform: scaleY(0);
     transform-origin: 0 0;
     visibility: hidden;
-    //max-height: 0;
-    //overflow: hidden;
     transition: transform 0.5s ease-in;
     min-width: 100%;
+    &.showList__level {
+        transform: scaleY(1);
+        visibility: visible;
+    }
 }
 
 .levels__list__item {

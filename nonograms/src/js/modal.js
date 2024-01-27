@@ -1,4 +1,5 @@
 import { createElement } from "./layout";
+import { getTimeToShow } from "./gameFunctions";
 
 let modalBackground;
 
@@ -49,5 +50,5 @@ function hideModal() {
 
 function addWinningTime(time) {
     const item = modalBackground.querySelector(".modal__text-pink");
-    item.textContent = time;
+    item.textContent = getTimeToShow(time);
 }

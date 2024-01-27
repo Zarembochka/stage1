@@ -1,7 +1,7 @@
 import { removeGameField } from "./gameField";
 import { startNewGame, timer } from "./gameFunctions";
 import { getMatrixUserSolution } from "./matrix";
-import { showListOptions } from "./nav";
+import { hideOptionsList } from "./nav";
 
 function getObjectToSave(time, level) {
     const table = document.querySelector(".game");
@@ -39,7 +39,7 @@ function getUserLevelFromSaveGame(saveGame) {
 }
 
 export function continueGame(event) {
-    showListOptions(event.target.parentElement.parentElement);
+    hideOptionsList(event.target);
     const userSaveGame = JSON.parse(localStorage.getItem("LH__game"));
     const userLevel = getUserLevelFromSaveGame(userSaveGame);
     clearInterval(timer);

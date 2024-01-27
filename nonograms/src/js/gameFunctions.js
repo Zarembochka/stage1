@@ -3,7 +3,7 @@ import { showModal } from "./modal";
 import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
-import { showListOptions } from "./nav";
+import { hideMenuLists, hideOptionsList } from "./nav";
 import { saveUserGame } from "./gameOptions";
 
 let userLevel;
@@ -90,7 +90,8 @@ export function startNewGame(level, time) {
     createGameField(main, userLevel.matrix);
 }
 
-export function playLevel(level, time) {
+export function playLevel(event, level, time) {
+    hideMenuLists(event.target);
     removeGameField();
     clearTimerField();
     startNewGame(level, time);
@@ -103,8 +104,8 @@ export function playLevel(level, time) {
 //     startNewGame();
 // }
 
-export function restartGame() {
-    //showListOptions(event.target.parentElement.parentElement);
+export function restartGame(event) {
+    hideOptionsList(event.target);
     isPlayedGame = false;
     clearInterval(timer);
     clearGameField();
@@ -134,7 +135,7 @@ function clearTimerField() {
     mainTimer.textContent = "00:00";
 }
 
-function getTimeToShow(time) {
+export function getTimeToShow(time) {
     const minutes = Math.floor(time / 60);
     const minutesToShow = minutes.toString().padStart(2, "0");
     const seconds = time - minutes * 60;
@@ -143,6 +144,6 @@ function getTimeToShow(time) {
 }
 
 export function saveGame(event) {
-    showListOptions(event.target.parentElement.parentElement);
+    hideOptionsList(event.target);
     saveUserGame(userTime, userLevel);
 }

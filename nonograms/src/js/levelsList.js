@@ -13,7 +13,7 @@ function createLevelsListItems(item, level) {
     for (let i = 0; i < levels.length; i += 1) {
         const levelListItem = createElement("li", `${level}__list__item levels__list__item`);
         const btn = createElement("button", "btn btn-nav btn-menuItem", levels[i].title);
-        btn.addEventListener("click", () => playLevel(levels[i]));
+        btn.addEventListener("click", () => playLevel(event, levels[i]));
         levelListItem.append(btn);
         item.append(levelListItem);
     }

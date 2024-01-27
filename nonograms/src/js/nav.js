@@ -51,7 +51,7 @@ function createGameOptions(item) {
     item.append(btn);
     const list = createList(item, "menu__list");
     createGameOptionsItems(list);
-    btn.addEventListener("click", () => showListOptions(list));
+    btn.addEventListener("click", () => showListLevel(list));
 }
 
 function createLevelListItems(list) {
@@ -79,17 +79,29 @@ function createGameOptionsItems(list) {
 }
 
 function showLevelsToChoice(event) {
-    console.log(event.target.nextElementSibling);
     const menu = event.target.nextElementSibling;
     showListLevel(menu);
 }
 
-function showListLevel(list) {
-    list.classList.toggle("showList__level");
+export function showListLevel(list) {
+    //list.classList.toggle("showList__level");
+    list.classList.add("showList__level");
 }
 
-export function showListOptions(list) {
-    //list.classList.toggle("showList__options");
+function hideListLevel(list) {
+    list.classList.remove("showList__level");
+}
+
+export function hideOptionsList(item) {
+    const menuList = item.closest(".menu__list");
+    hideListLevel(menuList);
+}
+
+export function hideMenuLists(item) {
+    const levelList = item.closest(".levels__list");
+    hideListLevel(levelList);
+    const menuList = item.closest(".menu__list");
+    hideListLevel(menuList);
 }
 
 function createBtnRestart(item) {

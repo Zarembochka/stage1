@@ -4,13 +4,15 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "webpack"
+        "build": "webpack",
+        "deploy": "npm run build && npx gh-pages -d dist -e nonograms"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "css-loader": "^6.9.1",
+        "gh-pages": "^6.1.1",
         "html-webpack-plugin": "^5.6.0",
         "mini-css-extract-plugin": "^2.7.7",
         "sass": "^1.70.0",
