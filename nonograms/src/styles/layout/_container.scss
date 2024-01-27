@@ -4,5 +4,5 @@
     max-height: 100svh;
     padding: 15px;
     @include display-flex(column, space-between, center);
-    row-gap: 50px;
+    row-gap: 30px;
 }

@@ -5,6 +5,7 @@ import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
 import { hideMenuLists, hideOptionsList } from "./nav";
 import { saveUserGame } from "./gameOptions";
+import { playSoundColor, playSoundCross } from "./music";
 
 let userLevel;
 let isPlayedGame = false;
@@ -25,6 +26,7 @@ function changeColor(event) {
     cell.classList.remove("pointer");
     cell.classList.remove("cross");
     cell.classList.toggle("color");
+    playSoundColor(cell);
 }
 
 function checkWin(table) {
@@ -42,6 +44,7 @@ function showCross(event) {
         event.target.classList.remove("color");
         event.target.classList.remove("pointer");
         event.target.classList.toggle("cross");
+        playSoundCross();
     }
 }
 

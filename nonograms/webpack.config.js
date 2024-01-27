@@ -18,6 +18,13 @@ module.exports = {
                 loader: "html-loader",
             },
             {
+                test: /\.(mp3|wav)$/i,
+                type: "asset/resource",
+                generator: {
+                    filename: "assets/sounds/[name][ext]",
+                },
+            },
+            {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: "asset/resource",
             },
