@@ -1,7 +1,7 @@
 import { removeGameField } from "./gameField";
 import { startNewGame, timer } from "./gameFunctions";
 import { getMatrixUserSolution } from "./matrix";
-import { hideOptionsList } from "./nav";
+import { enableBtnSave, hideOptionsList } from "./nav";
 
 function getObjectToSave(time, level) {
     const table = document.querySelector(".game");
@@ -40,6 +40,7 @@ function getUserLevelFromSaveGame(saveGame) {
 
 export function continueGame(event) {
     hideOptionsList(event.target);
+    enableBtnSave();
     const userSaveGame = JSON.parse(localStorage.getItem("LH__game"));
     const userLevel = getUserLevelFromSaveGame(userSaveGame);
     clearInterval(timer);
@@ -48,7 +49,7 @@ export function continueGame(event) {
     colorUserSolution(userSaveGame.solution);
 }
 
-function colorUserSolution(matrix) {
+export function colorUserSolution(matrix) {
     const cells = document.querySelectorAll(".game__cell");
     for (let i = 0; i < matrix.length; i += 1) {
         for (let j = 0; j < matrix.length; j += 1) {

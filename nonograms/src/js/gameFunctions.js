@@ -3,8 +3,8 @@ import { showModal } from "./modal";
 import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
-import { hideMenuLists, hideOptionsList } from "./nav";
-import { saveUserGame } from "./gameOptions";
+import { hideMenuLists, hideOptionsList, disableBtnSave, enableBtnSave } from "./nav";
+import { saveUserGame, colorUserSolution } from "./gameOptions";
 import { playSoundColor, playSoundCross, playSoundWin } from "./music";
 
 let userLevel;
@@ -36,6 +36,7 @@ function checkWin(table) {
         isPlayedGame = false;
         clearInterval(timer);
         showModal(userTime);
+        disableTableField(table);
     }
 }
 
@@ -101,15 +102,9 @@ export function playLevel(event, level, time) {
     startNewGame(level, time);
 }
 
-// export function playAgain() {
-//     hideModal();
-//     removeGameField();
-//     clearTimerField();
-//     startNewGame();
-// }
-
 export function restartGame(event) {
     hideOptionsList(event.target);
+    enableBtnSave();
     isPlayedGame = false;
     clearInterval(timer);
     clearGameField();
@@ -150,4 +145,17 @@ export function getTimeToShow(time) {
 export function saveGame(event) {
     hideOptionsList(event.target);
     saveUserGame(userTime, userLevel);
+}
+
+export function showSolution() {
+    clearInterval(timer);
+    clearGameField();
+    colorUserSolution(userLevel.matrix);
+    const table = document.querySelector(".game");
+    disableTableField(table);
+    disableBtnSave();
+}
+
+function disableTableField(table) {
+    table.classList.add("disabled");
 }

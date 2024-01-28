@@ -1,7 +1,7 @@
 import { createElement } from "./layout";
 import { createList } from "./header";
 import { levelList } from "./levels";
-import { restartGame, saveGame } from "./gameFunctions";
+import { restartGame, saveGame, showSolution } from "./gameFunctions";
 import { isSavedGame, continueGame } from "./gameOptions";
 import { createLevelList } from "./levelsList";
 
@@ -27,7 +27,7 @@ function fillNavListElement(listItem, index) {
     }
     //solution
     if (index === 3) {
-        listItem.textContent = "Solution";
+        createBtnSolution(listItem);
         return;
     }
     //settings
@@ -52,6 +52,12 @@ function createGameOptions(item) {
     const list = createList(item, "menu__list");
     createGameOptionsItems(list);
     btn.addEventListener("click", () => showListLevel(list));
+}
+
+function createBtnSolution(item) {
+    const btn = createElement("button", "btn btn-nav btn-menu btn-solution", "Solution");
+    item.append(btn);
+    btn.addEventListener("click", showSolution);
 }
 
 function createLevelListItems(list) {
@@ -84,7 +90,6 @@ function showLevelsToChoice(event) {
 }
 
 export function showListLevel(list) {
-    //list.classList.toggle("showList__level");
     list.classList.add("showList__level");
 }
 
@@ -123,4 +128,14 @@ function createBtnContinue(item) {
     }
     item.append(btn);
     btn.addEventListener("click", continueGame);
+}
+
+export function disableBtnSave() {
+    const btn = document.querySelector(".btn-save");
+    btn.setAttribute("disabled", true);
+}
+
+export function enableBtnSave() {
+    const btn = document.querySelector(".btn-save");
+    btn.removeAttribute("disabled");
 }
