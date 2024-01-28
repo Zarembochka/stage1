@@ -4,6 +4,7 @@ import { levelList } from "./levels";
 import { restartGame, saveGame, showSolution } from "./gameFunctions";
 import { isSavedGame, continueGame, randomGame } from "./gameOptions";
 import { createLevelList } from "./levelsList";
+import { soundsOnOff } from "./music";
 
 export function createNavListItems(navList) {
     for (let i = 1; i <= 5; i += 1) {
@@ -37,8 +38,7 @@ function fillNavListElement(listItem, index) {
     }
     //settings
     if (index === 5) {
-        //createLevelChoice(listItem);
-        listItem.textContent = "Settings";
+        createGameSettings(listItem);
         return;
     }
 }
@@ -56,6 +56,14 @@ function createGameOptions(item) {
     item.append(btn);
     const list = createList(item, "menu__list");
     createGameOptionsItems(list);
+    btn.addEventListener("click", () => showListLevel(list));
+}
+
+function createGameSettings(item) {
+    const btn = createElement("button", "btn btn-nav btn-menu btn-gameSettings", "Settings");
+    item.append(btn);
+    const list = createList(item, "menu__list");
+    createGameSettingsItems(list);
     btn.addEventListener("click", () => showListLevel(list));
 }
 
@@ -90,6 +98,15 @@ function createGameOptionsItems(list) {
     list.append(listItemSave);
     list.append(listItemContinue);
     list.append(listItemRandom);
+}
+
+function createGameSettingsItems(list) {
+    const listItemSound = createElement("li", "menu__list__item");
+    createBtnSound(listItemSound);
+    const listItemTheme = createElement("li", "menu__list__item");
+    createBtnTheme(listItemTheme);
+    list.append(listItemSound);
+    list.append(listItemTheme);
 }
 
 function showLevelsToChoice(event) {
@@ -142,6 +159,18 @@ function createBtnRandom(item) {
     const btn = createElement("button", "btn btn-nav btn-menuItem btn-random", "Random");
     item.append(btn);
     btn.addEventListener("click", randomGame);
+}
+
+function createBtnSound(item) {
+    const btn = createElement("button", "btn btn-nav btn-menuItem btn-sound", "Sounds off");
+    item.append(btn);
+    btn.addEventListener("click", () => soundsOnOff(btn));
+}
+
+function createBtnTheme(item) {
+    const btn = createElement("button", "btn btn-nav btn-menuItem btn-theme", "Dark theme");
+    item.append(btn);
+    //btn.addEventListener("click", restartGame);
 }
 
 export function disableBtnSave() {

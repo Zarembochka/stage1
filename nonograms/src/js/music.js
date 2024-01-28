@@ -35,6 +35,8 @@ const soundsBrush = [
     soundBrush07,
 ];
 
+let isSound = true;
+
 export function playSoundCross() {
     playSound(soundCross);
 }
@@ -65,4 +67,25 @@ export function playSoundColor(cell) {
 function playSound(sound) {
     sound.play();
     sound.currentTime = 0;
+}
+
+function setSounds(flag) {
+    soundCross.muted = flag;
+    soundWin.muted = flag;
+    for (let i = 0; i < soundsClear.length; i += 1) {
+        soundsClear[i].muted = flag;
+    }
+    for (let i = 0; i < soundsBrush.length; i += 1) {
+        soundsBrush[i].muted = flag;
+    }
+}
+
+export function soundsOnOff(btn) {
+    isSound = !isSound;
+    setSounds(!isSound);
+    if (isSound) {
+        btn.textContent = "Sounds off";
+        return;
+    }
+    btn.textContent = "Sounds on";
 }
