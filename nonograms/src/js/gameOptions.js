@@ -2,6 +2,7 @@ import { removeGameField } from "./gameField";
 import { startNewGame, timer } from "./gameFunctions";
 import { getMatrixUserSolution } from "./matrix";
 import { enableBtnSave, hideOptionsList } from "./nav";
+import { getRandomLevel } from "./levelsChoice";
 
 function getObjectToSave(time, level) {
     const table = document.querySelector(".game");
@@ -68,4 +69,8 @@ export function colorUserSolution(matrix) {
 export function randomGame(event) {
     hideOptionsList(event.target);
     enableBtnSave();
+    clearInterval(timer);
+    removeGameField();
+    const level = getRandomLevel();
+    startNewGame(level, 0);
 }

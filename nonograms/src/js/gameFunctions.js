@@ -36,6 +36,7 @@ function checkWin(table) {
         isPlayedGame = false;
         clearInterval(timer);
         showModal(userTime);
+        disableBtnSave();
         disableTableField(table);
     }
 }
@@ -87,7 +88,7 @@ function setTimerTime(time) {
 
 export function startNewGame(level, time) {
     userLevel = getLevel(level);
-    if (time) {
+    if (time !== undefined) {
         setTimerTime(time);
     }
     fillNonogramsTitle(userLevel.title);
