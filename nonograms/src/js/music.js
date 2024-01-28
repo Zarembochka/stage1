@@ -1,4 +1,4 @@
-import fileSoundCross from "./../assets/sounds/X.wav";
+import fileSoundCross from "./../assets/sounds/X.mp3";
 import fileSoundClear01 from "./../assets/sounds/clear-01.wav";
 import fileSoundClear02 from "./../assets/sounds/clear-02.wav";
 import fileSoundBrush01 from "./../assets/sounds/brush-01.wav";
@@ -8,6 +8,7 @@ import fileSoundBrush04 from "./../assets/sounds/brush-04.wav";
 import fileSoundBrush05 from "./../assets/sounds/brush-05.wav";
 import fileSoundBrush06 from "./../assets/sounds/brush-06.wav";
 import fileSoundBrush07 from "./../assets/sounds/brush-07.wav";
+import fileSoundWin from "./../assets/sounds/win.mp3";
 import { getRandom } from "./levelsChoice";
 
 const soundCross = new Audio(fileSoundCross);
@@ -20,6 +21,7 @@ const soundBrush04 = new Audio(fileSoundBrush04);
 const soundBrush05 = new Audio(fileSoundBrush05);
 const soundBrush06 = new Audio(fileSoundBrush06);
 const soundBrush07 = new Audio(fileSoundBrush07);
+const soundWin = new Audio(fileSoundWin);
 
 const soundsClear = [soundClear01, soundClear02];
 
@@ -34,8 +36,12 @@ const soundsBrush = [
 ];
 
 export function playSoundCross() {
-    soundCross.volume = 0.25;
     playSound(soundCross);
+}
+
+export function playSoundWin() {
+    soundWin.volume = 0.25;
+    playSound(soundWin);
 }
 
 function playSoundClear() {

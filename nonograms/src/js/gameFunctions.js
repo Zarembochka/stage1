@@ -5,7 +5,7 @@ import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
 import { hideMenuLists, hideOptionsList } from "./nav";
 import { saveUserGame } from "./gameOptions";
-import { playSoundColor, playSoundCross } from "./music";
+import { playSoundColor, playSoundCross, playSoundWin } from "./music";
 
 let userLevel;
 let isPlayedGame = false;
@@ -32,6 +32,7 @@ function changeColor(event) {
 function checkWin(table) {
     const flagWin = isWin(table, userLevel.matrix);
     if (flagWin) {
+        playSoundWin();
         isPlayedGame = false;
         clearInterval(timer);
         showModal(userTime);
