@@ -109,6 +109,7 @@ export function restartGame(event) {
     clearInterval(timer);
     clearGameField();
     clearTimerField();
+    enableTableField();
 }
 
 function startTimer() {
@@ -158,4 +159,9 @@ export function showSolution() {
 
 function disableTableField(table) {
     table.classList.add("disabled");
+}
+
+function enableTableField() {
+    const table = document.querySelector(".game");
+    table.classList.remove("disabled");
 }

@@ -64,3 +64,8 @@ export function colorUserSolution(matrix) {
         }
     }
 }
+
+export function randomGame(event) {
+    hideOptionsList(event.target);
+    enableBtnSave();
+}

@@ -2,11 +2,11 @@ import { createElement } from "./layout";
 import { createList } from "./header";
 import { levelList } from "./levels";
 import { restartGame, saveGame, showSolution } from "./gameFunctions";
-import { isSavedGame, continueGame } from "./gameOptions";
+import { isSavedGame, continueGame, randomGame } from "./gameOptions";
 import { createLevelList } from "./levelsList";
 
 export function createNavListItems(navList) {
-    for (let i = 1; i <= 4; i += 1) {
+    for (let i = 1; i <= 5; i += 1) {
         const listItem = createElement("li", "nav__list__item");
         fillNavListElement(listItem, i);
         navList.append(listItem);
@@ -30,8 +30,13 @@ function fillNavListElement(listItem, index) {
         createBtnSolution(listItem);
         return;
     }
-    //settings
+    //high score
     if (index === 4) {
+        listItem.textContent = "High score";
+        return;
+    }
+    //settings
+    if (index === 5) {
         //createLevelChoice(listItem);
         listItem.textContent = "Settings";
         return;
@@ -79,9 +84,12 @@ function createGameOptionsItems(list) {
     createBtnSave(listItemSave);
     const listItemContinue = createElement("li", "menu__list__item");
     createBtnContinue(listItemContinue);
+    const listItemRandom = createElement("li", "menu__list__item");
+    createBtnRandom(listItemRandom);
     list.append(listItemRestart);
     list.append(listItemSave);
     list.append(listItemContinue);
+    list.append(listItemRandom);
 }
 
 function showLevelsToChoice(event) {
@@ -128,6 +136,12 @@ function createBtnContinue(item) {
     }
     item.append(btn);
     btn.addEventListener("click", continueGame);
+}
+
+function createBtnRandom(item) {
+    const btn = createElement("button", "btn btn-nav btn-menuItem btn-random", "Random");
+    item.append(btn);
+    btn.addEventListener("click", randomGame);
 }
 
 export function disableBtnSave() {
