@@ -4,7 +4,7 @@ import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
 import { hideMenuLists, hideOptionsList, disableBtnSave, enableBtnSave } from "./nav";
-import { saveUserGame, colorUserSolution } from "./gameOptions";
+import { saveUserGame, colorUserSolution, saveWinResult } from "./gameOptions";
 import { playSoundColor, playSoundCross, playSoundWin } from "./music";
 
 let userLevel;
@@ -38,6 +38,7 @@ function checkWin(table) {
         showModal(userTime);
         disableBtnSave();
         disableTableField(table);
+        saveWinResult(userTime, userLevel.difficulty, userLevel.title);
     }
 }
 

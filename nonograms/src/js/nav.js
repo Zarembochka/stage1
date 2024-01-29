@@ -33,7 +33,7 @@ function fillNavListElement(listItem, index) {
     }
     //high score
     if (index === 4) {
-        listItem.textContent = "High score";
+        listItem.textContent = "Winners";
         return;
     }
     //settings

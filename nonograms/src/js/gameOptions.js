@@ -9,6 +9,7 @@ function getObjectToSave(time, level) {
     const solution = getMatrixUserSolution(table);
     const gameToSave = {
         timer: time,
+        difficulty: level.difficulty,
         title: level.title,
         matrix: level.matrix,
         solution: solution,
@@ -36,7 +37,7 @@ export function isSavedGame() {
 }
 
 function getUserLevelFromSaveGame(saveGame) {
-    return { title: saveGame.title, matrix: saveGame.matrix };
+    return { title: saveGame.title, difficulty: saveGame.difficulty, matrix: saveGame.matrix };
 }
 
 export function continueGame(event) {
@@ -73,4 +74,30 @@ export function randomGame(event) {
     removeGameField();
     const level = getRandomLevel();
     startNewGame(level, 0);
+}
+
+export function saveWinResult(time, difficulty, title) {
+    let winResults = getWinResultsFromLS();
+    winResults = getWinResultsArray(winResults, [[time, difficulty, title]]);
+    saveWinResultsToLS(winResults);
+}
+
+function getWinResultsFromLS() {
+    const winResults = JSON.parse(localStorage.getItem("LH__game__winResults"));
+    if (!winResults) {
+        return [];
+    }
+    return winResults;
+}
+
+function getWinResultsArray(arr, newWinResult) {
+    if (arr.length >= 5) {
+        arr.shift();
+    }
+    arr.push(newWinResult);
+    return arr;
+}
+
+function saveWinResultsToLS(arr) {
+    localStorage.setItem("LH__game__winResults", JSON.stringify(arr));
 }
