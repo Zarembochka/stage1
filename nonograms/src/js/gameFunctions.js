@@ -1,5 +1,5 @@
 import { isWin } from "./win";
-import { showModal } from "./modal";
+import { prepareAndShowModal } from "./modal";
 import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
@@ -35,7 +35,7 @@ function checkWin(table) {
         playSoundWin();
         isPlayedGame = false;
         clearInterval(timer);
-        showModal(userTime);
+        prepareAndShowModal(userTime);
         disableBtnSave();
         disableTableField(table);
         saveWinResult(userTime, userLevel.difficulty, userLevel.title);

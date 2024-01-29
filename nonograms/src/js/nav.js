@@ -2,7 +2,7 @@ import { createElement } from "./layout";
 import { createList } from "./header";
 import { levelList } from "./levels";
 import { restartGame, saveGame, showSolution } from "./gameFunctions";
-import { isSavedGame, continueGame, randomGame } from "./gameOptions";
+import { isSavedGame, continueGame, randomGame, showWinners } from "./gameOptions";
 import { createLevelList } from "./levelsList";
 import { soundsOnOff } from "./music";
 
@@ -33,7 +33,7 @@ function fillNavListElement(listItem, index) {
     }
     //high score
     if (index === 4) {
-        listItem.textContent = "Winners";
+        createBtnWinners(listItem);
         return;
     }
     //settings
@@ -71,6 +71,12 @@ function createBtnSolution(item) {
     const btn = createElement("button", "btn btn-nav btn-menu btn-solution", "Solution");
     item.append(btn);
     btn.addEventListener("click", showSolution);
+}
+
+function createBtnWinners(item) {
+    const btn = createElement("button", "btn btn-nav btn-menu btn-winners", "Winners");
+    item.append(btn);
+    btn.addEventListener("click", showWinners);
 }
 
 function createLevelListItems(list) {

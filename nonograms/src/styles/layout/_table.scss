@@ -81,3 +81,12 @@ td {
 .disabled {
     pointer-events: none;
 }
+
+.table__results {
+    margin-left: 25px;
+}
+
+.table__results__head,
+.table__results__cell {
+    padding: 5px 10px;
+}

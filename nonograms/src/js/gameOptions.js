@@ -3,6 +3,7 @@ import { startNewGame, timer } from "./gameFunctions";
 import { getMatrixUserSolution } from "./matrix";
 import { enableBtnSave, hideOptionsList } from "./nav";
 import { getRandomLevel } from "./levelsChoice";
+import { prepareModalToWinResults, showModal } from "./modal";
 
 function getObjectToSave(time, level) {
     const table = document.querySelector(".game");
@@ -78,7 +79,7 @@ export function randomGame(event) {
 
 export function saveWinResult(time, difficulty, title) {
     let winResults = getWinResultsFromLS();
-    winResults = getWinResultsArray(winResults, [[time, difficulty, title]]);
+    winResults = getWinResultsArray(winResults, [time, difficulty, title]);
     saveWinResultsToLS(winResults);
 }
 
@@ -100,4 +101,10 @@ function getWinResultsArray(arr, newWinResult) {
 
 function saveWinResultsToLS(arr) {
     localStorage.setItem("LH__game__winResults", JSON.stringify(arr));
+}
+
+export function showWinners() {
+    const winResults = getWinResultsFromLS();
+    prepareModalToWinResults(winResults);
+    showModal();
 }
