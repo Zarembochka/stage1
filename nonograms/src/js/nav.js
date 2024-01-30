@@ -5,6 +5,7 @@ import { restartGame, saveGame, showSolution } from "./gameFunctions";
 import { isSavedGame, continueGame, randomGame, showWinners, changeTheme } from "./gameOptions";
 import { createLevelList } from "./levelsList";
 import { soundsOnOff } from "./music";
+import { darkThemeLogo, settingsLogo, soundOffLogo } from "./logos";
 
 export function createNavListItems(navList) {
     for (let i = 1; i <= 5; i += 1) {
@@ -60,7 +61,8 @@ function createGameOptions(item) {
 }
 
 function createGameSettings(item) {
-    const btn = createElement("button", "btn btn-nav btn-menu btn-gameSettings", "Settings");
+    const btn = createElement("button", "btn btn-nav btn-menu btn-gameSettings");
+    btn.innerHTML = settingsLogo;
     item.append(btn);
     const list = createList(item, "menu__list");
     createGameSettingsItems(list);
@@ -168,13 +170,15 @@ function createBtnRandom(item) {
 }
 
 function createBtnSound(item) {
-    const btn = createElement("button", "btn btn-nav btn-menuItem btn-sound", "Sounds off");
+    const btn = createElement("button", "btn btn-nav btn-menuItem btn-sound");
+    btn.innerHTML = soundOffLogo;
     item.append(btn);
     btn.addEventListener("click", () => soundsOnOff(btn));
 }
 
 function createBtnTheme(item) {
-    const btn = createElement("button", "btn btn-nav btn-menuItem btn-theme", "Dark theme");
+    const btn = createElement("button", "btn btn-nav btn-menuItem btn-theme");
+    btn.innerHTML = darkThemeLogo;
     item.append(btn);
     btn.addEventListener("click", () => changeTheme(btn));
 }

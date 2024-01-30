@@ -12,9 +12,11 @@
     }
     body.light & {
         color: $font-color;
+        fill: $font-color;
     }
     body.dark & {
         color: $font-color_light;
+        fill: $font-color_light;
     }
 }
 
@@ -58,9 +60,11 @@
     @media screen and (hover: hover) {
         body.light &:hover:not(:disabled) {
             color: $btn-color;
+            fill: $btn-color;
         }
         body.dark &:hover:not(:disabled) {
             color: $btn-color_light;
+            fill: $btn-color_light;
         }
     }
 }

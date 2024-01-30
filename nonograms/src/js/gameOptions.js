@@ -4,6 +4,7 @@ import { getMatrixUserSolution } from "./matrix";
 import { enableBtnSave, hideOptionsList } from "./nav";
 import { getRandomLevel } from "./levelsChoice";
 import { prepareModalToWinResults, showModal } from "./modal";
+import { darkThemeLogo, lightThemeLogo } from "./logos";
 
 let isLightTheme = true;
 
@@ -120,10 +121,10 @@ function applyTheme(flag, btn) {
     if (flag) {
         document.body.classList.remove("dark");
         document.body.classList.add("light");
-        btn.textContent = "Dark theme";
+        btn.innerHTML = darkThemeLogo;
         return;
     }
     document.body.classList.remove("light");
     document.body.classList.add("dark");
-    btn.textContent = "Light theme";
+    btn.innerHTML = lightThemeLogo;
 }

@@ -53,7 +53,9 @@
     font-size: $font-size_normal;
     transition: transform 0.5s ease-in;
     body.light & {
-        background-color: rgba(232, 142, 166, 0.55);
+        //background-color: rgba(232, 142, 166, 0.55);
+        background-color: rgba(240, 219, 220, 0.55);
+        box-shadow: 1px -1px 23px -5px $color-shadow;
     }
     body.dark & {
         background-color: rgba(0, 0, 0, 0.15);
@@ -97,7 +99,9 @@
         visibility: visible;
     }
     body.light & {
-        background-color: rgba(232, 142, 166, 0.55);
+        //background-color: rgba(232, 142, 166, 0.55);
+        background-color: rgba(240, 219, 220, 0.55);
+        box-shadow: 1px -1px 23px -5px $color-shadow;
     }
     body.dark & {
         background-color: rgba(0, 0, 0, 0.15);

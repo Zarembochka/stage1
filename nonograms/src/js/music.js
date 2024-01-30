@@ -10,6 +10,7 @@ import fileSoundBrush06 from "./../assets/sounds/brush-06.wav";
 import fileSoundBrush07 from "./../assets/sounds/brush-07.wav";
 import fileSoundWin from "./../assets/sounds/win.mp3";
 import { getRandom } from "./levelsChoice";
+import { soundOffLogo, soundOnLogo } from "./logos";
 
 const soundCross = new Audio(fileSoundCross);
 const soundClear01 = new Audio(fileSoundClear01);
@@ -84,8 +85,8 @@ export function soundsOnOff(btn) {
     isSound = !isSound;
     setSounds(!isSound);
     if (isSound) {
-        btn.textContent = "Sounds off";
+        btn.innerHTML = soundOffLogo;
         return;
     }
-    btn.textContent = "Sounds on";
+    btn.innerHTML = soundOnLogo;
 }
