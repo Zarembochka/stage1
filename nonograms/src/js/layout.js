@@ -49,6 +49,7 @@ function createLayout() {
     createMain(container);
     createFooter(container);
     createModal();
+    document.body.classList.add("light");
 }
 
 createLayout();

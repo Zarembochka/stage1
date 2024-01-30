@@ -1,5 +1,4 @@
 .footer {
-    @include text();
     font-size: $font-size_normal;
     width: 100%;
 }
@@ -17,11 +16,19 @@
 
 .footer__ico {
     max-width: 100px;
-    fill: $font-color;
     transition: fill 0.3s ease-in;
     @media (hover: hover) {
-        &:hover {
+        body.light &:hover {
             fill: darken($font-color, 20%);
         }
+        body.dark &:hover {
+            fill: $btn-color_light;
+        }
+    }
+    body.light & {
+        fill: $font-color;
+    }
+    body.dark & {
+        fill: $font-color_light;
     }
 }

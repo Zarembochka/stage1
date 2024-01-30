@@ -8,19 +8,21 @@
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     z-index: 5;
-    background-color: rgba($color: #000000, $alpha: 0.25);
+    body.light & {
+        background-color: rgba($color: #000000, $alpha: 0.25);
+    }
+    body.dark & {
+        background-color: rgba($color: #000000, $alpha: 0.25);
+    }
 }
 
 .modal {
     user-select: none;
-    box-shadow: 1px -1px 23px -5px $color-shadow;
-    background-image: url("./assets/images/modal.png");
     background-repeat: no-repeat;
     background-size: cover;
     min-width: 450px;
     border-radius: 10px;
     padding: 20px 30px 30px 60px;
-    @include text-modal();
     font-size: 36px;
     @include display-flex(column, center, flex-start);
     row-gap: 20px;
@@ -30,22 +32,37 @@
     .modal__background.modal-show & {
         transform: translateY(0%);
     }
+    body.light & {
+        color: $font-color_modal;
+        box-shadow: 1px -1px 23px -5px $color-shadow;
+        background-image: url("./assets/images/modal.png");
+    }
+    body.dark & {
+        color: $font-color_light;
+        box-shadow: 1px -1px 23px -5px $color-shadow_light;
+        background-image: linear-gradient(180deg, rgba(83, 82, 84, 0.55), rgba(83, 82, 84, 0.55)),
+            url("./assets/images/modal.png");
+    }
 }
 
 .modal__title {
     @include zero-margin();
-    @include text-modal();
     font-size: 60px;
 }
 
 .modal__text {
     @include zero-margin();
-    @include text-modal();
+    font-family: inherit;
     font-size: 30px;
 }
 
 .modal__text-pink {
-    color: $btn-background;
+    body.light & {
+        color: $btn-background;
+    }
+    body.dark & {
+        color: $color-shadow_light;
+    }
 }
 
 .modal-show {

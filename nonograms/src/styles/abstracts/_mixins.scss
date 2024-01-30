@@ -18,15 +18,9 @@
     color: $font-color;
 }
 
-@mixin text-modal() {
-    font-family: $font-family;
-    color: $font-color_modal;
-}
-
 @mixin table-cell() {
     width: 25px;
     height: 25px;
-    border: 1px solid $font-color;
 }
 
 @mixin table-border($border-size: 2px) {

@@ -2,7 +2,7 @@ import { createElement } from "./layout";
 import { createList } from "./header";
 import { levelList } from "./levels";
 import { restartGame, saveGame, showSolution } from "./gameFunctions";
-import { isSavedGame, continueGame, randomGame, showWinners } from "./gameOptions";
+import { isSavedGame, continueGame, randomGame, showWinners, changeTheme } from "./gameOptions";
 import { createLevelList } from "./levelsList";
 import { soundsOnOff } from "./music";
 
@@ -176,7 +176,7 @@ function createBtnSound(item) {
 function createBtnTheme(item) {
     const btn = createElement("button", "btn btn-nav btn-menuItem btn-theme", "Dark theme");
     item.append(btn);
-    //btn.addEventListener("click", restartGame);
+    btn.addEventListener("click", () => changeTheme(btn));
 }
 
 export function disableBtnSave() {

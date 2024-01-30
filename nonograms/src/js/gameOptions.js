@@ -5,6 +5,8 @@ import { enableBtnSave, hideOptionsList } from "./nav";
 import { getRandomLevel } from "./levelsChoice";
 import { prepareModalToWinResults, showModal } from "./modal";
 
+let isLightTheme = true;
+
 function getObjectToSave(time, level) {
     const table = document.querySelector(".game");
     const solution = getMatrixUserSolution(table);
@@ -107,4 +109,21 @@ export function showWinners() {
     const winResults = getWinResultsFromLS();
     prepareModalToWinResults(winResults);
     showModal();
+}
+
+export function changeTheme(btn) {
+    isLightTheme = !isLightTheme;
+    applyTheme(isLightTheme, btn);
+}
+
+function applyTheme(flag, btn) {
+    if (flag) {
+        document.body.classList.remove("dark");
+        document.body.classList.add("light");
+        btn.textContent = "Dark theme";
+        return;
+    }
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
+    btn.textContent = "Light theme";
 }

@@ -5,17 +5,21 @@
 
 .main__title {
     @include zero-margin();
-    @include text();
+    font-family: inherit;
     font-size: 32px;
 }
 
 .main__timer {
-    @include text();
     font-size: $font-size_normal;
     @include display-flex(row);
     column-gap: 10px;
 }
 
 .main__timer-ico {
-    fill: $font-color;
+    body.light & {
+        fill: $font-color;
+    }
+    body.dark & {
+        fill: $font-color_light;
+    }
 }

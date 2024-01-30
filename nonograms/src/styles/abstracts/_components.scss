@@ -1,7 +1,7 @@
 .btn {
     user-select: none;
     @include zero-padding();
-    @include text();
+    font-family: inherit;
     font-size: $font-size_normal;
     @include display-flex(row, center, center);
     transition:
@@ -10,22 +10,43 @@
     &:not(:disabled) {
         cursor: pointer;
     }
+    body.light & {
+        color: $font-color;
+    }
+    body.dark & {
+        color: $font-color_light;
+    }
 }
 
 .btn-play {
     padding: 10px 20px;
     border-radius: 5px;
     margin-left: auto;
-    background-color: $btn-background;
-    color: $btn-color;
-    border: 1px solid $btn-border-color;
-    &:active:enabled {
+    body.light &:active:enabled {
         outline: 1px solid $btn-outline-color;
     }
+    body.dark &:active:enabled {
+        outline: 1px solid $font-color;
+    }
     @media screen and (hover: hover) {
-        &:hover {
+        body.light &:hover {
             background-color: $btn-background-hover;
+            color: darken($font-color, 75%);
         }
+        body.dark &:hover {
+            background-color: $btn-background-hover_light;
+            color: $font-color;
+        }
+    }
+    body.light & {
+        background-color: $btn-background;
+        border: 1px solid $btn-border-color;
+        color: $font-color;
+    }
+    body.dark & {
+        background-color: $font-color_light;
+        border: 1px solid $btn-border-color_light;
+        color: $btn-color_light;
     }
 }
 
@@ -35,20 +56,25 @@
     border: none;
     font-size: 32px;
     @media screen and (hover: hover) {
-        &:hover:not(:disabled) {
+        body.light &:hover:not(:disabled) {
             color: $btn-color;
+        }
+        body.dark &:hover:not(:disabled) {
+            color: $btn-color_light;
         }
     }
 }
 
-.btn-menu {
-    //padding: 3px 13px;
-    @media screen and (hover: hover) {
-        .nav__list__item:hover & {
-            color: $btn-color;
-        }
-    }
-}
+// .btn-menu {
+//     @media screen and (hover: hover) {
+//         body.light .nav__list__item:hover & {
+//             color: $btn-color;
+//         }
+//         body.dark .nav__list__item:hover & {
+//             color: $btn-color;
+//         }
+//     }
+// }
 
 .btn-menuItem {
     padding: 0;

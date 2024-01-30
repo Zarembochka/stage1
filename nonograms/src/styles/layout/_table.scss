@@ -1,14 +1,25 @@
 table {
     text-align: center;
     border-collapse: collapse;
+    body.light & {
+        color: black;
+    }
 }
 
 .nonograms {
     user-select: none;
-    border: $table-border_bold;
-    border-right: $table-border_normal;
-    border-bottom: $table-border_normal;
-    background-color: rgba($color: #fff, $alpha: 0.75);
+    body.light & {
+        border: $table-border_bold;
+        border-right: $table-border_normal;
+        border-bottom: $table-border_normal;
+        background-color: rgba($color: #fff, $alpha: 0.75);
+    }
+    body.dark & {
+        border: $table-border_bold_light;
+        border-right: $table-border_normal_light;
+        border-bottom: $table-border_normal_light;
+        background-color: rgba($color: $font-color, $alpha: 0.75);
+    }
 }
 
 td {
@@ -16,21 +27,44 @@ td {
 }
 
 .nonograms__row:first-of-type {
-    border-bottom: $table-border_bold;
+    body.light & {
+        border-bottom: $table-border_bold;
+    }
+    body.dark & {
+        border-bottom: $table-border_bold_light;
+    }
 }
 
 .hints__cols,
 .game {
-    border-left: $table-border_bold;
+    body.light & {
+        border-left: $table-border_bold;
+    }
+    body.dark & {
+        border-left: $table-border_bold_light;
+    }
 }
 
 .hints__rows-row:nth-child(5n),
 .game__row:nth-child(5n) {
-    border-bottom: $table-border_normal;
+    body.light & {
+        border-bottom: $table-border_normal;
+    }
+    body.dark & {
+        border-bottom: $table-border_normal_light;
+    }
 }
 
 .hints__cell {
     @include table-cell();
+
+    body.light & {
+        border: 1px solid $font-color;
+    }
+
+    body.dark & {
+        border: 1px solid $font-color_light;
+    }
 
     .hints__cols-row:first-of-type & {
         border-top: none;
@@ -43,7 +77,12 @@ td {
 
     .hints__cols &:nth-child(5n) {
         width: 26px;
-        border-right: $table-border_normal;
+        body.light & {
+            border-right: $table-border_normal;
+        }
+        body.dark & {
+            border-right: $table-border_normal_light;
+        }
     }
 
     .hints__rows-row &:first-of-type {
@@ -57,25 +96,53 @@ td {
 
 .game__cell {
     @include table-cell();
+
+    body.light & {
+        border: 1px solid $font-color;
+    }
+    body.dark & {
+        border: 1px solid $font-color_light;
+    }
+
     transition: background-color 0.3s ease-in-out;
     .game &:nth-child(5n) {
         width: 26px;
-        border-right: $table-border_normal;
+        body.light & {
+            border-right: $table-border_normal;
+        }
+        body.dark & {
+            border-right: $table-border_normal_light;
+        }
     }
 }
 
 .color {
-    background-color: black;
+    body.light & {
+        background-color: black;
+    }
+    body.dark & {
+        background-color: #f1c5cd;
+    }
 }
 
 .cross {
-    background-image: url("./assets/images/cross.svg");
     background-position: center;
     background-repeat: no-repeat;
+    body.light & {
+        background-image: url("./assets/images/cross.svg");
+    }
+    body.dark & {
+        background-image: url("./assets/images/cross_dark.svg");
+    }
 }
 
 .pointer:not(.color) {
-    background-color: rgb(243, 223, 225);
+    body.light & {
+        background-color: rgb(243, 223, 225);
+    }
+    body.dark & {
+        background-color: rgb(56, 50, 52);
+    }
 }
 
 .disabled {
