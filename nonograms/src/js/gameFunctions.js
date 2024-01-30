@@ -23,10 +23,12 @@ export function addGameFunctionToTable(table) {
 
 function changeColor(event) {
     const cell = event.target.closest(".game__cell");
-    cell.classList.remove("pointer");
-    cell.classList.remove("cross");
-    cell.classList.toggle("color");
-    playSoundColor(cell);
+    if (cell) {
+        cell.classList.remove("pointer");
+        cell.classList.remove("cross");
+        cell.classList.toggle("color");
+        playSoundColor(cell);
+    }
 }
 
 function checkWin(table) {
@@ -114,10 +116,13 @@ export function restartGame(event) {
     enableTableField();
 }
 
-function startTimer() {
+function startTimer(event) {
     if (!isPlayedGame) {
-        isPlayedGame = true;
-        startInterval();
+        const cell = event.target.closest(".game__cell");
+        if (cell) {
+            isPlayedGame = true;
+            startInterval();
+        }
     }
 }
 
