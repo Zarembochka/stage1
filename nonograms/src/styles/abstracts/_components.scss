@@ -6,7 +6,8 @@
     @include display-flex(row, center, center);
     transition:
         background-color,
-        color 0.3s ease-in-out;
+        color,
+        border-color 0.3s ease-in-out;
     &:not(:disabled) {
         cursor: pointer;
     }
@@ -67,22 +68,18 @@
             fill: $btn-color_light;
         }
     }
+    @media screen and (max-width: 585px) {
+        font-size: 25.5px;
+        padding: 3px 10px;
+    }
 }
-
-// .btn-menu {
-//     @media screen and (hover: hover) {
-//         body.light .nav__list__item:hover & {
-//             color: $btn-color;
-//         }
-//         body.dark .nav__list__item:hover & {
-//             color: $btn-color;
-//         }
-//     }
-// }
 
 .btn-menuItem {
     padding: 0;
     font-size: $font-size_normal;
     width: 100%;
     @include display-flex(row);
+    @media screen and (max-width: 585px) {
+        font-size: 20px;
+    }
 }

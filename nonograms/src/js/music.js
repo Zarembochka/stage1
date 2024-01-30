@@ -1,3 +1,5 @@
+import { hideOptionsList } from "./nav";
+
 import fileSoundCross from "./../assets/sounds/X.mp3";
 import fileSoundClear01 from "./../assets/sounds/clear-01.wav";
 import fileSoundClear02 from "./../assets/sounds/clear-02.wav";
@@ -82,6 +84,7 @@ function setSounds(flag) {
 }
 
 export function soundsOnOff(btn) {
+    hideOptionsList(btn);
     isSound = !isSound;
     setSounds(!isSound);
     if (isSound) {

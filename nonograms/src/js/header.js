@@ -7,9 +7,7 @@ export function createHeader(container) {
     const nav = createElement("nav", "nav");
     const navList = createList(nav, "nav__list");
     createNavListItems(navList);
-    //fillHeaderNav(nav);
     header.append(title, nav);
-    //header.append(nav);
     container.prepend(header);
 }
 

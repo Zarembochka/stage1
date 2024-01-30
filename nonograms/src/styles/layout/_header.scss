@@ -1,5 +1,5 @@
 .header {
-    @include display-flex(column, center);
+    @include display-flex(column, center, center);
     width: 100%;
     row-gap: 10px;
 }
@@ -8,7 +8,10 @@
     text-transform: uppercase;
     text-align: center;
     @include zero-margin();
-    margin: 10px 0;
+    margin: 0;
     font-family: inherit;
     font-size: $font-size_title;
+    @media screen and (max-width: 585px) {
+        font-size: 48px;
+    }
 }

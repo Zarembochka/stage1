@@ -1,7 +1,10 @@
+.nav {
+    width: 100%;
+}
+
 .nav__list {
     @include zero-margin();
     @include zero-padding();
-    font-size: 32px;
     @include display-flex(row, space-between, center);
     width: 100%;
     list-style: none;
@@ -23,6 +26,7 @@
 }
 
 .nav__list__item {
+    @include display-flex(row, center, center);
     position: relative;
     border-radius: 5px;
     transition: box-shadow 0.3s ease-in-out;
@@ -36,6 +40,15 @@
         &:hover .menu__list {
             transform: scaleY(1);
         }
+    }
+}
+
+.nav__list__item-ico {
+    width: 32px;
+    height: 32px;
+    @media screen and (max-width: 585px) {
+        width: 25.5px;
+        height: 25.5px;
     }
 }
 
@@ -60,6 +73,9 @@
     body.dark & {
         background-color: rgba(0, 0, 0, 0.15);
         box-shadow: 1px -1px 23px -5px $color-shadow_light;
+    }
+    @media screen and (max-width: 585px) {
+        top: 38px;
     }
 }
 

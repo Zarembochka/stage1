@@ -113,6 +113,7 @@ export function showWinners() {
 }
 
 export function changeTheme(btn) {
+    hideOptionsList(btn);
     isLightTheme = !isLightTheme;
     applyTheme(isLightTheme, btn);
 }

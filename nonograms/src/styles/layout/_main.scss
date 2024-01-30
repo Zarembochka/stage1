@@ -7,6 +7,9 @@
     @include zero-margin();
     font-family: inherit;
     font-size: 32px;
+    @media screen and (max-width: 585px) {
+        font-size: 25.5px;
+    }
 }
 
 .main__timer {
