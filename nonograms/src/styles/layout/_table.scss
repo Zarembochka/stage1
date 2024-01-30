@@ -1,9 +1,7 @@
 table {
     text-align: center;
     border-collapse: collapse;
-    body.light & {
-        color: black;
-    }
+    font-weight: bold;
 }
 
 .nonograms {
