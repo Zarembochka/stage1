@@ -17,6 +17,7 @@ export function addGameFunctionToTable(table) {
     table.addEventListener("click", changeColor);
     table.addEventListener("click", () => checkWin(table));
     table.addEventListener("contextmenu", showCross);
+    table.addEventListener("contextmenu", () => checkWin(table));
     table.addEventListener("mouseover", (event) => showPointer(event, table));
     table.addEventListener("mouseout", (event) => removePointer(event, table));
 }
@@ -45,8 +46,9 @@ function checkWin(table) {
 }
 
 function showCross(event) {
-    event.preventDefault();
-    if (event.target !== event.currentTarget) {
+    const cell = event.target.closest(".game__cell");
+    if (cell) {
+        event.preventDefault();
         event.target.classList.remove("color");
         event.target.classList.remove("pointer");
         event.target.classList.toggle("cross");
