@@ -99,6 +99,7 @@ export function startNewGame(level, time) {
     fillNonogramsTitle(userLevel.title);
     const main = document.querySelector(".main");
     createGameField(main, userLevel.matrix);
+    isPlayedGame = false;
 }
 
 export function playLevel(event, level, time) {
