@@ -11,11 +11,15 @@
     &:not(:disabled) {
         cursor: pointer;
     }
-    body.light & {
+    body.light &:not(:disabled) {
         color: $font-color;
         fill: $font-color;
     }
-    body.dark & {
+    &:disabled {
+        color: $btn-color_disabled;
+        fill: $btn-color_disabled;
+    }
+    body.dark &:not(:disabled) {
         color: $font-color_light;
         fill: $font-color_light;
     }
