@@ -50,6 +50,7 @@ function createLevelChoice(item) {
     const list = createList(item, "menu__list");
     createLevelListItems(list);
     btn.addEventListener("click", () => showListLevel(list));
+    btn.addEventListener("mouseout", () => hideListLevel(list));
 }
 
 function createGameOptions(item) {
@@ -58,6 +59,7 @@ function createGameOptions(item) {
     const list = createList(item, "menu__list");
     createGameOptionsItems(list);
     btn.addEventListener("click", () => showListLevel(list));
+    btn.addEventListener("mouseout", () => hideListLevel(list));
 }
 
 function createGameSettings(item) {
@@ -67,6 +69,7 @@ function createGameSettings(item) {
     const list = createList(item, "menu__list");
     createGameSettingsItems(list);
     btn.addEventListener("click", () => showListLevel(list));
+    btn.addEventListener("mouseout", () => hideListLevel(list));
 }
 
 function createBtnSolution(item) {
@@ -86,6 +89,7 @@ function createLevelListItems(list) {
         const listItem = createElement("li", "menu__list__item");
         const btnLevelChoice = createElement("button", "btn btn-nav btn-menuItem", levelList[i]);
         btnLevelChoice.addEventListener("click", showLevelsToChoice);
+        btnLevelChoice.addEventListener("mouseout", hideLevelsToChoice);
         const levelListChoice = createLevelList(levelList[i]);
         listItem.append(btnLevelChoice);
         listItem.append(levelListChoice);
@@ -120,6 +124,11 @@ function createGameSettingsItems(list) {
 function showLevelsToChoice(event) {
     const menu = event.target.nextElementSibling;
     showListLevel(menu);
+}
+
+function hideLevelsToChoice(event) {
+    const menu = event.target.nextElementSibling;
+    hideListLevel(menu);
 }
 
 export function showListLevel(list) {
