@@ -106,6 +106,7 @@ export function playLevel(event, level, time) {
     hideMenuLists(event.target);
     enableBtnSave();
     removeGameField();
+    clearInterval(timer);
     clearTimerField();
     startNewGame(level, time);
 }
