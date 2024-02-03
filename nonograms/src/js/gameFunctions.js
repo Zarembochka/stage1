@@ -97,7 +97,8 @@ export function startNewGame(level, time) {
         setTimerTime(time);
     }
     fillNonogramsTitle(userLevel.title);
-    const main = document.querySelector(".main");
+    //const main = document.querySelector(".main");
+    const main = document.querySelector(".main__table");
     createGameField(main, userLevel.matrix);
     isPlayedGame = false;
 }

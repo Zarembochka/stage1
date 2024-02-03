@@ -32,9 +32,11 @@ function createTimer() {
 function createMain(container) {
     const main = createElement("main", "main");
     mainTitle = createElement("h2", "main__title");
+    const table = createElement("div", "main__table");
     const mainTimer = createTimer();
     main.append(mainTitle);
     main.append(mainTimer);
+    main.append(table);
     container.append(main);
     startNewGame();
 }
