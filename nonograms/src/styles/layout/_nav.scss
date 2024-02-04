@@ -71,7 +71,7 @@
         box-shadow: 1px -1px 23px -5px $color-shadow;
     }
     body.dark & {
-        background-color: rgba(0, 0, 0, 0.15);
+        background-color: rgba(83, 82, 84, 0.95);
         box-shadow: 1px -1px 23px -5px $color-shadow_light;
     }
     @media screen and (max-width: 585px) {
@@ -120,7 +120,7 @@
         box-shadow: 1px -1px 23px -5px $color-shadow;
     }
     body.dark & {
-        background-color: rgba(0, 0, 0, 0.15);
+        background-color: rgba(83, 82, 84, 0.95);
         box-shadow: 1px -1px 23px -5px $color-shadow_light;
     }
 }
