@@ -1,7 +1,7 @@
 .container {
     max-width: 720px;
     margin: 0 auto;
-    max-height: 100svh;
+    min-height: 100vh;
     padding: 15px;
     @include display-flex(column, space-between, center);
     row-gap: 30px;
