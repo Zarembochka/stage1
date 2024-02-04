@@ -6,6 +6,7 @@ import { isSavedGame, continueGame, randomGame, showWinners, changeTheme } from 
 import { createLevelList } from "./levelsList";
 import { soundsOnOff } from "./music";
 import { darkThemeLogo, settingsLogo, soundOffLogo } from "./logos";
+import { isDesktop } from "./global";
 
 export function createNavListItems(navList) {
     for (let i = 1; i <= 5; i += 1) {
@@ -49,8 +50,10 @@ function createLevelChoice(item) {
     item.append(btn);
     const list = createList(item, "menu__list");
     createLevelListItems(list);
-    btn.addEventListener("click", () => showListLevel(list));
-    btn.addEventListener("mouseout", () => hideListLevel(list));
+    btn.addEventListener("click", () => showListOptions(list));
+    if (isDesktop()) {
+        btn.addEventListener("mouseout", () => hideListLevel(list));
+    }
 }
 
 function createGameOptions(item) {
@@ -58,8 +61,10 @@ function createGameOptions(item) {
     item.append(btn);
     const list = createList(item, "menu__list");
     createGameOptionsItems(list);
-    btn.addEventListener("click", () => showListLevel(list));
-    btn.addEventListener("mouseout", () => hideListLevel(list));
+    btn.addEventListener("click", () => showListOptions(list));
+    if (isDesktop()) {
+        btn.addEventListener("mouseout", () => hideListLevel(list));
+    }
 }
 
 function createGameSettings(item) {
@@ -68,8 +73,10 @@ function createGameSettings(item) {
     item.append(btn);
     const list = createList(item, "menu__list");
     createGameSettingsItems(list);
-    btn.addEventListener("click", () => showListLevel(list));
-    btn.addEventListener("mouseout", () => hideListLevel(list));
+    btn.addEventListener("click", () => showListOptions(list));
+    if (isDesktop()) {
+        btn.addEventListener("mouseout", () => hideListLevel(list));
+    }
 }
 
 function createBtnSolution(item) {
@@ -89,7 +96,9 @@ function createLevelListItems(list) {
         const listItem = createElement("li", "menu__list__item");
         const btnLevelChoice = createElement("button", "btn btn-nav btn-menuItem", levelList[i]);
         btnLevelChoice.addEventListener("click", showLevelsToChoice);
-        btnLevelChoice.addEventListener("mouseout", hideLevelsToChoice);
+        if (isDesktop()) {
+            btnLevelChoice.addEventListener("mouseout", hideLevelsToChoice);
+        }
         const levelListChoice = createLevelList(levelList[i]);
         listItem.append(btnLevelChoice);
         listItem.append(levelListChoice);
@@ -122,6 +131,9 @@ function createGameSettingsItems(list) {
 }
 
 function showLevelsToChoice(event) {
+    if (!isDesktop()) {
+        hideOthersLists();
+    }
     const menu = event.target.nextElementSibling;
     showListLevel(menu);
 }
@@ -135,6 +147,14 @@ export function showListLevel(list) {
     list.classList.add("showList__level");
 }
 
+function showListOptions(list) {
+    if (!isDesktop()) {
+        hideOthersLists();
+        hideOthersMenus();
+    }
+    showListLevel(list);
+}
+
 function hideListLevel(list) {
     list.classList.remove("showList__level");
 }
@@ -144,11 +164,28 @@ export function hideOptionsList(item) {
     hideListLevel(menuList);
 }
 
-export function hideMenuLists(item) {
-    const levelList = item.closest(".levels__list");
+function hideList(item, className) {
+    const levelList = item.closest(className);
     hideListLevel(levelList);
-    const menuList = item.closest(".menu__list");
-    hideListLevel(menuList);
+}
+
+export function hideMenuLists(item) {
+    hideList(item, ".levels__list");
+    hideList(item, ".menu__list");
+}
+
+function hideOthersLists() {
+    const levels = document.querySelectorAll(".levels__list.showList__level");
+    for (let level of levels) {
+        hideListLevel(level);
+    }
+}
+
+export function hideOthersMenus() {
+    const levels = document.querySelectorAll(".menu__list.showList__level");
+    for (let level of levels) {
+        hideListLevel(level);
+    }
 }
 
 function createBtnRestart(item) {

@@ -1,10 +1,11 @@
 import { removeGameField } from "./gameField";
 import { startNewGame, timer } from "./gameFunctions";
 import { getMatrixUserSolution } from "./matrix";
-import { enableBtnSave, hideOptionsList } from "./nav";
+import { enableBtnSave, hideOptionsList, hideOthersMenus } from "./nav";
 import { getRandomLevel } from "./levelsChoice";
 import { prepareModalToWinResults, showModal } from "./modal";
 import { darkThemeLogo, lightThemeLogo } from "./logos";
+import { isDesktop } from "./global";
 
 let isLightTheme = true;
 
@@ -107,6 +108,9 @@ function saveWinResultsToLS(arr) {
 }
 
 export function showWinners() {
+    if (!isDesktop()) {
+        hideOthersMenus();
+    }
     const winResults = getWinResultsFromLS();
     prepareModalToWinResults(winResults);
     showModal();

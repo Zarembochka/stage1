@@ -3,9 +3,16 @@ import { prepareAndShowModal } from "./modal";
 import { removeGameField, createGameField, clearGameField } from "./gameField";
 import { getRandomEasyLevel } from "./levelsChoice";
 import { fillNonogramsTitle } from "./layout";
-import { hideMenuLists, hideOptionsList, disableBtnSave, enableBtnSave } from "./nav";
+import {
+    hideMenuLists,
+    hideOptionsList,
+    disableBtnSave,
+    enableBtnSave,
+    hideOthersMenus,
+} from "./nav";
 import { saveUserGame, colorUserSolution, saveWinResult } from "./gameOptions";
 import { playSoundColor, playSoundCross, playSoundWin } from "./music";
+import { isDesktop } from "./global";
 
 let userLevel;
 let isPlayedGame = false;
@@ -162,6 +169,9 @@ export function saveGame(event) {
 }
 
 export function showSolution() {
+    if (!isDesktop()) {
+        hideOthersMenus();
+    }
     clearInterval(timer);
     clearGameField();
     colorUserSolution(userLevel.matrix);
