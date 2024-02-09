@@ -11,18 +11,6 @@
     &:not(:disabled) {
         cursor: pointer;
     }
-    body.light &:not(:disabled) {
-        color: $font-color;
-        fill: $font-color;
-    }
-    &:disabled {
-        color: $btn-color_disabled;
-        fill: $btn-color_disabled;
-    }
-    body.dark &:not(:disabled) {
-        color: $font-color_light;
-        fill: $font-color_light;
-    }
 }
 
 .btn-play {
@@ -62,6 +50,18 @@
     background-color: transparent;
     border: none;
     font-size: 32px;
+    body.light &:not(:disabled) {
+        color: $font-color;
+        fill: $font-color;
+    }
+    body.light &:disabled {
+        color: $btn-color_disabled;
+        fill: $btn-color_disabled;
+    }
+    body.dark &:not(:disabled) {
+        color: $font-color_light;
+        fill: $font-color_light;
+    }
     @media screen and (hover: hover) {
         body.light &:hover:not(:disabled) {
             color: $btn-color;
