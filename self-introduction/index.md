@@ -7,7 +7,7 @@ In my final year of university, I started working as a programmer in a company s
 
 Now I decided to try something new. Why did I choose front-end development? Because it is very interesting! Thanks to developer's code, the user can buy a library card, order a coffee or play a game. It's a bit like magic! It is exciting to look how you can turn your knowledge into beautiful web application and interact with end user, wouldn't you agree? I like to see the result of my work, I like to learn something new all the time and I would like to grow in this industry in the future.
 
-I started learning HTML, CSS and JavaScript one year ago. At first I studied everything on my own, and then I started studying at rsshool in the course "JavaScript/Front-end. Stage 0."
+I started learning HTML, CSS and JavaScript one year ago. At first I studied everything on my own, and then I started studying at rsschool in the course "JavaScript/Front-end. Stage 0."
 On stage 0 my final work [Shoot Bubble](https://zarembochka.github.io/stage0/random-game/) on Random game made it to the top 10 list. Now I am continuing my studies on the stage1 course.
 
 I believe that my strengths: teamwork, responsibility, communication, time management, stress resistance, problem solving and analytical thinking — will allow me to succeed in the new path of my life.
