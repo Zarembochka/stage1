@@ -6,3 +6,4 @@
 2. **Declare Variable Types in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/24f3m63v)
 3. **Implement Interfaces in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/fz99cjex)
 4. **Develop Typed Functions in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/j6qdnvlt)
+5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/3x53etah)
