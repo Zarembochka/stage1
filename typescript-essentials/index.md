@@ -9,3 +9,4 @@
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/3x53etah)
 6. **Generics in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/x237wx8y)
 7. **Work with External Libraries in TypeScript**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/vky43rrm)
+8. **Organize Code with Namespaces in TypeScrip**: [Badge](https://learn.microsoft.com/en-us/users/zarembochka-1067/achievements/hygkag68)
