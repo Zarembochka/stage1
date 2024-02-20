@@ -11,3 +11,13 @@ export interface NewsData {
         name: string;
     };
 }
+
+export interface NewsSource {
+    category: string;
+    country: string;
+    description: string;
+    url: string;
+    id: string;
+    language: string;
+    name: string;
+}
