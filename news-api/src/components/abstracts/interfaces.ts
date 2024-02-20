@@ -1,4 +1,4 @@
-export interface NewsData {
+export interface Article {
     author: string;
     title: string;
     description: string;
@@ -10,9 +10,10 @@ export interface NewsData {
         id: string;
         name: string;
     };
+    draw(data: Article[]): void;
 }
 
-export interface NewsSource {
+export interface Source {
     category: string;
     country: string;
     description: string;
@@ -20,4 +21,16 @@ export interface NewsSource {
     id: string;
     language: string;
     name: string;
+    draw(data: Source[]): void;
+}
+
+export interface NewsData {
+    status: 'string';
+    totalResults: number;
+    articles: Article[];
+}
+
+export interface NewsSource {
+    status: 'string';
+    sources: Source[];
 }
