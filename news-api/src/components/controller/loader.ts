@@ -1,11 +1,17 @@
+import { LoadOptions } from '../abstracts/types';
+import { RequestOptions } from '../abstracts/types';
+import { Source, Article } from '../abstracts/interfaces';
+
 class Loader {
-    constructor(baseLink, options) {
+    baseLink: string;
+    options: LoadOptions;
+    constructor(baseLink: string, options: LoadOptions) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
     getResp(
-        { endpoint, options = {} },
+        { endpoint, options = {} }: RequestOptions,
         callback = () => {
             console.error('No callback for GET response');
         }
@@ -13,7 +19,7 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -23,19 +29,19 @@ class Loader {
         return res;
     }
 
-    makeUrl(options, endpoint) {
+    makeUrl(endpoint: string, options = {}): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
-            url += `${key}=${urlOptions[key]}&`;
+            url += `${key}=${urlOptions[key as keyof LoadOptions]}&`;
         });
 
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
-        fetch(this.makeUrl(options, endpoint), { method })
+    load(method: string, endpoint: string, callback: (data: Article[] | Source[]) => void, options = {}) {
+        fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
             .then((data) => callback(data))
