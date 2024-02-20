@@ -1,8 +1,8 @@
 import './news.css';
-import { Data } from '../../abstracts/interfaces';
+import { NewsData } from '../../abstracts/interfaces';
 
 class News {
-    draw(data: Data[]) {
+    draw(data: NewsData[]) {
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
         const fragment = document.createDocumentFragment();
