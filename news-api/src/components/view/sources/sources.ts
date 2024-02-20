@@ -9,13 +9,16 @@ class Sources {
         data.forEach((item) => {
             const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
-            sourceClone.querySelector('.source__item-name')!.textContent = item.name;
-            sourceClone.querySelector('.source__item')!.setAttribute('data-source-id', item.id);
+            const name = sourceClone.querySelector<HTMLElement>('.source__item-name');
+            if (name) {
+                name.textContent = item.name;
+            }
+            sourceClone.querySelector<HTMLElement>('.source__item')?.setAttribute('data-source-id', item.id);
 
             fragment.append(sourceClone);
         });
 
-        document.querySelector('.sources')?.append(fragment);
+        document.querySelector<HTMLElement>('.sources')?.append(fragment);
     }
 }
 
