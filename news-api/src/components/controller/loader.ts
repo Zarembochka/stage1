@@ -1,6 +1,6 @@
-import { LoadOptions } from '../abstracts/types';
+import { CallBackType, LoadOptions } from '../abstracts/types';
 import { RequestOptions } from '../abstracts/types';
-import { Source, Article } from '../abstracts/interfaces';
+import { NewsData, NewsSource } from '../abstracts/interfaces';
 import { Endpoints } from '../abstracts/evetydayTypes';
 
 class Loader {
@@ -11,9 +11,9 @@ class Loader {
         this.options = options;
     }
 
-    getResp(
+    getResp<data>(
         { endpoint, options = {} }: RequestOptions,
-        callback = () => {
+        callback: CallBackType<data> = () => {
             console.error('No callback for GET response');
         }
     ) {
@@ -37,11 +37,10 @@ class Loader {
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key as keyof LoadOptions]}&`;
         });
-
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: Endpoints, callback: (data: Article[] | Source[]) => void, options = {}) {
+    load<data>(method: string, endpoint: Endpoints, callback: CallBackType<data>, options = {}) {
         fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
