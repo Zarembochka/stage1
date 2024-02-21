@@ -1,7 +1,7 @@
 import { Endpoints } from './evetydayTypes';
 
 export type LoadOptions = {
-    apikey: string;
+    apiKey: string;
 };
 
 export type RequestOptions = {
