@@ -6,5 +6,5 @@ export type LoadOptions = {
 
 export type RequestOptions = {
     endpoint: Endpoints;
-    options: {};
+    options?: {};
 };
