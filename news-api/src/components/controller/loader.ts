@@ -1,6 +1,7 @@
 import { LoadOptions } from '../abstracts/types';
 import { RequestOptions } from '../abstracts/types';
 import { Source, Article } from '../abstracts/interfaces';
+import { Endpoints } from '../abstracts/evetydayTypes';
 
 class Loader {
     baseLink: string;
@@ -29,7 +30,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(endpoint: string, options = {}): string {
+    makeUrl(endpoint: Endpoints, options = {}): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -40,7 +41,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: (data: Article[] | Source[]) => void, options = {}) {
+    load(method: string, endpoint: Endpoints, callback: (data: Article[] | Source[]) => void, options = {}) {
         fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

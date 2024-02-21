@@ -1,10 +1,12 @@
 import AppLoader from './appLoader';
+import { Endpoints } from '../abstracts/evetydayTypes';
 
 class AppController extends AppLoader {
     getSources(callback) {
         super.getResp(
             {
-                endpoint: 'mocks/sources',
+                //endpoint: 'mocks/sources',
+                endpoint: Endpoints.sourses,
             },
             callback
         );
@@ -21,7 +23,8 @@ class AppController extends AppLoader {
                     newsContainer.setAttribute('data-source', sourceId);
                     super.getResp(
                         {
-                            endpoint: 'mocks/everything',
+                            //endpoint: 'mocks/everything',
+                            endpoint: Endpoints.everything,
                             options: {
                                 sources: sourceId,
                             },
