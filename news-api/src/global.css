@@ -111,6 +111,10 @@ footer .copyright:before {
         display: block;
     }
 
+    header {
+        padding-bottom: calc(10px + 1rem);
+    }
+
     header h1 {
         font-size: 35px;
         margin: 0;

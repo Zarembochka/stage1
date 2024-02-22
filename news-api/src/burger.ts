@@ -26,15 +26,20 @@ class BurgerMenu extends Layout {
     public showSources(): void {
         if (this.header) {
             if (this.header.classList.contains('show')) {
-                this.header.classList.remove('show');
-                this.stopScroll();
+                this.hideSources();
                 return;
             }
             this.header.classList.add('show');
+            this.stopScroll();
         }
     }
-    public stopScroll(): void {
-        document.body.classList.remove('show-menu');
+    private calcRightPadding(): string {
+        const bodyMargin: number = 8;
+        return window.innerWidth - document.body.clientWidth - 2 * bodyMargin + 'px';
+    }
+    private stopScroll(): void {
+        document.body.style.paddingRight = this.calcRightPadding();
+        document.body.classList.add('show-menu');
     }
     public hideSources(): void {
         if (this.header) {
@@ -43,6 +48,7 @@ class BurgerMenu extends Layout {
         this.allowScroll();
     }
     private allowScroll(): void {
+        document.body.style.paddingRight = '';
         document.body.classList.remove('show-menu');
     }
 }
