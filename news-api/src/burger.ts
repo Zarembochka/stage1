@@ -42,7 +42,7 @@ class BurgerMenu extends Layout {
         }
         this.allowScroll();
     }
-    protected allowScroll(): void {
+    private allowScroll(): void {
         document.body.classList.remove('show-menu');
     }
 }
@@ -57,4 +57,8 @@ function addBurgerMenu(): void {
 
 function showSources(): void {
     burgerMenu.showSources();
+}
+
+export function hideSources(): void {
+    burgerMenu.hideSources();
 }

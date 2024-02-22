@@ -1,4 +1,4 @@
 export enum Endpoints {
-    sourses = 'sources',
-    everything = 'everything',
+    sourses = 'mocks/sources',
+    everything = 'mocks/everything',
 }
