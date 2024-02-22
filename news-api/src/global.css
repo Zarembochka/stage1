@@ -2,10 +2,68 @@ body {
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0 8px;
+}
+
+body.show-menu {
+    overflow-y: hidden;
 }
 
 header {
-    padding: 10px 30px;
+    padding: 18px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0px;
+    background-color: #17181c;
+    z-index: 15;
+}
+
+.burger {
+    display: none;
+    position: relative;
+    /* padding: 10px 0; */
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid #30c5ff;
+    cursor: pointer;
+    transform-origin: border-color, shadow;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+}
+
+.burger__span {
+    position: absolute;
+    top: 22px;
+    left: 11px;
+    width: 25px;
+    height: 2px;
+    background-color: #30c5ff;
+    transform-origin: center;
+    transition-property: transform, background-color;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+}
+
+.burger__span:first-of-type {
+    top: 13px;
+}
+
+.burger__span:last-of-type {
+    top: 31px;
+}
+
+.burger:focus {
+    border-color: #3fcc59;
+    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+    .burger__span {
+        background-color: #69db7e;
+    }
 }
 
 header h1 {
@@ -13,12 +71,17 @@ header h1 {
     font-weight: 800;
 }
 
+main {
+    width: 100%;
+}
+
 footer {
     height: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
+
 footer .copyright {
     font-size: 14px;
     color: #333;
@@ -32,4 +95,54 @@ footer .copyright a:hover {
 }
 footer .copyright:before {
     content: '©';
+}
+
+.footer__link {
+    cursor: pointer;
+}
+
+.footer__ico {
+    fill: #30c5ff;
+    transition: fill 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+
+    header h1 {
+        font-size: 35px;
+        margin: 0;
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    header.show .burger__span:first-of-type,
+    header.show .burger__span:last-of-type {
+        display: none;
+    }
+
+    header.show .burger__span-second {
+        transform: rotate(-45deg);
+    }
+
+    header.show .burger__span-third {
+        transform: rotate(45deg);
+    }
+}
+
+@media screen and (hover: hover) {
+    .burger:hover {
+        border-color: #3fcc59;
+        box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
+        .burger__span {
+            background-color: #69db7e;
+        }
+    }
+    .footer__ico:hover {
+        fill: #3fcc59;
+    }
 }

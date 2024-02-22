@@ -1,6 +1,7 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import { NewsSource, NewsData } from '../abstracts/interfaces';
+import { burgerMenu } from '../../burger';
 
 class App {
     controller: AppController;
@@ -16,6 +17,7 @@ class App {
             sources.addEventListener('click', (e: Event) =>
                 this.controller.getNews(e, (data: NewsData) => this.view.drawNews(data))
             );
+            sources.addEventListener('click', burgerMenu.hideSources);
             this.controller.getSources((data: NewsSource) => this.view.drawSources(data));
         }
     }
