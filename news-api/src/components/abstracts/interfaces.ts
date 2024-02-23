@@ -1,3 +1,5 @@
+import { LoadOptions, SourceInfo } from './types';
+
 export interface Article {
     author: string;
     title: string;
@@ -6,10 +8,7 @@ export interface Article {
     urlToImage: string;
     publishedAt: string;
     content: string;
-    source: {
-        id: string;
-        name: string;
-    };
+    source: SourceInfo;
     draw(data: Article[]): void;
 }
 
@@ -33,4 +32,9 @@ export interface NewsData {
 export interface NewsSource {
     status: 'string';
     sources: Source[];
+}
+
+export interface LoaderInterface {
+    baseLink: string | undefined;
+    options: LoadOptions;
 }

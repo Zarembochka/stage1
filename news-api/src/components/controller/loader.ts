@@ -1,13 +1,16 @@
 import { CallBackType, LoadOptions } from '../abstracts/types';
 import { RequestOptions } from '../abstracts/types';
-import { NewsData, NewsSource } from '../abstracts/interfaces';
 import { Endpoints } from '../abstracts/evetydayTypes';
+import { LoaderInterface } from '../abstracts/interfaces';
 
-class Loader {
-    baseLink: string;
+class Loader implements LoaderInterface {
+    baseLink: string | undefined;
     options: LoadOptions;
-    constructor(baseLink: string, options: LoadOptions) {
-        this.baseLink = baseLink;
+    constructor(URL: string | undefined, options: LoadOptions) {
+        if (!URL) {
+            throw Error('No URL to get news sources!');
+        }
+        this.baseLink = URL;
         this.options = options;
     }
 
