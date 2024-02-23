@@ -36,6 +36,7 @@ const baseConfig = {
         new DotenvWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/index.html'),
+            favicon: './src/news.svg',
             filename: 'index.html',
         }),
         new CleanWebpackPlugin(),
