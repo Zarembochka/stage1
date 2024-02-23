@@ -34,8 +34,13 @@ class BurgerMenu extends Layout {
         }
     }
     private calcRightPadding(): string {
-        const bodyMargin: number = 8;
-        return window.innerWidth - document.body.clientWidth - 2 * bodyMargin + 'px';
+        const bodyPaddingRight = getComputedStyle(document.body).paddingRight;
+        const bodyPaddingRightValue = +bodyPaddingRight.slice(0, -2);
+        const result = window.innerWidth - document.body.clientWidth + bodyPaddingRightValue;
+        if (result > 0) {
+            return result + 'px';
+        }
+        return '';
     }
     private stopScroll(): void {
         document.body.style.paddingRight = this.calcRightPadding();
@@ -56,6 +61,7 @@ class BurgerMenu extends Layout {
 export const burgerMenu = new BurgerMenu();
 
 document.addEventListener('DOMContentLoaded', addBurgerMenu);
+window.addEventListener('resize', hideBurgerMenu);
 
 function addBurgerMenu(): void {
     burgerMenu.createBurger();
@@ -67,4 +73,10 @@ function showSources(): void {
 
 export function hideSources(): void {
     burgerMenu.hideSources();
+}
+
+function hideBurgerMenu(): void {
+    if (window.innerWidth > 768) {
+        burgerMenu.hideSources();
+    }
 }

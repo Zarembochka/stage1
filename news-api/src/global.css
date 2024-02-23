@@ -4,7 +4,9 @@ body {
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    margin: 0 8px;
+    max-width: 1904px;
+    padding: 0 8px;
+    margin: 0 auto;
 }
 
 body.show-menu {
