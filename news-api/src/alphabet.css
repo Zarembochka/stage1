@@ -1,0 +1,51 @@
+.alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+    background-color: #17181c;
+}
+
+.alphabet__btn {
+    background: none;
+    border: 2px solid #ff9430;
+    font: inherit;
+    line-height: 1;
+    margin: 0.25em;
+    padding: 0.5em 0.75em;
+    color: #ff9430;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.alphabet__btn:hover,
+.alphabet__btn:focus {
+    border-color: #fff130;
+    color: #fff130;
+    box-shadow: 0 0.5em 0.5em -0.4em #fff130;
+    transform: translateY(-0.25em);
+}
+
+.hide {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .alphabet {
+        transform: translateX(100%);
+        position: fixed;
+        z-index: 15;
+        top: 89px;
+        right: 0;
+    }
+
+    header.show + main > .alphabet {
+        transform: translateX(0);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .alphabet__btn {
+        padding: 0.25em 0.5em;
+    }
+}

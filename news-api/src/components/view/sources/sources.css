@@ -6,6 +6,7 @@
     overflow: auto;
     justify-content: center;
     align-items: center;
+    align-content: flex-start;
     font:
         300 1em 'Fira Sans',
         sans-serif;
@@ -60,7 +61,7 @@
         transform: translateX(100%);
         position: fixed;
         z-index: 15;
-        top: 89px;
+        top: 157px;
         right: 0;
     }
 
@@ -85,5 +86,17 @@
 @media screen and (max-width: 515px) {
     .source__item {
         width: 32%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .sources {
+        top: 144px;
+    }
+}
+
+@media screen and (max-width: 396px) {
+    .sources {
+        top: 172px;
     }
 }
