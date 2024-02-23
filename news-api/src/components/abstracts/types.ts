@@ -2,12 +2,13 @@ import { Endpoints } from './evetydayTypes';
 import { Source } from './interfaces';
 
 export type LoadOptions = {
-    apiKey: string;
+    apiKey?: string;
+    sources?: string | null;
 };
 
 export type RequestOptions = {
     endpoint: Endpoints;
-    options?: {};
+    options?: LoadOptions;
 };
 
 export type CallBackType<T> = (data: T) => void;

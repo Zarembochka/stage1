@@ -6,6 +6,7 @@
     "scripts": {
         "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
         "build": "webpack --config ./webpack.config.js --env mode=prod",
+        "deploy": "npm run build && npx gh-pages -d dist -e news-api",
         "lint": "eslint . --ext .ts",
         "tsc": "tsc"
     },
@@ -24,6 +25,7 @@
         "dotenv-webpack": "^8.0.1",
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.29.1",
         "html-webpack-plugin": "^5.6.0",
         "prettier": "^3.2.5",
         "style-loader": "^3.3.4",
