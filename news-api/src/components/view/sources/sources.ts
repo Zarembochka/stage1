@@ -4,18 +4,20 @@ import { Source } from '../../abstracts/interfaces';
 class Sources {
     public draw(data: Source[]) {
         const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
+        const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
 
         data.forEach((item) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
+            if (sourceItemTemp) {
+                const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
-            const name = sourceClone.querySelector<HTMLElement>('.source__item-name');
-            if (name) {
-                name.textContent = item.name;
+                const name = sourceClone.querySelector<HTMLElement>('.source__item-name');
+                if (name) {
+                    name.textContent = item.name;
+                }
+                sourceClone.querySelector<HTMLElement>('.source__item')?.setAttribute('data-source-id', item.id);
+
+                fragment.append(sourceClone);
             }
-            sourceClone.querySelector<HTMLElement>('.source__item')?.setAttribute('data-source-id', item.id);
-
-            fragment.append(sourceClone);
         });
 
         document.querySelector<HTMLElement>('.sources')?.append(fragment);
