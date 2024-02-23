@@ -1,4 +1,5 @@
 import { LoadOptions, SourceInfo } from './types';
+import { Statuses } from './evetydayTypes';
 
 export interface Article {
     author: string;
@@ -24,13 +25,13 @@ export interface Source {
 }
 
 export interface NewsData {
-    status: 'string';
+    status: Statuses;
     totalResults: number;
     articles: Article[];
 }
 
 export interface NewsSource {
-    status: 'string';
+    status: Statuses;
     sources: Source[];
 }
 
