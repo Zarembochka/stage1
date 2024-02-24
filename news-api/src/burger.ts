@@ -21,16 +21,16 @@ class BurgerMenu extends Layout {
         }
     }
     private addBurgerFunctions(menu: Element): void {
-        menu.addEventListener('click', showSources);
+        menu.addEventListener('click', burgerMenu.showSources);
     }
     public showSources(): void {
-        if (this.header) {
-            if (this.header.classList.contains('show')) {
-                this.hideSources();
+        if (burgerMenu.header) {
+            if (burgerMenu.header.classList.contains('show')) {
+                burgerMenu.hideSources();
                 return;
             }
-            this.header.classList.add('show');
-            this.stopScroll();
+            burgerMenu.header.classList.add('show');
+            burgerMenu.stopScroll();
         }
     }
     private calcRightPadding(): string {
@@ -47,10 +47,10 @@ class BurgerMenu extends Layout {
         document.body.classList.add('show-menu');
     }
     public hideSources(): void {
-        if (this.header) {
-            this.header.classList.remove('show');
+        if (burgerMenu.header) {
+            burgerMenu.header.classList.remove('show');
         }
-        this.allowScroll();
+        burgerMenu.allowScroll();
     }
     private allowScroll(): void {
         document.body.style.paddingRight = '';
@@ -65,14 +65,6 @@ window.addEventListener('resize', hideBurgerMenu);
 
 function addBurgerMenu(): void {
     burgerMenu.createBurger();
-}
-
-function showSources(): void {
-    burgerMenu.showSources();
-}
-
-export function hideSources(): void {
-    burgerMenu.hideSources();
 }
 
 function hideBurgerMenu(): void {

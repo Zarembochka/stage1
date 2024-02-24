@@ -14,6 +14,10 @@ const baseConfig = {
                 use: ['style-loader', 'css-loader'],
             },
             {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
+            {
                 test: /\.(jpg|png|svg|jpeg|gif)$/,
                 type: 'asset/resource',
             },
@@ -36,7 +40,7 @@ const baseConfig = {
         new DotenvWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/index.html'),
-            favicon: './src/news.svg',
+            favicon: './src/assets/news.svg',
             filename: 'index.html',
         }),
         new CleanWebpackPlugin(),
