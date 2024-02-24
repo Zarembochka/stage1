@@ -1,4 +1,5 @@
 import App from './components/app/app';
+import './fonts.css';
 import './global.css';
 import './burger';
 import './alphabet';
