@@ -4,6 +4,7 @@
     justify-content: center;
     transition: transform 0.3s ease-in-out;
     background-color: #17181c;
+    font-family: Solway-Regular, sans-serif;
 }
 
 .alphabet__btn {

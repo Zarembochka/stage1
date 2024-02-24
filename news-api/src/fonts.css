@@ -2,3 +2,8 @@
     font-family: Subway-Shadow;
     src: url('./assets/Subway-Shadow.ttf');
 }
+
+@font-face {
+    font-family: Solway-Regular;
+    src: url('./assets/Solway-Regular.ttf');
+}
