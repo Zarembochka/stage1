@@ -1,7 +1,7 @@
 .sources {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: calc(100% - 8px);
     height: 130px;
     overflow: auto;
     justify-content: center;
@@ -13,7 +13,7 @@
     transition: transform 0.3s ease-in-out;
     background-color: #17181c;
     position: sticky;
-    top: 137px;
+    top: 174px;
     z-index: 15;
     margin-bottom: 1rem;
 }
@@ -52,16 +52,29 @@
     white-space: nowrap;
 }
 
+@media screen and (max-width: 1242px) {
+    .source__item {
+        margin: 0.25em;
+        padding: 0.5em 1em;
+    }
+}
+
+@media screen and (max-width: 949px) {
+    .sources {
+        top: 218px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .sources {
         width: 100%;
         flex-direction: row;
         align-items: center;
-        height: calc(100vh - 76px);
+        height: calc(100vh - 122px);
         transform: translateX(100%);
         position: fixed;
         z-index: 15;
-        top: 157px;
+        top: 122px;
         right: 0;
     }
 
@@ -77,26 +90,35 @@
     }
 }
 
+@media screen and (max-width: 735px) {
+    .source__item {
+        padding: 0.25em 0.5em;
+    }
+}
+
 @media screen and (max-width: 690px) {
     .source__item {
+        width: 25%;
         font-size: 0.85em;
     }
 }
 
-@media screen and (max-width: 515px) {
-    .source__item {
-        width: 32%;
+@media screen and (max-width: 578px) {
+    .sources {
+        top: 148px;
+        height: calc(100vh - 148px);
     }
 }
 
 @media screen and (max-width: 480px) {
-    .sources {
-        top: 144px;
+    .source__item {
+        width: 40%;
     }
 }
 
-@media screen and (max-width: 396px) {
+@media screen and (max-width: 376px) {
     .sources {
         top: 172px;
+        height: calc(100vh - 172px);
     }
 }

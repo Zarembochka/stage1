@@ -1,10 +1,14 @@
 .alphabet {
+    width: calc(100% - 8px);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     transition: transform 0.3s ease-in-out;
     background-color: #17181c;
     font-family: Solway-Regular, sans-serif;
+    position: sticky;
+    top: 130px;
+    z-index: 15;
 }
 
 .alphabet__btn {
@@ -30,17 +34,33 @@
     display: none;
 }
 
+@media screen and (max-width: 1242px) {
+    .alphabet__btn {
+        margin: 0.25em 0.15em;
+        padding: 0.5em 0.5em;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .alphabet {
-        transform: translateX(100%);
+        transform: translateX(calc(100% + 34px));
         position: fixed;
         z-index: 15;
         top: 89px;
-        right: 0;
     }
 
     header.show + main > .alphabet {
         transform: translateX(0);
+    }
+}
+
+@media screen and (max-width: 735px) {
+    .alphabet {
+        padding-bottom: 8px;
+    }
+    .alphabet__btn {
+        margin: 0.15em;
+        padding: 0.25em;
     }
 }
 
