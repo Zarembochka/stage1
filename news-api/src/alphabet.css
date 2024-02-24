@@ -18,8 +18,7 @@
     cursor: pointer;
 }
 
-.alphabet__btn:hover,
-.alphabet__btn:focus {
+.alphabet__btn[checked='true'] {
     border-color: #fff130;
     color: #fff130;
     box-shadow: 0 0.5em 0.5em -0.4em #fff130;
@@ -47,5 +46,14 @@
 @media screen and (max-width: 480px) {
     .alphabet__btn {
         padding: 0.25em 0.5em;
+    }
+}
+
+@media screen and (hover: hover) {
+    .alphabet__btn:hover {
+        border-color: #fff130;
+        color: #fff130;
+        box-shadow: 0 0.5em 0.5em -0.4em #fff130;
+        transform: translateY(-0.25em);
     }
 }

@@ -60,14 +60,6 @@ header {
     top: 31px;
 }
 
-.burger:focus {
-    border-color: #3fcc59;
-    box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
-    .burger__span {
-        background-color: #69db7e;
-    }
-}
-
 header h1 {
     font-size: 40px;
     font-weight: 800;
