@@ -46,9 +46,9 @@ class Loader implements LoaderInterface {
     private load<data>(method: string, endpoint: Endpoints, callback: CallBackType<data>, options = {}) {
         fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
-            .then((res) => res.json())
-            .then((data) => callback(data))
-            .catch((err) => console.error(err));
+            .then((res: Response) => res.json())
+            .then((data: data) => callback(data))
+            .catch((err: Error) => console.error(err));
     }
 }
 
