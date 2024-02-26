@@ -84,4 +84,12 @@
     - how to use type guards with generics
 
 7. **Work with External Libraries in TypeScript**: Work with modules in TypeScript is very similar to work with modules in JavaScript. I can export any declaration (such as a variable, function, class, type alias, or interface) by adding the export keyword or import it by using the import keyword. Any file containing a top-level import or export statement is considered a module. Modules import one another using a module loader. To compile modules, I need to specify a --module target on the command line or in the tsconfig.json file for the project. If I want to compile the TypeScript file for ES6 for use in a web browser, I need to use the command: tsc --module es6 filename.ts.
+
+    In this module I learned:
+
+    - what are modules
+    - export/import from/to modules
+    - how to compile modules
+    - how to work with external libraries
+
 8. **Organize Code with Namespaces in TypeScrip**: Namespaces are a TypeScript-specific way to organize and categorize my code, allowing me to group related code together. Namespaces allow to group variables, functions, interfaces, or classes related to business rules in one namespace and security in another. Code inside a namespace is extracted from the global scope and placed within the scope of that namespace. This placement helps avoid name conflicts and can be useful when working with distributed development teams that may use similar component names. I can extend namespaces by sharing them across multiple TypeScript files.
