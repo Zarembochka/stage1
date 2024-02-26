@@ -59,6 +59,21 @@
     - rest parameters in functions
 
 5. **Declare and Instantiate Classes in TypeScript**: In TypeScript the components od a class are properties, constructor, accessors and methods. All class members are public, by default. In TypeScript, I can control the visibility of class members by adding the public, private, or protected keyword before the member name. In addition, properties can be made readonly by using the readonly modifier. I can extend a class and override a methods. I can use an interface to ensure class instance shape. The key difference between interfaces and classes is that classes allow you to define implementation details.
+
+    In this module I learned:
+
+    - class componets
+    - how to declare the class properties
+    - how to define the class constructor
+    - how to define the accessors
+    - how to define the class methods
+    - how to instantiate the class
+    - access modifiers
+    - how to define static properties
+    - how to extend a class
+    - how to override a method in the derived class
+    - how to use an interfaceto ensure class instance shape
+
 6. **Generics in TypeScript**: Generics are code templates that I can define and reuse throughout my codebase. Generics able to create a component that can work over a variety of types rather than a single one. Generics define one or more type variables to identify the type or types that you will pass to the component, enclosed in angle brackets (< >). Type checking is a key difference between generics and the any type.
 7. **Work with External Libraries in TypeScript**: Work with modules in TypeScript is very similar to work with modules in JavaScript. I can export any declaration (such as a variable, function, class, type alias, or interface) by adding the export keyword or import it by using the import keyword. Any file containing a top-level import or export statement is considered a module. Modules import one another using a module loader. To compile modules, I need to specify a --module target on the command line or in the tsconfig.json file for the project. If I want to compile the TypeScript file for ES6 for use in a web browser, I need to use the command: tsc --module es6 filename.ts.
 8. **Organize Code with Namespaces in TypeScrip**: Namespaces are a TypeScript-specific way to organize and categorize my code, allowing me to group related code together. Namespaces allow to group variables, functions, interfaces, or classes related to business rules in one namespace and security in another. Code inside a namespace is extracted from the global scope and placed within the scope of that namespace. This placement helps avoid name conflicts and can be useful when working with distributed development teams that may use similar component names. I can extend namespaces by sharing them across multiple TypeScript files.
