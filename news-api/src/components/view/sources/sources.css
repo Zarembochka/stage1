@@ -105,8 +105,8 @@
 
 @media screen and (max-width: 578px) {
     .sources {
-        top: 148px;
-        height: calc(100vh - 148px);
+        top: 147px;
+        height: calc(100vh - 147px);
     }
 }
 
