@@ -14,6 +14,10 @@
 ## Reflections:
 
 1. **Getting Started with TypeScript**: TypeScript is a superset of JavaScript. The core feature of TypeScript is its type system. I can write a code in TypeScript, but then I need to compile a code into JavaScript.
+   In this module I learned:
+    - how to install Typescript
+    - how to generate tsconfig file
+    - how to compile .ts files to .js
 2. **Declare Variable Types in TypeScript**: I need to declare a type for variables. I can do it with explicit type annotations or implicit type inference. There are new data types in TypeScript: enum (set of values), any (any JavaScript value with no constraints), unknown (type-safe counterpart of any), tuples (an array with a specific number of elements of one or more types.). In TypeScript I can use union and intersection types.
 3. **Implement Interfaces in TypeScript**: An interface contains the names of all the properties, along with their types. It also includes the signature for functions along with the type of arguments and return type. A class or function can implement an interface to define the implementation of the properties as defined in that interface. The key difference between interfaces and type aliases is that a type alias cannot be reopened to add new properties, whereas an interface can always be extended. In addition, only a union or tuple can be described using a type alias.
 4. **Develop Typed Functions in TypeScript**: In TypeScript I need to type parameters and return values for functions. All parameters are required in TypeScript unless otherwise specified. I can define optional parameters by appending a question mark (?) to the end of the parameter name. I can can also assign default values to optional parameters. I can use rest parameters. I can define function types or interfaces and then use them when creating my functions.
