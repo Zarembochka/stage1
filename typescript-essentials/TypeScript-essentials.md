@@ -93,3 +93,10 @@
     - how to work with external libraries
 
 8. **Organize Code with Namespaces in TypeScrip**: Namespaces are a TypeScript-specific way to organize and categorize my code, allowing me to group related code together. Namespaces allow to group variables, functions, interfaces, or classes related to business rules in one namespace and security in another. Code inside a namespace is extracted from the global scope and placed within the scope of that namespace. This placement helps avoid name conflicts and can be useful when working with distributed development teams that may use similar component names. I can extend namespaces by sharing them across multiple TypeScript files.
+
+    In this module I learned:
+
+    - what are namespaces
+    - export from namespaces
+    - how to nest namespaces
+    - how to compile single file and multi-file namespaces
