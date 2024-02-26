@@ -50,6 +50,14 @@
     - what is the difference between an interface and a type alias
 
 4. **Develop Typed Functions in TypeScript**: In TypeScript I need to type parameters and return values for functions. All parameters are required in TypeScript unless otherwise specified. I can define optional parameters by appending a question mark (?) to the end of the parameter name. I can can also assign default values to optional parameters. I can use rest parameters. I can define function types or interfaces and then use them when creating my functions.
+
+    In this module I learned:
+
+    - how to create functions
+    - how to define function type
+    - required, optional and default parameters in functions
+    - rest parameters in functions
+
 5. **Declare and Instantiate Classes in TypeScript**: In TypeScript the components od a class are properties, constructor, accessors and methods. All class members are public, by default. In TypeScript, I can control the visibility of class members by adding the public, private, or protected keyword before the member name. In addition, properties can be made readonly by using the readonly modifier. I can extend a class and override a methods. I can use an interface to ensure class instance shape. The key difference between interfaces and classes is that classes allow you to define implementation details.
 6. **Generics in TypeScript**: Generics are code templates that I can define and reuse throughout my codebase. Generics able to create a component that can work over a variety of types rather than a single one. Generics define one or more type variables to identify the type or types that you will pass to the component, enclosed in angle brackets (< >). Type checking is a key difference between generics and the any type.
 7. **Work with External Libraries in TypeScript**: Work with modules in TypeScript is very similar to work with modules in JavaScript. I can export any declaration (such as a variable, function, class, type alias, or interface) by adding the export keyword or import it by using the import keyword. Any file containing a top-level import or export statement is considered a module. Modules import one another using a module loader. To compile modules, I need to specify a --module target on the command line or in the tsconfig.json file for the project. If I want to compile the TypeScript file for ES6 for use in a web browser, I need to use the command: tsc --module es6 filename.ts.
