@@ -1,4 +1,4 @@
-import AppLoader from './appLoader';
+import { AppLoader } from './appLoader';
 import { ENDPOINTS } from '../abstracts/evetydayTypes';
 import { NewsSource, NewsData } from '../abstracts/interfaces';
 import { CallBackType } from '../abstracts/types';
@@ -41,4 +41,4 @@ class AppController extends AppLoader {
     }
 }
 
-export default AppController;
+export { AppController };

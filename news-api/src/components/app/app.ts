@@ -1,4 +1,4 @@
-import AppController from '../controller/controller';
+import { AppController } from '../controller/controller';
 import { AppView } from '../view/appView';
 import { NewsSource, NewsData } from '../abstracts/interfaces';
 import { burgerMenu } from '../../burger';
@@ -23,4 +23,4 @@ class App {
     }
 }
 
-export default App;
+export { App };

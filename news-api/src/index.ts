@@ -1,4 +1,4 @@
-import App from './components/app/app';
+import { App } from './components/app/app';
 import './fonts.css';
 import './global.css';
 import './burger';

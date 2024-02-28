@@ -52,4 +52,4 @@ class News {
     }
 }
 
-export default News;
+export { News };

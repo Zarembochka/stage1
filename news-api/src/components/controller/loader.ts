@@ -52,4 +52,4 @@ class Loader implements LoaderInterface {
     }
 }
 
-export default Loader;
+export { Loader };

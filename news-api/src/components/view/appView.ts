@@ -1,5 +1,5 @@
-import News from './news/news';
-import Sources from './sources/sources';
+import { News } from './news/news';
+import { Sources } from './sources/sources';
 import { NewsData, NewsSource } from '../abstracts/interfaces';
 
 export class AppView {
@@ -20,5 +20,3 @@ export class AppView {
         this.sources.draw(values);
     }
 }
-
-export default AppView;

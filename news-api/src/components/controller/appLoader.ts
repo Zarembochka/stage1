@@ -1,4 +1,4 @@
-import Loader from './loader';
+import { Loader } from './loader';
 
 class AppLoader extends Loader {
     constructor() {
@@ -11,4 +11,4 @@ class AppLoader extends Loader {
     }
 }
 
-export default AppLoader;
+export { AppLoader };
