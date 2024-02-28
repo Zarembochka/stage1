@@ -3,7 +3,8 @@ import { Article } from '../../abstracts/interfaces';
 
 class News {
     public draw(data: Article[]) {
-        const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+        const newsItemsPerPage = 10;
+        const news = data.length >= newsItemsPerPage ? data.filter((_item, idx) => idx < newsItemsPerPage) : data;
 
         const fragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
