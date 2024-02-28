@@ -1,5 +1,5 @@
 import AppLoader from './appLoader';
-import { Endpoints } from '../abstracts/evetydayTypes';
+import { ENDPOINTS } from '../abstracts/evetydayTypes';
 import { NewsSource, NewsData } from '../abstracts/interfaces';
 import { CallBackType } from '../abstracts/types';
 
@@ -7,7 +7,7 @@ class AppController extends AppLoader {
     public getSources(callback: CallBackType<NewsSource>): void {
         super.getResp(
             {
-                endpoint: Endpoints.sourses,
+                endpoint: ENDPOINTS.sourses,
             },
             callback
         );
@@ -26,7 +26,7 @@ class AppController extends AppLoader {
                     }
                     super.getResp(
                         {
-                            endpoint: Endpoints.everything,
+                            endpoint: ENDPOINTS.everything,
                             options: {
                                 sources: sourceId,
                             },

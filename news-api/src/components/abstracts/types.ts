@@ -1,4 +1,4 @@
-import { Endpoints } from './evetydayTypes';
+import { ENDPOINTS } from './evetydayTypes';
 import { Source } from './interfaces';
 
 export type LoadOptions = {
@@ -7,7 +7,7 @@ export type LoadOptions = {
 };
 
 export type RequestOptions = {
-    endpoint: Endpoints;
+    endpoint: ENDPOINTS;
     options?: LoadOptions;
 };
 

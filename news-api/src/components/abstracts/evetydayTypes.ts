@@ -1,9 +1,9 @@
-export enum Endpoints {
+export enum ENDPOINTS {
     sourses = 'sources',
     everything = 'everything',
 }
 
-export enum Statuses {
+export enum STATUSES {
     ok = 'ok',
     error = 'error',
 }

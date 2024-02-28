@@ -1,6 +1,6 @@
 import { CallBackType, LoadOptions } from '../abstracts/types';
 import { RequestOptions } from '../abstracts/types';
-import { Endpoints } from '../abstracts/evetydayTypes';
+import { ENDPOINTS } from '../abstracts/evetydayTypes';
 import { LoaderInterface } from '../abstracts/interfaces';
 
 class Loader implements LoaderInterface {
@@ -33,7 +33,7 @@ class Loader implements LoaderInterface {
         return res;
     }
 
-    private makeUrl(endpoint: Endpoints, options = {}): string {
+    private makeUrl(endpoint: ENDPOINTS, options = {}): string {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -43,7 +43,7 @@ class Loader implements LoaderInterface {
         return url.slice(0, -1);
     }
 
-    private load<data>(method: string, endpoint: Endpoints, callback: CallBackType<data>, options = {}) {
+    private load<data>(method: string, endpoint: ENDPOINTS, callback: CallBackType<data>, options = {}) {
         fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())
