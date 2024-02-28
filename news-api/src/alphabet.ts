@@ -55,12 +55,8 @@ export class Alphabet extends Layout {
 
     private filterFunction(item: Element, literal: string): boolean {
         const sourceTitle = item.getAttribute('data-source-id');
-        if (sourceTitle) {
-            if (sourceTitle[0].toUpperCase() === literal.toUpperCase()) {
-                return false;
-            }
-        }
-        return true;
+        if (!sourceTitle) return true;
+        return sourceTitle[0].toUpperCase() !== literal.toUpperCase();
     }
 
     private hideSourses(literal: string): void {
