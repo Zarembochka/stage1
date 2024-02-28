@@ -10,7 +10,6 @@ export interface Article {
     publishedAt: string;
     content: string;
     source: SourceInfo;
-    draw(data: Article[]): void;
 }
 
 export interface Source {
@@ -21,7 +20,6 @@ export interface Source {
     id: string;
     language: string;
     name: string;
-    draw(data: Source[]): void;
 }
 
 export interface NewsData {
