@@ -62,7 +62,7 @@ export class Alphabet extends Layout {
     private hideSourses(literal: string): void {
         const sources = [...document.querySelectorAll('.source__item')];
         this.showAllSources();
-        sources.filter((item) => this.filterFunction(item, literal)).map((item) => item.classList.add('hide'));
+        sources.filter((item) => this.filterFunction(item, literal)).forEach((item) => item.classList.add('hide'));
         this.clearNews();
     }
 
