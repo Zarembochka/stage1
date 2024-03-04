@@ -36,7 +36,7 @@ const baseConfig = {
         assetModuleFilename: "assets/[name][ext]",
     },
     plugins: [
-        new htmlWebpackPlugin({ title: "Rss Puzzle" }),
+        new htmlWebpackPlugin({ title: "Rss Puzzle", favicon: "./src/assets/images/favicon.svg" }),
         new miniCssExtractPlugin({ filename: "[name].css" }),
         new CleanWebpackPlugin(),
     ],
