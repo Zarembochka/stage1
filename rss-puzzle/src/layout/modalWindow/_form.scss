@@ -23,6 +23,15 @@
 
 .modal__login__item-message {
     font-size: 0.55em;
+    color: $color-error;
+}
+
+.modal__login__item-notvalid {
+    border: 1px solid $color-error;
+}
+
+.modal__login__item-valid {
+    border: 1px solid $color-valid;
 }
 
 .btn-submit {

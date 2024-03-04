@@ -1,4 +1,5 @@
 import { Layout } from "../../abstract/classes";
+import { checkValidation, focusValidation } from "./validation";
 
 class Modal extends Layout {
     createModal(): void {
@@ -40,6 +41,8 @@ class Modal extends Layout {
         input.id = id;
         input.setAttribute("required", "true");
         input.setAttribute("type", "text");
+        input.addEventListener("focusout", checkValidation);
+        input.addEventListener("focusin", focusValidation);
         element.append(input);
     }
 
