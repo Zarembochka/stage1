@@ -1,0 +1,41 @@
+.modal__login {
+    max-width: 100%;
+    @include display-flex(column);
+    row-gap: 10px;
+    font-size: 1.5em;
+}
+
+.modal__login__item {
+    @include display-flex(column);
+    width: 100%;
+    row-gap: 10px;
+    &:last-of-type {
+        margin-bottom: 10px;
+    }
+}
+
+.modal__login__item-input {
+    font-size: inherit;
+    outline: none;
+    border: 1px solid $form-border-color;
+    padding: 2px 5px;
+}
+
+.modal__login__item-message {
+    font-size: 0.55em;
+}
+
+.btn-submit {
+    font-size: inherit;
+    border: 1px solid $form-border-color;
+    padding: 10px 25px;
+    align-self: center;
+    background-color: saturate($form-border-color, 15%);
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: saturate($form-border-color, 35%);
+        }
+    }
+}
