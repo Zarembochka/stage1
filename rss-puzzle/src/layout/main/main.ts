@@ -17,6 +17,7 @@ class Main extends Layout {
         const description = this.createElement("p", "main__start__description", text);
         wrapper.append(title, description);
         this.main.append(wrapper);
+        this.main.classList.add("fade-in");
     }
     public removeMain(): void {
         this.main.innerHTML = "";

@@ -4,5 +4,12 @@
 }
 
 .header__title {
-    color: transparent;
+    color: rgb(213 145 52);
+    font-family: Hexen;
+    font-size: 36px;
+    margin: 0;
+}
+
+.fade-in {
+    animation: fade-in 0.3s ease-in-out;
 }

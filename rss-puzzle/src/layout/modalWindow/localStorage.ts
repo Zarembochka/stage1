@@ -15,10 +15,22 @@ class LocalStorage {
         localStorage.removeItem("LH_user");
     }
     public isUserinLS(): boolean {
-        if (localStorage.getItem("LH_user")) {
+        if (this.getUserFromLS()) {
             return true;
         }
         return false;
+    }
+    private getUserFromLS(): User | null {
+        const user = localStorage.getItem("LH_user");
+        if (!user) {
+            return null;
+        }
+        return JSON.parse(user);
+    }
+    public getGreeting(): string {
+        const user = this.getUserFromLS();
+        const greeting = `Welcome, ${user?.firstName} ${user?.surname}`;
+        return greeting;
     }
 }
 

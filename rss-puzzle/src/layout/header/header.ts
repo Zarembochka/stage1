@@ -14,6 +14,7 @@ class Header extends Layout {
         this.createTitle();
         this.createBtnLogout();
         container.appendElement(this.header);
+        this.header.classList.add("fade-in");
     }
     private createBtnLogout(): void {
         const btn = this.createElement("button", "btn btn-submit btn-logout", "Logout");
@@ -21,7 +22,7 @@ class Header extends Layout {
         this.header.append(btn);
     }
     private createTitle(): void {
-        const title = this.createElement("h1", "header__title", "RSS puzzle");
+        const title = this.createElement("h2", "header__title", lStorage.getGreeting());
         this.header.append(title);
     }
     public removeHeader(): void {
