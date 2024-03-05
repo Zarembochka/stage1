@@ -1,0 +1,18 @@
+.main__start {
+    background-color: rgb(235 241 46 / 28%);
+    border-radius: 20px;
+    @include display-flex(column, center, center);
+    height: calc(100dvh - 140px);
+    color: #355bd6;
+}
+
+.main__start__title {
+    font-family: Dragon;
+    font-size: 36px;
+}
+
+.main__start__description {
+    max-width: 50%;
+    text-align: center;
+    font-family: Theren;
+}

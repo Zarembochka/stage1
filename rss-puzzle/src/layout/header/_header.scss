@@ -2,3 +2,7 @@
     padding: 15px 0;
     @include display-flex(row, space-between);
 }
+
+.header__title {
+    color: transparent;
+}

@@ -1,5 +1,6 @@
 import { Layout } from "../../abstract/classes";
 import { container } from "../container/container";
+import { main } from "../main/main";
 import { lStorage } from "../modalWindow/localStorage";
 import { modalWindow } from "../modalWindow/modal";
 
@@ -31,6 +32,7 @@ class Header extends Layout {
 function logout() {
     lStorage.removeUserFromLS();
     header.removeHeader();
+    main.removeMain();
     modalWindow.showModal();
 }
 

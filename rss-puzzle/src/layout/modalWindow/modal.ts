@@ -1,5 +1,7 @@
 import { Layout } from "../../abstract/classes";
 import { header } from "../header/header";
+import { main } from "../main/main";
+import { startPage } from "../main/start";
 import { lStorage } from "./localStorage";
 import { checkValidation, focusValidation, checkValidationBeforeSaving } from "./validation";
 
@@ -90,5 +92,6 @@ function login(event: Event) {
         lStorage.saveUserToLS();
         modalWindow.hideModal();
         header.createHeader();
+        startPage();
     }
 }
