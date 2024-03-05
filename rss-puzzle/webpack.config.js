@@ -3,6 +3,7 @@ const { merge } = require("webpack-merge");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const baseConfig = {
     entry: "./src/index.ts",
@@ -23,7 +24,7 @@ const baseConfig = {
             },
             {
                 test: /\.(ico|gif|png|jpg|jpeg|svg)$/i,
-                type: "asset/resource",
+                type: "asset/inline",
             },
             {
                 test: /\.tsx?$/,
@@ -44,6 +45,14 @@ const baseConfig = {
         new htmlWebpackPlugin({ title: "Rss Puzzle", favicon: "./src/assets/images/favicon.svg" }),
         new miniCssExtractPlugin({ filename: "[name].css" }),
         new CleanWebpackPlugin(),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: "src/images/",
+                    to: "./assets/images",
+                },
+            ],
+        }),
     ],
 };
 

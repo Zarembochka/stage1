@@ -15,4 +15,49 @@
     max-width: 50%;
     text-align: center;
     font-family: Theren;
+    margin-bottom: 50px;
+}
+
+.btn-start {
+    color: $color-title;
+    font-family: Theren;
+    background-color: $color-green-btn;
+    border: 1px solid $color-green-btn;
+}
+
+.main__game {
+    padding: 25px;
+    justify-content: flex-start;
+    row-gap: 25px;
+}
+
+.main__game__header {
+    @include display-flex(row);
+    width: 100%;
+    font-family: Dragon;
+}
+
+.main__game__task {
+    font-family: Snowstorm;
+    font-size: 24px;
+}
+
+.main__game__game {
+    width: 58.5%;
+    height: 450px;
+    background-color: antiquewhite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.main__game__words {
+    @include display-flex(row, center);
+    width: 58.5%;
+    font-family: Snowstorm;
+    font-size: 20px;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 10px;
 }

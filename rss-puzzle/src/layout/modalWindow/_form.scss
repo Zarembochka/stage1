@@ -40,11 +40,14 @@
     padding: 10px 25px;
     align-self: center;
     background-color: saturate($form-border-color, 15%);
-    transition: background-color 0.3s ease-in-out;
+    transition:
+        background-color,
+        border-color 0.3s ease-in-out;
     border-radius: 10px;
     @media screen and (hover: hover) {
         &:hover {
-            background-color: saturate($form-border-color, 35%);
+            background-color: $color-orange-btn;
+            border: 1px solid $color-orange-btn;
         }
     }
 }
