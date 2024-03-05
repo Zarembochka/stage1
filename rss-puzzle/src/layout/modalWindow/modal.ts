@@ -1,14 +1,20 @@
 import { Layout } from "../../abstract/classes";
+import { header } from "../header/header";
 import { lStorage } from "./localStorage";
-import { checkValidation, focusValidation } from "./validation";
+import { checkValidation, focusValidation, checkValidationBeforeSaving } from "./validation";
 
 class Modal extends Layout {
-    createModal(): void {
-        const modalBackground = this.createElement("div", "modal__background");
-        const modal = this.createElement("div", "modal");
-        this.prepareModalToLogin(modal);
-        modalBackground.append(modal);
-        document.body.append(modalBackground);
+    private modalBackground;
+    private modal;
+    constructor() {
+        super();
+        this.modalBackground = this.createElement("div", "modal__background");
+        this.modal = this.createElement("div", "modal");
+    }
+    public createModal(): void {
+        this.prepareModalToLogin(this.modal);
+        this.modalBackground.append(this.modal);
+        document.body.append(this.modalBackground);
     }
     private prepareModalToLogin(element: Element): void {
         this.createFormLogin(element);
@@ -57,11 +63,32 @@ class Modal extends Layout {
         btn.addEventListener("click", login);
         element.append(btn);
     }
+
+    public hideModal(): void {
+        this.modalBackground.classList.remove("show");
+        this.clearModal();
+    }
+
+    public showModal(): void {
+        this.modalBackground.classList.add("show");
+    }
+
+    private clearModal(): void {
+        const inputs = [...document.querySelectorAll<HTMLInputElement>(".modal__login__item-input")];
+        for (let i = 0; i < inputs.length; i += 1) {
+            inputs[i].value = "";
+            inputs[i].classList.remove("modal__login__item-valid");
+        }
+    }
 }
 
 export const modalWindow = new Modal();
 
 function login(event: Event) {
     event.preventDefault();
-    lStorage.saveUserToLS();
+    if (checkValidationBeforeSaving()) {
+        lStorage.saveUserToLS();
+        modalWindow.hideModal();
+        header.createHeader();
+    }
 }

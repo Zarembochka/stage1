@@ -1,0 +1,6 @@
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    @include display-flex(column);
+    padding: 15px;
+}

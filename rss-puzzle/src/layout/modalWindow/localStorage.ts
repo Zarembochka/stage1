@@ -11,6 +11,15 @@ class LocalStorage {
         const surname = login_surname.value.trim();
         this.saveDataToLS({ firstName: firstName, surname: surname });
     }
+    public removeUserFromLS(): void {
+        localStorage.removeItem("LH_user");
+    }
+    public isUserinLS(): boolean {
+        if (localStorage.getItem("LH_user")) {
+            return true;
+        }
+        return false;
+    }
 }
 
 export const lStorage = new LocalStorage();
