@@ -1,4 +1,5 @@
 import { Layout } from "../../abstract/classes";
+import { lStorage } from "./localStorage";
 import { checkValidation, focusValidation } from "./validation";
 
 class Modal extends Layout {
@@ -53,8 +54,14 @@ class Modal extends Layout {
 
     private createButtonSubmit(element: Element): void {
         const btn = this.createElement("button", "btn btn-submit", "Login");
+        btn.addEventListener("click", login);
         element.append(btn);
     }
 }
 
 export const modalWindow = new Modal();
+
+function login(event: Event) {
+    event.preventDefault();
+    lStorage.saveUserToLS();
+}
