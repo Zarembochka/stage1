@@ -1,24 +1,24 @@
 import { Layout } from "../../abstract/classes";
-import { header } from "../header/header";
-import { startPage } from "../main/start";
+import { startPage } from "../main/startPage";
 import { lStorage } from "./localStorage";
 import { checkValidation, focusValidation, checkValidationBeforeSaving } from "./validation";
+import { Container } from "../container/container";
 
-class Modal extends Layout {
-    private modalBackground;
+class LoginPage extends Layout {
+    private main;
 
-    private modal;
+    private wrapper;
 
     constructor() {
         super();
-        this.modalBackground = this.createElement("div", "modal__background");
-        this.modal = this.createElement("div", "modal");
+        this.wrapper = new Container("startPage");
+        this.main = this.createElement("main", "start");
     }
 
-    public createModal(): void {
-        this.prepareModalToLogin(this.modal);
-        this.modalBackground.append(this.modal);
-        document.body.append(this.modalBackground);
+    public createMain(): void {
+        this.wrapper.createContainer();
+        this.wrapper.appendElement(this.main);
+        this.prepareModalToLogin(this.main);
     }
 
     private prepareModalToLogin(element: Element): void {
@@ -73,42 +73,32 @@ class Modal extends Layout {
         element.append(btn);
     }
 
-    public hideModal(): void {
-        this.modalBackground.classList.remove("show");
-        this.clearModal();
-    }
+    // private clearModal(): void {
+    //     const inputs = [...document.querySelectorAll<HTMLInputElement>(".modal__login__item-input")];
+    //     for (let i = 0; i < inputs.length; i += 1) {
+    //         inputs[i].value = "";
+    //         inputs[i].classList.remove("modal__login__item-valid");
+    //     }
+    // }
 
-    public showModal(): void {
-        this.modalBackground.classList.add("show");
-    }
-
-    private clearModal(): void {
-        const inputs = [...document.querySelectorAll<HTMLInputElement>(".modal__login__item-input")];
-        for (let i = 0; i < inputs.length; i += 1) {
-            inputs[i].value = "";
-            inputs[i].classList.remove("modal__login__item-valid");
-        }
-    }
-
-    private login(event: Event, window: Modal): void {
+    private login(event: Event, window: LoginPage): void {
         event.preventDefault();
         if (checkValidationBeforeSaving()) {
             lStorage.saveUserToLS();
-            window.hideModal();
-            header.createHeader();
+            //window.clearModal();
+            window.destroy();
             startPage();
+        }
+    }
+
+    private destroy(): void {
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
+        while (this.main.firstChild) {
+            this.main.removeChild(this.main.firstChild);
         }
     }
 }
 
-export const modalWindow = new Modal();
-
-// function login(event: Event) {
-//     event.preventDefault();
-//     if (checkValidationBeforeSaving()) {
-//         lStorage.saveUserToLS();
-//         modalWindow.hideModal();
-//         header.createHeader();
-//         startPage();
-//     }
-// }
+export const loginPage = new LoginPage();

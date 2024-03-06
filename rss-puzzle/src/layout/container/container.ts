@@ -1,20 +1,24 @@
 import { Layout } from "../../abstract/classes";
 
-class Container extends Layout {
+export class Container extends Layout {
     private container;
 
-    constructor() {
+    constructor(className: string) {
         super();
-        this.container = this.createElement("div", "container");
+        this.container = this.createElement("div", `container ${className}`);
     }
 
-    public createContainer() {
+    public createContainer(): void {
         document.body.append(this.container);
     }
 
-    public appendElement(element: Element) {
+    public appendElement(element: Element): void {
         this.container.append(element);
     }
-}
 
-export const container = new Container();
+    public destroy(): void {
+        while (this.container.firstChild) {
+            this.container.removeChild(this.container.firstChild);
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import { Layout } from "../../abstract/classes";
 import { newGame } from "../../game/game";
-import { container } from "../container/container";
+import { container } from "../header/header";
+import { lStorage } from "../startPage/localStorage";
 
 class Main extends Layout {
     private main;
@@ -17,11 +18,12 @@ class Main extends Layout {
 
     public createStartPage(): void {
         const wrapper = this.createElement("div", "main__start");
+        const greeting = this.createElement("p", "main__start__greeting", lStorage.getGreeting());
         const title = this.createElement("h2", "main__start__title", "RSS Puzzle");
         const text = `RSS Puzzle is an interactive mini game aimed at enhancing English language skills. The game integrates various levels of difficulty, hint options and a unique puzzle-like experience with artwork`;
         const description = this.createElement("p", "main__start__description", text);
         const btn = this.addBtnStart();
-        wrapper.append(title, description, btn);
+        wrapper.append(greeting, title, description, btn);
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
     }
@@ -62,6 +64,15 @@ class Main extends Layout {
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
         newGame.startGame(header, task, image, words);
+    }
+
+    public destroy(): void {
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
+        while (this.main.firstChild) {
+            this.main.removeChild(this.main.firstChild);
+        }
     }
 }
 

@@ -1,8 +1,10 @@
 import { Layout } from "../../abstract/classes";
-import { container } from "../container/container";
-import { main } from "../main/main";
-import { lStorage } from "../modalWindow/localStorage";
-import { modalWindow } from "../modalWindow/modal";
+import { Container } from "../container/container";
+import { main } from "../main/mainPage";
+import { lStorage } from "../startPage/localStorage";
+import { loginPage } from "../startPage/loginPage";
+
+export const container = new Container("mainPage");
 
 class Header extends Layout {
     private header;
@@ -13,6 +15,7 @@ class Header extends Layout {
     }
 
     public createHeader(): void {
+        container.createContainer();
         this.createTitle();
         this.createBtnLogout();
         container.appendElement(this.header);
@@ -26,19 +29,22 @@ class Header extends Layout {
     }
 
     private createTitle(): void {
-        const title = this.createElement("h2", "header__title", lStorage.getGreeting());
+        //const title = this.createElement("h2", "header__title", lStorage.getGreeting());
+        const title = this.createElement("h1", "header__title", "RSS Puzzle");
         this.header.append(title);
-    }
-
-    public removeHeader(): void {
-        this.header.innerHTML = "";
     }
 
     private logout(header: Header): void {
         lStorage.removeUserFromLS();
-        header.removeHeader();
-        main.removeMain();
-        modalWindow.showModal();
+        main.destroy();
+        header.destroy();
+        loginPage.createMain();
+    }
+
+    private destroy(): void {
+        while (this.header.firstChild) {
+            this.header.removeChild(this.header.firstChild);
+        }
     }
 }
 

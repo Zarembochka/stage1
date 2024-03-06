@@ -3,4 +3,10 @@
     margin: 0 auto;
     @include display-flex(column);
     padding: 15px;
+    height: calc(100dvh - 30px);
+}
+
+.startPage {
+    justify-content: center;
+    align-items: center;
 }
