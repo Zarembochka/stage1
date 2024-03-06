@@ -16,7 +16,6 @@
     cursor: pointer;
     background-color: $color-green-btn;
     border-radius: 5px;
-    flex-grow: 2;
     transition: background-color 0.3s ease-in-out;
     @media screen and (hover: hover) {
         &:hover {

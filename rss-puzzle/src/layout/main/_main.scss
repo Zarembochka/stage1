@@ -52,16 +52,14 @@
     display: grid;
     grid-template-rows: repeat(10, 1fr);
     font-family: Snowstorm;
-    font-size: 20px;
+    font-size: calc(14px + (20 - 14) * (100vw - 768px) / (1440 - 768));
 }
 
 .main__game__words {
     @include display-flex(row, center);
     width: 58.5%;
     font-family: Snowstorm;
-    font-size: 20px;
+    font-size: calc(14px + (20 - 14) * (100vw - 768px) / (1440 - 768));
     flex-wrap: wrap;
     user-select: none;
-    //row-gap: 10px;
-    //column-gap: 10px;
 }
