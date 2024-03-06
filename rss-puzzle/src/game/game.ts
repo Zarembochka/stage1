@@ -49,6 +49,7 @@ class Game extends Layout {
             image.append(row);
         }
     }
+
     private showImage(image: Element, src: string): void {
         if (image instanceof HTMLElement) {
             image.style.backgroundImage = `url("./assets/images/${src}")`;
