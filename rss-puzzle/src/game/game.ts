@@ -33,31 +33,83 @@ class Game extends Layout {
     private showProgress(header: Element): void {
         header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}`;
     }
-    // private createGrid(image: Element): void {
-    //     for (let i = 0; i < this.currentLevel.task.length; i += 1) {
-    //         const row = document.createElement("div");
-    //         row.classList.add("game__row");
-    //         image.append(row);
-    //     }
-    // }
+    private createGrid(image: Element): void {
+        for (let i = 0; i < this.currentLevel.task.length; i += 1) {
+            const row = document.createElement("div");
+            row.setAttribute("data-row", i.toString());
+            row.classList.add("game__row");
+            image.append(row);
+        }
+    }
     private showImage(image: Element, src: string): void {
         if (image instanceof HTMLElement) {
             image.style.backgroundImage = `url("./assets/images/${src}")`;
         }
     }
-    private showWords(words: Element): void {
-        const wordsToShow = this.currentLevel.answer[this.question].split(" ");
+    private showWords(words: Element, image: Element): void {
+        const startWords = this.currentLevel.answer[this.question].split(" ");
+        const wordsToShow = this.reshuffle(startWords);
+        const wordsLength = this.getAllWordsLength(wordsToShow);
+        const gameField = image.querySelector(`[data-row="${this.question.toString()}"]`);
         for (let i = 0; i < wordsToShow.length; i += 1) {
-            const span = this.createElement("span", "game__words", wordsToShow[i]);
-            words.append(span);
+            const card = this.createElement("div", "game__card") as HTMLElement;
+            const word = this.createElement("div", "game__card__word", wordsToShow[i]);
+            const field = this.createElement("div", "game__card");
+            card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
+            card.append(word);
+            words.append(card);
+            gameField?.append(field);
+            card.addEventListener("click", this.replaceWordCardToField);
         }
     }
     public startGame(header: Element, task: Element, image: Element, words: Element): void {
         this.showProgress(header);
         this.showTask(task, this.currentLevel.task[this.question]);
-        //this.createGrid(image);
+        this.createGrid(image);
         //this.showImage(image, this.currentLevel.image);
-        this.showWords(words);
+        this.showWords(words, image);
+    }
+    private replaceWordCardToField(event: Event): void {
+        const card = event.currentTarget;
+        const gameRow = document.querySelector(`[data-row="${newGame.question.toString()}"]`);
+        const gameCards = gameRow?.querySelectorAll(".game__card");
+        if (card instanceof HTMLElement) {
+            if (gameCards) {
+                const gameFieldCard = newGame.findEmptyCard(gameCards) as HTMLElement;
+                if (gameFieldCard) {
+                    gameFieldCard.innerHTML = card.innerHTML;
+                    gameFieldCard.style.width = card.style.width;
+                    card.innerHTML = "";
+                }
+            }
+        }
+    }
+    private findEmptyCard(cards: NodeListOf<Element>): Element | undefined {
+        for (let i = 0; i < cards.length; i += 1) {
+            if (!cards[i].innerHTML) {
+                return cards[i];
+            }
+        }
+    }
+    private getAllWordsLength(words: string[]): number {
+        const result = words.reduce((a, b) => a + b.length, 0);
+        return result;
+    }
+    private calculateWidth(word: string, allWordsLength: number): string {
+        const result = Math.floor((word.length * 1000) / allWordsLength) / 10;
+        return `${result.toString()}%`;
+    }
+    private reshuffle(cards: string[]): string[] {
+        for (let i = 0; i < cards.length; i += 1) {
+            const randomIndex = this.getRandomNumber(cards.length);
+            const temp = cards[i];
+            cards[i] = cards[randomIndex];
+            cards[randomIndex] = temp;
+        }
+        return cards;
+    }
+    private getRandomNumber(max: number): number {
+        return Math.floor(Math.random() * max);
     }
 }
 

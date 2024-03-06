@@ -1,9 +1,17 @@
 .game__row {
-    border: 1px solid grey;
+    // border: 1px solid grey;
+    @include display-flex(row, flex-start);
 }
 
-.game__words {
-    padding: 5px 10px;
+.game__card {
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 5px;
+    //border: 1px solid $color-green-btn;
+}
+
+.game__card__word {
+    padding: 5px;
     text-align: center;
     cursor: pointer;
     background-color: $color-green-btn;
