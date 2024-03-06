@@ -1,4 +1,5 @@
 import { Layout } from "../abstract/classes";
+import { REPLACETO } from "../abstract/enums";
 import { GameLevel } from "../abstract/interfaces";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
@@ -64,12 +65,13 @@ class Game extends Layout {
         for (let i = 0; i < wordsToShow.length; i += 1) {
             const card = this.createElement("div", "game__card") as HTMLElement;
             const word = this.createElement("div", "game__card__word", wordsToShow[i]);
-            const field = this.createElement("div", "game__card");
+            const field = this.createElement("div", "game__card") as HTMLElement;
             card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
             card.append(word);
             words.append(card);
             gameField?.append(field);
             card.addEventListener("click", (event) => this.replaceWordCardToField(event, this));
+            field.addEventListener("click", (event) => this.replaceWordCardToField(event, this, REPLACETO.toCardsSrc));
         }
     }
 
@@ -81,10 +83,14 @@ class Game extends Layout {
         this.showWords(words, image);
     }
 
-    private replaceWordCardToField(event: Event, game: Game): void {
+    private replaceWordCardToField(event: Event, game: Game, direction?: REPLACETO): void {
         const card = event.currentTarget;
-        const gameRow = document.querySelector(`[data-row="${game.question.toString()}"]`);
-        const gameCards = gameRow?.querySelectorAll(".game__card");
+        let target = document.querySelector(`[data-row="${game.question.toString()}"]`);
+        if (direction) {
+            target = document.querySelector(`.main__game__words`);
+        }
+        //const gameRow = document.querySelector(`[data-row="${game.question.toString()}"]`);
+        const gameCards = target?.querySelectorAll(".game__card");
         if (card instanceof HTMLElement) {
             if (gameCards) {
                 const gameFieldCard = game.findEmptyCard(gameCards) as HTMLElement;
@@ -92,6 +98,7 @@ class Game extends Layout {
                     gameFieldCard.innerHTML = card.innerHTML;
                     gameFieldCard.style.width = card.style.width;
                     card.innerHTML = "";
+                    card.style.width = "";
                 }
             }
         }
