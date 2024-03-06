@@ -11,9 +11,13 @@ const rounds = [round1, round2, round3, round4, round5, round6];
 
 class Game extends Layout {
     private round;
+
     private level;
+
     private question;
+
     private currentLevel: GameLevel;
+
     constructor() {
         super();
         this.round = 0;
@@ -21,18 +25,22 @@ class Game extends Layout {
         this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
     }
+
     private getLevel(round: number, level: number): GameLevel {
         const dataLevel = rounds[round].rounds[level];
         const tasks = dataLevel.words.map((element) => element.textExampleTranslate);
         const answers = dataLevel.words.map((element) => element.textExample);
         return { task: tasks, answer: answers, image: dataLevel.levelData.imageSrc };
     }
+
     private showTask(element: Element, text: string): void {
         element.textContent = text;
     }
+
     private showProgress(header: Element): void {
         header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}`;
     }
+
     private createGrid(image: Element): void {
         for (let i = 0; i < this.currentLevel.task.length; i += 1) {
             const row = document.createElement("div");
@@ -46,6 +54,7 @@ class Game extends Layout {
             image.style.backgroundImage = `url("./assets/images/${src}")`;
         }
     }
+
     private showWords(words: Element, image: Element): void {
         const startWords = this.currentLevel.answer[this.question].split(" ");
         const wordsToShow = this.reshuffle(startWords);
@@ -59,9 +68,10 @@ class Game extends Layout {
             card.append(word);
             words.append(card);
             gameField?.append(field);
-            card.addEventListener("click", this.replaceWordCardToField);
+            card.addEventListener("click", (event) => this.replaceWordCardToField(event, this));
         }
     }
+
     public startGame(header: Element, task: Element, image: Element, words: Element): void {
         this.showProgress(header);
         this.showTask(task, this.currentLevel.task[this.question]);
@@ -69,13 +79,14 @@ class Game extends Layout {
         //this.showImage(image, this.currentLevel.image);
         this.showWords(words, image);
     }
-    private replaceWordCardToField(event: Event): void {
+
+    private replaceWordCardToField(event: Event, game: Game): void {
         const card = event.currentTarget;
-        const gameRow = document.querySelector(`[data-row="${newGame.question.toString()}"]`);
+        const gameRow = document.querySelector(`[data-row="${game.question.toString()}"]`);
         const gameCards = gameRow?.querySelectorAll(".game__card");
         if (card instanceof HTMLElement) {
             if (gameCards) {
-                const gameFieldCard = newGame.findEmptyCard(gameCards) as HTMLElement;
+                const gameFieldCard = game.findEmptyCard(gameCards) as HTMLElement;
                 if (gameFieldCard) {
                     gameFieldCard.innerHTML = card.innerHTML;
                     gameFieldCard.style.width = card.style.width;
@@ -84,6 +95,7 @@ class Game extends Layout {
             }
         }
     }
+
     private findEmptyCard(cards: NodeListOf<Element>): Element | undefined {
         for (let i = 0; i < cards.length; i += 1) {
             if (!cards[i].innerHTML) {
@@ -91,14 +103,17 @@ class Game extends Layout {
             }
         }
     }
+
     private getAllWordsLength(words: string[]): number {
         const result = words.reduce((a, b) => a + b.length, 0);
         return result;
     }
+
     private calculateWidth(word: string, allWordsLength: number): string {
         const result = Math.floor((word.length * 1000) / allWordsLength) / 10;
         return `${result.toString()}%`;
     }
+
     private reshuffle(cards: string[]): string[] {
         for (let i = 0; i < cards.length; i += 1) {
             const randomIndex = this.getRandomNumber(cards.length);
@@ -108,6 +123,7 @@ class Game extends Layout {
         }
         return cards;
     }
+
     private getRandomNumber(max: number): number {
         return Math.floor(Math.random() * max);
     }

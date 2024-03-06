@@ -34,7 +34,7 @@ const baseConfig = {
         ],
     },
     resolve: {
-        extensions: [".js", ".ts"],
+        extensions: [".js", ".jsx", ".ts"],
     },
     output: {
         path: path.resolve(__dirname, "./dist"),

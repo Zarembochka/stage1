@@ -4,14 +4,17 @@ import { container } from "../container/container";
 
 class Main extends Layout {
     private main;
+
     constructor() {
         super();
         this.main = this.createElement("main", "main");
     }
+
     public createMain(): void {
         container.appendElement(this.main);
-        this.main.addEventListener("animationend", this.checkAnimation);
+        this.main.addEventListener("animationend", (event) => this.checkAnimation(event, this));
     }
+
     public createStartPage(): void {
         const wrapper = this.createElement("div", "main__start");
         const title = this.createElement("h2", "main__start__title", "RSS Puzzle");
@@ -22,27 +25,32 @@ class Main extends Layout {
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
     }
+
     public removeMain(): void {
         this.main.innerHTML = "";
     }
+
     private addBtnStart(): Element {
         const btn = this.createElement("button", "btn btn-submit btn-start", "Start game");
-        btn.addEventListener("click", this.hideStartPage);
+        btn.addEventListener("click", () => this.hideStartPage(this));
         return btn;
     }
-    private hideStartPage(): void {
-        main.main.classList.remove("fade-in");
-        main.main.classList.add("fade-out");
+
+    private hideStartPage(page: Main): void {
+        page.main.classList.remove("fade-in");
+        page.main.classList.add("fade-out");
     }
-    private checkAnimation(event: Event): void {
+
+    private checkAnimation(event: Event, page: Main): void {
         if (event instanceof AnimationEvent) {
             if (event.animationName === "fade-out") {
-                main.main.classList.remove("fade-out");
-                main.removeMain();
-                main.createMainPage();
+                page.main.classList.remove("fade-out");
+                page.removeMain();
+                page.createMainPage();
             }
         }
     }
+
     private createMainPage(): void {
         const wrapper = this.createElement("div", "main__start main__game");
         const header = this.createElement("header", "main__game__header");

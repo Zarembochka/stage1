@@ -6,24 +6,30 @@ import { checkValidation, focusValidation, checkValidationBeforeSaving } from ".
 
 class Modal extends Layout {
     private modalBackground;
+
     private modal;
+
     constructor() {
         super();
         this.modalBackground = this.createElement("div", "modal__background");
         this.modal = this.createElement("div", "modal");
     }
+
     public createModal(): void {
         this.prepareModalToLogin(this.modal);
         this.modalBackground.append(this.modal);
         document.body.append(this.modalBackground);
     }
+
     private prepareModalToLogin(element: Element): void {
         this.createFormLogin(element);
     }
+
     private addHeaderToLogin(title: string, element: Element) {
         const modalTitle = this.createElement("h3", "modal__title", title);
         element.append(modalTitle);
     }
+
     private createFormLogin(element: Element): void {
         const form = this.createElement("form", "modal__login");
         this.createFormItem(form, "First Name", "login_firstName");
@@ -31,6 +37,7 @@ class Modal extends Layout {
         this.createButtonSubmit(form);
         element.append(form);
     }
+
     private createFormItem(element: Element, title: string, id: string): void {
         const formItem = this.createElement("div", "modal__login__item");
         this.createLabel(formItem, title, id);
@@ -38,6 +45,7 @@ class Modal extends Layout {
         this.createMessage(formItem);
         element.append(formItem);
     }
+
     private createLabel(element: Element, title: string, id: string): void {
         const label = this.createElement("label", "modal__login__item-label", title);
         label.setAttribute("for", id);
@@ -61,7 +69,7 @@ class Modal extends Layout {
 
     private createButtonSubmit(element: Element): void {
         const btn = this.createElement("button", "btn btn-submit", "Login");
-        btn.addEventListener("click", login);
+        btn.addEventListener("click", (event) => this.login(event, this));
         element.append(btn);
     }
 
@@ -81,16 +89,26 @@ class Modal extends Layout {
             inputs[i].classList.remove("modal__login__item-valid");
         }
     }
+
+    private login(event: Event, window: Modal): void {
+        event.preventDefault();
+        if (checkValidationBeforeSaving()) {
+            lStorage.saveUserToLS();
+            window.hideModal();
+            header.createHeader();
+            startPage();
+        }
+    }
 }
 
 export const modalWindow = new Modal();
 
-function login(event: Event) {
-    event.preventDefault();
-    if (checkValidationBeforeSaving()) {
-        lStorage.saveUserToLS();
-        modalWindow.hideModal();
-        header.createHeader();
-        startPage();
-    }
-}
+// function login(event: Event) {
+//     event.preventDefault();
+//     if (checkValidationBeforeSaving()) {
+//         lStorage.saveUserToLS();
+//         modalWindow.hideModal();
+//         header.createHeader();
+//         startPage();
+//     }
+// }

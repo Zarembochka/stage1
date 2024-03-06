@@ -3,7 +3,7 @@ function checkTextValidation(input: HTMLInputElement, pattern: RegExp, messageTe
     if (pattern.test(value) === false) {
         input.classList.remove("modal__login__item-valid");
         input.classList.add("modal__login__item-notvalid");
-        //message
+        // message
         const message = input.nextElementSibling;
         if (message) {
             message.textContent = messageText;
