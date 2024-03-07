@@ -1,15 +1,24 @@
 import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { GameField } from "../../abstract/interfaces";
-import { newGame } from "../../game/game";
+import { Game } from "../../game/game";
 import { Container } from "../container/container";
 
 export class MainLayout extends Layout {
     private main;
 
+    private game: Game;
+
+    public btnContinue: Element;
+
+    public btnCheck: Element;
+
     constructor() {
         super();
         this.main = this.createElement("main", "main");
+        this.btnContinue = this.createElement("button", "btn btn-submit btn-continue", "Continue");
+        this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
+        this.game = new Game();
     }
 
     public createMain(wrapper: Container): void {
@@ -62,27 +71,20 @@ export class MainLayout extends Layout {
         const image = this.createElement("div", "main__game__game");
         const words = this.createElement("div", "main__game__words");
         const footer = this.createElement("footer", "main__game__footer");
-        const btnContinue = this.addButtonsToFooter(footer);
+        this.addButtonsToFooter(footer);
         wrapper.append(header, task, image, words, footer);
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
-        const gameField = this.prepareDataToTheGame(header, task, image, words, btnContinue);
-        newGame.startGame(gameField);
+        const gameField = this.prepareDataToTheGame(header, task, image, words);
+        this.game.startGame(gameField);
     }
 
-    private prepareDataToTheGame(
-        header: Element,
-        task: Element,
-        image: Element,
-        words: Element,
-        btnContinue: Element
-    ): GameField {
+    private prepareDataToTheGame(header: Element, task: Element, image: Element, words: Element): GameField {
         return {
             header: header,
             task: task,
             image: image,
             words: words,
-            btnContinue: btnContinue,
         };
     }
 
@@ -95,10 +97,11 @@ export class MainLayout extends Layout {
         }
     }
 
-    private addButtonsToFooter(footer: Element): Element {
-        const btnContinue = this.createElement("button", "btn btn-submit btn-continue", "Continue");
-        btnContinue.setAttribute("disabled", "true");
-        footer.append(btnContinue);
-        return btnContinue;
+    private addButtonsToFooter(footer: Element): void {
+        this.btnContinue.setAttribute("disabled", "true");
+        this.btnContinue.addEventListener("click", () => this.game.nextLevel());
+        this.btnCheck.setAttribute("disabled", "true");
+        this.btnCheck.addEventListener("click", () => this.game.checkSentence());
+        footer.append(this.btnCheck, this.btnContinue);
     }
 }

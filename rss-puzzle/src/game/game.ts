@@ -1,3 +1,4 @@
+import { app } from "..";
 import { Layout } from "../abstract/classes";
 import { REPLACETO } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
@@ -10,7 +11,7 @@ import round6 from "../data/levels/wordCollectionLevel6.json";
 
 const rounds = [round1, round2, round3, round4, round5, round6];
 
-class Game extends Layout {
+export class Game extends Layout {
     private round;
 
     private level;
@@ -19,15 +20,12 @@ class Game extends Layout {
 
     private currentLevel: GameLevel;
 
-    private btnContinue: Element | null;
-
     constructor() {
         super();
         this.round = 0;
         this.level = 0;
         this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
-        this.btnContinue = null;
     }
 
     private getLevel(round: number, level: number): GameLevel {
@@ -79,10 +77,6 @@ class Game extends Layout {
     }
 
     public startGame(gameField: GameField): void {
-        if (!this.btnContinue) {
-            this.btnContinue = gameField.btnContinue;
-            this.btnContinue.addEventListener("click", () => this.nextLevel());
-        }
         this.showProgress(gameField.header);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
         if (!this.question) {
@@ -93,12 +87,13 @@ class Game extends Layout {
     }
 
     private replaceWordCardToField(event: Event, game: Game, direction?: REPLACETO): void {
+        app.mainPage.gamePage.btnCheck.setAttribute("disabled", "true");
         const card = event.currentTarget;
         let target = document.querySelector(`[data-row="${game.question.toString()}"]`);
         if (direction) {
+            this.removeIncorrectClass(target);
             target = document.querySelector(`.main__game__words`);
         }
-        //const gameRow = document.querySelector(`[data-row="${game.question.toString()}"]`);
         const gameCards = target?.querySelectorAll(".game__card");
         if (card instanceof HTMLElement) {
             if (gameCards) {
@@ -146,27 +141,48 @@ class Game extends Layout {
         return Math.floor(Math.random() * max);
     }
 
-    private checkCorrectStatement(): void {
+    private getUserSentence(): Element[] {
         const fieldToCheck = document.querySelector(`[data-row="${this.question.toString()}"]`);
         const wordsCards = fieldToCheck?.querySelectorAll(".game__card__word");
-        if (wordsCards) {
-            const words = Array.from(wordsCards).map((word) => word.textContent);
-            const currentSentence = words.join(" ");
-            if (currentSentence === this.currentLevel.answer[this.question]) {
-                if (this.btnContinue) {
-                    this.btnContinue.removeAttribute("disabled");
-                }
-            }
+        if (!wordsCards) {
+            throw new Error("No sentence to check!");
+        }
+        const userSentence = Array.from(wordsCards);
+        return userSentence;
+    }
+
+    private checkCorrectStatement(): void {
+        const words = this.getUserSentence().map((word) => word.textContent);
+        if (words.length === this.currentLevel.answer[this.question].split(" ").length) {
+            app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
+        }
+        const currentSentence = words.join(" ");
+        if (currentSentence === this.currentLevel.answer[this.question]) {
+            app.mainPage.gamePage.btnContinue.removeAttribute("disabled");
         }
     }
 
-    private nextLevel(): void {
+    private removeIncorrectClass(row: Element | null): void {
+        if (row) {
+            const words = row.querySelectorAll(".game__card__word.uncorrect");
+            words.forEach((word) => word.classList.remove("uncorrect"));
+        }
+    }
+
+    public nextLevel(): void {
         this.disablePrevousLevel();
         this.destroyWordCards();
         this.addQuestion();
         const gameField = this.prepareDataToGame();
         this.startGame(gameField);
-        this.btnContinue?.setAttribute("disabled", "true");
+        app.mainPage.gamePage.btnContinue.setAttribute("disabled", "true");
+    }
+
+    public checkSentence(): void {
+        const userWords = this.getUserSentence();
+        const answer = this.currentLevel.answer[this.question].split(" ");
+        const uncorrectWords = userWords.filter((word, index) => word.textContent !== answer[index]);
+        uncorrectWords.forEach((word) => word.classList.add("uncorrect"));
     }
 
     private addQuestion(): void {
@@ -207,7 +223,7 @@ class Game extends Layout {
         const task = document.querySelector(".main__game__task");
         const image = document.querySelector(".main__game__game");
         const words = document.querySelector(".main__game__words");
-        if (!header || !task || !image || !words || !this.btnContinue) {
+        if (!header || !task || !image || !words) {
             throw new Error("Oops! Something's gone wrong!");
         }
         return {
@@ -215,9 +231,8 @@ class Game extends Layout {
             task: task,
             image: image,
             words: words,
-            btnContinue: this.btnContinue,
         };
     }
 }
 
-export const newGame = new Game();
+//export const newGame = new Game();

@@ -1,4 +1,10 @@
-.btn-continue {
+.main__game__footer {
+    @include display-flex(row, center, center);
+    column-gap: 15px;
+}
+
+.btn-continue,
+.btn-check {
     background-color: $color-orange-btn;
     border: 1px solid $color-orange-btn;
     &:disabled {

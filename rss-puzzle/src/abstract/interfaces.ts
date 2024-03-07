@@ -14,5 +14,4 @@ export interface GameField {
     task: Element;
     image: Element;
     words: Element;
-    btnContinue: Element;
 }
