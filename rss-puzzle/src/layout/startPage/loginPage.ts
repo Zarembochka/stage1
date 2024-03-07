@@ -1,10 +1,9 @@
 import { Layout } from "../../abstract/classes";
-import { startPage } from "../main/startPage";
-import { lStorage } from "./localStorage";
 import { checkValidation, focusValidation, checkValidationBeforeSaving } from "./validation";
 import { Container } from "../container/container";
+import { app } from "../..";
 
-class LoginPage extends Layout {
+export class LoginPage extends Layout {
     private main;
 
     private wrapper;
@@ -69,7 +68,7 @@ class LoginPage extends Layout {
 
     private createButtonSubmit(element: Element): void {
         const btn = this.createElement("button", "btn btn-submit", "Login");
-        btn.addEventListener("click", (event) => this.login(event, this));
+        btn.addEventListener("click", (event) => this.login(event));
         element.append(btn);
     }
 
@@ -81,17 +80,16 @@ class LoginPage extends Layout {
     //     }
     // }
 
-    private login(event: Event, window: LoginPage): void {
+    private login(event: Event): void {
         event.preventDefault();
         if (checkValidationBeforeSaving()) {
-            lStorage.saveUserToLS();
-            //window.clearModal();
-            window.destroy();
-            startPage();
+            app.localStorage.saveUserToLS();
+            this.destroyLoginPage();
+            app.mainPage.startPage();
         }
     }
 
-    private destroy(): void {
+    private destroyLoginPage(): void {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
@@ -100,5 +98,3 @@ class LoginPage extends Layout {
         }
     }
 }
-
-export const loginPage = new LoginPage();

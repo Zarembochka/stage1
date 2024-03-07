@@ -1,12 +1,8 @@
+import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { Container } from "../container/container";
-import { mainPage } from "../main/mainPage";
-import { lStorage } from "../startPage/localStorage";
-import { loginPage } from "../startPage/loginPage";
 
-export const container = new Container("mainPage");
-
-class Header extends Layout {
+export class Header extends Layout {
     private header;
 
     constructor() {
@@ -14,38 +10,37 @@ class Header extends Layout {
         this.header = this.createElement("header", "header");
     }
 
-    public createHeader(): void {
-        container.createContainer();
+    public createHeader(wrapper: Container): void {
         this.createTitle();
         this.createBtnLogout();
-        container.appendElement(this.header);
+        wrapper.appendElement(this.header);
         this.header.classList.add("fade-in");
     }
 
     private createBtnLogout(): void {
         const btn = this.createElement("button", "btn btn-submit btn-logout", "Logout");
-        btn.addEventListener("click", () => this.logout(this));
+        btn.addEventListener("click", () => this.logout());
         this.header.append(btn);
     }
 
     private createTitle(): void {
-        //const title = this.createElement("h2", "header__title", lStorage.getGreeting());
         const title = this.createElement("h1", "header__title", "RSS Puzzle");
         this.header.append(title);
     }
 
-    private logout(header: Header): void {
-        lStorage.removeUserFromLS();
-        mainPage.destroy();
-        header.destroy();
-        loginPage.createMain();
+    private logout(): void {
+        app.localStorage.removeUserFromLS();
+        app.mainPage.destroyPage();
+        this.destroyHeader();
+        app.loginPage.createMain();
     }
 
-    private destroy(): void {
+    public destroyHeader(): void {
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
         while (this.header.firstChild) {
             this.header.removeChild(this.header.firstChild);
         }
     }
 }
-
-export const header = new Header();

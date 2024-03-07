@@ -1,6 +1,6 @@
 import { User } from "../../abstract/interfaces";
 
-class LocalStorage {
+export class LocalStorage {
     private saveDataToLS(user: User): void {
         localStorage.setItem("LH_user", JSON.stringify(user));
     }
@@ -39,4 +39,4 @@ class LocalStorage {
     }
 }
 
-export const lStorage = new LocalStorage();
+//export const lStorage = new LocalStorage();

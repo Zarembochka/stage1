@@ -1,10 +1,10 @@
+import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { GameField } from "../../abstract/interfaces";
 import { newGame } from "../../game/game";
-import { container } from "../header/header";
-import { lStorage } from "../startPage/localStorage";
+import { Container } from "../container/container";
 
-class Main extends Layout {
+export class MainLayout extends Layout {
     private main;
 
     constructor() {
@@ -12,14 +12,15 @@ class Main extends Layout {
         this.main = this.createElement("main", "main");
     }
 
-    public createMain(): void {
-        container.appendElement(this.main);
+    public createMain(wrapper: Container): void {
+        wrapper.appendElement(this.main);
         this.main.addEventListener("animationend", (event) => this.checkAnimation(event, this));
+        this.createStartPage();
     }
 
-    public createStartPage(): void {
+    private createStartPage(): void {
         const wrapper = this.createElement("div", "main__start");
-        const greeting = this.createElement("p", "main__start__greeting", lStorage.getGreeting());
+        const greeting = this.createElement("p", "main__start__greeting", app.localStorage.getGreeting());
         const title = this.createElement("h2", "main__start__title", "RSS Puzzle");
         const text = `RSS Puzzle is an interactive mini game aimed at enhancing English language skills. The game integrates various levels of difficulty, hint options and a unique puzzle-like experience with artwork`;
         const description = this.createElement("p", "main__start__description", text);
@@ -39,12 +40,12 @@ class Main extends Layout {
         return btn;
     }
 
-    private hideStartPage(page: Main): void {
+    private hideStartPage(page: MainLayout): void {
         page.main.classList.remove("fade-in");
         page.main.classList.add("fade-out");
     }
 
-    private checkAnimation(event: Event, page: Main): void {
+    private checkAnimation(event: Event, page: MainLayout): void {
         if (event instanceof AnimationEvent) {
             if (event.animationName === "fade-out") {
                 page.main.classList.remove("fade-out");
@@ -85,12 +86,12 @@ class Main extends Layout {
         };
     }
 
-    public destroy(): void {
-        while (document.body.firstChild) {
-            document.body.removeChild(document.body.firstChild);
-        }
+    public destroyMainPage(): void {
         while (this.main.firstChild) {
             this.main.removeChild(this.main.firstChild);
+        }
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
         }
     }
 
@@ -101,5 +102,3 @@ class Main extends Layout {
         return btnContinue;
     }
 }
-
-export const mainPage = new Main();
