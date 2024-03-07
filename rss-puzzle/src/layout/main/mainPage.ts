@@ -1,4 +1,5 @@
 import { Layout } from "../../abstract/classes";
+import { GameField } from "../../abstract/interfaces";
 import { newGame } from "../../game/game";
 import { container } from "../header/header";
 import { lStorage } from "../startPage/localStorage";
@@ -60,10 +61,28 @@ class Main extends Layout {
         const image = this.createElement("div", "main__game__game");
         const words = this.createElement("div", "main__game__words");
         const footer = this.createElement("footer", "main__game__footer");
+        const btnContinue = this.addButtonsToFooter(footer);
         wrapper.append(header, task, image, words, footer);
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
-        newGame.startGame(header, task, image, words);
+        const gameField = this.prepareDataToTheGame(header, task, image, words, btnContinue);
+        newGame.startGame(gameField);
+    }
+
+    private prepareDataToTheGame(
+        header: Element,
+        task: Element,
+        image: Element,
+        words: Element,
+        btnContinue: Element
+    ): GameField {
+        return {
+            header: header,
+            task: task,
+            image: image,
+            words: words,
+            btnContinue: btnContinue,
+        };
     }
 
     public destroy(): void {
@@ -74,6 +93,13 @@ class Main extends Layout {
             this.main.removeChild(this.main.firstChild);
         }
     }
+
+    private addButtonsToFooter(footer: Element): Element {
+        const btnContinue = this.createElement("button", "btn btn-submit btn-continue", "Continue");
+        btnContinue.setAttribute("disabled", "true");
+        footer.append(btnContinue);
+        return btnContinue;
+    }
 }
 
-export const main = new Main();
+export const mainPage = new Main();

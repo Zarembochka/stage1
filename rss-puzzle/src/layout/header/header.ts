@@ -1,6 +1,6 @@
 import { Layout } from "../../abstract/classes";
 import { Container } from "../container/container";
-import { main } from "../main/mainPage";
+import { mainPage } from "../main/mainPage";
 import { lStorage } from "../startPage/localStorage";
 import { loginPage } from "../startPage/loginPage";
 
@@ -36,7 +36,7 @@ class Header extends Layout {
 
     private logout(header: Header): void {
         lStorage.removeUserFromLS();
-        main.destroy();
+        mainPage.destroy();
         header.destroy();
         loginPage.createMain();
     }

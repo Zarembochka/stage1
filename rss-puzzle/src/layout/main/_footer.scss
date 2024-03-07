@@ -1,0 +1,16 @@
+.btn-continue {
+    background-color: $color-orange-btn;
+    border: 1px solid $color-orange-btn;
+    &:disabled {
+        pointer-events: none;
+        background-color: desaturate($color-orange-btn, 25%);
+        color: desaturate($color-btn, 10%);
+        opacity: 0.75;
+    }
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: saturate($color-orange-btn, 15%);
+            border: 1px solid saturate($color-btn, 10%);
+        }
+    }
+}

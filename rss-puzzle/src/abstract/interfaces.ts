@@ -8,3 +8,11 @@ export interface GameLevel {
     answer: string[];
     image: string;
 }
+
+export interface GameField {
+    header: Element;
+    task: Element;
+    image: Element;
+    words: Element;
+    btnContinue: Element;
+}

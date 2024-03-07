@@ -1,6 +1,6 @@
 import { Layout } from "../abstract/classes";
 import { REPLACETO } from "../abstract/enums";
-import { GameLevel } from "../abstract/interfaces";
+import { GameField, GameLevel } from "../abstract/interfaces";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
 import round3 from "../data/levels/wordCollectionLevel3.json";
@@ -19,12 +19,15 @@ class Game extends Layout {
 
     private currentLevel: GameLevel;
 
+    private btnContinue: Element | null;
+
     constructor() {
         super();
         this.round = 0;
         this.level = 0;
         this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
+        this.btnContinue = null;
     }
 
     private getLevel(round: number, level: number): GameLevel {
@@ -39,7 +42,7 @@ class Game extends Layout {
     }
 
     private showProgress(header: Element): void {
-        header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}`;
+        header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}, Question ${this.question + 1}`;
     }
 
     private createGrid(image: Element): void {
@@ -75,12 +78,18 @@ class Game extends Layout {
         }
     }
 
-    public startGame(header: Element, task: Element, image: Element, words: Element): void {
-        this.showProgress(header);
-        this.showTask(task, this.currentLevel.task[this.question]);
-        this.createGrid(image);
+    public startGame(gameField: GameField): void {
+        if (!this.btnContinue) {
+            this.btnContinue = gameField.btnContinue;
+            this.btnContinue.addEventListener("click", () => this.nextLevel());
+        }
+        this.showProgress(gameField.header);
+        this.showTask(gameField.task, this.currentLevel.task[this.question]);
+        if (!this.question) {
+            this.createGrid(gameField.image);
+        }
         //this.showImage(image, this.currentLevel.image);
-        this.showWords(words, image);
+        this.showWords(gameField.words, gameField.image);
     }
 
     private replaceWordCardToField(event: Event, game: Game, direction?: REPLACETO): void {
@@ -102,6 +111,7 @@ class Game extends Layout {
                 }
             }
         }
+        this.checkCorrectStatement();
     }
 
     private findEmptyCard(cards: NodeListOf<Element>): Element | undefined {
@@ -134,6 +144,79 @@ class Game extends Layout {
 
     private getRandomNumber(max: number): number {
         return Math.floor(Math.random() * max);
+    }
+
+    private checkCorrectStatement(): void {
+        const fieldToCheck = document.querySelector(`[data-row="${this.question.toString()}"]`);
+        const wordsCards = fieldToCheck?.querySelectorAll(".game__card__word");
+        if (wordsCards) {
+            const words = Array.from(wordsCards).map((word) => word.textContent);
+            const currentSentence = words.join(" ");
+            if (currentSentence === this.currentLevel.answer[this.question]) {
+                if (this.btnContinue) {
+                    this.btnContinue.removeAttribute("disabled");
+                }
+            }
+        }
+    }
+
+    private nextLevel(): void {
+        this.disablePrevousLevel();
+        this.destroyWordCards();
+        this.addQuestion();
+        const gameField = this.prepareDataToGame();
+        this.startGame(gameField);
+        this.btnContinue?.setAttribute("disabled", "true");
+    }
+
+    private addQuestion(): void {
+        this.question += 1;
+        if (this.question === 10) {
+            this.question = 0;
+            this.level += 1;
+            this.clearImageField();
+            if (this.level === 10) {
+                this.level = 0;
+                this.round += 1;
+            }
+            this.currentLevel = this.getLevel(this.round, this.level);
+        }
+    }
+
+    private clearImageField(): void {
+        const imageField = document.querySelector(".main__game__game");
+        while (imageField?.firstChild) {
+            imageField.removeChild(imageField.firstChild);
+        }
+    }
+
+    private destroyWordCards(): void {
+        const words = document.querySelector(".main__game__words");
+        while (words?.firstChild) {
+            words.removeChild(words.firstChild);
+        }
+    }
+
+    private disablePrevousLevel(): void {
+        const fieldToCheck = document.querySelector(`[data-row="${this.question.toString()}"]`);
+        fieldToCheck?.classList.add("solved");
+    }
+
+    private prepareDataToGame(): GameField {
+        const header = document.querySelector(".main__game__header");
+        const task = document.querySelector(".main__game__task");
+        const image = document.querySelector(".main__game__game");
+        const words = document.querySelector(".main__game__words");
+        if (!header || !task || !image || !words || !this.btnContinue) {
+            throw new Error("Oops! Something's gone wrong!");
+        }
+        return {
+            header: header,
+            task: task,
+            image: image,
+            words: words,
+            btnContinue: this.btnContinue,
+        };
     }
 }
 
