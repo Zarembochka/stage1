@@ -3,7 +3,7 @@ export enum REPLACETO {
     toCardsSrc,
 }
 
-export enum GAMEBUTTONS {
-    btnContinue,
-    btnCheck,
+export enum USERSACTIONS {
+    check = "check",
+    continue = "continue",
 }

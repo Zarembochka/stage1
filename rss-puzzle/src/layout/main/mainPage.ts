@@ -1,5 +1,6 @@
 import { app } from "../..";
 import { Layout } from "../../abstract/classes";
+import { USERSACTIONS } from "../../abstract/enums";
 import { GameField } from "../../abstract/interfaces";
 import { Game } from "../../game/game";
 import { Container } from "../container/container";
@@ -9,14 +10,14 @@ export class MainLayout extends Layout {
 
     private game: Game;
 
-    public btnContinue: Element;
+    //public btnContinue: Element;
 
     public btnCheck: Element;
 
     constructor() {
         super();
         this.main = this.createElement("main", "main");
-        this.btnContinue = this.createElement("button", "btn btn-submit btn-continue", "Continue");
+        //this.btnContinue = this.createElement("button", "btn btn-submit btn-continue", "Continue");
         this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
         this.game = new Game();
     }
@@ -98,10 +99,13 @@ export class MainLayout extends Layout {
     }
 
     private addButtonsToFooter(footer: Element): void {
-        this.btnContinue.setAttribute("disabled", "true");
-        this.btnContinue.addEventListener("click", () => this.game.nextLevel());
+        //this.btnContinue.setAttribute("disabled", "true");
+        //this.btnContinue.addEventListener("click", () => this.game.nextLevel());
         this.btnCheck.setAttribute("disabled", "true");
-        this.btnCheck.addEventListener("click", () => this.game.checkSentence());
-        footer.append(this.btnCheck, this.btnContinue);
+        this.btnCheck.setAttribute("action", USERSACTIONS.check);
+        this.btnCheck.addEventListener("click", () => this.game.usersAction());
+        this.btnCheck.addEventListener("animationend", (event) => this.game.contolAnimationOnButton(event));
+        //footer.append(this.btnCheck, this.btnContinue);
+        footer.append(this.btnCheck);
     }
 }

@@ -1,5 +1,6 @@
 .main__start {
-    background-color: rgb(235 241 46 / 28%);
+    //background-color: rgb(235 241 46 / 10%);
+    //background-color: rgb(255 255 255 / 20%);
     border-radius: 20px;
     @include display-flex(column, center, center);
     height: calc(100dvh - 101px);
@@ -52,9 +53,10 @@
     user-select: none;
     width: 58.5%;
     height: 450px;
-    background-color: #f7f6a8;
+    background-color: rgb(235 241 46 / 20%);
     background-size: contain;
     background-repeat: no-repeat;
+    border-radius: 5px;
     display: grid;
     grid-template-rows: repeat(10, 1fr);
     font-family: Snowstorm;

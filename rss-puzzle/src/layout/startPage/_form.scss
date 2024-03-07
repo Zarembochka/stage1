@@ -44,7 +44,8 @@
     background-color: saturate($form-border-color, 15%);
     transition:
         background-color,
-        border-color 0.3s ease-in-out;
+        border-color,
+        opacity 0.3s ease-in-out;
     border-radius: 10px;
     @media screen and (hover: hover) {
         &:hover {

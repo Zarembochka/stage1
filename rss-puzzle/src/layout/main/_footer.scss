@@ -3,7 +3,6 @@
     column-gap: 15px;
 }
 
-.btn-continue,
 .btn-check {
     background-color: $color-orange-btn;
     border: 1px solid $color-orange-btn;
@@ -16,7 +15,13 @@
     @media screen and (hover: hover) {
         &:hover {
             background-color: saturate($color-orange-btn, 15%);
-            border: 1px solid saturate($color-btn, 10%);
+            border: 1px solid saturate($color-orange-btn, 10%);
         }
+    }
+    &.continue {
+        animation: 0.5s linear btn-transform-continue;
+    }
+    &.check {
+        animation: 0.5s linear btn-transform-check;
     }
 }

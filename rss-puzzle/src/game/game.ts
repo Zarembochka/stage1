@@ -1,6 +1,6 @@
 import { app } from "..";
 import { Layout } from "../abstract/classes";
-import { REPLACETO } from "../abstract/enums";
+import { REPLACETO, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
@@ -156,10 +156,10 @@ export class Game extends Layout {
         if (words.length === this.currentLevel.answer[this.question].split(" ").length) {
             app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
         }
-        const currentSentence = words.join(" ");
-        if (currentSentence === this.currentLevel.answer[this.question]) {
-            app.mainPage.gamePage.btnContinue.removeAttribute("disabled");
-        }
+        // const currentSentence = words.join(" ");
+        // if (currentSentence === this.currentLevel.answer[this.question]) {
+        //     app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
+        // }
     }
 
     private removeIncorrectClass(row: Element | null): void {
@@ -175,13 +175,49 @@ export class Game extends Layout {
         this.addQuestion();
         const gameField = this.prepareDataToGame();
         this.startGame(gameField);
-        app.mainPage.gamePage.btnContinue.setAttribute("disabled", "true");
+        this.changeContinueButtonToCheck();
+    }
+
+    public contolAnimationOnButton(event: Event): void {
+        if (event instanceof AnimationEvent) {
+            if (event.animationName === "btn-transform-check") {
+                app.mainPage.gamePage.btnCheck.setAttribute("disabled", "true");
+            }
+        }
+    }
+
+    private changeCheckButtonToContinue(): void {
+        app.mainPage.gamePage.btnCheck.classList.remove("check");
+        app.mainPage.gamePage.btnCheck.classList.add("continue");
+        app.mainPage.gamePage.btnCheck.textContent = "Continue";
+        app.mainPage.gamePage.btnCheck.setAttribute("action", USERSACTIONS.continue);
+    }
+
+    private changeContinueButtonToCheck(): void {
+        app.mainPage.gamePage.btnCheck.classList.remove("continue");
+        app.mainPage.gamePage.btnCheck.classList.add("check");
+        app.mainPage.gamePage.btnCheck.textContent = "Check";
+        app.mainPage.gamePage.btnCheck.setAttribute("action", USERSACTIONS.check);
+        //app.mainPage.gamePage.btnCheck.setAttribute("disabled", "true");
+    }
+
+    public usersAction(): void {
+        const action = app.mainPage.gamePage.btnCheck.getAttribute("action");
+        if (action === USERSACTIONS.check) {
+            this.checkSentence();
+            return;
+        }
+        this.nextLevel();
     }
 
     public checkSentence(): void {
         const userWords = this.getUserSentence();
         const answer = this.currentLevel.answer[this.question].split(" ");
         const uncorrectWords = userWords.filter((word, index) => word.textContent !== answer[index]);
+        if (!uncorrectWords.length) {
+            this.changeCheckButtonToContinue();
+            return;
+        }
         uncorrectWords.forEach((word) => word.classList.add("uncorrect"));
     }
 
