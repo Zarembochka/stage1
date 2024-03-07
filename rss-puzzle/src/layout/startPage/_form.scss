@@ -3,6 +3,7 @@
     @include display-flex(column);
     row-gap: 10px;
     font-size: 1.5em;
+    font-family: Theren;
 }
 
 .modal__login__item {
@@ -19,6 +20,7 @@
     outline: none;
     border: 1px solid $form-border-color;
     padding: 2px 5px;
+    font-family: inherit;
 }
 
 .modal__login__item-message {
