@@ -1,6 +1,6 @@
 import { app } from "..";
 import { Layout } from "../abstract/classes";
-import { REPLACETO, USERSACTIONS } from "../abstract/enums";
+import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
@@ -63,17 +63,102 @@ export class Game extends Layout {
         const wordsToShow = this.reshuffle(startWords);
         const wordsLength = this.getAllWordsLength(wordsToShow);
         const gameField = image.querySelector(`[data-row="${this.question.toString()}"]`);
+        const startWidth = this.calculateStartWidth(wordsToShow.length);
         this.setHeight(gameField, words);
         for (let i = 0; i < wordsToShow.length; i += 1) {
             const card = this.createElement("div", "game__card") as HTMLElement;
-            const word = this.createElement("div", "game__card__word", wordsToShow[i]);
+            const word = this.createElement("div", "game__card__word", wordsToShow[i], `word_${i}`);
             const field = this.createElement("div", "game__card") as HTMLElement;
             card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
+            field.style.width = startWidth;
+            this.dragAndDropFunctions(word, field, card);
             card.append(word);
             words.append(card);
             gameField?.append(field);
             card.addEventListener("click", (event) => this.replaceWordCardToField(event, this));
             field.addEventListener("click", (event) => this.replaceWordCardToField(event, this, REPLACETO.toCardsSrc));
+        }
+    }
+
+    private dragAndDropFunctions(word: Element, field: HTMLElement, card: HTMLElement): void {
+        word.setAttribute("draggable", "true");
+        card.addEventListener("dragstart", (event) => this.dragStart(event));
+        card.addEventListener("dragover", (event) => this.dragOverAndLeave(event, ACTIONWITHCLASS.add));
+        card.addEventListener("dragleave", (event) => this.dragOverAndLeave(event, ACTIONWITHCLASS.remove));
+        card.addEventListener("drop", (event) => this.drop(event));
+        field.addEventListener("dragstart", (event) => this.dragStart(event));
+        field.addEventListener("dragover", (event) => this.dragOverAndLeave(event, ACTIONWITHCLASS.add));
+        field.addEventListener("dragleave", (event) => this.dragOverAndLeave(event, ACTIONWITHCLASS.remove));
+        field.addEventListener("drop", (event) => this.drop(event));
+    }
+
+    private dragStart(event: Event): void {
+        if (event instanceof DragEvent) {
+            const target = event.target as HTMLElement;
+            if (target) {
+                if (event.dataTransfer) {
+                    event.dataTransfer?.setData("text/plain", target.id);
+                    event.dataTransfer.dropEffect = "move";
+                    const row = target.closest(".game__row");
+                    if (row) {
+                        this.removeIncorrectClass(row);
+                    }
+                }
+            }
+        }
+    }
+
+    private drop(event: Event): void {
+        if (event.target) {
+            const targetElement = event.target as HTMLElement;
+            const target = targetElement.closest(".game__card") as HTMLElement;
+            if (event instanceof DragEvent) {
+                const id = event.dataTransfer?.getData("text/plain");
+                if (id) {
+                    const item = document.getElementById(id) as Element;
+                    if (target) {
+                        target.classList.remove("drag__over");
+                        const tempWidth = target.style.width;
+                        const parent = item.parentElement;
+                        if (parent) {
+                            target.style.width = parent.style.width;
+                            parent.style.width = tempWidth;
+                        }
+                        if (target.firstChild) {
+                            const tempElement = target.firstChild;
+                            this.removeChilds(target);
+                            target.appendChild(item);
+                            //this.removeChilds(item);
+                            if (parent) {
+                                parent.appendChild(tempElement);
+                            }
+                        } else {
+                            target.append(item);
+                        }
+                        this.checkCorrectStatement();
+                    }
+                }
+            }
+        }
+    }
+
+    private dragOverAndLeave(event: Event, action: ACTIONWITHCLASS): void {
+        event.preventDefault();
+        if (event instanceof DragEvent) {
+            if (event.dataTransfer) {
+                event.dataTransfer.dropEffect = "move";
+                const target = event.target as HTMLElement;
+                if (target) {
+                    const targetDiv = target.closest(".game__card");
+                    if (targetDiv) {
+                        if (action === ACTIONWITHCLASS.add) {
+                            targetDiv.classList.add("drag__over");
+                            return;
+                        }
+                        targetDiv.classList.remove("drag__over");
+                    }
+                }
+            }
         }
     }
 
@@ -115,7 +200,9 @@ export class Game extends Layout {
                     }
                     gameFieldCard.style.width = card.style.width;
                     this.removeChilds(card);
-                    card.style.width = "";
+                    card.style.width = this.calculateStartWidth(
+                        this.currentLevel.answer[this.question].split(" ").length
+                    );
                 }
             }
         }
@@ -144,6 +231,14 @@ export class Game extends Layout {
     private calculateWidth(word: string, allWordsLength: number): string {
         const result = Math.floor((word.length * 1000) / allWordsLength) / 10;
         return `${result.toString()}%`;
+    }
+
+    private calculateStartWidth(length: number): string {
+        if (length) {
+            const result = Math.floor(1000 / length) / 10;
+            return `${result.toString()}%`;
+        }
+        return "";
     }
 
     private reshuffle(cards: string[]): string[] {
@@ -175,10 +270,6 @@ export class Game extends Layout {
         if (words.length === this.currentLevel.answer[this.question].split(" ").length) {
             app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
         }
-        // const currentSentence = words.join(" ");
-        // if (currentSentence === this.currentLevel.answer[this.question]) {
-        //     app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
-        // }
     }
 
     private removeIncorrectClass(row: Element | null): void {
@@ -190,6 +281,7 @@ export class Game extends Layout {
 
     public nextLevel(): void {
         this.disablePrevousLevel();
+        this.removeIdFromPreviousLevel();
         this.destroyWordCards();
         this.addQuestion();
         const gameField = this.prepareDataToGame();
@@ -273,6 +365,16 @@ export class Game extends Layout {
         fieldToCheck?.classList.add("solved");
     }
 
+    private removeIdFromPreviousLevel(): void {
+        const fieldToCheck = document.querySelector(`[data-row="${this.question.toString()}"]`);
+        if (fieldToCheck) {
+            const cards = fieldToCheck.querySelectorAll(".game__card__word");
+            if (cards) {
+                cards.forEach((card) => card.removeAttribute("id"));
+            }
+        }
+    }
+
     private prepareDataToGame(): GameField {
         const header = document.querySelector(".main__game__header");
         const task = document.querySelector(".main__game__task");
@@ -292,6 +394,7 @@ export class Game extends Layout {
     public autocompleteTask(): void {
         this.completeTask();
         this.disablePrevousLevel();
+        this.removeIdFromPreviousLevel();
         app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
         this.changeCheckButtonToContinue();
     }

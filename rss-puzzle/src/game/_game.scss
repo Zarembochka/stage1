@@ -12,12 +12,16 @@
     min-height: 30px;
     border-radius: 5px;
     //border: 1px solid $color-green-btn;
+    &.drag__over {
+        //border: 1px solid $color-green-btn;
+        background-color: rgba($color: grey, $alpha: 0.25);
+    }
 }
 
 .game__card__word {
     padding: 5px;
     text-align: center;
-    cursor: pointer;
+    cursor: grab;
     @include display-flex(row, center, center);
     height: 100%;
     background-color: $color-green-btn;
@@ -40,5 +44,11 @@
                 background-color: lighten($color: $color-orange-btn, $amount: 15%);
             }
         }
+    }
+    .game__card.drag__over & {
+        background-color: rgba($color: grey, $alpha: 0.25);
+    }
+    &:active {
+        cursor: grabbing;
     }
 }
