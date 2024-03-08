@@ -1,17 +1,7 @@
 import "./style.scss";
 import { LoginPage } from "./layout/startPage/loginPage";
 import { LocalStorage } from "./layout/startPage/localStorage";
-//import { startPage } from "./layout/main/startPage";
-//import { MainLayout } from "./layout/main/mainPage";
 import { Main } from "./layout/main/startPage";
-
-// function start() {
-//     if (lStorage.isUserinLS()) {
-//         startPage();
-//         return;
-//     }
-//     loginPage.createMain();
-// }
 
 class App {
     public localStorage: LocalStorage;

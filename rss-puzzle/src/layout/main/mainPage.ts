@@ -10,14 +10,11 @@ export class MainLayout extends Layout {
 
     private game: Game;
 
-    //public btnContinue: Element;
-
     public btnCheck: Element;
 
     constructor() {
         super();
         this.main = this.createElement("main", "main");
-        //this.btnContinue = this.createElement("button", "btn btn-submit btn-continue", "Continue");
         this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
         this.game = new Game();
     }
@@ -29,7 +26,7 @@ export class MainLayout extends Layout {
     }
 
     private createStartPage(): void {
-        const wrapper = this.createElement("div", "main__start");
+        const wrapper = this.createElement("div", "main__start start_page");
         const greeting = this.createElement("p", "main__start__greeting", app.localStorage.getGreeting());
         const title = this.createElement("h2", "main__start__title", "RSS Puzzle");
         const text = `RSS Puzzle is an interactive mini game aimed at enhancing English language skills. The game integrates various levels of difficulty, hint options and a unique puzzle-like experience with artwork`;

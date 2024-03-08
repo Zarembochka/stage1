@@ -1,10 +1,13 @@
 .main__start {
-    //background-color: rgb(235 241 46 / 10%);
+    //background-color: rgb(235 241 46 / 28%);
     //background-color: rgb(255 255 255 / 20%);
     border-radius: 20px;
     @include display-flex(column, center, center);
     height: calc(100dvh - 101px);
     color: $color-title;
+    &.start_page {
+        background-color: rgb(235 241 46 / 28%);
+    }
 }
 
 .main__start__greeting {

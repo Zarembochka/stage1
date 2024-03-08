@@ -63,6 +63,7 @@ export class Game extends Layout {
         const wordsToShow = this.reshuffle(startWords);
         const wordsLength = this.getAllWordsLength(wordsToShow);
         const gameField = image.querySelector(`[data-row="${this.question.toString()}"]`);
+        this.setHeight(gameField, words);
         for (let i = 0; i < wordsToShow.length; i += 1) {
             const card = this.createElement("div", "game__card") as HTMLElement;
             const word = this.createElement("div", "game__card__word", wordsToShow[i]);
@@ -73,6 +74,15 @@ export class Game extends Layout {
             gameField?.append(field);
             card.addEventListener("click", (event) => this.replaceWordCardToField(event, this));
             field.addEventListener("click", (event) => this.replaceWordCardToField(event, this, REPLACETO.toCardsSrc));
+        }
+    }
+
+    private setHeight(field: Element | null, words: Element): void {
+        if (field) {
+            const height = getComputedStyle(field).height;
+            if (words instanceof HTMLElement) {
+                words.style.height = height;
+            }
         }
     }
 
@@ -101,12 +111,19 @@ export class Game extends Layout {
                 if (gameFieldCard) {
                     gameFieldCard.innerHTML = card.innerHTML;
                     gameFieldCard.style.width = card.style.width;
-                    card.innerHTML = "";
+                    this.removeChilds(card);
+                    //card.innerHTML = "";
                     card.style.width = "";
                 }
             }
         }
         this.checkCorrectStatement();
+    }
+
+    private removeChilds(parent: Element): void {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
     }
 
     private findEmptyCard(cards: NodeListOf<Element>): Element | undefined {
