@@ -12,10 +12,13 @@ export class MainLayout extends Layout {
 
     public btnCheck: Element;
 
+    public btnAutocomplete: Element;
+
     constructor() {
         super();
         this.main = this.createElement("main", "main");
         this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
+        this.btnAutocomplete = this.createElement("button", "btn btn-submit btn-autocomplete", "I don't know");
         this.game = new Game();
     }
 
@@ -96,13 +99,12 @@ export class MainLayout extends Layout {
     }
 
     private addButtonsToFooter(footer: Element): void {
-        //this.btnContinue.setAttribute("disabled", "true");
-        //this.btnContinue.addEventListener("click", () => this.game.nextLevel());
         this.btnCheck.setAttribute("disabled", "true");
         this.btnCheck.setAttribute("action", USERSACTIONS.check);
         this.btnCheck.addEventListener("click", () => this.game.usersAction());
         this.btnCheck.addEventListener("animationend", (event) => this.game.contolAnimationOnButton(event));
+        this.btnAutocomplete.addEventListener("click", () => this.game.autocompleteTask());
         //footer.append(this.btnCheck, this.btnContinue);
-        footer.append(this.btnCheck);
+        footer.append(this.btnAutocomplete, this.btnCheck);
     }
 }

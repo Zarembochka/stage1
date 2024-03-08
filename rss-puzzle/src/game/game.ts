@@ -109,10 +109,12 @@ export class Game extends Layout {
             if (gameCards) {
                 const gameFieldCard = game.findEmptyCard(gameCards) as HTMLElement;
                 if (gameFieldCard) {
-                    gameFieldCard.innerHTML = card.innerHTML;
+                    const child = card.firstElementChild;
+                    if (child) {
+                        gameFieldCard.append(child);
+                    }
                     gameFieldCard.style.width = card.style.width;
                     this.removeChilds(card);
-                    //card.innerHTML = "";
                     card.style.width = "";
                 }
             }
@@ -158,9 +160,9 @@ export class Game extends Layout {
         return Math.floor(Math.random() * max);
     }
 
-    private getUserSentence(): Element[] {
+    private getUserSentence(selector: string): Element[] {
         const fieldToCheck = document.querySelector(`[data-row="${this.question.toString()}"]`);
-        const wordsCards = fieldToCheck?.querySelectorAll(".game__card__word");
+        const wordsCards = fieldToCheck?.querySelectorAll(selector);
         if (!wordsCards) {
             throw new Error("No sentence to check!");
         }
@@ -169,7 +171,7 @@ export class Game extends Layout {
     }
 
     private checkCorrectStatement(): void {
-        const words = this.getUserSentence().map((word) => word.textContent);
+        const words = this.getUserSentence(".game__card__word").map((word) => word.textContent);
         if (words.length === this.currentLevel.answer[this.question].split(" ").length) {
             app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
         }
@@ -228,7 +230,7 @@ export class Game extends Layout {
     }
 
     public checkSentence(): void {
-        const userWords = this.getUserSentence();
+        const userWords = this.getUserSentence(".game__card__word");
         const answer = this.currentLevel.answer[this.question].split(" ");
         const uncorrectWords = userWords.filter((word, index) => word.textContent !== answer[index]);
         if (!uncorrectWords.length) {
@@ -286,6 +288,31 @@ export class Game extends Layout {
             words: words,
         };
     }
-}
 
-//export const newGame = new Game();
+    public autocompleteTask(): void {
+        this.completeTask();
+        this.disablePrevousLevel();
+        app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
+        this.changeCheckButtonToContinue();
+    }
+
+    private completeTask(): void {
+        const userWords = this.getUserSentence(".game__card");
+        const correctWords = this.currentLevel.answer[this.question].split(" ");
+        const wordsLength = this.getAllWordsLength(correctWords);
+        for (let i = 0; i < userWords.length; i += 1) {
+            this.removeChilds(userWords[i]);
+            const correctCard = this.createElement("div", "game__card__word", correctWords[i]);
+            const currentDiv = userWords[i] as HTMLElement;
+            currentDiv.style.width = this.calculateWidth(correctWords[i], wordsLength);
+            userWords[i].append(correctCard);
+        }
+        const gameWords = document.querySelector(".main__game__words");
+        if (gameWords) {
+            const wordsCard = gameWords.querySelectorAll(".game__card");
+            if (wordsCard) {
+                wordsCard.forEach((card) => this.removeChilds(card));
+            }
+        }
+    }
+}
