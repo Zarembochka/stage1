@@ -73,7 +73,9 @@ export class Game extends Layout {
             const word = this.createPuzzle("div", "game__card__word", wordsToShow[i], `word_${i}`, firstWord, lastWord);
             const field = this.createElement("div", "game__card") as HTMLElement;
             card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
+            card.style.zIndex = (wordsToShow.length - i).toString();
             field.style.width = startWidth;
+            field.style.zIndex = (wordsToShow.length - i).toString();
             this.dragAndDropFunctions(word, field, card);
             card.append(word);
             words.append(card);
@@ -258,7 +260,7 @@ export class Game extends Layout {
     }
 
     private calculateWidth(word: string, allWordsLength: number): string {
-        const result = Math.floor((word.length * 1000) / allWordsLength) / 10;
+        const result = Math.round((word.length * 1000) / allWordsLength) / 10;
         return `${result.toString()}%`;
     }
 

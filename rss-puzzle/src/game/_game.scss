@@ -59,13 +59,13 @@
 }
 
 .left__part {
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: 1em;
+    width: 0.59em;
+    height: 0.59em;
+    border-radius: 1.05em;
     display: block;
     position: absolute;
     z-index: 5;
-    left: -0.075em;
+    left: -0.145em;
     background-color: rgb(251 249 207 / 100%);
     &.first {
         display: none;
@@ -94,7 +94,7 @@
     border-radius: 1em;
     display: block;
     position: absolute;
-    z-index: 7;
+    z-index: 6;
     right: -0.35em;
     transition: background-color 0.3s ease-in-out;
     .game__card.drag__over .game__card__word & {
