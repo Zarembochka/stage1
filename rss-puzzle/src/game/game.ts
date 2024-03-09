@@ -60,6 +60,8 @@ export class Game extends Layout {
 
     private showWords(words: Element, image: Element): void {
         const startWords = this.currentLevel.answer[this.question].split(" ");
+        const firstWord = startWords[0];
+        const lastWord = startWords[startWords.length - 1];
         const wordsToShow = this.reshuffle(startWords);
         const wordsLength = this.getAllWordsLength(wordsToShow);
         const gameField = image.querySelector(`[data-row="${this.question.toString()}"]`);
@@ -67,7 +69,8 @@ export class Game extends Layout {
         this.setHeight(gameField, words);
         for (let i = 0; i < wordsToShow.length; i += 1) {
             const card = this.createElement("div", "game__card") as HTMLElement;
-            const word = this.createElement("div", "game__card__word", wordsToShow[i], `word_${i}`);
+            //const word = this.createElement("div", "game__card__word", wordsToShow[i], `word_${i}`);
+            const word = this.createPuzzle("div", "game__card__word", wordsToShow[i], `word_${i}`, firstWord, lastWord);
             const field = this.createElement("div", "game__card") as HTMLElement;
             card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
             field.style.width = startWidth;
@@ -80,7 +83,33 @@ export class Game extends Layout {
         }
     }
 
+    private createPuzzle(
+        tag: string,
+        classname: string,
+        text: string,
+        id: string,
+        firstWord: string,
+        lastWord: string
+    ): Element {
+        const puzzle = this.createElement(tag, classname);
+        const leftPart = this.createElement("span", "left__part");
+        const middle = this.createElement("div", "middle", text);
+        const rightPart = this.createElement("span", "right__part");
+        puzzle.append(leftPart, middle, rightPart);
+        if (id) {
+            puzzle.setAttribute("id", id);
+        }
+        if (text === firstWord) {
+            leftPart.classList.add("first");
+        }
+        if (text === lastWord) {
+            rightPart.classList.add("last");
+        }
+        return puzzle;
+    }
+
     private dragAndDropFunctions(word: Element, field: HTMLElement, card: HTMLElement): void {
+        //const middle = word.querySelector(".middle");
         word.setAttribute("draggable", "true");
         card.addEventListener("dragstart", (event) => this.dragStart(event));
         card.addEventListener("dragover", (event) => this.dragOverAndLeave(event, ACTIONWITHCLASS.add));
@@ -402,10 +431,20 @@ export class Game extends Layout {
     private completeTask(): void {
         const userWords = this.getUserSentence(".game__card");
         const correctWords = this.currentLevel.answer[this.question].split(" ");
+        const firstWord = correctWords[0];
+        const lastWord = correctWords[correctWords.length - 1];
         const wordsLength = this.getAllWordsLength(correctWords);
         for (let i = 0; i < userWords.length; i += 1) {
             this.removeChilds(userWords[i]);
-            const correctCard = this.createElement("div", "game__card__word", correctWords[i]);
+            //const correctCard = this.createElement("div", "game__card__word", correctWords[i]);
+            const correctCard = this.createPuzzle(
+                "div",
+                "game__card__word",
+                correctWords[i],
+                `word_${i}`,
+                firstWord,
+                lastWord
+            );
             const currentDiv = userWords[i] as HTMLElement;
             currentDiv.style.width = this.calculateWidth(correctWords[i], wordsLength);
             userWords[i].append(correctCard);
