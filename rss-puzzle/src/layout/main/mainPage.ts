@@ -69,21 +69,29 @@ export class MainLayout extends Layout {
         const wrapper = this.createElement("div", "main__start main__game");
         const header = this.createElement("header", "main__game__header");
         const task = this.createElement("div", "main__game__task");
+        const hint = this.createElement("div", "main__game__hint");
         const image = this.createElement("div", "main__game__game");
         const words = this.createElement("div", "main__game__words");
         const footer = this.createElement("footer", "main__game__footer");
+        wrapper.append(header, task, hint, image, words, footer);
         this.addButtonsToFooter(footer);
-        wrapper.append(header, task, image, words, footer);
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
-        const gameField = this.prepareDataToTheGame(header, task, image, words);
+        const gameField = this.prepareDataToTheGame(header, task, hint, image, words);
         this.game.startGame(gameField);
     }
 
-    private prepareDataToTheGame(header: Element, task: Element, image: Element, words: Element): GameField {
+    private prepareDataToTheGame(
+        header: Element,
+        task: Element,
+        hint: Element,
+        image: Element,
+        words: Element
+    ): GameField {
         return {
             header: header,
             task: task,
+            hint: hint,
             image: image,
             words: words,
         };

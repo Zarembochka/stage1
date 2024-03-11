@@ -39,6 +39,10 @@ export class Game extends Layout {
         element.textContent = text;
     }
 
+    private showHint(element: Element, text: string): void {
+        element.textContent = text;
+    }
+
     private showProgress(header: Element): void {
         header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}, Question ${this.question + 1}`;
     }
@@ -205,6 +209,7 @@ export class Game extends Layout {
     public startGame(gameField: GameField): void {
         this.showProgress(gameField.header);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
+        this.showHint(gameField.hint, this.currentLevel.answer[this.question]);
         if (!this.question) {
             this.createGrid(gameField.image);
         }
@@ -409,14 +414,16 @@ export class Game extends Layout {
     private prepareDataToGame(): GameField {
         const header = document.querySelector(".main__game__header");
         const task = document.querySelector(".main__game__task");
+        const hint = document.querySelector(".main__game__hint");
         const image = document.querySelector(".main__game__game");
         const words = document.querySelector(".main__game__words");
-        if (!header || !task || !image || !words) {
+        if (!header || !task || !hint || !image || !words) {
             throw new Error("Oops! Something's gone wrong!");
         }
         return {
             header: header,
             task: task,
+            hint: hint,
             image: image,
             words: words,
         };

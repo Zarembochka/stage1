@@ -47,9 +47,14 @@
     font-family: Dragon;
 }
 
-.main__game__task {
+.main__game__task,
+.main__game__hint {
     font-family: Snowstorm;
     font-size: 24px;
+}
+
+.main__game__hint {
+    color: $color-hint;
 }
 
 .main__game__game {

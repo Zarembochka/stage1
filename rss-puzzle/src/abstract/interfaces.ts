@@ -12,6 +12,7 @@ export interface GameLevel {
 export interface GameField {
     header: Element;
     task: Element;
+    hint: Element;
     image: Element;
     words: Element;
 }
