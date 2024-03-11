@@ -6,7 +6,7 @@ import { Game } from "../../game/game";
 import { Container } from "../container/container";
 
 export class MainLayout extends Layout {
-    private main;
+    public main;
 
     private game: Game;
 
@@ -20,11 +20,18 @@ export class MainLayout extends Layout {
         this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
         this.btnAutocomplete = this.createElement("button", "btn btn-submit btn-autocomplete", "I don't know");
         this.game = new Game();
+        this.addListeners();
+    }
+
+    private addListeners(): void {
+        this.btnCheck.addEventListener("click", () => this.game.usersAction());
+        this.btnCheck.addEventListener("animationend", (event) => this.game.contolAnimationOnButton(event));
+        this.btnAutocomplete.addEventListener("click", () => this.game.autocompleteTask());
     }
 
     public createMain(wrapper: Container): void {
         wrapper.appendElement(this.main);
-        this.main.addEventListener("animationend", (event) => this.checkAnimation(event, this));
+        this.main.addEventListener("animationend", this.checkAnimation);
         this.createStartPage();
     }
 
@@ -41,7 +48,9 @@ export class MainLayout extends Layout {
     }
 
     public removeMain(): void {
-        this.main.innerHTML = "";
+        while (this.main.firstChild) {
+            this.main.removeChild(this.main.firstChild);
+        }
     }
 
     private addBtnStart(): Element {
@@ -55,12 +64,12 @@ export class MainLayout extends Layout {
         page.main.classList.add("fade-out");
     }
 
-    private checkAnimation(event: Event, page: MainLayout): void {
+    private checkAnimation(event: Event): void {
         if (event instanceof AnimationEvent) {
             if (event.animationName === "fade-out") {
-                page.main.classList.remove("fade-out");
-                page.removeMain();
-                page.createMainPage();
+                app.mainPage.gamePage.main.classList.remove("fade-out");
+                app.mainPage.gamePage.removeMain();
+                app.mainPage.gamePage.createMainPage();
             }
         }
     }
@@ -78,7 +87,7 @@ export class MainLayout extends Layout {
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
         const gameField = this.prepareDataToTheGame(header, task, hint, image, words);
-        this.game.startGame(gameField);
+        this.game.startNewGame(gameField);
     }
 
     private prepareDataToTheGame(
@@ -98,6 +107,7 @@ export class MainLayout extends Layout {
     }
 
     public destroyMainPage(): void {
+        this.main.removeEventListener("animationend", this.checkAnimation);
         while (this.main.firstChild) {
             this.main.removeChild(this.main.firstChild);
         }
@@ -109,10 +119,6 @@ export class MainLayout extends Layout {
     private addButtonsToFooter(footer: Element): void {
         this.btnCheck.setAttribute("disabled", "true");
         this.btnCheck.setAttribute("action", USERSACTIONS.check);
-        this.btnCheck.addEventListener("click", () => this.game.usersAction());
-        this.btnCheck.addEventListener("animationend", (event) => this.game.contolAnimationOnButton(event));
-        this.btnAutocomplete.addEventListener("click", () => this.game.autocompleteTask());
-        //footer.append(this.btnCheck, this.btnContinue);
         footer.append(this.btnAutocomplete, this.btnCheck);
     }
 }

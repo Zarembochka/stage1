@@ -206,7 +206,7 @@ export class Game extends Layout {
         }
     }
 
-    public startGame(gameField: GameField): void {
+    private startGame(gameField: GameField): void {
         this.showProgress(gameField.header);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
         this.showHint(gameField.hint, this.currentLevel.answer[this.question]);
@@ -215,6 +215,14 @@ export class Game extends Layout {
         }
         //this.showImage(image, this.currentLevel.image);
         this.showWords(gameField.words, gameField.image);
+    }
+
+    public startNewGame(gameField: GameField): void {
+        this.round = 0;
+        this.level = 0;
+        this.question = 0;
+        this.changeContinueButtonToCheck();
+        this.startGame(gameField);
     }
 
     private replaceWordCardToField(event: Event, game: Game, direction?: REPLACETO): void {
