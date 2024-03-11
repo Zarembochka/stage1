@@ -1,7 +1,8 @@
-import { app } from "..";
+import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
+import { infoSvg, hintSvg } from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
 import round3 from "../data/levels/wordCollectionLevel3.json";
@@ -20,12 +21,15 @@ export class Game extends Layout {
 
     private currentLevel: GameLevel;
 
+    private visibleHints: boolean;
+
     constructor() {
         super();
         this.round = 0;
         this.level = 0;
         this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
+        this.visibleHints = false;
     }
 
     private getLevel(round: number, level: number): GameLevel {
@@ -39,8 +43,20 @@ export class Game extends Layout {
         element.textContent = text;
     }
 
-    private showHint(element: Element, text: string): void {
+    private setHint(element: Element, text: string): void {
         element.textContent = text;
+    }
+
+    private showHint(): void {
+        const hint = document.querySelector(".main__game__hint");
+        hint?.classList.remove("hide");
+        hint?.classList.add("fade-in");
+    }
+
+    private hideHint(): void {
+        const hint = document.querySelector(".main__game__hint");
+        hint?.classList.add("hide");
+        hint?.classList.remove("fade-in");
     }
 
     private showProgress(header: Element): void {
@@ -209,7 +225,7 @@ export class Game extends Layout {
     private startGame(gameField: GameField): void {
         this.showProgress(gameField.header);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
-        this.showHint(gameField.hint, this.currentLevel.answer[this.question]);
+        this.setHint(gameField.hint, this.currentLevel.answer[this.question]);
         if (!this.question) {
             this.createGrid(gameField.image);
         }
@@ -324,6 +340,9 @@ export class Game extends Layout {
     }
 
     public nextLevel(): void {
+        if (!this.visibleHints) {
+            this.hideHint();
+        }
         this.disablePrevousLevel();
         this.removeIdFromPreviousLevel();
         this.destroyWordCards();
@@ -359,6 +378,9 @@ export class Game extends Layout {
     public usersAction(): void {
         const action = app.mainPage.gamePage.btnCheck.getAttribute("action");
         if (action === USERSACTIONS.check) {
+            if (!this.visibleHints) {
+                this.showHint();
+            }
             this.checkSentence();
             return;
         }
@@ -438,6 +460,9 @@ export class Game extends Layout {
     }
 
     public autocompleteTask(): void {
+        if (!this.visibleHints) {
+            this.showHint();
+        }
         this.completeTask();
         this.disablePrevousLevel();
         this.removeIdFromPreviousLevel();
@@ -473,5 +498,25 @@ export class Game extends Layout {
                 wordsCard.forEach((card) => this.removeChilds(card));
             }
         }
+    }
+
+    private hideOrShowHints(): void {
+        const btnHint = document.querySelector(".btn-hint");
+        if (btnHint) {
+            if (this.visibleHints) {
+                this.showHint();
+                btnHint.innerHTML = infoSvg;
+                btnHint.setAttribute("title", "hide hint");
+                return;
+            }
+            this.hideHint();
+            btnHint.innerHTML = hintSvg;
+            btnHint.setAttribute("title", "show hint");
+        }
+    }
+
+    public showHintsInGame(): void {
+        this.visibleHints = !this.visibleHints;
+        this.hideOrShowHints();
     }
 }

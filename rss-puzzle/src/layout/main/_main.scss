@@ -41,8 +41,8 @@
     row-gap: 25px;
 }
 
-.main__game__header {
-    @include display-flex(row);
+.main__header {
+    @include display-flex(row, space-between, center);
     width: 100%;
     font-family: Dragon;
 }
@@ -54,7 +54,10 @@
 }
 
 .main__game__hint {
-    color: $color-hint;
+    color: $color-btn-options;
+    &.hide {
+        visibility: hidden;
+    }
 }
 
 .main__game__game {

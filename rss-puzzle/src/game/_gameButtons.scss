@@ -1,0 +1,22 @@
+.btn-game {
+    width: 3em;
+    height: 3em;
+    background-color: $color-btn-options;
+    border: 1px solid $color-btn-options;
+    border-radius: 5px;
+    @include display-flex(row, center, center);
+    padding: 0;
+    fill: white;
+    stroke: white;
+    transition-property: background-color, fill, stroke, border-color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: lighten($color: $color-btn-options, $amount: 5%);
+            border-color: lighten($color: $color-btn-options, $amount: 5%);
+            fill: $color-btn-options-active;
+            stroke: $color-btn-options-active;
+        }
+    }
+}

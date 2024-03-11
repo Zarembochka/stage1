@@ -4,6 +4,7 @@ import { USERSACTIONS } from "../../abstract/enums";
 import { GameField } from "../../abstract/interfaces";
 import { Game } from "../../game/game";
 import { Container } from "../container/container";
+import { hintSvg } from "../../abstract/logos";
 
 export class MainLayout extends Layout {
     public main;
@@ -74,15 +75,33 @@ export class MainLayout extends Layout {
         }
     }
 
+    private createBtnHint(): Element {
+        const btnHint = this.createElement("button", "btn btn-game btn-hint");
+        btnHint.innerHTML = hintSvg;
+        btnHint.setAttribute("title", "show hint");
+        btnHint.addEventListener("click", () => this.game.showHintsInGame());
+        return btnHint;
+    }
+
+    private createHeaderToGamePage(wrapper: Element): Element {
+        const header = this.createElement("header", "main__header");
+        const levels = this.createElement("div", "main__game__header");
+        const btnHint = this.createBtnHint();
+        header.append(levels, btnHint);
+        wrapper.append(header);
+        return levels;
+    }
+
     private createMainPage(): void {
         const wrapper = this.createElement("div", "main__start main__game");
-        const header = this.createElement("header", "main__game__header");
+        //const header = this.createElement("header", "main__game__header");
+        const header = this.createHeaderToGamePage(wrapper);
         const task = this.createElement("div", "main__game__task");
-        const hint = this.createElement("div", "main__game__hint");
+        const hint = this.createElement("div", "main__game__hint hide");
         const image = this.createElement("div", "main__game__game");
         const words = this.createElement("div", "main__game__words");
         const footer = this.createElement("footer", "main__game__footer");
-        wrapper.append(header, task, hint, image, words, footer);
+        wrapper.append(task, hint, image, words, footer);
         this.addButtonsToFooter(footer);
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
