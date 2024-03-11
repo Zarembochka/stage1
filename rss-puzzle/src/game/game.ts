@@ -2,7 +2,7 @@ import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
-import { infoSvg, hintSvg } from "../abstract/logos";
+import { infoSvg, hintSvg, playSvg, playActiveSvg } from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
 import round3 from "../data/levels/wordCollectionLevel3.json";
@@ -526,9 +526,27 @@ export class Game extends Layout {
         return level;
     }
 
+    private makeAudioIconActive(): void {
+        const btnAudio = document.querySelector(".btn-audio");
+        btnAudio?.classList.add("active");
+        if (btnAudio) {
+            btnAudio.innerHTML = playActiveSvg;
+        }
+    }
+
+    private makeAudioIconInactive(): void {
+        const btnAudio = document.querySelector(".btn-audio");
+        btnAudio?.classList.remove("active");
+        if (btnAudio) {
+            btnAudio.innerHTML = playSvg;
+        }
+    }
+
     public playAudioHint(): void {
+        this.makeAudioIconActive();
         const path = this.getPathToAudio();
         const audio = new Audio(path);
         audio.play();
+        audio.addEventListener("ended", this.makeAudioIconInactive);
     }
 }

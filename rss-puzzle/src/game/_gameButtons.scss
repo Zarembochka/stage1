@@ -8,7 +8,7 @@
     padding: 0;
     fill: white;
     stroke: white;
-    transition-property: background-color, fill, stroke, border-color;
+    transition-property: background-color, fill, stroke, border-color, box-shadow-color;
     transition-duration: 0.3s;
     transition-timing-function: ease-in;
     @media screen and (hover: hover) {
@@ -18,5 +18,19 @@
             fill: $color-btn-options-active;
             stroke: $color-btn-options-active;
         }
+    }
+    &:active {
+        outline: 2px solid $color-btn-options-active;
+        transform: scale(1.05);
+    }
+}
+
+.btn-audio {
+    &.active {
+        fill: $color-btn-options-active;
+        stroke: $color-btn-options-active;
+        box-shadow: 3px 0px 25px -1px $color-btn-options-active;
+        outline: 2px solid $color-btn-options-active;
+        transform: scale(1.05);
     }
 }
