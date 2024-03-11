@@ -4,7 +4,7 @@ import { USERSACTIONS } from "../../abstract/enums";
 import { GameField } from "../../abstract/interfaces";
 import { Game } from "../../game/game";
 import { Container } from "../container/container";
-import { hintSvg, playSvg } from "../../abstract/logos";
+import { audioHintOnSvg, hintSvg, playSvg } from "../../abstract/logos";
 
 export class MainLayout extends Layout {
     public main;
@@ -76,19 +76,27 @@ export class MainLayout extends Layout {
     }
 
     private createBtnHint(): Element {
-        const btnHint = this.createElement("button", "btn btn-game btn-hint");
+        const btnHint = this.createElement("button", "btn btn-game btn-options btn-hint");
         btnHint.innerHTML = hintSvg;
-        btnHint.setAttribute("title", "show hint");
+        btnHint.setAttribute("title", "show text hint");
         btnHint.addEventListener("click", () => this.game.showHintsInGame());
         return btnHint;
     }
 
-    private createBtnAudio(): Element {
-        const btnAudio = this.createElement("button", "btn btn-game btn-audio");
+    private createBtnAudioHint(): Element {
+        const btnHint = this.createElement("button", "btn btn-game btn-options btn-audioHint");
+        btnHint.innerHTML = audioHintOnSvg;
+        btnHint.setAttribute("title", "show audio hint");
+        btnHint.addEventListener("click", () => this.game.showAudioHintsInGame());
+        return btnHint;
+    }
+
+    private createBtnAudio(wrapper: Element): void {
+        const btnAudio = this.createElement("button", "btn btn-game btn-audio hide");
         btnAudio.innerHTML = playSvg;
-        btnAudio.setAttribute("title", "play audio");
+        btnAudio.setAttribute("title", "play audio hint");
         btnAudio.addEventListener("click", () => this.game.playAudioHint());
-        return btnAudio;
+        wrapper.append(btnAudio);
     }
 
     private createHeaderToGamePage(wrapper: Element): Element {
@@ -96,8 +104,8 @@ export class MainLayout extends Layout {
         const levels = this.createElement("div", "main__game__header");
         const btns = this.createElement("div", "main__game__btns");
         const btnHint = this.createBtnHint();
-        const btnAudio = this.createBtnAudio();
-        btns.append(btnHint, btnAudio);
+        const btnAudioHint = this.createBtnAudioHint();
+        btns.append(btnHint, btnAudioHint);
         header.append(levels, btns);
         wrapper.append(header);
         return levels;
@@ -105,8 +113,8 @@ export class MainLayout extends Layout {
 
     private createMainPage(): void {
         const wrapper = this.createElement("div", "main__start main__game");
-        //const header = this.createElement("header", "main__game__header");
         const header = this.createHeaderToGamePage(wrapper);
+        this.createBtnAudio(wrapper);
         const task = this.createElement("div", "main__game__task");
         const hint = this.createElement("div", "main__game__hint hide");
         const image = this.createElement("div", "main__game__game");

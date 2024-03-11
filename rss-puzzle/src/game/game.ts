@@ -2,7 +2,7 @@ import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
-import { infoSvg, hintSvg, playSvg, playActiveSvg } from "../abstract/logos";
+import { infoSvg, hintSvg, playSvg, playActiveSvg, audioHintOffSvg, audioHintOnSvg } from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
 import round3 from "../data/levels/wordCollectionLevel3.json";
@@ -23,6 +23,8 @@ export class Game extends Layout {
 
     private visibleHints: boolean;
 
+    private visibleAudioHints: boolean;
+
     constructor() {
         super();
         this.round = 0;
@@ -30,6 +32,7 @@ export class Game extends Layout {
         this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
         this.visibleHints = false;
+        this.visibleAudioHints = false;
     }
 
     private getLevel(round: number, level: number): GameLevel {
@@ -344,6 +347,9 @@ export class Game extends Layout {
         if (!this.visibleHints) {
             this.hideHint();
         }
+        if (!this.visibleAudioHints) {
+            this.hideAudioButton();
+        }
         this.disablePrevousLevel();
         this.removeIdFromPreviousLevel();
         this.destroyWordCards();
@@ -379,9 +385,6 @@ export class Game extends Layout {
     public usersAction(): void {
         const action = app.mainPage.gamePage.btnCheck.getAttribute("action");
         if (action === USERSACTIONS.check) {
-            if (!this.visibleHints) {
-                this.showHint();
-            }
             this.checkSentence();
             return;
         }
@@ -393,6 +396,12 @@ export class Game extends Layout {
         const answer = this.currentLevel.answer[this.question].split(" ");
         const uncorrectWords = userWords.filter((word, index) => word.textContent !== answer[index]);
         if (!uncorrectWords.length) {
+            if (!this.visibleHints) {
+                this.showHint();
+            }
+            if (!this.visibleAudioHints) {
+                this.showAudioButton();
+            }
             this.changeCheckButtonToContinue();
             return;
         }
@@ -461,6 +470,9 @@ export class Game extends Layout {
     }
 
     public autocompleteTask(): void {
+        if (!this.visibleAudioHints) {
+            this.showAudioButton();
+        }
         if (!this.visibleHints) {
             this.showHint();
         }
@@ -507,12 +519,12 @@ export class Game extends Layout {
             if (this.visibleHints) {
                 this.showHint();
                 btnHint.innerHTML = infoSvg;
-                btnHint.setAttribute("title", "hide hint");
+                btnHint.setAttribute("title", "hide text hint");
                 return;
             }
             this.hideHint();
             btnHint.innerHTML = hintSvg;
-            btnHint.setAttribute("title", "show hint");
+            btnHint.setAttribute("title", "show text hint");
         }
     }
 
@@ -521,9 +533,41 @@ export class Game extends Layout {
         this.hideOrShowHints();
     }
 
+    private hideOrShowAudioHints(): void {
+        const btnHint = document.querySelector(".btn-audioHint");
+        if (btnHint) {
+            if (this.visibleAudioHints) {
+                this.showAudioButton();
+                btnHint.innerHTML = audioHintOffSvg;
+                btnHint.setAttribute("title", "hide audio hint");
+                return;
+            }
+            this.hideAudioButton();
+            btnHint.innerHTML = audioHintOnSvg;
+            btnHint.setAttribute("title", "show audio hint");
+        }
+    }
+
+    public showAudioHintsInGame(): void {
+        this.visibleAudioHints = !this.visibleAudioHints;
+        this.hideOrShowAudioHints();
+    }
+
     private getPathToAudio(): string {
         const level = `https://github.com/rolling-scopes-school/rss-puzzle-data/blob/main/${this.currentLevel.audio[this.question]}?raw=true`;
         return level;
+    }
+
+    private showAudioButton(): void {
+        const btnAudio = document.querySelector(".btn-audio");
+        btnAudio?.classList.remove("hide");
+        btnAudio?.classList.add("fade-in");
+    }
+
+    private hideAudioButton(): void {
+        const btnAudio = document.querySelector(".btn-audio");
+        btnAudio?.classList.add("hide");
+        btnAudio?.classList.remove("fade-in");
     }
 
     private makeAudioIconActive(): void {

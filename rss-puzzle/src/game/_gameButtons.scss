@@ -1,16 +1,19 @@
 .btn-game {
-    width: 3em;
-    height: 3em;
-    background-color: $color-btn-options;
-    border: 1px solid $color-btn-options;
+    border: 2px solid $color-btn-options;
     border-radius: 5px;
     @include display-flex(row, center, center);
     padding: 0;
-    fill: white;
-    stroke: white;
     transition-property: background-color, fill, stroke, border-color, box-shadow-color;
     transition-duration: 0.3s;
     transition-timing-function: ease-in;
+}
+
+.btn-options {
+    width: 3em;
+    height: 3em;
+    background-color: $color-btn-options;
+    fill: white;
+    stroke: white;
     @media screen and (hover: hover) {
         &:hover {
             background-color: lighten($color: $color-btn-options, $amount: 5%);
@@ -26,11 +29,28 @@
 }
 
 .btn-audio {
+    width: 2.5em;
+    height: 2.5em;
+    background-color: transparent;
+    fill: $color-btn-options;
+    stroke: $color-btn-options;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: $color-btn-options;
+            border-color: $color-btn-options;
+            fill: white;
+            stroke: white;
+        }
+    }
     &.active {
-        fill: $color-btn-options-active;
-        stroke: $color-btn-options-active;
-        box-shadow: 3px 0px 25px -1px $color-btn-options-active;
-        outline: 2px solid $color-btn-options-active;
+        fill: white;
+        stroke: white;
+        background-color: $color-btn-options;
+        box-shadow: 3px 0px 25px -1px $color-btn-options;
+        //outline: 2px solid white;
         transform: scale(1.05);
+    }
+    &.hide {
+        visibility: hidden;
     }
 }
