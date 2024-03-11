@@ -7,6 +7,7 @@ export interface GameLevel {
     task: string[];
     answer: string[];
     image: string;
+    audio: string[];
 }
 
 export interface GameField {

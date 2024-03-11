@@ -45,6 +45,12 @@
     @include display-flex(row, space-between, center);
     width: 100%;
     font-family: Dragon;
+    padding: 0 10%;
+}
+
+.main__game__btns {
+    @include display-flex(row);
+    column-gap: 5px;
 }
 
 .main__game__task,

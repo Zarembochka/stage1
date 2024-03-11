@@ -4,7 +4,7 @@ import { USERSACTIONS } from "../../abstract/enums";
 import { GameField } from "../../abstract/interfaces";
 import { Game } from "../../game/game";
 import { Container } from "../container/container";
-import { hintSvg } from "../../abstract/logos";
+import { hintSvg, playSvg } from "../../abstract/logos";
 
 export class MainLayout extends Layout {
     public main;
@@ -83,11 +83,22 @@ export class MainLayout extends Layout {
         return btnHint;
     }
 
+    private createBtnAudio(): Element {
+        const btnAudio = this.createElement("button", "btn btn-game btn-audio");
+        btnAudio.innerHTML = playSvg;
+        btnAudio.setAttribute("title", "play audio");
+        btnAudio.addEventListener("click", () => this.game.playAudioHint());
+        return btnAudio;
+    }
+
     private createHeaderToGamePage(wrapper: Element): Element {
         const header = this.createElement("header", "main__header");
         const levels = this.createElement("div", "main__game__header");
+        const btns = this.createElement("div", "main__game__btns");
         const btnHint = this.createBtnHint();
-        header.append(levels, btnHint);
+        const btnAudio = this.createBtnAudio();
+        btns.append(btnHint, btnAudio);
+        header.append(levels, btns);
         wrapper.append(header);
         return levels;
     }

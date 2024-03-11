@@ -36,7 +36,8 @@ export class Game extends Layout {
         const dataLevel = rounds[round].rounds[level];
         const tasks = dataLevel.words.map((element) => element.textExampleTranslate);
         const answers = dataLevel.words.map((element) => element.textExample);
-        return { task: tasks, answer: answers, image: dataLevel.levelData.imageSrc };
+        const audioSrc = dataLevel.words.map((element) => element.audioExample);
+        return { task: tasks, answer: answers, image: dataLevel.levelData.imageSrc, audio: audioSrc };
     }
 
     private showTask(element: Element, text: string): void {
@@ -518,5 +519,16 @@ export class Game extends Layout {
     public showHintsInGame(): void {
         this.visibleHints = !this.visibleHints;
         this.hideOrShowHints();
+    }
+
+    private getPathToAudio(): string {
+        const level = `https://github.com/rolling-scopes-school/rss-puzzle-data/blob/main/${this.currentLevel.audio[this.question]}?raw=true`;
+        return level;
+    }
+
+    public playAudioHint(): void {
+        const path = this.getPathToAudio();
+        const audio = new Audio(path);
+        audio.play();
     }
 }
