@@ -69,6 +69,7 @@
 .main__game__game {
     user-select: none;
     width: 58.5%;
+    //width: 1156px;
     height: 450px;
     background-color: rgb(235 241 46 / 20%);
     background-size: contain;
@@ -83,6 +84,7 @@
 .main__game__words {
     @include display-flex(row, flex-start);
     width: 58.5%;
+    //width: 1156px;
     font-family: Snowstorm;
     font-size: calc(14px + (20 - 14) * (100vw - 768px) / (1440 - 768));
     user-select: none;

@@ -86,17 +86,26 @@ export class Game extends Layout {
         const startWords = this.currentLevel.answer[this.question].split(" ");
         const firstWord = startWords[0];
         const lastWord = startWords[startWords.length - 1];
-        const wordsToShow = this.reshuffle(startWords);
+        //const wordsToShow = this.reshuffle(startWords);
+        const wordsToShow = startWords;
         const wordsLength = this.getAllWordsLength(wordsToShow);
         const gameField = image.querySelector(`[data-row="${this.question.toString()}"]`);
         const startWidth = this.calculateStartWidth(wordsToShow.length);
         this.setHeight(gameField, words);
         for (let i = 0; i < wordsToShow.length; i += 1) {
             const card = this.createElement("div", "game__card") as HTMLElement;
-            //const word = this.createElement("div", "game__card__word", wordsToShow[i], `word_${i}`);
-            const word = this.createPuzzle("div", "game__card__word", wordsToShow[i], `word_${i}`, firstWord, lastWord);
+            const word = this.createPuzzle(
+                "div",
+                "game__card__word",
+                wordsToShow[i],
+                `word_${i}`,
+                firstWord,
+                lastWord
+            ) as HTMLElement;
             const field = this.createElement("div", "game__card") as HTMLElement;
-            card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
+            const width = this.calculateWidth(wordsToShow[i], wordsLength);
+            //card.style.width = this.calculateWidth(wordsToShow[i], wordsLength);
+            card.style.width = `${width.toString()}%`;
             card.style.zIndex = (wordsToShow.length - i).toString();
             field.style.width = startWidth;
             field.style.zIndex = (wordsToShow.length - i).toString();
@@ -107,6 +116,8 @@ export class Game extends Layout {
             card.addEventListener("click", (event) => this.replaceWordCardToField(event, this));
             field.addEventListener("click", (event) => this.replaceWordCardToField(event, this, REPLACETO.toCardsSrc));
         }
+        this.setBackgroundImage(words, image);
+        this.reshuffle(words);
     }
 
     private createPuzzle(
@@ -119,9 +130,10 @@ export class Game extends Layout {
     ): Element {
         const puzzle = this.createElement(tag, classname);
         const leftPart = this.createElement("span", "left__part");
-        const middle = this.createElement("div", "middle", text);
-        const rightPart = this.createElement("span", "right__part");
+        const middle = this.createElement("div", "middle", text) as HTMLElement;
+        const rightPart = this.createElement("span", "right__part") as HTMLElement;
         puzzle.append(leftPart, middle, rightPart);
+        //puzzle.append(middle);
         if (id) {
             puzzle.setAttribute("id", id);
         }
@@ -132,6 +144,33 @@ export class Game extends Layout {
             rightPart.classList.add("last");
         }
         return puzzle;
+    }
+
+    private setBackgroundImage(words: Element, image: Element): void {
+        const cards = words.querySelectorAll(".game__card__word");
+        const imageWidth = getComputedStyle(image).width;
+        let totalWidth = 0;
+        const height = words.getBoundingClientRect().height;
+        const top = words.getBoundingClientRect().top;
+        const startWidth = words.getBoundingClientRect().left;
+        for (let i = 0; i < cards.length; i += 1) {
+            const rightPart = cards[i].querySelector(".right__part") as HTMLElement;
+            const middle = cards[i].querySelector(".middle") as HTMLElement;
+            const elementWidth = middle.getBoundingClientRect().width;
+            const rightPosition = rightPart.getBoundingClientRect().left;
+            const topPosition = rightPart.getBoundingClientRect().top;
+            if (middle) {
+                middle.style.backgroundImage = `url("./assets/images/${this.currentLevel.image}")`;
+                middle.style.backgroundSize = imageWidth;
+                middle.style.backgroundPosition = `top -${this.question * height}px left -${totalWidth}px`;
+                totalWidth += elementWidth;
+            }
+            rightPart.style.backgroundImage = `url("./assets/images/${this.currentLevel.image}")`;
+            rightPart.style.backgroundSize = imageWidth;
+            const widthToImage = startWidth - rightPosition;
+            const heightToImage = height * this.question + (topPosition - top);
+            rightPart.style.backgroundPosition = `top -${heightToImage}px left ${widthToImage}px`;
+        }
     }
 
     private dragAndDropFunctions(word: Element, field: HTMLElement, card: HTMLElement): void {
@@ -233,7 +272,7 @@ export class Game extends Layout {
         if (!this.question) {
             this.createGrid(gameField.image);
         }
-        //this.showImage(image, this.currentLevel.image);
+        //this.showImage(gameField.image, this.currentLevel.image);
         this.showWords(gameField.words, gameField.image);
     }
 
@@ -292,9 +331,10 @@ export class Game extends Layout {
         return result;
     }
 
-    private calculateWidth(word: string, allWordsLength: number): string {
-        const result = Math.round((word.length * 1000) / allWordsLength) / 10;
-        return `${result.toString()}%`;
+    private calculateWidth(word: string, allWordsLength: number): number {
+        const result = Math.round((word.length * 10000) / allWordsLength) / 100;
+        return result;
+        //return `${result.toString()}%`;
     }
 
     private calculateStartWidth(length: number): string {
@@ -305,14 +345,31 @@ export class Game extends Layout {
         return "";
     }
 
-    private reshuffle(cards: string[]): string[] {
+    // private reshuffle(cards: string[]): string[] {
+    //     for (let i = 0; i < cards.length; i += 1) {
+    //         const randomIndex = this.getRandomNumber(cards.length);
+    //         const temp = cards[i];
+    //         cards[i] = cards[randomIndex];
+    //         cards[randomIndex] = temp;
+    //     }
+    //     return cards;
+    // }
+
+    private reshuffle(words: Element): void {
+        const cards = words.querySelectorAll(".game__card") as NodeListOf<HTMLElement>;
         for (let i = 0; i < cards.length; i += 1) {
             const randomIndex = this.getRandomNumber(cards.length);
-            const temp = cards[i];
-            cards[i] = cards[randomIndex];
-            cards[randomIndex] = temp;
+            const oldChild = cards[i].firstChild as Node;
+            const oldWidth = cards[i].style.width;
+            const newChild = cards[randomIndex].firstChild as Node;
+            const newWidth = cards[randomIndex].style.width;
+            cards[i].firstChild?.remove();
+            cards[i].append(newChild);
+            cards[i].style.width = newWidth;
+            cards[randomIndex].firstChild?.remove();
+            cards[randomIndex].append(oldChild);
+            cards[randomIndex].style.width = oldWidth;
         }
-        return cards;
     }
 
     private getRandomNumber(max: number): number {
@@ -501,8 +558,13 @@ export class Game extends Layout {
                 lastWord
             );
             const currentDiv = userWords[i] as HTMLElement;
-            currentDiv.style.width = this.calculateWidth(correctWords[i], wordsLength);
+            currentDiv.style.width = `${this.calculateWidth(correctWords[i], wordsLength).toString()}%`;
             userWords[i].append(correctCard);
+        }
+        const words = document.querySelector(`[data-row="${this.question.toString()}"]`);
+        const image = document.querySelector(".main__game__game");
+        if (words && image) {
+            this.setBackgroundImage(words, image);
         }
         const gameWords = document.querySelector(".main__game__words");
         if (gameWords) {
