@@ -43,3 +43,23 @@ export const audioHintOnSvg = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y
 </svg>`;
 
 export const audioHintOffSvg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="50px" height="50px"><g transform="translate(29.44,29.44) scale(0.77,0.77)"><g fill="none" fill-rule="nonzero" stroke-width="20.48" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M15.2281,257.62288c-9.30654,0 -16.85097,-7.54444 -16.85097,-16.85097v-225.54381c0,-9.30654 7.54444,-16.85097 16.85097,-16.85097h225.54381c9.30654,0 16.85097,7.54444 16.85097,16.85097v225.54381c0,9.30654 -7.54444,16.85097 -16.85097,16.85097z" id="shape"></path></g><g fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M27,8c2.732,0 3.63,0.537 4.767,1.217c1.451,0.868 3.096,1.852 7.233,1.858v4.925c-3.281,0 -4.348,-0.669 -5.478,-1.378c-1.213,-0.76 -2.588,-1.622 -5.522,-1.622c-0.327,0 -0.669,0.04 -1,0.146v-5.146M25,33.61v2.39c0,3.8 -0.829,6 -5.064,6c-5.936,0 -5.936,-2.312 -5.936,-4c0,-1.337 0,-3 6,-3c2.364,0 3.947,-0.566 5,-1.39M27,6c-1.6,0 -2,1 -2,2v21c0,2.214 -1.033,4 -5,4c-5.661,0 -8,1.464 -8,5c0,2.383 0.489,6 7.936,6c6.919,0 7.064,-5.318 7.064,-8c0,-1.027 0,-3.903 0,-7v-12c0.005,-1.355 0.2,-2 1,-2c5.138,0 3.871,3 11,3c0,0 2,0 2,-1.699c0,-2.555 0,-4.363 0,-5.333c0,-1.533 -0.688,-1.893 -1.962,-1.893c-7.113,0.001 -5.364,-3.075 -12.038,-3.075z"></path></g></g></g></svg>`;
+
+export const backGroungHintOnSvg = `<svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M23 4C23 2.34315 21.6569 1 20 1H4C2.34315 1 1 2.34315 1 4V20C1 21.6569 2.34315 23 4 23H20C21.6569 23 23 21.6569 23 20V4ZM21 4C21 3.44772 20.5523 3 20 3H4C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21H20C20.5523 21 21 20.5523 21 20V4Z"/> <path d="M4.80665 17.5211L9.1221 9.60947C9.50112 8.91461 10.4989 8.91461 10.8779 9.60947L14.0465 15.4186L15.1318 13.5194C15.5157 12.8476 16.4843 12.8476 16.8682 13.5194L19.1451 17.5039C19.526 18.1705 19.0446 19 18.2768 19H5.68454C4.92548 19 4.44317 18.1875 4.80665 17.5211Z"/> <path d="M18 8C18 9.10457 17.1046 10 16 10C14.8954 10 14 9.10457 14 8C14 6.89543 14.8954 6 16 6C17.1046 6 18 6.89543 18 8Z"/> </g>
+
+</svg>`;
+
+export const backGroungHintOffSvg = `<svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <g id="Shape / Square"> <path id="Vector" d="M3 6.2002V17.8002C3 18.9203 3 19.4796 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H17.8031C18.921 21 19.48 21 19.9074 20.7822C20.2837 20.5905 20.5905 20.2837 20.7822 19.9074C21 19.48 21 18.921 21 17.8031V6.19691C21 5.07899 21 4.5192 20.7822 4.0918C20.5905 3.71547 20.2837 3.40973 19.9074 3.21799C19.4796 3 18.9203 3 17.8002 3H6.2002C5.08009 3 4.51962 3 4.0918 3.21799C3.71547 3.40973 3.40973 3.71547 3.21799 4.0918C3 4.51962 3 5.08009 3 6.2002Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g> </g>
+
+</svg>`;

@@ -97,6 +97,10 @@
         background-color: rgba($color: $color-green-btn, $alpha: 0.45);
         background-blend-mode: overlay;
     }
+    &.noImage {
+        background-image: none !important;
+        background-color: $color-green-btn;
+    }
 }
 
 .right__part {
@@ -114,6 +118,10 @@
     .game__card.drag__over .game__card__word & {
         background-color: rgba($color: $color-green-btn, $alpha: 0.45);
         background-blend-mode: overlay;
+    }
+    &.noImage {
+        background-image: none !important;
+        background-color: $color-green-btn;
     }
     &.last {
         display: none;

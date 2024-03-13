@@ -2,7 +2,7 @@ import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel } from "../abstract/interfaces";
-import { infoSvg, hintSvg, playSvg, playActiveSvg, audioHintOffSvg, audioHintOnSvg } from "../abstract/logos";
+import * as Logos from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
 import round3 from "../data/levels/wordCollectionLevel3.json";
@@ -25,6 +25,8 @@ export class Game extends Layout {
 
     private visibleAudioHints: boolean;
 
+    private visibleBackgroundHint: boolean;
+
     constructor() {
         super();
         this.round = 0;
@@ -33,6 +35,7 @@ export class Game extends Layout {
         this.currentLevel = this.getLevel(this.round, this.level);
         this.visibleHints = false;
         this.visibleAudioHints = false;
+        this.visibleBackgroundHint = false;
     }
 
     private getLevel(round: number, level: number): GameLevel {
@@ -142,6 +145,10 @@ export class Game extends Layout {
         }
         if (text === lastWord) {
             rightPart.classList.add("last");
+        }
+        if (!this.visibleBackgroundHint) {
+            middle.classList.add("noImage");
+            rightPart.classList.add("noImage");
         }
         return puzzle;
     }
@@ -460,6 +467,7 @@ export class Game extends Layout {
                 this.showAudioButton();
             }
             this.changeCheckButtonToContinue();
+            this.showBackgroundImagesForPuzzle();
             return;
         }
         uncorrectWords.forEach((word) => word.classList.add("uncorrect"));
@@ -561,6 +569,9 @@ export class Game extends Layout {
             currentDiv.style.width = `${this.calculateWidth(correctWords[i], wordsLength).toString()}%`;
             userWords[i].append(correctCard);
         }
+        if (!this.visibleBackgroundHint) {
+            this.showBackgroundImagesForPuzzle();
+        }
         const words = document.querySelector(`[data-row="${this.question.toString()}"]`);
         const image = document.querySelector(".main__game__game");
         if (words && image) {
@@ -580,12 +591,12 @@ export class Game extends Layout {
         if (btnHint) {
             if (this.visibleHints) {
                 this.showHint();
-                btnHint.innerHTML = infoSvg;
+                btnHint.innerHTML = Logos.infoSvg;
                 btnHint.setAttribute("title", "hide text hint");
                 return;
             }
             this.hideHint();
-            btnHint.innerHTML = hintSvg;
+            btnHint.innerHTML = Logos.hintSvg;
             btnHint.setAttribute("title", "show text hint");
         }
     }
@@ -600,12 +611,12 @@ export class Game extends Layout {
         if (btnHint) {
             if (this.visibleAudioHints) {
                 this.showAudioButton();
-                btnHint.innerHTML = audioHintOffSvg;
+                btnHint.innerHTML = Logos.audioHintOffSvg;
                 btnHint.setAttribute("title", "hide audio hint");
                 return;
             }
             this.hideAudioButton();
-            btnHint.innerHTML = audioHintOnSvg;
+            btnHint.innerHTML = Logos.audioHintOnSvg;
             btnHint.setAttribute("title", "show audio hint");
         }
     }
@@ -636,7 +647,7 @@ export class Game extends Layout {
         const btnAudio = document.querySelector(".btn-audio");
         btnAudio?.classList.add("active");
         if (btnAudio) {
-            btnAudio.innerHTML = playActiveSvg;
+            btnAudio.innerHTML = Logos.playActiveSvg;
         }
     }
 
@@ -644,7 +655,7 @@ export class Game extends Layout {
         const btnAudio = document.querySelector(".btn-audio");
         btnAudio?.classList.remove("active");
         if (btnAudio) {
-            btnAudio.innerHTML = playSvg;
+            btnAudio.innerHTML = Logos.playSvg;
         }
     }
 
@@ -654,5 +665,31 @@ export class Game extends Layout {
         const audio = new Audio(path);
         audio.play();
         audio.addEventListener("ended", this.makeAudioIconInactive);
+    }
+
+    private showBackgroundImagesForPuzzle(): void {
+        const puzzle = document.querySelectorAll(".noImage");
+        for (let i = 0; i < puzzle.length; i += 1) {
+            puzzle[i].classList.remove("noImage");
+        }
+    }
+
+    private hideOrShowBackgroundHints(): void {
+        const btnHint = document.querySelector(".btn-backgroundHint");
+        if (btnHint) {
+            if (this.visibleBackgroundHint) {
+                btnHint.innerHTML = Logos.backGroungHintOffSvg;
+                btnHint.setAttribute("title", "hide background hint");
+                this.showBackgroundImagesForPuzzle();
+                return;
+            }
+            btnHint.innerHTML = Logos.backGroungHintOnSvg;
+            btnHint.setAttribute("title", "show background hint");
+        }
+    }
+
+    public showBackgroundHint(): void {
+        this.visibleBackgroundHint = !this.visibleBackgroundHint;
+        this.hideOrShowBackgroundHints();
     }
 }
