@@ -127,3 +127,45 @@
         display: none;
     }
 }
+
+.game__round__label,
+.game__level__label {
+    font-size: 1.5em;
+    color: $color-btn-options;
+}
+
+.game__round,
+.game__level {
+    width: 4.5em;
+    text-align: center;
+    border: 1px solid $color-btn-options;
+    color: $color-btn-options;
+    //color: lighten($color: $color-btn-options, $amount: 35%);
+    //color: $color-title;
+    font-size: 1em;
+    font-family: Dragon;
+    outline: none;
+    &:active,
+    &:focus {
+        outline: 2px solid $color-btn-options;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: lighten($color: $color-btn-options, $amount: 45%);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: lighten($color: $color-btn-options, $amount: 25%);
+}
+
+.game__option {
+    color: lighten($color: $color-btn-options, $amount: 35%);
+    &.completed {
+        color: $color-btn-options;
+    }
+}

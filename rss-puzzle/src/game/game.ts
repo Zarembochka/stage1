@@ -428,7 +428,6 @@ export class Game extends Layout {
         this.removeIdFromPreviousLevel();
         this.destroyWordCards();
         this.addQuestion();
-        this.showProgressToUser();
         const gameField = this.prepareDataToGame();
         this.startGame(gameField);
         this.changeContinueButtonToCheck();
@@ -488,6 +487,7 @@ export class Game extends Layout {
         this.question += 1;
         if (this.question === 10) {
             this.question = 0;
+            this.updateInfoRoundsAndLevels();
             this.level += 1;
             this.clearImageField();
             if (this.level === rounds[this.round].roundsCount) {
@@ -495,9 +495,12 @@ export class Game extends Layout {
                 this.round += 1;
                 if (this.round === rounds.length) {
                     this.setRoundAndLevel();
+                    this.setZeroProgressForRounds();
                 }
+                this.removeLevels();
                 this.fillLevels();
             }
+            this.showProgressToUser();
             this.currentLevel = this.getLevel(this.round, this.level);
         }
     }
@@ -735,9 +738,17 @@ export class Game extends Layout {
         const select = document.querySelector(".game__round") as HTMLSelectElement;
         for (let i = 0; i < rounds.length; i += 1) {
             const option = new Option(`${i + 1}`, `${i}`);
+            option.classList.add("game__option");
             select.add(option);
         }
         select.options[0].selected = true;
+    }
+
+    private removeLevels(): void {
+        const select = document.querySelector(".game__level");
+        while (select?.firstChild) {
+            select.removeChild(select.firstChild);
+        }
     }
 
     private fillLevels(): void {
@@ -745,6 +756,7 @@ export class Game extends Layout {
         const levels = rounds[this.round].roundsCount;
         for (let i = 0; i < levels; i += 1) {
             const option = new Option(`${i + 1}`, `${i}`);
+            option.classList.add("game__option");
             select.add(option);
         }
         select.options[0].selected = true;
@@ -756,6 +768,7 @@ export class Game extends Layout {
             this.round = +select.value;
             this.question = 0;
             this.startNewRound();
+            this.removeLevels();
             this.fillLevels();
         }
     }
@@ -794,6 +807,45 @@ export class Game extends Layout {
         const select = document.querySelector(".game__level") as HTMLSelectElement;
         if (select) {
             select.options[this.level].selected = true;
+        }
+    }
+
+    private makeLevelComplete(): void {
+        const select = document.querySelector(".game__level") as HTMLSelectElement;
+        if (select) {
+            select.options[this.level].classList.add("completed");
+        }
+    }
+
+    private makeRoundComplete(progress: number): void {
+        const select = document.querySelector(".game__round") as HTMLSelectElement;
+        if (select) {
+            select.options[this.round].textContent = `${this.round + 1} ${progress}%`;
+            if (progress >= 100) {
+                select.options[this.level].classList.add("completed");
+            }
+            //select.options[this.level].classList.add("completed");
+        }
+    }
+
+    private calculateProgressRound(): number {
+        const completeadLevels = document.querySelectorAll(".game__option.completed").length;
+        const totalLevelsInRound = rounds[this.round].roundsCount;
+        const progress = Math.round((completeadLevels * 100) / totalLevelsInRound);
+        return progress;
+    }
+
+    private updateInfoRoundsAndLevels(): void {
+        this.makeLevelComplete();
+        const progress = this.calculateProgressRound();
+        this.makeRoundComplete(progress);
+    }
+
+    private setZeroProgressForRounds(): void {
+        const select = document.querySelector(".game__round") as HTMLSelectElement;
+        for (let i = 0; i < rounds.length; i += 1) {
+            select.options[i].classList.remove("completed");
+            select.options[i].textContent = `${i + 1}`;
         }
     }
 }

@@ -53,40 +53,6 @@
     column-gap: 10px;
 }
 
-.game__round__label,
-.game__level__label {
-    font-size: 1.5em;
-    color: $color-btn-options;
-}
-
-.game__round,
-.game__level {
-    width: 4em;
-    text-align: center;
-    border: 1px solid $color-btn-options;
-    color: $color-btn-options;
-    //color: $color-title;
-    font-size: 1em;
-    font-family: Dragon;
-    outline: none;
-    &:active,
-    &:focus {
-        outline: 2px solid $color-btn-options;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 7px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: lighten($color: $color-btn-options, $amount: 45%);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: $color-btn-options;
-}
-
 .main__game__btns {
     @include display-flex(row);
     column-gap: 5px;
