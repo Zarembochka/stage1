@@ -87,8 +87,6 @@ export class Game extends Layout {
 
     private showWords(words: Element, image: Element): void {
         const startWords = this.currentLevel.answer[this.question].split(" ");
-        const firstWord = startWords[0];
-        const lastWord = startWords[startWords.length - 1];
         //const wordsToShow = this.reshuffle(startWords);
         const wordsToShow = startWords;
         const wordsLength = this.getAllWordsLength(wordsToShow);
@@ -102,8 +100,8 @@ export class Game extends Layout {
                 "game__card__word",
                 wordsToShow[i],
                 `word_${i}`,
-                firstWord,
-                lastWord
+                i,
+                wordsToShow.length
             ) as HTMLElement;
             const field = this.createElement("div", "game__card") as HTMLElement;
             const width = this.calculateWidth(wordsToShow[i], wordsLength);
@@ -128,8 +126,8 @@ export class Game extends Layout {
         classname: string,
         text: string,
         id: string,
-        firstWord: string,
-        lastWord: string
+        index: number,
+        length: number
     ): Element {
         const puzzle = this.createElement(tag, classname);
         const leftPart = this.createElement("span", "left__part");
@@ -140,10 +138,10 @@ export class Game extends Layout {
         if (id) {
             puzzle.setAttribute("id", id);
         }
-        if (text === firstWord) {
+        if (index === 0) {
             leftPart.classList.add("first");
         }
-        if (text === lastWord) {
+        if (index === length - 1) {
             rightPart.classList.add("last");
         }
         if (!this.visibleBackgroundHint) {
@@ -273,7 +271,7 @@ export class Game extends Layout {
     }
 
     private startGame(gameField: GameField): void {
-        this.showProgress(gameField.header);
+        //this.showProgress(gameField.header);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
         this.setHint(gameField.hint, this.currentLevel.answer[this.question]);
         if (!this.question) {
@@ -290,12 +288,17 @@ export class Game extends Layout {
     }
 
     public startNewGame(gameField: GameField, hints: Hints): void {
-        this.round = 0;
-        this.level = 0;
-        this.question = 0;
+        this.setRoundAndLevel();
+        this.fillRoundsAndLevels();
         this.changeContinueButtonToCheck();
         this.setHintsToGame(hints);
         this.startGame(gameField);
+    }
+
+    private setRoundAndLevel(): void {
+        this.round = 0;
+        this.level = 0;
+        this.question = 0;
     }
 
     private replaceWordCardToField(event: Event, game: Game, direction?: REPLACETO): void {
@@ -425,6 +428,7 @@ export class Game extends Layout {
         this.removeIdFromPreviousLevel();
         this.destroyWordCards();
         this.addQuestion();
+        this.showProgressToUser();
         const gameField = this.prepareDataToGame();
         this.startGame(gameField);
         this.changeContinueButtonToCheck();
@@ -486,9 +490,13 @@ export class Game extends Layout {
             this.question = 0;
             this.level += 1;
             this.clearImageField();
-            if (this.level === 10) {
+            if (this.level === rounds[this.round].roundsCount) {
                 this.level = 0;
                 this.round += 1;
+                if (this.round === rounds.length) {
+                    this.setRoundAndLevel();
+                }
+                this.fillLevels();
             }
             this.currentLevel = this.getLevel(this.round, this.level);
         }
@@ -558,8 +566,6 @@ export class Game extends Layout {
     private completeTask(): void {
         const userWords = this.getUserSentence(".game__card");
         const correctWords = this.currentLevel.answer[this.question].split(" ");
-        const firstWord = correctWords[0];
-        const lastWord = correctWords[correctWords.length - 1];
         const wordsLength = this.getAllWordsLength(correctWords);
         for (let i = 0; i < userWords.length; i += 1) {
             this.removeChilds(userWords[i]);
@@ -569,8 +575,8 @@ export class Game extends Layout {
                 "game__card__word",
                 correctWords[i],
                 `word_${i}`,
-                firstWord,
-                lastWord
+                i,
+                userWords.length
             );
             const currentDiv = userWords[i] as HTMLElement;
             currentDiv.style.width = `${this.calculateWidth(correctWords[i], wordsLength).toString()}%`;
@@ -718,5 +724,76 @@ export class Game extends Layout {
         this.hideOrShowHints();
         this.hideOrShowAudioHints();
         this.hideOrShowBackgroundHints();
+    }
+
+    private fillRoundsAndLevels(): void {
+        this.fillRounds();
+        this.fillLevels();
+    }
+
+    private fillRounds(): void {
+        const select = document.querySelector(".game__round") as HTMLSelectElement;
+        for (let i = 0; i < rounds.length; i += 1) {
+            const option = new Option(`${i + 1}`, `${i}`);
+            select.add(option);
+        }
+        select.options[0].selected = true;
+    }
+
+    private fillLevels(): void {
+        const select = document.querySelector(".game__level") as HTMLSelectElement;
+        const levels = rounds[this.round].roundsCount;
+        for (let i = 0; i < levels; i += 1) {
+            const option = new Option(`${i + 1}`, `${i}`);
+            select.add(option);
+        }
+        select.options[0].selected = true;
+    }
+
+    public selectRound(): void {
+        const select = document.querySelector(".game__round") as HTMLSelectElement;
+        if (select) {
+            this.round = +select.value;
+            this.question = 0;
+            this.startNewRound();
+            this.fillLevels();
+        }
+    }
+
+    public selectLevel(): void {
+        const select = document.querySelector(".game__level") as HTMLSelectElement;
+        if (select) {
+            this.level = +select.value;
+            this.question = 0;
+            this.startNewRound();
+        }
+    }
+
+    private startNewRound(): void {
+        this.clearImageField();
+        this.destroyWordCards();
+        this.currentLevel = this.getLevel(this.round, this.level);
+        const gameField = this.prepareDataToGame();
+        this.startGame(gameField);
+        this.changeContinueButtonToCheck();
+    }
+
+    private showProgressToUser(): void {
+        this.showRoundToUser();
+        this.showLevelToUser();
+    }
+
+    private showRoundToUser(): void {
+        const select = document.querySelector(".game__round") as HTMLSelectElement;
+        if (select) {
+            select.options[this.round].selected = true;
+        }
+    }
+
+    private showLevelToUser(): void {
+        const select = document.querySelector(".game__level") as HTMLSelectElement;
+        if (select) {
+            select.options[this.level].selected = true;
+        }
     }
 }

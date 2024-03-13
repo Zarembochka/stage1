@@ -103,7 +103,8 @@ export class MainLayout extends Layout {
 
     private createHeaderToGamePage(wrapper: Element): Element {
         const header = this.createElement("header", "main__header");
-        const levels = this.createElement("div", "main__game__header");
+        //const levels = this.createElement("div", "main__game__header");
+        const levels = this.createRoundsAndLevels();
         const btns = this.createElement("div", "main__game__btns");
         const btnHint = this.createBtnHint();
         const btnAudioHint = this.createBtnAudioHint();
@@ -111,6 +112,22 @@ export class MainLayout extends Layout {
         btns.append(btnHint, btnAudioHint, btnBackgroundHint);
         header.append(levels, btns);
         wrapper.append(header);
+        return levels;
+    }
+
+    private createRoundsAndLevels(): Element {
+        const levels = this.createElement("div", "main__game__header");
+        const labelRound = this.createElement("label", "game__round__label", "Round");
+        labelRound.setAttribute("for", "gameRound");
+        const selectRound = this.createElement("select", "game__round");
+        selectRound.setAttribute("id", "gameRound");
+        selectRound.addEventListener("change", () => this.game.selectRound());
+        const labelLevel = this.createElement("label", "game__level__label", "Level");
+        labelLevel.setAttribute("for", "gameLevel");
+        const selectLevel = this.createElement("select", "game__level");
+        selectLevel.setAttribute("id", "gameLevel");
+        selectLevel.addEventListener("change", () => this.game.selectLevel());
+        levels.append(labelRound, selectRound, labelLevel, selectLevel);
         return levels;
     }
 
