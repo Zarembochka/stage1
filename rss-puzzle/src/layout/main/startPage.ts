@@ -18,7 +18,7 @@ export class Main {
     public startPage(): void {
         this.wrapper.createContainer();
         this.header.createHeader(this.wrapper);
-        this.gamePage.createMain(this.wrapper);
+        this.gamePage.createMainPart(this.wrapper);
     }
 
     public destroyPage(): void {

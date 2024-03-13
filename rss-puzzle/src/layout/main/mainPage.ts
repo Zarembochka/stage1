@@ -30,7 +30,7 @@ export class MainLayout extends Layout {
         this.btnAutocomplete.addEventListener("click", () => this.game.autocompleteTask());
     }
 
-    public createMain(wrapper: Container): void {
+    public createMainPart(wrapper: Container): void {
         wrapper.appendElement(this.main);
         this.main.addEventListener("animationend", this.checkAnimation);
         this.createStartPage();
@@ -114,9 +114,7 @@ export class MainLayout extends Layout {
         return levels;
     }
 
-    private createMainPage(): void {
-        const wrapper = this.createElement("div", "main__start main__game");
-        const header = this.createHeaderToGamePage(wrapper);
+    private createGameField(wrapper: Element, header: Element): GameField {
         this.createBtnAudio(wrapper);
         const task = this.createElement("div", "main__game__task");
         const hint = this.createElement("div", "main__game__hint hide");
@@ -125,9 +123,21 @@ export class MainLayout extends Layout {
         const footer = this.createElement("footer", "main__game__footer");
         wrapper.append(task, hint, image, words, footer);
         this.addButtonsToFooter(footer);
+        return {
+            header: header,
+            task: task,
+            hint: hint,
+            image: image,
+            words: words,
+        };
+    }
+
+    private createMainPage(): void {
+        const wrapper = this.createElement("div", "main__start main__game");
+        const header = this.createHeaderToGamePage(wrapper);
+        const gameField = this.createGameField(wrapper, header);
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
-        const gameField = this.prepareDataToTheGame(header, task, hint, image, words);
         const startHints = this.getHintsToStartGame();
         this.game.startNewGame(gameField, startHints);
     }
@@ -138,22 +148,6 @@ export class MainLayout extends Layout {
             return { textHints: true, audioHints: true, backgroundHints: true };
         }
         return hints;
-    }
-
-    private prepareDataToTheGame(
-        header: Element,
-        task: Element,
-        hint: Element,
-        image: Element,
-        words: Element
-    ): GameField {
-        return {
-            header: header,
-            task: task,
-            hint: hint,
-            image: image,
-            words: words,
-        };
     }
 
     public destroyMainPage(): void {
