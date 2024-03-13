@@ -17,3 +17,9 @@ export interface GameField {
     image: Element;
     words: Element;
 }
+
+export interface Hints {
+    textHints: boolean;
+    audioHints: boolean;
+    backgroundHints: boolean;
+}

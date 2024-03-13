@@ -1,4 +1,4 @@
-import { User } from "../../abstract/interfaces";
+import { Hints, User } from "../../abstract/interfaces";
 
 export class LocalStorage {
     private saveDataToLS(user: User): void {
@@ -15,6 +15,7 @@ export class LocalStorage {
 
     public removeUserFromLS(): void {
         localStorage.removeItem("LH_user");
+        this.removeHintsFromLS();
     }
 
     public isUserinLS(): boolean {
@@ -36,6 +37,22 @@ export class LocalStorage {
         const user = this.getUserFromLS();
         const greeting = `Welcome, ${user?.firstName} ${user?.surname}`;
         return greeting;
+    }
+
+    public saveHintsToLS(hints: Hints): void {
+        localStorage.setItem("LH_user__hints", JSON.stringify(hints));
+    }
+
+    public getHintsFromLS(): Hints | null {
+        const hints = localStorage.getItem("LH_user__hints");
+        if (!hints) {
+            return null;
+        }
+        return JSON.parse(hints);
+    }
+
+    private removeHintsFromLS(): void {
+        localStorage.removeItem("LH_user__hints");
     }
 }
 

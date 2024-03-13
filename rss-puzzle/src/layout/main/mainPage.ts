@@ -1,7 +1,7 @@
 import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { USERSACTIONS } from "../../abstract/enums";
-import { GameField } from "../../abstract/interfaces";
+import { GameField, Hints } from "../../abstract/interfaces";
 import { Game } from "../../game/game";
 import { Container } from "../container/container";
 import * as Logos from "../../abstract/logos";
@@ -77,16 +77,12 @@ export class MainLayout extends Layout {
 
     private createBtnHint(): Element {
         const btnHint = this.createElement("button", "btn btn-game btn-options btn-hint");
-        btnHint.innerHTML = Logos.hintSvg;
-        btnHint.setAttribute("title", "show text hint");
         btnHint.addEventListener("click", () => this.game.showHintsInGame());
         return btnHint;
     }
 
     private createBtnAudioHint(): Element {
         const btnHint = this.createElement("button", "btn btn-game btn-options btn-audioHint");
-        btnHint.innerHTML = Logos.audioHintOnSvg;
-        btnHint.setAttribute("title", "show audio hint");
         btnHint.addEventListener("click", () => this.game.showAudioHintsInGame());
         return btnHint;
     }
@@ -101,8 +97,6 @@ export class MainLayout extends Layout {
 
     private createBtnBackgroundHint(): Element {
         const btnBackground = this.createElement("button", "btn btn-game btn-options btn-backgroundHint");
-        btnBackground.innerHTML = Logos.backGroungHintOnSvg;
-        btnBackground.setAttribute("title", "show background hint");
         btnBackground.addEventListener("click", () => this.game.showBackgroundHint());
         return btnBackground;
     }
@@ -134,7 +128,16 @@ export class MainLayout extends Layout {
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
         const gameField = this.prepareDataToTheGame(header, task, hint, image, words);
-        this.game.startNewGame(gameField);
+        const startHints = this.getHintsToStartGame();
+        this.game.startNewGame(gameField, startHints);
+    }
+
+    private getHintsToStartGame(): Hints {
+        const hints = app.localStorage.getHintsFromLS();
+        if (!hints) {
+            return { textHints: true, audioHints: true, backgroundHints: true };
+        }
+        return hints;
     }
 
     private prepareDataToTheGame(

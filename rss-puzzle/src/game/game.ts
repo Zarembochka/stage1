@@ -1,7 +1,7 @@
 import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
-import { GameField, GameLevel } from "../abstract/interfaces";
+import { GameField, GameLevel, Hints } from "../abstract/interfaces";
 import * as Logos from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
@@ -33,9 +33,9 @@ export class Game extends Layout {
         this.level = 0;
         this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
-        this.visibleHints = false;
-        this.visibleAudioHints = false;
-        this.visibleBackgroundHint = false;
+        this.visibleHints = true;
+        this.visibleAudioHints = true;
+        this.visibleBackgroundHint = true;
     }
 
     private getLevel(round: number, level: number): GameLevel {
@@ -279,15 +279,22 @@ export class Game extends Layout {
         if (!this.question) {
             this.createGrid(gameField.image);
         }
+        if (this.visibleHints) {
+            this.showHint();
+        }
+        if (this.visibleAudioHints) {
+            this.showAudioButton();
+        }
         //this.showImage(gameField.image, this.currentLevel.image);
         this.showWords(gameField.words, gameField.image);
     }
 
-    public startNewGame(gameField: GameField): void {
+    public startNewGame(gameField: GameField, hints: Hints): void {
         this.round = 0;
         this.level = 0;
         this.question = 0;
         this.changeContinueButtonToCheck();
+        this.setHintsToGame(hints);
         this.startGame(gameField);
     }
 
@@ -604,6 +611,7 @@ export class Game extends Layout {
     public showHintsInGame(): void {
         this.visibleHints = !this.visibleHints;
         this.hideOrShowHints();
+        this.saveHints();
     }
 
     private hideOrShowAudioHints(): void {
@@ -624,6 +632,7 @@ export class Game extends Layout {
     public showAudioHintsInGame(): void {
         this.visibleAudioHints = !this.visibleAudioHints;
         this.hideOrShowAudioHints();
+        this.saveHints();
     }
 
     private getPathToAudio(): string {
@@ -690,6 +699,24 @@ export class Game extends Layout {
 
     public showBackgroundHint(): void {
         this.visibleBackgroundHint = !this.visibleBackgroundHint;
+        this.hideOrShowBackgroundHints();
+        this.saveHints();
+    }
+
+    private saveHints(): void {
+        app.localStorage.saveHintsToLS({
+            textHints: this.visibleHints,
+            audioHints: this.visibleAudioHints,
+            backgroundHints: this.visibleBackgroundHint,
+        });
+    }
+
+    private setHintsToGame(hints: Hints): void {
+        this.visibleHints = hints.textHints;
+        this.visibleAudioHints = hints.audioHints;
+        this.visibleBackgroundHint = hints.backgroundHints;
+        this.hideOrShowHints();
+        this.hideOrShowAudioHints();
         this.hideOrShowBackgroundHints();
     }
 }
