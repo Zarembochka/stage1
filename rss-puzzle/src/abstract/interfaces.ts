@@ -8,6 +8,7 @@ export interface GameLevel {
     answer: string[];
     image: string;
     audio: string[];
+    imageDescription: string;
 }
 
 export interface GameField {

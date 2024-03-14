@@ -44,7 +44,14 @@ class Game extends Layout {
         const tasks = dataLevel.words.map((element) => element.textExampleTranslate);
         const answers = dataLevel.words.map((element) => element.textExample);
         const audioSrc = dataLevel.words.map((element) => element.audioExample);
-        return { task: tasks, answer: answers, image: dataLevel.levelData.imageSrc, audio: audioSrc };
+        const imageDescription = `${dataLevel.levelData.author} - ${dataLevel.levelData.name} (${dataLevel.levelData.year})`;
+        return {
+            task: tasks,
+            answer: answers,
+            image: dataLevel.levelData.imageSrc,
+            audio: audioSrc,
+            imageDescription: imageDescription,
+        };
     }
 
     public setCurrentLevel(): void {
@@ -69,6 +76,12 @@ class Game extends Layout {
         const hint = document.querySelector(".main__game__hint");
         hint?.classList.add("hide");
         hint?.classList.remove("fade-in");
+    }
+
+    private hideTask(): void {
+        const task = document.querySelector(".main__game__task");
+        task?.classList.add("hide");
+        task?.classList.remove("fade-in");
     }
 
     private showProgress(header: Element): void {
@@ -468,6 +481,10 @@ class Game extends Layout {
             this.checkSentence();
             return;
         }
+        if (this.question === 9) {
+            this.hideGameField();
+            return;
+        }
         this.nextLevel();
     }
 
@@ -489,13 +506,45 @@ class Game extends Layout {
         uncorrectWords.forEach((word) => word.classList.add("uncorrect"));
     }
 
+    private hideGameField(): void {
+        this.hidePuzzles();
+        this.hideAudioButton();
+        this.hideHint();
+        this.hideTask();
+    }
+
+    public showLevelEnd(): void {
+        this.clearImageField();
+        this.showImageInfo();
+    }
+
+    private showImageInfo(): void {
+        const task = document.querySelector(".main__game__task");
+        if (task) {
+            task.textContent = this.currentLevel.imageDescription;
+            task.classList.remove("hide");
+            task.classList.add("fade-in");
+            //increment question to go next level
+            this.question += 1;
+        }
+    }
+
+    private hidePuzzles(): void {
+        const levelImage = document.querySelector(".main__game__game");
+        if (levelImage) {
+            levelImage.classList.add("fade-out");
+            this.showImage(levelImage, this.currentLevel.image);
+        }
+    }
+
     private addQuestion(): void {
         this.question += 1;
-        if (this.question === 10) {
+        if (this.question >= 10) {
             this.question = 0;
             gameProgress.updateInfoRoundsAndLevels(this.round, this.level);
             this.level += 1;
             this.clearImageField();
+            this.removeImage();
             if (this.level === rounds[this.round].roundsCount) {
                 this.level = 0;
                 this.round += 1;
@@ -515,6 +564,13 @@ class Game extends Layout {
         const imageField = document.querySelector(".main__game__game");
         while (imageField?.firstChild) {
             imageField.removeChild(imageField.firstChild);
+        }
+    }
+
+    private removeImage(): void {
+        const imageField = document.querySelector(".main__game__game") as HTMLElement;
+        if (imageField) {
+            imageField.style.backgroundImage = "";
         }
     }
 

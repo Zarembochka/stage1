@@ -67,11 +67,18 @@ export class MainLayout extends Layout {
     }
 
     private checkAnimation(event: Event): void {
-        if (event instanceof AnimationEvent) {
-            if (event.animationName === "fade-out") {
-                app.mainPage.gamePage.main.classList.remove("fade-out");
-                app.mainPage.gamePage.removeMain();
-                app.mainPage.gamePage.createMainPage();
+        const target = event.target as HTMLElement;
+        if (target) {
+            if (event instanceof AnimationEvent) {
+                if (event.animationName === "fade-out" && target.classList.contains("main")) {
+                    app.mainPage.gamePage.main.classList.remove("fade-out");
+                    app.mainPage.gamePage.removeMain();
+                    app.mainPage.gamePage.createMainPage();
+                }
+                if (event.animationName === "fade-out" && target.classList.contains("main__game__game")) {
+                    target.classList.remove("fade-out");
+                    game.showLevelEnd();
+                }
             }
         }
     }
