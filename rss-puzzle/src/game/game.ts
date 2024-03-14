@@ -9,10 +9,11 @@ import round3 from "../data/levels/wordCollectionLevel3.json";
 import round4 from "../data/levels/wordCollectionLevel4.json";
 import round5 from "../data/levels/wordCollectionLevel5.json";
 import round6 from "../data/levels/wordCollectionLevel6.json";
+import { gameProgress } from "./progress";
 
-const rounds = [round1, round2, round3, round4, round5, round6];
+export const rounds = [round1, round2, round3, round4, round5, round6];
 
-export class Game extends Layout {
+class Game extends Layout {
     private round;
 
     private level;
@@ -44,6 +45,10 @@ export class Game extends Layout {
         const answers = dataLevel.words.map((element) => element.textExample);
         const audioSrc = dataLevel.words.map((element) => element.audioExample);
         return { task: tasks, answer: answers, image: dataLevel.levelData.imageSrc, audio: audioSrc };
+    }
+
+    public setCurrentLevel(): void {
+        this.currentLevel = this.getLevel(this.round, this.level);
     }
 
     private showTask(element: Element, text: string): void {
@@ -270,7 +275,7 @@ export class Game extends Layout {
         }
     }
 
-    private startGame(gameField: GameField): void {
+    public startGame(gameField: GameField): void {
         //this.showProgress(gameField.header);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
         this.setHint(gameField.hint, this.currentLevel.answer[this.question]);
@@ -289,13 +294,13 @@ export class Game extends Layout {
 
     public startNewGame(gameField: GameField, hints: Hints, progress: UserProgress): void {
         this.setRoundAndLevel(progress.currentRound, progress.currentLevel);
-        this.fillRoundsAndLevels(progress);
+        gameProgress.fillRoundsAndLevels(progress);
         this.changeContinueButtonToCheck();
         this.setHintsToGame(hints);
         this.startGame(gameField);
     }
 
-    private setRoundAndLevel(round: number, level: number): void {
+    public setRoundAndLevel(round: number, level: number): void {
         this.round = round;
         this.level = level;
         this.question = 0;
@@ -449,7 +454,7 @@ export class Game extends Layout {
         app.mainPage.gamePage.btnCheck.setAttribute("action", USERSACTIONS.continue);
     }
 
-    private changeContinueButtonToCheck(): void {
+    public changeContinueButtonToCheck(): void {
         app.mainPage.gamePage.btnCheck.classList.remove("continue");
         app.mainPage.gamePage.btnCheck.classList.add("check");
         app.mainPage.gamePage.btnCheck.textContent = "Check";
@@ -488,7 +493,7 @@ export class Game extends Layout {
         this.question += 1;
         if (this.question === 10) {
             this.question = 0;
-            this.updateInfoRoundsAndLevels();
+            gameProgress.updateInfoRoundsAndLevels(this.round, this.level);
             this.level += 1;
             this.clearImageField();
             if (this.level === rounds[this.round].roundsCount) {
@@ -496,25 +501,24 @@ export class Game extends Layout {
                 this.round += 1;
                 if (this.round === rounds.length) {
                     this.setRoundAndLevel(0, 0);
-                    this.setZeroProgressForRounds();
+                    gameProgress.setZeroProgressForRounds();
                 }
-                this.removeLevels();
-                this.fillLevels(0);
+                gameProgress.showNewLevels(this.round);
             }
-            this.showProgressToUser();
-            this.saveUserProgress();
+            gameProgress.showProgressToUser(this.round, this.level);
+            gameProgress.saveUserProgress(this.round, this.level);
             this.currentLevel = this.getLevel(this.round, this.level);
         }
     }
 
-    private clearImageField(): void {
+    public clearImageField(): void {
         const imageField = document.querySelector(".main__game__game");
         while (imageField?.firstChild) {
             imageField.removeChild(imageField.firstChild);
         }
     }
 
-    private destroyWordCards(): void {
+    public destroyWordCards(): void {
         const words = document.querySelector(".main__game__words");
         while (words?.firstChild) {
             words.removeChild(words.firstChild);
@@ -536,7 +540,7 @@ export class Game extends Layout {
         }
     }
 
-    private prepareDataToGame(): GameField {
+    public prepareDataToGame(): GameField {
         const header = document.querySelector(".main__game__header");
         const task = document.querySelector(".main__game__task");
         const hint = document.querySelector(".main__game__hint");
@@ -730,175 +734,6 @@ export class Game extends Layout {
         this.hideOrShowAudioHints();
         this.hideOrShowBackgroundHints();
     }
-
-    private fillRoundsAndLevels(progress: UserProgress): void {
-        const selectRound = document.querySelector(".game__round") as HTMLSelectElement;
-        this.fillRounds(selectRound, progress.currentRound);
-        this.fillLevels(progress.currentLevel);
-        if (progress.rounds.length) {
-            this.setUserRoundProgress(selectRound, progress.rounds);
-        }
-        if (progress.completedlevels.length) {
-            this.setUserLevelProgress(progress.completedlevels);
-        }
-    }
-
-    private setUserRoundProgress(select: HTMLSelectElement, progress: string[]): void {
-        for (let i = 0; i < rounds.length; i += 1) {
-            select.options[i].textContent = progress[i];
-        }
-    }
-
-    private setUserLevelProgress(progress: number[]): void {
-        const select = document.querySelector(".game__level") as HTMLSelectElement;
-        for (let i = 0; i < progress.length; i += 1) {
-            const index = progress[i];
-            select.options[index].classList.add("completed");
-        }
-    }
-
-    private fillRounds(select: HTMLSelectElement, round: number): void {
-        //const select = document.querySelector(".game__round") as HTMLSelectElement;
-        for (let i = 0; i < rounds.length; i += 1) {
-            const option = new Option(`${i + 1}`, `${i}`);
-            option.classList.add("game__option");
-            select.add(option);
-        }
-        select.options[round].selected = true;
-    }
-
-    private removeLevels(): void {
-        const select = document.querySelector(".game__level");
-        while (select?.firstChild) {
-            select.removeChild(select.firstChild);
-        }
-    }
-
-    private fillLevels(level: number): void {
-        const select = document.querySelector(".game__level") as HTMLSelectElement;
-        const levels = rounds[this.round].roundsCount;
-        for (let i = 0; i < levels; i += 1) {
-            const option = new Option(`${i + 1}`, `${i}`);
-            option.classList.add("game__option");
-            select.add(option);
-        }
-        select.options[level].selected = true;
-    }
-
-    public selectRound(): void {
-        const select = document.querySelector(".game__round") as HTMLSelectElement;
-        if (select) {
-            this.round = +select.value;
-            this.question = 0;
-            this.startNewRound();
-            this.removeLevels();
-            this.fillLevels(this.level);
-        }
-    }
-
-    public selectLevel(): void {
-        const select = document.querySelector(".game__level") as HTMLSelectElement;
-        if (select) {
-            this.level = +select.value;
-            this.question = 0;
-            this.startNewRound();
-        }
-    }
-
-    private startNewRound(): void {
-        this.clearImageField();
-        this.destroyWordCards();
-        this.currentLevel = this.getLevel(this.round, this.level);
-        const gameField = this.prepareDataToGame();
-        this.startGame(gameField);
-        this.changeContinueButtonToCheck();
-    }
-
-    private showProgressToUser(): void {
-        this.showRoundToUser();
-        this.showLevelToUser();
-    }
-
-    private showRoundToUser(): void {
-        const select = document.querySelector(".game__round") as HTMLSelectElement;
-        if (select) {
-            select.options[this.round].selected = true;
-        }
-    }
-
-    private showLevelToUser(): void {
-        const select = document.querySelector(".game__level") as HTMLSelectElement;
-        if (select) {
-            select.options[this.level].selected = true;
-        }
-    }
-
-    private makeLevelComplete(): void {
-        const select = document.querySelector(".game__level") as HTMLSelectElement;
-        if (select) {
-            select.options[this.level].classList.add("completed");
-        }
-    }
-
-    private makeRoundComplete(progress: number): void {
-        const select = document.querySelector(".game__round") as HTMLSelectElement;
-        if (select) {
-            select.options[this.round].textContent = `${this.round + 1} ${progress}%`;
-            if (progress >= 100) {
-                select.options[this.level].classList.add("completed");
-            }
-            //select.options[this.level].classList.add("completed");
-        }
-    }
-
-    private calculateProgressRound(): number {
-        const completeadLevels = document.querySelectorAll(".game__option.completed").length;
-        const totalLevelsInRound = rounds[this.round].roundsCount;
-        const progress = Math.round((completeadLevels * 100) / totalLevelsInRound);
-        return progress;
-    }
-
-    private updateInfoRoundsAndLevels(): void {
-        this.makeLevelComplete();
-        const percentProgress = this.calculateProgressRound();
-        this.makeRoundComplete(percentProgress);
-    }
-
-    private saveUserProgress(): void {
-        const userProgress = this.prepareUserProgressToSave();
-        app.localStorage.saveProgressToLS(userProgress);
-    }
-
-    private setZeroProgressForRounds(): void {
-        const select = document.querySelector(".game__round") as HTMLSelectElement;
-        for (let i = 0; i < rounds.length; i += 1) {
-            select.options[i].classList.remove("completed");
-            select.options[i].textContent = `${i + 1}`;
-        }
-    }
-
-    private prepareUserProgressToSave(): UserProgress {
-        const roundSelect = document.querySelector(".game__round") as HTMLSelectElement;
-        const levelSelect = document.querySelector(".game__level") as HTMLSelectElement;
-        const roundProgress = this.getRoundsProgress(roundSelect);
-        const levelProgress = this.getLevelsProgress(levelSelect);
-        return {
-            rounds: roundProgress,
-            currentRound: this.round,
-            currentLevel: this.level,
-            completedlevels: levelProgress,
-        };
-    }
-
-    private getRoundsProgress(select: HTMLSelectElement): string[] {
-        const arrayOptions = Array.from(select.options);
-        const result = arrayOptions.map((item) => (item.textContent ? item.textContent : ""));
-        return result;
-    }
-
-    private getLevelsProgress(select: HTMLSelectElement): number[] {
-        const arrayOptions = Array.from(select.options);
-        const result = arrayOptions.filter((item) => item.classList.contains("completed")).map((item) => item.index);
-        return result;
-    }
 }
+
+export const game = new Game();

@@ -2,14 +2,15 @@ import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { USERSACTIONS } from "../../abstract/enums";
 import { GameField, Hints, UserProgress } from "../../abstract/interfaces";
-import { Game } from "../../game/game";
+import { game } from "../../game/game";
 import { Container } from "../container/container";
 import * as Logos from "../../abstract/logos";
+import { gameProgress } from "../../game/progress";
 
 export class MainLayout extends Layout {
     public main;
 
-    private game: Game;
+    //private game: Game;
 
     public btnCheck: Element;
 
@@ -20,14 +21,14 @@ export class MainLayout extends Layout {
         this.main = this.createElement("main", "main");
         this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
         this.btnAutocomplete = this.createElement("button", "btn btn-submit btn-autocomplete", "I don't know");
-        this.game = new Game();
+        //this.game = new Game();
         this.addListeners();
     }
 
     private addListeners(): void {
-        this.btnCheck.addEventListener("click", () => this.game.usersAction());
-        this.btnCheck.addEventListener("animationend", (event) => this.game.contolAnimationOnButton(event));
-        this.btnAutocomplete.addEventListener("click", () => this.game.autocompleteTask());
+        this.btnCheck.addEventListener("click", () => game.usersAction());
+        this.btnCheck.addEventListener("animationend", (event) => game.contolAnimationOnButton(event));
+        this.btnAutocomplete.addEventListener("click", () => game.autocompleteTask());
     }
 
     public createMainPart(wrapper: Container): void {
@@ -77,13 +78,13 @@ export class MainLayout extends Layout {
 
     private createBtnHint(): Element {
         const btnHint = this.createElement("button", "btn btn-game btn-options btn-hint");
-        btnHint.addEventListener("click", () => this.game.showHintsInGame());
+        btnHint.addEventListener("click", () => game.showHintsInGame());
         return btnHint;
     }
 
     private createBtnAudioHint(): Element {
         const btnHint = this.createElement("button", "btn btn-game btn-options btn-audioHint");
-        btnHint.addEventListener("click", () => this.game.showAudioHintsInGame());
+        btnHint.addEventListener("click", () => game.showAudioHintsInGame());
         return btnHint;
     }
 
@@ -91,13 +92,13 @@ export class MainLayout extends Layout {
         const btnAudio = this.createElement("button", "btn btn-game btn-audio hide");
         btnAudio.innerHTML = Logos.playSvg;
         btnAudio.setAttribute("title", "play audio hint");
-        btnAudio.addEventListener("click", () => this.game.playAudioHint());
+        btnAudio.addEventListener("click", () => game.playAudioHint());
         wrapper.append(btnAudio);
     }
 
     private createBtnBackgroundHint(): Element {
         const btnBackground = this.createElement("button", "btn btn-game btn-options btn-backgroundHint");
-        btnBackground.addEventListener("click", () => this.game.showBackgroundHint());
+        btnBackground.addEventListener("click", () => game.showBackgroundHint());
         return btnBackground;
     }
 
@@ -119,15 +120,16 @@ export class MainLayout extends Layout {
         const levels = this.createElement("div", "main__game__header");
         const labelRound = this.createElement("label", "game__round__label", "Round");
         labelRound.setAttribute("for", "gameRound");
-        const selectRound = this.createElement("select", "game__round");
+        const selectRound = this.createElement("select", "game__round") as HTMLSelectElement;
         selectRound.setAttribute("id", "gameRound");
-        selectRound.addEventListener("change", () => this.game.selectRound());
+        selectRound.addEventListener("change", () => gameProgress.selectRound());
         const labelLevel = this.createElement("label", "game__level__label", "Level");
         labelLevel.setAttribute("for", "gameLevel");
-        const selectLevel = this.createElement("select", "game__level");
+        const selectLevel = this.createElement("select", "game__level") as HTMLSelectElement;
         selectLevel.setAttribute("id", "gameLevel");
-        selectLevel.addEventListener("change", () => this.game.selectLevel());
+        selectLevel.addEventListener("change", () => gameProgress.selectLevel());
         levels.append(labelRound, selectRound, labelLevel, selectLevel);
+        gameProgress.setSelectFields(selectRound, selectLevel);
         return levels;
     }
 
@@ -157,7 +159,7 @@ export class MainLayout extends Layout {
         this.main.classList.add("fade-in");
         const startHints = this.getHintsToStartGame();
         const progress = this.getProgressToStartGame();
-        this.game.startNewGame(gameField, startHints, progress);
+        game.startNewGame(gameField, startHints, progress);
     }
 
     private getProgressToStartGame(): UserProgress {
