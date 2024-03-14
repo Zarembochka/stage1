@@ -23,3 +23,10 @@ export interface Hints {
     audioHints: boolean;
     backgroundHints: boolean;
 }
+
+export interface UserProgress {
+    rounds: string[];
+    currentRound: number;
+    completedlevels: number[];
+    currentLevel: number;
+}

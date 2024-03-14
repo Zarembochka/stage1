@@ -1,7 +1,7 @@
 import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
-import { GameField, GameLevel, Hints } from "../abstract/interfaces";
+import { GameField, GameLevel, Hints, UserProgress } from "../abstract/interfaces";
 import * as Logos from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
@@ -287,18 +287,19 @@ export class Game extends Layout {
         this.showWords(gameField.words, gameField.image);
     }
 
-    public startNewGame(gameField: GameField, hints: Hints): void {
-        this.setRoundAndLevel();
-        this.fillRoundsAndLevels();
+    public startNewGame(gameField: GameField, hints: Hints, progress: UserProgress): void {
+        this.setRoundAndLevel(progress.currentRound, progress.currentLevel);
+        this.fillRoundsAndLevels(progress);
         this.changeContinueButtonToCheck();
         this.setHintsToGame(hints);
         this.startGame(gameField);
     }
 
-    private setRoundAndLevel(): void {
-        this.round = 0;
-        this.level = 0;
+    private setRoundAndLevel(round: number, level: number): void {
+        this.round = round;
+        this.level = level;
         this.question = 0;
+        this.currentLevel = this.getLevel(this.round, this.level);
     }
 
     private replaceWordCardToField(event: Event, game: Game, direction?: REPLACETO): void {
@@ -494,13 +495,14 @@ export class Game extends Layout {
                 this.level = 0;
                 this.round += 1;
                 if (this.round === rounds.length) {
-                    this.setRoundAndLevel();
+                    this.setRoundAndLevel(0, 0);
                     this.setZeroProgressForRounds();
                 }
                 this.removeLevels();
-                this.fillLevels();
+                this.fillLevels(0);
             }
             this.showProgressToUser();
+            this.saveUserProgress();
             this.currentLevel = this.getLevel(this.round, this.level);
         }
     }
@@ -729,19 +731,40 @@ export class Game extends Layout {
         this.hideOrShowBackgroundHints();
     }
 
-    private fillRoundsAndLevels(): void {
-        this.fillRounds();
-        this.fillLevels();
+    private fillRoundsAndLevels(progress: UserProgress): void {
+        const selectRound = document.querySelector(".game__round") as HTMLSelectElement;
+        this.fillRounds(selectRound, progress.currentRound);
+        this.fillLevels(progress.currentLevel);
+        if (progress.rounds.length) {
+            this.setUserRoundProgress(selectRound, progress.rounds);
+        }
+        if (progress.completedlevels.length) {
+            this.setUserLevelProgress(progress.completedlevels);
+        }
     }
 
-    private fillRounds(): void {
-        const select = document.querySelector(".game__round") as HTMLSelectElement;
+    private setUserRoundProgress(select: HTMLSelectElement, progress: string[]): void {
+        for (let i = 0; i < rounds.length; i += 1) {
+            select.options[i].textContent = progress[i];
+        }
+    }
+
+    private setUserLevelProgress(progress: number[]): void {
+        const select = document.querySelector(".game__level") as HTMLSelectElement;
+        for (let i = 0; i < progress.length; i += 1) {
+            const index = progress[i];
+            select.options[index].classList.add("completed");
+        }
+    }
+
+    private fillRounds(select: HTMLSelectElement, round: number): void {
+        //const select = document.querySelector(".game__round") as HTMLSelectElement;
         for (let i = 0; i < rounds.length; i += 1) {
             const option = new Option(`${i + 1}`, `${i}`);
             option.classList.add("game__option");
             select.add(option);
         }
-        select.options[0].selected = true;
+        select.options[round].selected = true;
     }
 
     private removeLevels(): void {
@@ -751,7 +774,7 @@ export class Game extends Layout {
         }
     }
 
-    private fillLevels(): void {
+    private fillLevels(level: number): void {
         const select = document.querySelector(".game__level") as HTMLSelectElement;
         const levels = rounds[this.round].roundsCount;
         for (let i = 0; i < levels; i += 1) {
@@ -759,7 +782,7 @@ export class Game extends Layout {
             option.classList.add("game__option");
             select.add(option);
         }
-        select.options[0].selected = true;
+        select.options[level].selected = true;
     }
 
     public selectRound(): void {
@@ -769,7 +792,7 @@ export class Game extends Layout {
             this.question = 0;
             this.startNewRound();
             this.removeLevels();
-            this.fillLevels();
+            this.fillLevels(this.level);
         }
     }
 
@@ -837,8 +860,13 @@ export class Game extends Layout {
 
     private updateInfoRoundsAndLevels(): void {
         this.makeLevelComplete();
-        const progress = this.calculateProgressRound();
-        this.makeRoundComplete(progress);
+        const percentProgress = this.calculateProgressRound();
+        this.makeRoundComplete(percentProgress);
+    }
+
+    private saveUserProgress(): void {
+        const userProgress = this.prepareUserProgressToSave();
+        app.localStorage.saveProgressToLS(userProgress);
     }
 
     private setZeroProgressForRounds(): void {
@@ -847,5 +875,30 @@ export class Game extends Layout {
             select.options[i].classList.remove("completed");
             select.options[i].textContent = `${i + 1}`;
         }
+    }
+
+    private prepareUserProgressToSave(): UserProgress {
+        const roundSelect = document.querySelector(".game__round") as HTMLSelectElement;
+        const levelSelect = document.querySelector(".game__level") as HTMLSelectElement;
+        const roundProgress = this.getRoundsProgress(roundSelect);
+        const levelProgress = this.getLevelsProgress(levelSelect);
+        return {
+            rounds: roundProgress,
+            currentRound: this.round,
+            currentLevel: this.level,
+            completedlevels: levelProgress,
+        };
+    }
+
+    private getRoundsProgress(select: HTMLSelectElement): string[] {
+        const arrayOptions = Array.from(select.options);
+        const result = arrayOptions.map((item) => (item.textContent ? item.textContent : ""));
+        return result;
+    }
+
+    private getLevelsProgress(select: HTMLSelectElement): number[] {
+        const arrayOptions = Array.from(select.options);
+        const result = arrayOptions.filter((item) => item.classList.contains("completed")).map((item) => item.index);
+        return result;
     }
 }

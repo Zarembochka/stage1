@@ -1,4 +1,4 @@
-import { Hints, User } from "../../abstract/interfaces";
+import { Hints, User, UserProgress } from "../../abstract/interfaces";
 
 export class LocalStorage {
     private saveDataToLS(user: User): void {
@@ -15,7 +15,8 @@ export class LocalStorage {
 
     public removeUserFromLS(): void {
         localStorage.removeItem("LH_user");
-        this.removeHintsFromLS();
+        localStorage.removeItem("LH_user__hints");
+        localStorage.removeItem("LH_user__progress");
     }
 
     public isUserinLS(): boolean {
@@ -51,8 +52,16 @@ export class LocalStorage {
         return JSON.parse(hints);
     }
 
-    private removeHintsFromLS(): void {
-        localStorage.removeItem("LH_user__hints");
+    public saveProgressToLS(progress: UserProgress): void {
+        localStorage.setItem("LH_user__progress", JSON.stringify(progress));
+    }
+
+    public getProgressFromLS(): UserProgress | null {
+        const progress = localStorage.getItem("LH_user__progress");
+        if (!progress) {
+            return null;
+        }
+        return JSON.parse(progress);
     }
 }
 

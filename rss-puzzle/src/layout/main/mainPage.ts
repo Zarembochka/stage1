@@ -1,7 +1,7 @@
 import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { USERSACTIONS } from "../../abstract/enums";
-import { GameField, Hints } from "../../abstract/interfaces";
+import { GameField, Hints, UserProgress } from "../../abstract/interfaces";
 import { Game } from "../../game/game";
 import { Container } from "../container/container";
 import * as Logos from "../../abstract/logos";
@@ -156,7 +156,16 @@ export class MainLayout extends Layout {
         this.main.append(wrapper);
         this.main.classList.add("fade-in");
         const startHints = this.getHintsToStartGame();
-        this.game.startNewGame(gameField, startHints);
+        const progress = this.getProgressToStartGame();
+        this.game.startNewGame(gameField, startHints, progress);
+    }
+
+    private getProgressToStartGame(): UserProgress {
+        const progress = app.localStorage.getProgressFromLS();
+        if (!progress) {
+            return { currentRound: 0, currentLevel: 0, completedlevels: [], rounds: [] };
+        }
+        return progress;
     }
 
     private getHintsToStartGame(): Hints {
