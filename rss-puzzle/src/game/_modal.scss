@@ -6,7 +6,7 @@
     @include display-flex(column, center, center);
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
     z-index: 50;
     background-color: rgba(black, 0.25);
     &.show {
@@ -24,11 +24,16 @@
     @include display-flex(column, center, flex-start);
     // row-gap: 20px;
     transform: translateY(-25%);
-    transition: transform 0.5s ease-in-out;
-    //box-shadow: 1px -1px 23px -5px $shadow-color;
+    transition: transform 0.3s ease-in-out;
     background-color: white;
     color: $form-font-color;
     .modal__background.show & {
-        transform: translateY(0);
+        transform: translateY(0%);
     }
+}
+
+.modal__footer {
+    width: 100%;
+    @include display-flex(row, center, center);
+    column-gap: 15px;
 }

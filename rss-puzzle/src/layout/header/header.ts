@@ -1,6 +1,7 @@
 import { app } from "../..";
 import { Layout } from "../../abstract/classes";
 import { game } from "../../game/game";
+import { modalWindow } from "../../game/modal";
 import { Container } from "../container/container";
 
 export class Header extends Layout {
@@ -34,6 +35,7 @@ export class Header extends Layout {
         app.localStorage.removeUserFromLS();
         app.mainPage.destroyPage();
         this.destroyHeader();
+        modalWindow.clearModal();
         app.loginPage.createMain();
     }
 
