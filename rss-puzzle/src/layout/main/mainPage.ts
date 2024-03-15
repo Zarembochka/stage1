@@ -6,6 +6,7 @@ import { game } from "../../game/game";
 import { Container } from "../container/container";
 import * as Logos from "../../abstract/logos";
 import { gameProgress } from "../../game/progress";
+import { modalWindow } from "../../game/modal";
 
 export class MainLayout extends Layout {
     public main;
@@ -16,11 +17,14 @@ export class MainLayout extends Layout {
 
     public btnAutocomplete: Element;
 
+    public btnResult: Element;
+
     constructor() {
         super();
         this.main = this.createElement("main", "main");
         this.btnCheck = this.createElement("button", "btn btn-submit btn-check", "Check");
         this.btnAutocomplete = this.createElement("button", "btn btn-submit btn-autocomplete", "I don't know");
+        this.btnResult = this.createElement("button", "btn btn-submit btn-result", "Result");
         //this.game = new Game();
         this.addListeners();
     }
@@ -29,6 +33,7 @@ export class MainLayout extends Layout {
         this.btnCheck.addEventListener("click", () => game.usersAction());
         this.btnCheck.addEventListener("animationend", (event) => game.contolAnimationOnButton(event));
         this.btnAutocomplete.addEventListener("click", () => game.autocompleteTask());
+        this.btnResult.addEventListener("click", () => modalWindow.showResults());
     }
 
     public createMainPart(wrapper: Container): void {
@@ -198,6 +203,7 @@ export class MainLayout extends Layout {
     private addButtonsToFooter(footer: Element): void {
         this.btnCheck.setAttribute("disabled", "true");
         this.btnCheck.setAttribute("action", USERSACTIONS.check);
-        footer.append(this.btnAutocomplete, this.btnCheck);
+        this.btnResult.classList.add("hide");
+        footer.append(this.btnAutocomplete, this.btnCheck, this.btnResult);
     }
 }

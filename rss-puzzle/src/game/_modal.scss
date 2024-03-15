@@ -1,0 +1,34 @@
+.modal__background {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    @include display-flex(column, center, center);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 50;
+    background-color: rgba(black, 0.25);
+    &.show {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.modal {
+    user-select: none;
+    min-width: 450px;
+    max-width: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    @include display-flex(column, center, flex-start);
+    // row-gap: 20px;
+    transform: translateY(-25%);
+    transition: transform 0.5s ease-in-out;
+    //box-shadow: 1px -1px 23px -5px $shadow-color;
+    background-color: white;
+    color: $form-font-color;
+    .modal__background.show & {
+        transform: translateY(0);
+    }
+}

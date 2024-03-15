@@ -1,5 +1,6 @@
 import { app } from "../..";
 import { Layout } from "../../abstract/classes";
+import { game } from "../../game/game";
 import { Container } from "../container/container";
 
 export class Header extends Layout {
@@ -29,7 +30,7 @@ export class Header extends Layout {
     }
 
     private logout(): void {
-        app.mainPage.gamePage.btnAutocomplete.removeAttribute("disabled");
+        game.showButtonAutoComplete();
         app.localStorage.removeUserFromLS();
         app.mainPage.destroyPage();
         this.destroyHeader();

@@ -469,7 +469,8 @@ class Game extends Layout {
         const gameField = this.prepareDataToGame();
         this.startGame(gameField);
         this.changeContinueButtonToCheck();
-        this.enableButtonAutoComplete();
+        this.showButtonAutoComplete();
+        this.hideButtonResult();
     }
 
     public contolAnimationOnButton(event: Event): void {
@@ -480,8 +481,12 @@ class Game extends Layout {
         }
     }
 
-    private enableButtonAutoComplete(): void {
-        app.mainPage.gamePage.btnAutocomplete.removeAttribute("disabled");
+    public showButtonAutoComplete(): void {
+        app.mainPage.gamePage.btnAutocomplete.classList.remove("hide");
+    }
+
+    private showButtonResult(): void {
+        app.mainPage.gamePage.btnResult.classList.remove("hide");
     }
 
     private changeCheckButtonToContinue(): void {
@@ -535,7 +540,16 @@ class Game extends Layout {
         this.hideAudioButton();
         this.hideHint();
         this.hideTask();
-        app.mainPage.gamePage.btnAutocomplete.setAttribute("disabled", "true");
+        this.hideButtonAutoComplete();
+        this.showButtonResult();
+    }
+
+    private hideButtonAutoComplete(): void {
+        app.mainPage.gamePage.btnAutocomplete.classList.add("hide");
+    }
+
+    private hideButtonResult(): void {
+        app.mainPage.gamePage.btnResult.classList.add("hide");
     }
 
     public showLevelEnd(): void {

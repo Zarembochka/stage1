@@ -38,19 +38,23 @@
 
 .btn-submit {
     font-size: inherit;
-    border: 1px solid $form-border-color;
     padding: 10px 25px;
     align-self: center;
-    background-color: saturate($form-border-color, 15%);
     transition:
+        transform,
         background-color,
         border-color,
+        color,
         opacity 0.3s ease-in-out;
     border-radius: 10px;
+    background-color: $color-orange-btn;
+    border: 1px solid $color-orange-btn;
     @media screen and (hover: hover) {
         &:hover {
-            background-color: $color-orange-btn;
-            border: 1px solid $color-orange-btn;
+            background-color: lighten($color-orange-btn, 5%);
+            border: 1px solid lighten($color-orange-btn, 10%);
+            color: lighten($color-btn, 7%);
+            transform: scale(1.05);
         }
     }
     &:disabled {
@@ -58,5 +62,8 @@
         background-color: desaturate($color-orange-btn, 25%);
         color: desaturate($color-btn, 10%);
         opacity: 0.75;
+    }
+    &.hide {
+        display: none;
     }
 }
