@@ -97,6 +97,14 @@ class Game extends Layout {
         }
     }
 
+    private getSizeOfImage(image: Element, src: string): number {
+        const myImage = new Image();
+        myImage.src = `./assets/images/${src}`;
+        const iAR = myImage.naturalWidth / myImage.naturalHeight;
+        const currentWidth = image.getBoundingClientRect().width;
+        return Math.round(currentWidth / iAR);
+    }
+
     private showImage(image: Element, src: string): void {
         if (image instanceof HTMLElement) {
             image.style.backgroundImage = `url("./assets/images/${src}")`;
@@ -290,6 +298,8 @@ class Game extends Layout {
 
     public startGame(gameField: GameField): void {
         //this.showProgress(gameField.header);
+        const sizes = this.getSizeOfImage(gameField.image, this.currentLevel.image);
+        this.setImagesSizes(sizes);
         this.showTask(gameField.task, this.currentLevel.task[this.question]);
         this.setHint(gameField.hint, this.currentLevel.answer[this.question]);
         if (!this.question) {
@@ -307,10 +317,19 @@ class Game extends Layout {
 
     public startNewGame(gameField: GameField, hints: Hints, progress: UserProgress): void {
         this.setRoundAndLevel(progress.currentRound, progress.currentLevel);
+        const sizes = this.getSizeOfImage(gameField.image, this.currentLevel.image);
+        this.setImagesSizes(sizes);
         gameProgress.fillRoundsAndLevels(progress);
         this.changeContinueButtonToCheck();
         this.setHintsToGame(hints);
         this.startGame(gameField);
+    }
+
+    private setImagesSizes(height: number): void {
+        const gameField = document.querySelector(".main__game__game") as HTMLElement;
+        if (gameField) {
+            gameField.style.height = `${height}px`;
+        }
     }
 
     public setRoundAndLevel(round: number, level: number): void {
@@ -450,6 +469,7 @@ class Game extends Layout {
         const gameField = this.prepareDataToGame();
         this.startGame(gameField);
         this.changeContinueButtonToCheck();
+        this.enableButtonAutoComplete();
     }
 
     public contolAnimationOnButton(event: Event): void {
@@ -458,6 +478,10 @@ class Game extends Layout {
                 app.mainPage.gamePage.btnCheck.setAttribute("disabled", "true");
             }
         }
+    }
+
+    private enableButtonAutoComplete(): void {
+        app.mainPage.gamePage.btnAutocomplete.removeAttribute("disabled");
     }
 
     private changeCheckButtonToContinue(): void {
@@ -511,6 +535,7 @@ class Game extends Layout {
         this.hideAudioButton();
         this.hideHint();
         this.hideTask();
+        app.mainPage.gamePage.btnAutocomplete.setAttribute("disabled", "true");
     }
 
     public showLevelEnd(): void {

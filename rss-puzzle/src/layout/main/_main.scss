@@ -3,10 +3,11 @@
     //background-color: rgb(255 255 255 / 20%);
     border-radius: 20px;
     @include display-flex(column, center, center);
-    height: calc(100dvh - 101px);
+    //height: calc(100dvh - 101px);
     color: $color-title;
     &.start_page {
         background-color: rgb(235 241 46 / 28%);
+        height: calc(100dvh - 101px);
     }
 }
 
@@ -61,7 +62,8 @@
 .main__game__task,
 .main__game__hint {
     font-family: Snowstorm;
-    font-size: 24px;
+    font-size: calc(18px + (24 - 20) * (100vw - 768px) / (1440 - 768));
+    text-align: center;
     &.hide {
         visibility: hidden;
     }
@@ -74,7 +76,6 @@
 .main__game__game {
     user-select: none;
     width: 58.5%;
-    //width: 1156px;
     height: 450px;
     background-color: rgb(235 241 46 / 20%);
     background-size: contain;
@@ -84,6 +85,11 @@
     grid-template-rows: repeat(10, 1fr);
     font-family: Snowstorm;
     font-size: calc(12px + (20 - 14) * (100vw - 768px) / (1440 - 768));
+    @media screen and (max-width: 1000px) {
+        & {
+            width: 75%;
+        }
+    }
 }
 
 .main__game__words {
@@ -94,4 +100,9 @@
     font-size: calc(12px + (20 - 14) * (100vw - 768px) / (1440 - 768));
     user-select: none;
     height: 32px;
+    @media screen and (max-width: 1000px) {
+        & {
+            width: 75%;
+        }
+    }
 }

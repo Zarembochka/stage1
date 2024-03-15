@@ -29,6 +29,7 @@ export class Header extends Layout {
     }
 
     private logout(): void {
+        app.mainPage.gamePage.btnAutocomplete.removeAttribute("disabled");
         app.localStorage.removeUserFromLS();
         app.mainPage.destroyPage();
         this.destroyHeader();

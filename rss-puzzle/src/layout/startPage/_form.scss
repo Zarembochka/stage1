@@ -53,4 +53,10 @@
             border: 1px solid $color-orange-btn;
         }
     }
+    &:disabled {
+        pointer-events: none;
+        background-color: desaturate($color-orange-btn, 25%);
+        color: desaturate($color-btn, 10%);
+        opacity: 0.75;
+    }
 }

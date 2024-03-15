@@ -7,8 +7,8 @@
 }
 
 .game__card {
-    min-width: 30px;
-    min-height: 30px;
+    min-width: 20px;
+    min-height: 20px;
     border-radius: 5px;
     &.drag__over {
         background-color: rgba($color: $color-green-btn, $alpha: 0.35);
