@@ -195,6 +195,16 @@ class Progress {
         const result = arrayOptions.filter((item) => item.classList.contains("completed")).map((item) => item.index);
         return result;
     }
+
+    public disableRoundAndLevelChoice(): void {
+        this.roundSelect?.classList.add("disabled");
+        this.levelSelect?.classList.add("disabled");
+    }
+
+    public enableRoundAndLevelChoice(): void {
+        this.roundSelect?.classList.remove("disabled");
+        this.levelSelect?.classList.remove("disabled");
+    }
 }
 
 export const gameProgress = new Progress();

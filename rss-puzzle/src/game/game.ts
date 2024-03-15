@@ -58,7 +58,20 @@ class Game extends Layout {
         const dataLevel = rounds[round].rounds[level];
         const answers = dataLevel.words.map((element) => element.textExample);
         const audioSrc = dataLevel.words.map((element) => element.audioExample);
-        return { sentence: answers[question], path: audioSrc[question] };
+        return {
+            sentence: answers[question],
+            pathToAudio: audioSrc[question],
+        };
+    }
+
+    public getImage(round: number, level: number): string {
+        const dataLevel = rounds[round].rounds[level];
+        return dataLevel.levelData.imageSrc;
+    }
+
+    public getImageDescription(round: number, level: number): string {
+        const dataLevel = rounds[round].rounds[level];
+        return `${dataLevel.levelData.author} - ${dataLevel.levelData.name}`;
     }
 
     public setCurrentLevel(): void {
@@ -479,6 +492,7 @@ class Game extends Layout {
         this.changeContinueButtonToCheck();
         this.showButtonAutoComplete();
         this.hideButtonResult();
+        gameProgress.enableRoundAndLevelChoice();
     }
 
     public contolAnimationOnButton(event: Event): void {
@@ -552,6 +566,7 @@ class Game extends Layout {
         this.hideTask();
         this.hideButtonAutoComplete();
         this.showButtonResult();
+        gameProgress.disableRoundAndLevelChoice();
     }
 
     private hideButtonAutoComplete(): void {
@@ -676,7 +691,6 @@ class Game extends Layout {
         this.removeIdFromPreviousLevel();
         app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
         this.changeCheckButtonToContinue();
-        //app.localStorage.saveUnknownSentence(this.currentLevel.answer[this.question]);
         app.localStorage.saveSentence(this.round, this.level, this.question, STATUSSENTENCE.unknown);
     }
 

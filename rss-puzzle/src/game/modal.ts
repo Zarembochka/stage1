@@ -25,9 +25,12 @@ class Modal extends Layout {
 
     public showResults(): void {
         this.createModal();
+        const wrapperToSentences = this.createElement("div", "modal__sentences");
         const sentences = app.localStorage.getSentences();
-        this.showSentences(sentences, "modal__list-red", "I don't know", STATUSSENTENCE.unknown);
-        this.showSentences(sentences, "modal__list-green", "I know", STATUSSENTENCE.known);
+        this.showSentences(wrapperToSentences, sentences, "modal__list-green", "I know", STATUSSENTENCE.known);
+        this.showSentences(wrapperToSentences, sentences, "modal__list-red", "I don't know", STATUSSENTENCE.unknown);
+        this.modal.prepend(wrapperToSentences);
+        this.showArtwork(sentences[0]);
         this.modalBackground.classList.add("show");
     }
 
@@ -126,7 +129,13 @@ class Modal extends Layout {
         }
     }
 
-    private showSentences(sentences: Sentence[], classname: string, title: string, status: STATUSSENTENCE): void {
+    private showSentences(
+        wrapper: Element,
+        sentences: Sentence[],
+        classname: string,
+        title: string,
+        status: STATUSSENTENCE
+    ): void {
         const unknownList = this.createElement("ul", `modal__list ${classname}`, title);
         const unknownSentences = sentences.filter((item) => item.status === status);
         for (let i = 0; i < unknownSentences.length; i += 1) {
@@ -136,12 +145,37 @@ class Modal extends Layout {
                 unknownSentences[i].question
             );
             const unknownItem = this.createElement("li", "modal__list__item");
-            const btn = this.createBtnAudio(sentenceWithAudio.path);
+            const btn = this.createBtnAudio(sentenceWithAudio.pathToAudio);
             const span = this.createElement("span", "modal__list__text", sentenceWithAudio.sentence);
             unknownItem.append(btn, span);
             unknownList.append(unknownItem);
         }
-        this.modal.prepend(unknownList);
+        wrapper.append(unknownList);
+    }
+
+    private getImageName(round: number, level: number): string {
+        const imageName = game.getImage(round, level);
+        return imageName;
+    }
+
+    private getPathToImage(imageName: string): string {
+        return `./assets/images/${imageName}`;
+    }
+
+    private getImage(round: number, level: number): Element {
+        const imageName = this.getImageName(round, level);
+        const pathToImage = this.getPathToImage(imageName);
+        const img = new Image();
+        img.src = pathToImage;
+        img.classList.add("modal__miniature");
+        return img;
+    }
+
+    private showArtwork(sentence: Sentence): void {
+        const image = this.getImage(sentence.round, sentence.level);
+        const imageDescription = game.getImageDescription(sentence.round, sentence.level);
+        const title = this.createElement("h3", "modal__title", imageDescription);
+        this.modal.prepend(title, image);
     }
 }
 

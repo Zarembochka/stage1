@@ -43,5 +43,10 @@ export interface Sentence {
 
 export interface SentenceWithAudio {
     sentence: string;
-    path: string;
+    pathToAudio: string;
+}
+
+export interface ImageDescription {
+    pathToImage: string;
+    descriptionImage: string;
 }

@@ -149,6 +149,9 @@
     &:focus {
         outline: 2px solid $color-btn-options;
     }
+    &.disabled {
+        pointer-events: none;
+    }
 }
 
 ::-webkit-scrollbar {

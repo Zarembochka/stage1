@@ -19,6 +19,7 @@ export class LocalStorage {
         localStorage.removeItem("LH_user__hints");
         localStorage.removeItem("LH_user__progress");
         this.removeAllSentences();
+        localStorage.removeItem("LH_user__image");
     }
 
     public isUserinLS(): boolean {
@@ -87,6 +88,16 @@ export class LocalStorage {
     public removeAllSentences(): void {
         localStorage.removeItem("LH_user__sentences");
     }
+
+    // public saveImageDescription(path: string, description: string): void {
+    //     this.saveImageDescriptionToLS({ pathToImage: path, descriptionImage: description });
+    // }
+
+    // private saveImageDescriptionToLS(image: ImageDescription): void {
+    //     localStorage.setItem("LH_user__image", JSON.stringify(image));
+    // }
+
+    // public getImageDescription
 }
 
 //export const lStorage = new LocalStorage();
