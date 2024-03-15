@@ -40,3 +40,8 @@ export interface Sentence {
     round: number;
     status: STATUSSENTENCE;
 }
+
+export interface SentenceWithAudio {
+    sentence: string;
+    path: string;
+}

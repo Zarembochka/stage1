@@ -3,6 +3,7 @@ import { STATUSSENTENCE } from "../abstract/enums";
 import { Sentence } from "../abstract/interfaces";
 import { Layout } from "./../abstract/classes";
 import { game } from "./game";
+import { playActiveSvg, playSvg } from "../abstract/logos";
 
 class Modal extends Layout {
     private modalBackground: Element;
@@ -25,8 +26,8 @@ class Modal extends Layout {
     public showResults(): void {
         this.createModal();
         const sentences = app.localStorage.getSentences();
-        this.showUnknownSentences(sentences);
-        this.showKnownSentences(sentences);
+        this.showSentences(sentences, "modal__list-red", "I don't know", STATUSSENTENCE.unknown);
+        this.showSentences(sentences, "modal__list-green", "I know", STATUSSENTENCE.known);
         this.modalBackground.classList.add("show");
     }
 
@@ -59,7 +60,6 @@ class Modal extends Layout {
     }
 
     private showNextLevel(): void {
-        //this.hideModal();
         this.clearModal();
         this.modalBackground.classList.remove("fade-out");
         this.modalBackground.classList.remove("show");
@@ -83,30 +83,65 @@ class Modal extends Layout {
         }
     }
 
-    private showUnknownSentences(sentences: Sentence[]): void {
-        const unknownList = this.createElement("ul", "modal__list modal__list-red", "I don't know");
-        const unknownSentences = sentences.filter((item) => item.status === STATUSSENTENCE.unknown);
+    private createBtnAudio(path: string): Element {
+        const btn = this.createElement("button", "btn btn-game btn-audio");
+        btn.innerHTML = playSvg;
+        btn.addEventListener("click", (event) => this.playAudio(event, path));
+        return btn;
+    }
+
+    private getPathToAudio(path: string): string {
+        const level = `https://github.com/rolling-scopes-school/rss-puzzle-data/blob/main/${path}?raw=true`;
+        return level;
+    }
+
+    private makeAudioIconActive(btn: Element): void {
+        btn.classList.add("active");
+        btn.innerHTML = playActiveSvg;
+    }
+
+    private makeAudioIconInactive(btn: Element): void {
+        btn.classList.remove("active");
+        btn.innerHTML = playSvg;
+    }
+
+    private defineBtn(event: Event): Element | undefined {
+        const target = event.target as HTMLElement;
+        if (target) {
+            const btn = target.closest(".btn-audio");
+            if (btn) {
+                return btn;
+            }
+        }
+    }
+
+    private playAudio(event: Event, path: string): void {
+        const btn = this.defineBtn(event);
+        if (btn) {
+            this.makeAudioIconActive(btn);
+            const pathToAudio = this.getPathToAudio(path);
+            const audio = new Audio(pathToAudio);
+            audio.play();
+            audio.addEventListener("ended", () => this.makeAudioIconInactive(btn));
+        }
+    }
+
+    private showSentences(sentences: Sentence[], classname: string, title: string, status: STATUSSENTENCE): void {
+        const unknownList = this.createElement("ul", `modal__list ${classname}`, title);
+        const unknownSentences = sentences.filter((item) => item.status === status);
         for (let i = 0; i < unknownSentences.length; i += 1) {
-            const text = game.getSentence(
+            const sentenceWithAudio = game.getSentence(
                 unknownSentences[i].round,
                 unknownSentences[i].level,
                 unknownSentences[i].question
             );
-            const unknownItem = this.createElement("li", "modal__list__item", text);
+            const unknownItem = this.createElement("li", "modal__list__item");
+            const btn = this.createBtnAudio(sentenceWithAudio.path);
+            const span = this.createElement("span", "modal__list__text", sentenceWithAudio.sentence);
+            unknownItem.append(btn, span);
             unknownList.append(unknownItem);
         }
         this.modal.prepend(unknownList);
-    }
-
-    private showKnownSentences(sentences: Sentence[]): void {
-        const knownList = this.createElement("ul", "modal__list modal__list-green", "I know");
-        const knownSentences = sentences.filter((item) => item.status === STATUSSENTENCE.known);
-        for (let i = 0; i < knownSentences.length; i += 1) {
-            const text = game.getSentence(knownSentences[i].round, knownSentences[i].level, knownSentences[i].question);
-            const knownItem = this.createElement("li", "modal__list__item", text);
-            knownList.append(knownItem);
-        }
-        this.modal.prepend(knownList);
     }
 }
 

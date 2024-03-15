@@ -37,6 +37,9 @@
     list-style: none;
     margin: 0;
     margin-bottom: 20px;
+    @include display-flex(column);
+    row-gap: 10px;
+    font-size: calc(12px + (20 - 14) * (100vw - 768px) / (1440 - 768));
 }
 
 .modal__list-red {
@@ -51,6 +54,8 @@
     font-family: Snowstorm;
     padding-left: 10px;
     color: $modal-color;
+    @include display-flex(row, flex-start, center);
+    column-gap: 10px;
 }
 
 .modal__footer {

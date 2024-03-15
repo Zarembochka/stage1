@@ -1,7 +1,7 @@
 import { app } from "../";
 import { Layout } from "../abstract/classes";
 import { ACTIONWITHCLASS, REPLACETO, STATUSSENTENCE, USERSACTIONS } from "../abstract/enums";
-import { GameField, GameLevel, Hints, UserProgress } from "../abstract/interfaces";
+import { GameField, GameLevel, Hints, SentenceWithAudio, UserProgress } from "../abstract/interfaces";
 import * as Logos from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
 import round2 from "../data/levels/wordCollectionLevel2.json";
@@ -54,10 +54,11 @@ class Game extends Layout {
         };
     }
 
-    public getSentence(round: number, level: number, question: number): string {
+    public getSentence(round: number, level: number, question: number): SentenceWithAudio {
         const dataLevel = rounds[round].rounds[level];
         const answers = dataLevel.words.map((element) => element.textExample);
-        return answers[question];
+        const audioSrc = dataLevel.words.map((element) => element.audioExample);
+        return { sentence: answers[question], path: audioSrc[question] };
     }
 
     public setCurrentLevel(): void {
