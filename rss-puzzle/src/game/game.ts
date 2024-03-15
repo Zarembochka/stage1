@@ -1,6 +1,6 @@
 import { app } from "../";
 import { Layout } from "../abstract/classes";
-import { ACTIONWITHCLASS, REPLACETO, USERSACTIONS } from "../abstract/enums";
+import { ACTIONWITHCLASS, REPLACETO, STATUSSENTENCE, USERSACTIONS } from "../abstract/enums";
 import { GameField, GameLevel, Hints, UserProgress } from "../abstract/interfaces";
 import * as Logos from "../abstract/logos";
 import round1 from "../data/levels/wordCollectionLevel1.json";
@@ -52,6 +52,12 @@ class Game extends Layout {
             audio: audioSrc,
             imageDescription: imageDescription,
         };
+    }
+
+    public getSentence(round: number, level: number, question: number): string {
+        const dataLevel = rounds[round].rounds[level];
+        const answers = dataLevel.words.map((element) => element.textExample);
+        return answers[question];
     }
 
     public setCurrentLevel(): void {
@@ -317,6 +323,7 @@ class Game extends Layout {
 
     public startNewGame(gameField: GameField, hints: Hints, progress: UserProgress): void {
         this.setRoundAndLevel(progress.currentRound, progress.currentLevel);
+        app.localStorage.removeAllSentences();
         const sizes = this.getSizeOfImage(gameField.image, this.currentLevel.image);
         this.setImagesSizes(sizes);
         gameProgress.fillRoundsAndLevels(progress);
@@ -530,6 +537,8 @@ class Game extends Layout {
             }
             this.changeCheckButtonToContinue();
             this.showBackgroundImagesForPuzzle();
+            //app.localStorage.saveKnownSentence(this.currentLevel.answer[this.question]);
+            app.localStorage.saveSentence(this.round, this.level, this.question, STATUSSENTENCE.known);
             return;
         }
         uncorrectWords.forEach((word) => word.classList.add("uncorrect"));
@@ -584,6 +593,7 @@ class Game extends Layout {
             this.level += 1;
             this.clearImageField();
             this.removeImage();
+            app.localStorage.removeAllSentences();
             if (this.level === rounds[this.round].roundsCount) {
                 this.level = 0;
                 this.round += 1;
@@ -665,6 +675,8 @@ class Game extends Layout {
         this.removeIdFromPreviousLevel();
         app.mainPage.gamePage.btnCheck.removeAttribute("disabled");
         this.changeCheckButtonToContinue();
+        //app.localStorage.saveUnknownSentence(this.currentLevel.answer[this.question]);
+        app.localStorage.saveSentence(this.round, this.level, this.question, STATUSSENTENCE.unknown);
     }
 
     private completeTask(): void {

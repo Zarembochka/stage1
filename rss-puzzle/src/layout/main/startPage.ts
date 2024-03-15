@@ -1,4 +1,3 @@
-import { modalWindow } from "../../game/modal";
 import { Container } from "../container/container";
 import { Header } from "../header/header";
 import { MainLayout } from "./mainPage";
@@ -20,7 +19,6 @@ export class Main {
         this.wrapper.createContainer();
         this.header.createHeader(this.wrapper);
         this.gamePage.createMainPart(this.wrapper);
-        modalWindow.createModal();
     }
 
     public destroyPage(): void {

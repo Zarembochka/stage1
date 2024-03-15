@@ -1,3 +1,5 @@
+import { STATUSSENTENCE } from "./enums";
+
 export interface User {
     firstName: string;
     surname: string;
@@ -30,4 +32,11 @@ export interface UserProgress {
     currentRound: number;
     completedlevels: number[];
     currentLevel: number;
+}
+
+export interface Sentence {
+    question: number;
+    level: number;
+    round: number;
+    status: STATUSSENTENCE;
 }

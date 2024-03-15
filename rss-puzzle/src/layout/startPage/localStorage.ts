@@ -1,4 +1,5 @@
-import { Hints, User, UserProgress } from "../../abstract/interfaces";
+import { STATUSSENTENCE } from "../../abstract/enums";
+import { Hints, Sentence, User, UserProgress } from "../../abstract/interfaces";
 
 export class LocalStorage {
     private saveDataToLS(user: User): void {
@@ -17,6 +18,7 @@ export class LocalStorage {
         localStorage.removeItem("LH_user");
         localStorage.removeItem("LH_user__hints");
         localStorage.removeItem("LH_user__progress");
+        this.removeAllSentences();
     }
 
     public isUserinLS(): boolean {
@@ -62,6 +64,28 @@ export class LocalStorage {
             return null;
         }
         return JSON.parse(progress);
+    }
+
+    public getSentences(): Sentence[] {
+        const sentences = localStorage.getItem("LH_user__sentences");
+        if (!sentences) {
+            return [];
+        }
+        return JSON.parse(sentences);
+    }
+
+    private saveSentencesToLS(array: Sentence[]): void {
+        localStorage.setItem("LH_user__sentences", JSON.stringify(array));
+    }
+
+    public saveSentence(round: number, level: number, question: number, status: STATUSSENTENCE): void {
+        const sentences = this.getSentences();
+        sentences.push({ round: round, level: level, question: question, status: status });
+        this.saveSentencesToLS(sentences);
+    }
+
+    public removeAllSentences(): void {
+        localStorage.removeItem("LH_user__sentences");
     }
 }
 

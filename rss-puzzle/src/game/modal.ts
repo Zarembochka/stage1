@@ -1,3 +1,6 @@
+import { app } from "..";
+import { STATUSSENTENCE } from "../abstract/enums";
+import { Sentence } from "../abstract/interfaces";
 import { Layout } from "./../abstract/classes";
 import { game } from "./game";
 
@@ -13,13 +16,17 @@ class Modal extends Layout {
         this.modal = this.createElement("div", "modal");
     }
 
-    public createModal(): void {
+    private createModal(): void {
         this.createFooter(this.modal);
         this.modalBackground.append(this.modal);
         document.body.append(this.modalBackground);
     }
 
     public showResults(): void {
+        this.createModal();
+        const sentences = app.localStorage.getSentences();
+        this.showUnknownSentences(sentences);
+        this.showKnownSentences(sentences);
         this.modalBackground.classList.add("show");
     }
 
@@ -31,6 +38,7 @@ class Modal extends Layout {
 
     private hideModal(): void {
         this.modalBackground.classList.remove("show");
+        this.clearModal();
     }
 
     private showAnimation(): void {
@@ -52,6 +60,7 @@ class Modal extends Layout {
 
     private showNextLevel(): void {
         //this.hideModal();
+        this.clearModal();
         this.modalBackground.classList.remove("fade-out");
         this.modalBackground.classList.remove("show");
         game.nextLevel();
@@ -72,6 +81,32 @@ class Modal extends Layout {
                 }
             }
         }
+    }
+
+    private showUnknownSentences(sentences: Sentence[]): void {
+        const unknownList = this.createElement("ul", "modal__list modal__list-red", "I don't know");
+        const unknownSentences = sentences.filter((item) => item.status === STATUSSENTENCE.unknown);
+        for (let i = 0; i < unknownSentences.length; i += 1) {
+            const text = game.getSentence(
+                unknownSentences[i].round,
+                unknownSentences[i].level,
+                unknownSentences[i].question
+            );
+            const unknownItem = this.createElement("li", "modal__list__item", text);
+            unknownList.append(unknownItem);
+        }
+        this.modal.prepend(unknownList);
+    }
+
+    private showKnownSentences(sentences: Sentence[]): void {
+        const knownList = this.createElement("ul", "modal__list modal__list-green", "I know");
+        const knownSentences = sentences.filter((item) => item.status === STATUSSENTENCE.known);
+        for (let i = 0; i < knownSentences.length; i += 1) {
+            const text = game.getSentence(knownSentences[i].round, knownSentences[i].level, knownSentences[i].question);
+            const knownItem = this.createElement("li", "modal__list__item", text);
+            knownList.append(knownItem);
+        }
+        this.modal.prepend(knownList);
     }
 }
 

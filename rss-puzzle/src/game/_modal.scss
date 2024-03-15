@@ -8,7 +8,7 @@
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     z-index: 50;
-    background-color: rgba(black, 0.25);
+    background-color: rgba(black, 0.45);
     &.show {
         visibility: visible;
         opacity: 1;
@@ -26,10 +26,31 @@
     transform: translateY(-25%);
     transition: transform 0.3s ease-in-out;
     background-color: white;
-    color: $form-font-color;
+    color: $modal-color;
+    font-family: Dragon;
     .modal__background.show & {
         transform: translateY(0%);
     }
+}
+
+.modal__list {
+    list-style: none;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.modal__list-red {
+    color: rgb(243, 80, 80);
+}
+
+.modal__list-green {
+    color: $color-valid;
+}
+
+.modal__list__item {
+    font-family: Snowstorm;
+    padding-left: 10px;
+    color: $modal-color;
 }
 
 .modal__footer {
