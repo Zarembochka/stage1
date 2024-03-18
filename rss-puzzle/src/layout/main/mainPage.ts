@@ -6,7 +6,8 @@ import { game } from "../../game/game";
 import { Container } from "../container/container";
 import * as Logos from "../../abstract/logos";
 import { gameProgress } from "../../game/progress";
-import { modalWindow } from "../../game/modal";
+//import { modalWindow } from "../../game/modal";
+import { statisticPage } from "../statistic/statistic";
 
 export class MainLayout extends Layout {
     public main;
@@ -33,13 +34,19 @@ export class MainLayout extends Layout {
         this.btnCheck.addEventListener("click", () => game.usersAction());
         this.btnCheck.addEventListener("animationend", (event) => game.contolAnimationOnButton(event));
         this.btnAutocomplete.addEventListener("click", () => game.autocompleteTask());
-        this.btnResult.addEventListener("click", () => modalWindow.showResults());
+        this.btnResult.addEventListener("click", () => statisticPage.showResults());
     }
 
     public createMainPart(wrapper: Container): void {
         wrapper.appendElement(this.main);
         this.main.addEventListener("animationend", this.checkAnimation);
         this.createStartPage();
+    }
+
+    public createMainToContinueGame(wrapper: Container): void {
+        wrapper.appendElement(this.main);
+        this.main.addEventListener("animationend", this.checkAnimation);
+        this.createMainPage();
     }
 
     private createStartPage(): void {
@@ -62,13 +69,13 @@ export class MainLayout extends Layout {
 
     private addBtnStart(): Element {
         const btn = this.createElement("button", "btn btn-submit btn-start", "Start game");
-        btn.addEventListener("click", () => this.hideStartPage(this));
+        btn.addEventListener("click", () => this.hideStartPage());
         return btn;
     }
 
-    private hideStartPage(page: MainLayout): void {
-        page.main.classList.remove("fade-in");
-        page.main.classList.add("fade-out");
+    private hideStartPage(): void {
+        this.main.classList.remove("fade-in");
+        this.main.classList.add("fade-out");
     }
 
     private checkAnimation(event: Event): void {
@@ -163,7 +170,11 @@ export class MainLayout extends Layout {
         };
     }
 
-    private createMainPage(): void {
+    public appendWrapper(wrapper: Container): void {
+        wrapper.appendElement(this.main);
+    }
+
+    public createMainPage(): void {
         const wrapper = this.createElement("div", "main__start main__game");
         const header = this.createHeaderToGamePage(wrapper);
         const gameField = this.createGameField(wrapper, header);

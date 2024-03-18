@@ -24,7 +24,7 @@ class Progress {
             if (progress.rounds.length) {
                 this.setUserRoundProgress(this.roundSelect, progress.rounds);
             }
-            if (progress.completedlevels.length) {
+            if (progress.completedlevels.length && progress.currentLevel) {
                 this.setUserLevelProgress(progress.completedlevels);
             }
         }
@@ -37,10 +37,12 @@ class Progress {
     }
 
     private setUserLevelProgress(progress: number[]): void {
-        const select = document.querySelector(".game__level") as HTMLSelectElement;
-        for (let i = 0; i < progress.length; i += 1) {
-            const index = progress[i];
-            select.options[index].classList.add("completed");
+        //const select = document.querySelector(".game__level") as HTMLSelectElement;
+        if (this.levelSelect) {
+            for (let i = 0; i < progress.length; i += 1) {
+                const index = progress[i];
+                this.levelSelect.options[index].classList.add("completed");
+            }
         }
     }
 
@@ -60,9 +62,10 @@ class Progress {
     }
 
     private removeLevels(): void {
-        const select = document.querySelector(".game__level");
-        while (select?.firstChild) {
-            select.removeChild(select.firstChild);
+        if (this.levelSelect) {
+            while (this.levelSelect.firstChild) {
+                this.levelSelect.removeChild(this.levelSelect.firstChild);
+            }
         }
     }
 
@@ -164,36 +167,56 @@ class Progress {
     }
 
     public setZeroProgressForRounds(): void {
-        const select = document.querySelector(".game__round") as HTMLSelectElement;
-        for (let i = 0; i < rounds.length; i += 1) {
-            select.options[i].classList.remove("completed");
-            select.options[i].textContent = `${i + 1}`;
+        //const select = document.querySelector(".game__round") as HTMLSelectElement;
+        if (this.roundSelect) {
+            for (let i = 0; i < rounds.length; i += 1) {
+                this.roundSelect.options[i].classList.remove("completed");
+                this.roundSelect.options[i].textContent = `${i + 1}`;
+            }
         }
     }
 
     private prepareUserProgressToSave(round: number, level: number): UserProgress {
-        const roundSelect = document.querySelector(".game__round") as HTMLSelectElement;
-        const levelSelect = document.querySelector(".game__level") as HTMLSelectElement;
-        const roundProgress = this.getRoundsProgress(roundSelect);
-        const levelProgress = this.getLevelsProgress(levelSelect);
+        //const roundSelect = document.querySelector(".game__round") as HTMLSelectElement;
+        //const levelSelect = document.querySelector(".game__level") as HTMLSelectElement;
+        const roundProgress = this.getRoundsProgress(this.roundSelect);
+        const levelProgress = this.getLevelsProgress(this.levelSelect);
+        let currentRound = round;
+        let currentLevel = level + 1;
+        if (currentLevel >= rounds[currentRound].roundsCount) {
+            currentLevel = 0;
+            currentRound += 1;
+            if (currentRound === rounds.length) {
+                currentLevel = 0;
+                currentRound = 0;
+            }
+        }
         return {
             rounds: roundProgress,
-            currentRound: round,
-            currentLevel: level,
+            currentRound: currentRound,
+            currentLevel: currentLevel,
             completedlevels: levelProgress,
         };
     }
 
-    private getRoundsProgress(select: HTMLSelectElement): string[] {
-        const arrayOptions = Array.from(select.options);
-        const result = arrayOptions.map((item) => (item.textContent ? item.textContent : ""));
-        return result;
+    private getRoundsProgress(select: HTMLSelectElement | null): string[] {
+        if (select) {
+            const arrayOptions = Array.from(select.options);
+            const result = arrayOptions.map((item) => (item.textContent ? item.textContent : ""));
+            return result;
+        }
+        return [];
     }
 
-    private getLevelsProgress(select: HTMLSelectElement): number[] {
-        const arrayOptions = Array.from(select.options);
-        const result = arrayOptions.filter((item) => item.classList.contains("completed")).map((item) => item.index);
-        return result;
+    private getLevelsProgress(select: HTMLSelectElement | null): number[] {
+        if (select) {
+            const arrayOptions = Array.from(select.options);
+            const result = arrayOptions
+                .filter((item) => item.classList.contains("completed"))
+                .map((item) => item.index);
+            return result;
+        }
+        return [];
     }
 
     public disableRoundAndLevelChoice(): void {

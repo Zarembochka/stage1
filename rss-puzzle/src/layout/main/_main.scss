@@ -37,7 +37,7 @@
 }
 
 .main__game {
-    padding: 25px;
+    padding: 0 25px;
     justify-content: flex-start;
     row-gap: 15px;
 }
@@ -84,10 +84,15 @@
     display: grid;
     grid-template-rows: repeat(10, 1fr);
     font-family: Snowstorm;
-    font-size: calc(12px + (20 - 14) * (100vw - 768px) / (1440 - 768));
+    font-size: calc(14px + (20 - 16) * (100vw - 768px) / (1440 - 768));
     @media screen and (max-width: 1000px) {
         & {
             width: 75%;
+        }
+    }
+    @media screen and (max-width: 850px) {
+        & {
+            width: 100%;
         }
     }
 }
@@ -97,12 +102,17 @@
     width: 58.5%;
     //width: 1156px;
     font-family: Snowstorm;
-    font-size: calc(12px + (20 - 14) * (100vw - 768px) / (1440 - 768));
+    font-size: calc(14px + (20 - 16) * (100vw - 768px) / (1440 - 768));
     user-select: none;
     height: 32px;
     @media screen and (max-width: 1000px) {
         & {
             width: 75%;
+        }
+    }
+    @media screen and (max-width: 850px) {
+        & {
+            width: 100%;
         }
     }
 }

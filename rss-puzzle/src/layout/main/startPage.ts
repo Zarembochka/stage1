@@ -3,11 +3,11 @@ import { Header } from "../header/header";
 import { MainLayout } from "./mainPage";
 
 export class Main {
-    private header: Header;
+    public header: Header;
 
     public gamePage: MainLayout;
 
-    private wrapper: Container;
+    public wrapper: Container;
 
     constructor() {
         this.wrapper = new Container("mainPage");

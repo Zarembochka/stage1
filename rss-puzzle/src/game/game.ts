@@ -104,9 +104,9 @@ class Game extends Layout {
         task?.classList.remove("fade-in");
     }
 
-    private showProgress(header: Element): void {
-        header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}, Question ${this.question + 1}`;
-    }
+    // private showProgress(header: Element): void {
+    //     header.textContent = `Round ${this.round + 1}, Level ${this.level + 1}, Question ${this.question + 1}`;
+    // }
 
     private createGrid(image: Element): void {
         for (let i = 0; i < this.currentLevel.task.length; i += 1) {
@@ -337,10 +337,10 @@ class Game extends Layout {
 
     public startNewGame(gameField: GameField, hints: Hints, progress: UserProgress): void {
         this.setRoundAndLevel(progress.currentRound, progress.currentLevel);
+        gameProgress.fillRoundsAndLevels(progress);
         app.localStorage.removeAllSentences();
         const sizes = this.getSizeOfImage(gameField.image, this.currentLevel.image);
         this.setImagesSizes(sizes);
-        gameProgress.fillRoundsAndLevels(progress);
         this.changeContinueButtonToCheck();
         this.setHintsToGame(hints);
         this.startGame(gameField);
@@ -354,9 +354,9 @@ class Game extends Layout {
     }
 
     public setRoundAndLevel(round: number, level: number): void {
+        this.question = 0;
         this.round = round;
         this.level = level;
-        this.question = 0;
         this.currentLevel = this.getLevel(this.round, this.level);
     }
 
@@ -403,12 +403,14 @@ class Game extends Layout {
     }
 
     private getAllWordsLength(words: string[]): number {
-        const result = words.reduce((a, b) => a + b.length, 0);
+        const spaces = 2;
+        const result = words.reduce((a, b) => a + b.length + spaces, 0);
         return result;
     }
 
     private calculateWidth(word: string, allWordsLength: number): number {
-        const result = Math.round((word.length * 10000) / allWordsLength) / 100;
+        const spaces = 2;
+        const result = Math.round(((word.length + spaces) * 10000) / allWordsLength) / 100;
         return result;
         //return `${result.toString()}%`;
     }
@@ -420,16 +422,6 @@ class Game extends Layout {
         }
         return "";
     }
-
-    // private reshuffle(cards: string[]): string[] {
-    //     for (let i = 0; i < cards.length; i += 1) {
-    //         const randomIndex = this.getRandomNumber(cards.length);
-    //         const temp = cards[i];
-    //         cards[i] = cards[randomIndex];
-    //         cards[randomIndex] = temp;
-    //     }
-    //     return cards;
-    // }
 
     private reshuffle(words: Element): void {
         const cards = words.querySelectorAll(".game__card") as NodeListOf<HTMLElement>;
@@ -533,6 +525,8 @@ class Game extends Layout {
             return;
         }
         if (this.question === 9) {
+            gameProgress.updateInfoRoundsAndLevels(this.round, this.level);
+            gameProgress.saveUserProgress(this.round, this.level);
             this.hideGameField();
             return;
         }
@@ -605,7 +599,7 @@ class Game extends Layout {
         this.question += 1;
         if (this.question >= 10) {
             this.question = 0;
-            gameProgress.updateInfoRoundsAndLevels(this.round, this.level);
+            //gameProgress.updateInfoRoundsAndLevels(this.round, this.level);
             this.level += 1;
             this.clearImageField();
             this.removeImage();
@@ -620,7 +614,7 @@ class Game extends Layout {
                 gameProgress.showNewLevels(this.round);
             }
             gameProgress.showProgressToUser(this.round, this.level);
-            gameProgress.saveUserProgress(this.round, this.level);
+            //gameProgress.saveUserProgress(this.round, this.level);
             this.currentLevel = this.getLevel(this.round, this.level);
         }
     }
