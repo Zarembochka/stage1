@@ -320,8 +320,8 @@ class Game extends Layout {
         //this.showProgress(gameField.header);
         const sizes = this.getSizeOfImage(gameField.image, this.currentLevel.image);
         this.setImagesSizes(sizes);
-        this.showTask(gameField.task, this.currentLevel.task[this.question]);
-        this.setHint(gameField.hint, this.currentLevel.answer[this.question]);
+        //this.showTask(gameField.task, this.currentLevel.task[this.question]);
+        this.setHint(gameField.hint, this.currentLevel.task[this.question]);
         if (!this.question) {
             this.createGrid(gameField.image);
         }
