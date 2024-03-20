@@ -1,0 +1,25 @@
+.header {
+    @include display-flex(row, space-between, center);
+}
+
+.header__wrapper {
+    @include display-flex(row);
+    column-gap: 10px;
+}
+
+.header__title {
+    margin: 0;
+}
+
+.btn__header {
+    background-color: white;
+    color: $font-color;
+    font-family: Hexen;
+    font-size: 1.25em;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: $font-color;
+            color: white;
+        }
+    }
+}
