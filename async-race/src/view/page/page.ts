@@ -1,4 +1,5 @@
 import { Header } from "../header/header";
+import { Main } from "../main/main";
 
 export class Page {
     constructor() {
@@ -7,6 +8,7 @@ export class Page {
 
     private createPage() {
         const header = new Header().getElement();
-        document.body.append(header);
+        const main = new Main().getElement();
+        document.body.append(header, main);
     }
 }

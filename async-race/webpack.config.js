@@ -41,7 +41,7 @@ const baseConfig = {
         assetModuleFilename: "assets/[name][ext]",
     },
     plugins: [
-        new htmlWebpackPlugin({ title: "Async-race" }),
+        new htmlWebpackPlugin({ title: "Async-race", favicon: "./src/assets/favicon/favicon.svg" }),
         new miniCssExtractPlugin({ filename: "[name].css" }),
         new CleanWebpackPlugin(),
     ],

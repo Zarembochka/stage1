@@ -1,25 +1,25 @@
 import { ParamsToComponent } from "./interfaces";
 
-export class BaseComponent {
-    private element: Element;
+export class BaseComponent<T extends HTMLElement = HTMLElement> {
+    protected element: T;
 
     constructor(params: ParamsToComponent) {
-        this.element = document.createElement(params.tag);
+        this.element = document.createElement(params.tag) as T;
         this.createElement(params);
     }
 
-    private createElement(params: ParamsToComponent) {
+    protected createElement(params: ParamsToComponent) {
         params.classNames.forEach((name) => this.element?.classList.add(name));
         if (params.text) {
             this.element.textContent = params.text;
         }
     }
 
-    public getElement(): Element {
+    public getElement(): T {
         return this.element;
     }
 
-    public appendElement(element: Element) {
+    public appendElement(element: T) {
         this.element?.append(element);
     }
 }

@@ -12,13 +12,10 @@
 }
 
 .btn__header {
-    background-color: white;
-    color: $font-color;
-    font-family: Hexen;
     font-size: 1.25em;
     @media screen and (hover: hover) {
         &:hover {
-            background-color: $font-color;
+            background-color: lighten($color: $font-color, $amount: 15%);
             color: white;
         }
     }

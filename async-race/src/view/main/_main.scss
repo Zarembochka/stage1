@@ -1,0 +1,27 @@
+.main {
+    padding: 15px 0;
+}
+
+.main__newCar {
+    @include display-flex(row, flex-start, stretch);
+    column-gap: 5px;
+}
+
+.input__newCar,
+.input__newCarColor {
+    outline: none;
+    border-radius: 5px;
+}
+
+.input__newCarColor {
+    cursor: pointer;
+}
+
+.btn__main {
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: lighten($color: $font-color, $amount: 15%);
+            color: white;
+        }
+    }
+}

@@ -11,6 +11,9 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     border: none;
+    background-color: white;
+    color: $font-color;
+    font-family: Hexen;
     transition:
         background-color,
         color 0.5s ease-in;

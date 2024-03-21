@@ -23,7 +23,7 @@ export class Header extends BaseComponent {
         wrapper?.append(btnGarage, btnWinners);
     }
 
-    private createWrapperToButtons(): Element | null {
+    private createWrapperToButtons(): Element {
         const wrapper = new BaseComponent({ tag: "div", classNames: ["header__wrapper"] }).getElement();
         this.appendElement(wrapper);
         return wrapper;
