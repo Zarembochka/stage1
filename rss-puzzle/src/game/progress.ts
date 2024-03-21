@@ -91,6 +91,7 @@ class Progress {
                 this.startNewRound();
                 this.removeLevels();
                 this.fillLevels(round, level);
+                app.localStorage.removeAllSentences();
             }
         }
     }
@@ -102,6 +103,7 @@ class Progress {
                 const level = +this.levelSelect.value;
                 game.setRoundAndLevel(round, level);
                 this.startNewRound();
+                app.localStorage.removeAllSentences();
             }
         }
     }

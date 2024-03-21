@@ -37,7 +37,7 @@ function checkInputValidation(element: HTMLInputElement): boolean {
     if (!checkLengthValidation(element, "The field is required!")) {
         return false;
     }
-    if (!checkTextValidation(element, /[a-zA-Z-]+$/, "Only English letters and the hyphen ara allowed")) {
+    if (!checkTextValidation(element, /^[a-zA-Z-]+$/, "Only English letters and the hyphen ara allowed")) {
         return false;
     }
     if (!checkTextValidation(element, /^[A-Z]/, "The first letter should be in uppercase")) {
