@@ -14,8 +14,27 @@ function checkTextValidation(input: HTMLInputElement, pattern: RegExp, messageTe
     return true;
 }
 
+function checkLengthValidation(input: HTMLInputElement, messageText: string): boolean {
+    const value = input.value.trim();
+    if (!value.length) {
+        input.classList.remove("modal__login__item-valid");
+        input.classList.add("modal__login__item-notvalid");
+        // message
+        const message = input.nextElementSibling;
+        if (message) {
+            message.textContent = messageText;
+        }
+        return false;
+    }
+    input.classList.add("modal__login__item-valid");
+    return true;
+}
+
 function checkInputValidation(element: HTMLInputElement): boolean {
-    if (!checkTextValidation(element, /^[a-zA-Z-]{1}/, "The field is required!")) {
+    // if (!checkTextValidation(element, /^[a-zA-Z-]{1}/, "The field is required!")) {
+    //     return false;
+    // }
+    if (!checkLengthValidation(element, "The field is required!")) {
         return false;
     }
     if (!checkTextValidation(element, /[a-zA-Z-]+$/, "Only English letters and the hyphen ara allowed")) {
