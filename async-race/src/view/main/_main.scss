@@ -2,13 +2,27 @@
     padding: 15px 0;
 }
 
-.main__newCar {
+.main__settings {
+    @include display-flex(column, flex-start, stretch);
+    row-gap: 5px;
+    max-width: 300px;
+}
+
+.main__form {
     @include display-flex(row, flex-start, stretch);
     column-gap: 5px;
 }
 
+.main__setting__buttons {
+    width: 100%;
+    @include display-flex(row);
+    column-gap: 6px;
+}
+
 .input__newCar,
-.input__newCarColor {
+.input__newCarColor,
+.input__updateCar,
+.input__updateCarColor {
     outline: none;
     border-radius: 5px;
 }
@@ -18,6 +32,20 @@
 }
 
 .btn__main {
+    width: 60px;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: lighten($color: $font-color, $amount: 15%);
+            color: white;
+        }
+    }
+}
+
+.btn__setting {
+    min-width: 85px;
+    &:last-of-type {
+        min-width: 115px;
+    }
     @media screen and (hover: hover) {
         &:hover {
             background-color: lighten($color: $font-color, $amount: 15%);
