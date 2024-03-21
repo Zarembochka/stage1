@@ -469,6 +469,7 @@ class Game extends Layout {
     }
 
     public nextLevel(): void {
+        this.hideHint();
         if (!this.visibleHints) {
             this.hideHint();
         }
