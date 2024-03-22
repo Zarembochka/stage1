@@ -1,0 +1,16 @@
+.garage__race__row__car {
+    position: absolute;
+    left: 3%;
+    bottom: -17px;
+}
+
+.garage__car__svg {
+    @include display-flex(row);
+    fill: $font-color;
+    //max-height: 50px;
+}
+
+.garage__race__row__finish {
+    position: absolute;
+    right: calc(50px + 75px);
+}

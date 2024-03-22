@@ -1,3 +1,4 @@
+import { Garage } from "../garage/garage";
 import { BaseComponent } from "../utils/baseComponents";
 import { InputTYPES } from "../utils/enums";
 
@@ -9,6 +10,8 @@ export class Main extends BaseComponent {
 
     private prepareMain(): void {
         this.createSettings();
+        const garage = new Garage().getElement();
+        this.appendElement(garage);
     }
 
     private createSettings(): void {
