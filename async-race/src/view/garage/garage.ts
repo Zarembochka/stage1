@@ -25,7 +25,7 @@ export class Garage extends BaseComponent {
 
     private createGarage(): void {
         const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race"] }).getElement();
-        const row = new GarageRow().getElement();
+        const row = new GarageRow("1").getElement();
         wrapper.append(row);
         this.appendElement(wrapper);
     }
