@@ -4,7 +4,6 @@
 
 .garage__car__svg {
     @include display-flex(row);
-    fill: $font-color;
     position: relative;
     bottom: 9%;
 }

@@ -2,21 +2,22 @@ import { BaseComponent } from "../../utils/baseComponents";
 import { carSvg, finishSvg } from "../../../assets/image/logo";
 
 export class GarageRow extends BaseComponent {
-    constructor(id: string) {
+    constructor(id: string, color: string) {
         super({ tag: "div", classNames: ["garage__race__row"] });
-        this.prepareGarageRow(id);
+        this.prepareGarageRow(id, color);
     }
 
-    private prepareGarageRow(id: string): void {
+    private prepareGarageRow(id: string, color: string): void {
         this.createBtns(id);
-        this.createCar(id);
+        this.createCar(id, color);
         this.createFinish();
     }
 
-    private createCar(id: string): void {
+    private createCar(id: string, color: string): void {
         const rowCar = new BaseComponent({ tag: "div", classNames: ["garage__race__row__car"] }).getElement();
         rowCar.id = id;
         rowCar.innerHTML = carSvg;
+        rowCar.style.fill = color;
         this.appendElement(rowCar);
     }
 

@@ -36,8 +36,8 @@ export class MainGarage extends BaseComponent {
 
     private createFormNewCar(): HTMLFormElement {
         const formCreate = this.createForm("form__create");
-        const input = this.createInput(["input", "input__newCar"], InputTYPES.text);
-        const colorChoice = this.createInput(["input", "input__newCarColor"], InputTYPES.color);
+        const input = this.createInput(["input", "input__newCar"], InputTYPES.text, "car_title");
+        const colorChoice = this.createInput(["input", "input__newCarColor"], InputTYPES.color, "car_color");
         const btn = this.createBtn(["btn", "btn__main", "btn-create"], "Create");
         btn.addEventListener("click", (event) => this.garage.addCarToGarage(event));
         formCreate?.append(input, colorChoice, btn);
@@ -46,8 +46,8 @@ export class MainGarage extends BaseComponent {
 
     private createFormUpdateCar(): HTMLFormElement {
         const formCreate = this.createForm("form__update");
-        const input = this.createInput(["input", "input__updateCar"], InputTYPES.text);
-        const colorChoice = this.createInput(["input", "input__updateCarColor"], InputTYPES.color);
+        const input = this.createInput(["input", "input__updateCar"], InputTYPES.text, "update_car_title");
+        const colorChoice = this.createInput(["input", "input__updateCarColor"], InputTYPES.color, "update_car_color");
         const btn = this.createBtn(["btn", "btn__main", "btn-update"], "Update");
         formCreate?.append(input, colorChoice, btn);
         return formCreate;
@@ -67,12 +67,13 @@ export class MainGarage extends BaseComponent {
         return form;
     }
 
-    private createInput(classNames: string[], type: InputTYPES): HTMLInputElement {
+    private createInput(classNames: string[], type: InputTYPES, id: string): HTMLInputElement {
         const input = new BaseComponent<HTMLInputElement>({
             tag: "input",
             classNames: classNames,
         }).getElement();
         input.type = type;
+        input.id = id;
         if (type === InputTYPES.color) {
             input.value = "#ce63dd";
         }

@@ -49,11 +49,17 @@ export class Garage extends BaseComponent {
 
     public addCarToGarage(event: Event): void {
         event.preventDefault();
+        const color = this.getColorToNewCar();
         this.carsCount += 1;
         this.updateTitle();
         if (this.carsCount <= carsPerPage) {
-            this.garagePage.addCarToPage(this.carsCount);
+            this.garagePage.addCarToPage(this.carsCount, color);
         }
+    }
+
+    private getColorToNewCar(): string {
+        const colorInput = document.getElementById("car_color") as HTMLInputElement;
+        return colorInput?.value;
     }
 
     private updateTitle(): void {
