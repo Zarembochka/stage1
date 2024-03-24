@@ -2,16 +2,19 @@ import { Garage } from "../garage/garage";
 import { BaseComponent } from "../utils/baseComponents";
 import { InputTYPES } from "../utils/enums";
 
-export class Main extends BaseComponent {
+export class MainGarage extends BaseComponent {
+    private garage: Garage;
+
     constructor() {
         super({ tag: "main", classNames: ["main", "main__garage"] });
+        this.garage = new Garage();
         this.prepareMain();
     }
 
     private prepareMain(): void {
         this.createSettings();
-        const garage = new Garage().getElement();
-        this.appendElement(garage);
+        //const garage = new Garage().getElement();
+        this.appendElement(this.garage.getElement());
     }
 
     private createSettings(): void {
@@ -36,6 +39,7 @@ export class Main extends BaseComponent {
         const input = this.createInput(["input", "input__newCar"], InputTYPES.text);
         const colorChoice = this.createInput(["input", "input__newCarColor"], InputTYPES.color);
         const btn = this.createBtn(["btn", "btn__main", "btn-create"], "Create");
+        btn.addEventListener("click", (event) => this.garage.addCarToGarage(event));
         formCreate?.append(input, colorChoice, btn);
         return formCreate;
     }

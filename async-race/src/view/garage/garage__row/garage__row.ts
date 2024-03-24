@@ -61,8 +61,8 @@ export class GarageRow extends BaseComponent {
         const finishPosition = finish.getBoundingClientRect().right;
         const carPosition = start + (car.getBoundingClientRect().width * percent) / 100;
         if (finishPosition > carPosition) {
-            car.style.transform = `translateX(${percent + 10}%)`;
-            requestAnimationFrame((time) => this.startAnimation(time, car, start, finish, percent + 10));
+            car.style.transform = `translateX(${percent + 5}%)`;
+            requestAnimationFrame((time) => this.startAnimation(time, car, start, finish, percent + 5));
         }
     }
 }

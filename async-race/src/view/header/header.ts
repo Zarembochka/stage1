@@ -1,4 +1,6 @@
+import { app } from "../..";
 import { BaseComponent } from "../utils/baseComponents";
+import { ViewPAGE } from "../utils/enums";
 
 export class Header extends BaseComponent {
     constructor() {
@@ -35,6 +37,7 @@ export class Header extends BaseComponent {
             classNames: ["btn", "btn__header", "btn-garage"],
             text: "Garage",
         }).getElement();
+        btnGarage.addEventListener("click", () => app.render(ViewPAGE.garage));
         return btnGarage;
     }
 
@@ -44,6 +47,7 @@ export class Header extends BaseComponent {
             classNames: ["btn", "btn__header", "btn-winners"],
             text: "Winners",
         }).getElement();
+        btnWinners.addEventListener("click", () => app.render(ViewPAGE.winners));
         return btnWinners;
     }
 }
