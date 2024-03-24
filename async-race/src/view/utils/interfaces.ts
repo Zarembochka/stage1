@@ -3,3 +3,8 @@ export interface ParamsToComponent {
     classNames: string[];
     text?: string;
 }
+
+export interface Car {
+    color: string;
+    title: string;
+}

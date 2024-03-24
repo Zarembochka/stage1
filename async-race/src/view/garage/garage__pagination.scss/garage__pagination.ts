@@ -6,9 +6,9 @@ export class GaragePagination extends BaseComponent {
         super({ tag: "div", classNames: ["garage__page"] });
     }
 
-    public addCarToPage(carCount: number, color: string): void {
+    public addCarToPage(carCount: number, color: string, title: string): void {
         const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race"] }).getElement();
-        const row = new GarageRow(carCount.toString(), color).getElement();
+        const row = new GarageRow(carCount.toString(), color, title).getElement();
         wrapper.append(row);
         this.appendElement(wrapper);
     }

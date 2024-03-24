@@ -1,5 +1,22 @@
 .garage__race__row {
-    @include display-flex(row);
+    @include display-flex(column);
+    height: 78px;
+    border-bottom: 2px dotted white;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.garage__race__row__info {
+    @include display-flex(row, flex-start, center);
+    column-gap: 5px;
+}
+
+.garage__race__row__info-title {
+    font-family: Hexen;
+}
+
+.garage__race__row__car {
+    width: fit-content;
 }
 
 .garage__car__svg {
@@ -11,4 +28,5 @@
 .garage__race__row__finish {
     position: absolute;
     right: calc(50px + 75px);
+    bottom: -3px;
 }

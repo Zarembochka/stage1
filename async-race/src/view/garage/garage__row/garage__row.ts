@@ -2,13 +2,13 @@ import { BaseComponent } from "../../utils/baseComponents";
 import { carSvg, finishSvg } from "../../../assets/image/logo";
 
 export class GarageRow extends BaseComponent {
-    constructor(id: string, color: string) {
+    constructor(id: string, color: string, title: string) {
         super({ tag: "div", classNames: ["garage__race__row"] });
-        this.prepareGarageRow(id, color);
+        this.prepareGarageRow(id, color, title);
     }
 
-    private prepareGarageRow(id: string, color: string): void {
-        this.createBtns(id);
+    private prepareGarageRow(id: string, color: string, title: string): void {
+        this.createInfo(id, title);
         this.createCar(id, color);
         this.createFinish();
     }
@@ -27,10 +27,15 @@ export class GarageRow extends BaseComponent {
         this.appendElement(finish);
     }
 
-    private createBtns(id: string): void {
-        const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race__row__btns"] }).getElement();
+    private createInfo(id: string, title: string): void {
+        const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race__row__info"] }).getElement();
         const btnStart = this.createBtnStart(id);
-        wrapper.append(btnStart);
+        const carTitle = new BaseComponent({
+            tag: "span",
+            classNames: ["garage__race__row__info-title"],
+            text: title,
+        }).getElement();
+        wrapper.append(btnStart, carTitle);
         this.appendElement(wrapper);
     }
 

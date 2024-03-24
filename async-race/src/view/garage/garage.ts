@@ -1,4 +1,5 @@
 import { BaseComponent } from "../utils/baseComponents";
+import { Car } from "../utils/interfaces";
 import { GaragePagination } from "./garage__pagination.scss/garage__pagination";
 //import { GarageRow } from "./garage__row/garage__row";
 
@@ -49,17 +50,30 @@ export class Garage extends BaseComponent {
 
     public addCarToGarage(event: Event): void {
         event.preventDefault();
-        const color = this.getColorToNewCar();
+        const info = this.getInfoAboutNewCar();
         this.carsCount += 1;
         this.updateTitle();
         if (this.carsCount <= carsPerPage) {
-            this.garagePage.addCarToPage(this.carsCount, color);
+            this.garagePage.addCarToPage(this.carsCount, info.color, info.title);
         }
+    }
+
+    private getInfoAboutNewCar(): Car {
+        const color = this.getColorToNewCar();
+        const title = this.getTitleToNewCar();
+        return { color: color, title: title };
     }
 
     private getColorToNewCar(): string {
         const colorInput = document.getElementById("car_color") as HTMLInputElement;
         return colorInput?.value;
+    }
+
+    private getTitleToNewCar(): string {
+        const titleInput = document.getElementById("car_title") as HTMLInputElement;
+        const title = titleInput?.value;
+        titleInput.value = "";
+        return title;
     }
 
     private updateTitle(): void {
