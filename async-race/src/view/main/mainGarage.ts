@@ -13,7 +13,6 @@ export class MainGarage extends BaseComponent {
 
     private prepareMain(): void {
         this.createSettings();
-        //const garage = new Garage().getElement();
         this.appendElement(this.garage.getElement());
     }
 

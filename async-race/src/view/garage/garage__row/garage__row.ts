@@ -30,12 +30,13 @@ export class GarageRow extends BaseComponent {
     private createInfo(id: string, title: string): void {
         const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race__row__info"] }).getElement();
         const btnStart = this.createBtnStart(id);
+        const btnRemove = this.createBtnRemove(id);
         const carTitle = new BaseComponent({
             tag: "span",
             classNames: ["garage__race__row__info-title"],
             text: title,
         }).getElement();
-        wrapper.append(btnStart, carTitle);
+        wrapper.append(btnStart, btnRemove, carTitle);
         this.appendElement(wrapper);
     }
 
@@ -50,11 +51,26 @@ export class GarageRow extends BaseComponent {
         return btnStart;
     }
 
+    private createBtnRemove(id: string): HTMLElement {
+        const btnRemove = new BaseComponent({
+            tag: "button",
+            classNames: ["btn", "btn-remove"],
+            text: "Remove",
+        }).getElement();
+        btnRemove.dataset.carId = id;
+        btnRemove.addEventListener("click", () => this.removeCar());
+        return btnRemove;
+    }
+
     private startRace(id: string): void {
         const car = document.getElementById(id) as HTMLElement;
         const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
         const start = car.getBoundingClientRect().left;
         requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, start, finish));
+    }
+
+    private removeCar(): void {
+        this.removeElement();
     }
 
     private startAnimation(

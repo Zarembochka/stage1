@@ -19,7 +19,11 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         return this.element;
     }
 
-    public appendElement(element: T) {
+    public appendElement(element: T): void {
         this.element?.append(element);
+    }
+
+    public removeElement(): void {
+        this.element.remove();
     }
 }

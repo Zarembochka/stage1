@@ -1,7 +1,6 @@
 import { BaseComponent } from "../utils/baseComponents";
 import { Car } from "../utils/interfaces";
 import { GaragePagination } from "./garage__pagination.scss/garage__pagination";
-//import { GarageRow } from "./garage__row/garage__row";
 
 const carsPerPage = 7;
 
@@ -82,5 +81,10 @@ export class Garage extends BaseComponent {
             return;
         }
         title.textContent = `Garage ( ${this.carsCount} )`;
+    }
+
+    public removeCarFromGarage(): void {
+        this.carsCount -= 1;
+        this.updateTitle();
     }
 }
