@@ -1,3 +1,4 @@
+import { api } from "../../api/work_with_api";
 import { BaseComponent } from "../utils/baseComponents";
 import { Car } from "../utils/interfaces";
 import { GaragePagination } from "./garage__pagination.scss/garage__pagination";
@@ -47,20 +48,21 @@ export class Garage extends BaseComponent {
         this.appendElement(this.garagePage.getElement());
     }
 
-    public addCarToGarage(event: Event): void {
+    public async addCarToGarage(event: Event): Promise<void> {
         event.preventDefault();
         const info = this.getInfoAboutNewCar();
         this.carsCount += 1;
         this.updateTitle();
+        const newCar = await api.createCar(info);
         if (this.carsCount <= carsPerPage) {
-            this.garagePage.addCarToPage(this.carsCount, info.color, info.title);
+            this.garagePage.addCarToPage(this.carsCount, newCar.color, newCar.name);
         }
     }
 
     private getInfoAboutNewCar(): Car {
         const color = this.getColorToNewCar();
         const title = this.getTitleToNewCar();
-        return { color: color, title: title };
+        return { color: color, name: title };
     }
 
     private getColorToNewCar(): string {

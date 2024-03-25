@@ -6,5 +6,9 @@ export interface ParamsToComponent {
 
 export interface Car {
     color: string;
-    title: string;
+    name: string;
+}
+
+export interface CarResponse extends Car {
+    id: number;
 }
