@@ -1,3 +1,4 @@
+import { getRandomCar } from "../../abstract/functions";
 import { api } from "../../api/work_with_api";
 import { BaseComponent } from "../utils/baseComponents";
 import { Car, CarResponse } from "../utils/interfaces";
@@ -51,15 +52,20 @@ export class Garage extends BaseComponent {
         this.appendElement(this.garagePage.getElement());
     }
 
-    public async addCarToGarage(event: Event): Promise<void> {
+    public addCarToGarage(event: Event): void {
         event.preventDefault();
-        const info = this.getInfoAboutCar("car_color", "car_title");
+        const car = this.getInfoAboutCar("car_color", "car_title");
+        this.createCar(car);
+    }
+
+    private async createCar(car: Car): Promise<void> {
         this.carsCount += 1;
         this.updateTitle();
-        const newCar = await api.createCar(info);
-        if (this.carsCount <= carsPerPage) {
+        const newCar = await api.createCar(car);
+        if (this.carsCount <= this.currentPage * carsPerPage) {
             this.garagePage.addCarToPage(newCar);
         }
+        this.checkNextPage();
     }
 
     public async updateCar(event: Event): Promise<void> {
@@ -178,5 +184,12 @@ export class Garage extends BaseComponent {
             return;
         }
         this.setEnableStatus(".btn-next", false);
+    }
+
+    public async generateRandomCars(carsCount: number): Promise<void> {
+        for (let i = 1; i <= carsCount; i += 1) {
+            const car = getRandomCar();
+            this.createCar(car);
+        }
     }
 }

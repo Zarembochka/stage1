@@ -2,6 +2,8 @@ import { Garage } from "../garage/garage";
 import { BaseComponent } from "../utils/baseComponents";
 import { InputTYPES } from "../utils/enums";
 
+const generateCarsCount = 2;
+
 export class MainGarage extends BaseComponent {
     private garage: Garage;
 
@@ -31,6 +33,7 @@ export class MainGarage extends BaseComponent {
         const btnRace = this.createBtn(["btn", "btn__setting", "btn-race"], "Race");
         const btnReset = this.createBtn(["btn", "btn__setting", "btn-reset"], "Reset");
         const btnGenerate = this.createBtn(["btn", "btn__setting", "btn-generate"], "Generate cars");
+        btnGenerate.addEventListener("click", () => this.garage.generateRandomCars(generateCarsCount));
         wrapper.append(btnRace, btnReset, btnGenerate);
         return wrapper;
     }
