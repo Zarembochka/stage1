@@ -4,9 +4,9 @@ import { PageWinners } from "./view/pages/pageWinners";
 import { ViewPAGE } from "./view/utils/enums";
 
 class App {
-    private pageGarage: PageGarage;
+    public pageGarage: PageGarage;
 
-    private pageWinners: PageWinners;
+    public pageWinners: PageWinners;
 
     constructor() {
         this.pageGarage = new PageGarage();
@@ -23,6 +23,7 @@ class App {
             this.renderPage(this.pageWinners);
             return;
         }
+        this.pageWinners.removeWinners();
         this.renderPage(this.pageGarage);
     }
 }

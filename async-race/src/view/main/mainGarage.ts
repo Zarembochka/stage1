@@ -17,7 +17,6 @@ export class MainGarage extends BaseComponent {
         this.createSettings();
         this.garage.renderCarsFromGarage();
         this.appendElement(this.garage.getElement());
-        this.createFooter();
     }
 
     private createSettings(): void {
@@ -97,15 +96,11 @@ export class MainGarage extends BaseComponent {
         return btn;
     }
 
-    private createFooter(): void {
-        const footer = new BaseComponent({ tag: "footer", classNames: ["garage__footer"] }).getElement();
-        const btnPrevious = this.createBtn(["btn", "btn__main", "btn-previous"], "<< Page");
-        btnPrevious.addEventListener("click", () => this.garage.goToPreviousPage());
-        btnPrevious.disabled = true;
-        const btnNext = this.createBtn(["btn", "btn__main", "btn-next"], "Page >>");
-        btnNext.addEventListener("click", () => this.garage.goToNextPage());
-        btnNext.disabled = true;
-        footer.append(btnPrevious, btnNext);
-        this.appendElement(footer);
+    public getCurrentPage(): number {
+        return this.garage.getCurrentPage();
+    }
+
+    public getCarsPerPage(): number {
+        return this.garage.getCarsPerPage();
     }
 }

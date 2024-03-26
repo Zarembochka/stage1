@@ -1,0 +1,19 @@
+.main__winners__title,
+.main__winners__row {
+    @include display-flex(row, flex-start, center);
+    max-width: 750px;
+}
+
+.main__winners__title-elem,
+.main__winners__row__item {
+    width: 20%;
+    text-align: center;
+}
+
+.main__winners__row-image {
+    display: flex;
+    justify-content: center;
+    & .garage__car__svg {
+        width: 50px;
+    }
+}

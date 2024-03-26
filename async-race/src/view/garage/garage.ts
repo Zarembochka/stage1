@@ -193,4 +193,12 @@ export class Garage extends BaseComponent {
             await this.createCar(car);
         }
     }
+
+    public getCurrentPage(): number {
+        return this.currentPage;
+    }
+
+    public getCarsPerPage(): number {
+        return carsPerPage;
+    }
 }
