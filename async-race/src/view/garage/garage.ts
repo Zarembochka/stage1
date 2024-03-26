@@ -1,4 +1,4 @@
-import { getRandomCar } from "../../abstract/functions";
+import { getRandomCar, getRandomTitle } from "../../utils/randomCar";
 import { api } from "../../api/work_with_api";
 import { BaseComponent } from "../utils/baseComponents";
 import { Car, CarResponse } from "../utils/interfaces";
@@ -9,8 +9,6 @@ const carsPerPage = 7;
 export class Garage extends BaseComponent {
     private carsCount: number;
 
-    private pageCount: number;
-
     private currentPage: number;
 
     private garagePage: GaragePagination;
@@ -19,7 +17,6 @@ export class Garage extends BaseComponent {
         super({ tag: "div", classNames: ["garage"] });
         this.garagePage = new GaragePagination();
         this.carsCount = 0;
-        this.pageCount = 1;
         this.currentPage = 1;
         this.prepareGarage();
     }
@@ -108,7 +105,10 @@ export class Garage extends BaseComponent {
 
     private getTitle(id: string): string {
         const titleInput = document.getElementById(id) as HTMLInputElement;
-        const title = titleInput?.value;
+        let title = titleInput.value;
+        if (!title) {
+            title = getRandomTitle();
+        }
         titleInput.value = "";
         return title;
     }
@@ -189,7 +189,8 @@ export class Garage extends BaseComponent {
     public async generateRandomCars(carsCount: number): Promise<void> {
         for (let i = 1; i <= carsCount; i += 1) {
             const car = getRandomCar();
-            this.createCar(car);
+            console.log(car);
+            await this.createCar(car);
         }
     }
 }

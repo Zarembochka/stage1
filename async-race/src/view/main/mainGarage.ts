@@ -2,7 +2,7 @@ import { Garage } from "../garage/garage";
 import { BaseComponent } from "../utils/baseComponents";
 import { InputTYPES } from "../utils/enums";
 
-const generateCarsCount = 2;
+const generateCarsCount = 100;
 
 export class MainGarage extends BaseComponent {
     private garage: Garage;
