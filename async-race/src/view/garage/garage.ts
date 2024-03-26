@@ -115,6 +115,14 @@ export class Garage extends BaseComponent {
         title.textContent = `Garage ( ${this.carsCount} )`;
     }
 
+    private updatePageNumber(): void {
+        const title = this.element.querySelector(".garage__page");
+        if (!title) {
+            return;
+        }
+        title.textContent = `Page ( ${this.currentPage} )`;
+    }
+
     public removeCarFromGarage(): void {
         this.carsCount -= 1;
         this.updateTitle();
@@ -123,6 +131,8 @@ export class Garage extends BaseComponent {
     public async renderCarsFromGarage(): Promise<void> {
         const cars = await this.getCarsFromGarage();
         this.updateTitle();
+        this.updatePageNumber();
+        this.checkNextPage();
         this.garagePage.renderCars(cars);
     }
 
@@ -138,5 +148,35 @@ export class Garage extends BaseComponent {
 
     private removeAllCarsFromGarage(): void {
         this.garagePage.removeAllCars();
+    }
+
+    private setEnableStatus(classname: string, flag: boolean): void {
+        const btn = document.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = flag;
+    }
+
+    public goToNextPage(): void {
+        this.currentPage += 1;
+        this.removeAllCarsFromGarage();
+        this.renderCarsFromGarage();
+        //enable previos page btn
+        this.setEnableStatus(".btn-previous", false);
+    }
+
+    public goToPreviousPage(): void {
+        this.currentPage -= 1;
+        this.removeAllCarsFromGarage();
+        this.renderCarsFromGarage();
+        if (this.currentPage === 1) {
+            this.setEnableStatus(".btn-previous", true);
+        }
+    }
+
+    private checkNextPage(): void {
+        if (this.carsCount <= this.currentPage * carsPerPage) {
+            this.setEnableStatus(".btn-next", true);
+            return;
+        }
+        this.setEnableStatus(".btn-next", false);
     }
 }

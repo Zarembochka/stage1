@@ -1,0 +1,9 @@
+.garage__title,
+.garage__page {
+    margin: 10px 0;
+}
+
+.garage__footer {
+    @include display-flex(row);
+    column-gap: 15px;
+}
