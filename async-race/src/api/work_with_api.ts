@@ -30,7 +30,7 @@ class Api {
             body: raw,
         };
 
-        return fetch(`${server}/garage/:${id}`, requestOptions).then((response: Response) => response.json());
+        return fetch(`${server}/garage/${id}`, requestOptions).then((response: Response) => response.json());
     }
 
     public getCar(id: number): Promise<CarResponse> {

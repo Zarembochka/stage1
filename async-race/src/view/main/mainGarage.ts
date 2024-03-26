@@ -51,7 +51,7 @@ export class MainGarage extends BaseComponent {
         const colorChoice = this.createInput(["input", "input__updateCarColor"], InputTYPES.color, "update_car_color");
         colorChoice.disabled = true;
         const btn = this.createBtn(["btn", "btn__main", "btn-update"], "Update");
-        //btn.addEventListener("click", (event) => this.garage.updateCar(event));
+        btn.addEventListener("click", (event) => this.garage.updateCar(event));
         btn.disabled = true;
         formCreate?.append(input, colorChoice, btn);
         return formCreate;

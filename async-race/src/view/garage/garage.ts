@@ -62,18 +62,32 @@ export class Garage extends BaseComponent {
         }
     }
 
-    // public async updateCar(event: Event): Promise<void> {
-    //     event.preventDefault();
-    //     const id =
-    //     const info = this.getInfoAboutCar("update_car_color", "update_car_title");
-    //     await api.updateCar(info);
-    //     //const newCar = await api.createCar(info);
-    // }
+    public async updateCar(event: Event): Promise<void> {
+        event.preventDefault();
+        const id = this.getCarId(event);
+        const info = this.getInfoAboutCar("update_car_color", "update_car_title");
+        await api.updateCar(info, id);
+        this.removeAllCarsFromGarage();
+        this.renderCarsFromGarage();
+        this.disableUpdateForm();
+    }
 
-    // private getCarId(event: Event): number {
-    //     const target = event.target as HTMLElement;
-    //     const id = target.getAttribute('');
-    // }
+    private disableUpdateForm(): void {
+        const input = document.getElementById("update_car_title") as HTMLInputElement;
+        const colorChoice = document.getElementById("update_car_color") as HTMLInputElement;
+        const btn = document.querySelector(".btn-update") as HTMLButtonElement;
+        input.disabled = true;
+        input.value = "";
+        colorChoice.disabled = true;
+        btn.disabled = true;
+        btn.removeAttribute("car-id");
+    }
+
+    private getCarId(event: Event): number {
+        const target = event.target as HTMLElement;
+        const id = target.getAttribute("car-id");
+        return Number(id);
+    }
 
     private getInfoAboutCar(idColor: string, idTitle: string): Car {
         const color = this.getColor(idColor);
@@ -116,5 +130,9 @@ export class Garage extends BaseComponent {
     private async getCarsFromGarage(): Promise<CarResponse[]> {
         const cars = await api.getCars(this.currentPage, carsPerPage);
         return cars;
+    }
+
+    private removeAllCarsFromGarage(): void {
+        this.garagePage.removeAllCars();
     }
 }

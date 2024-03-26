@@ -74,10 +74,10 @@ export class GarageRow extends BaseComponent {
 
     private async selectCar(id: number): Promise<void> {
         const info = await this.getInfoAboutCar(id);
-        this.enableUpdateForm(info);
+        this.enableUpdateForm(info, id);
     }
 
-    private enableUpdateForm(car: CarResponse): void {
+    private enableUpdateForm(car: CarResponse, id: number): void {
         const input = document.getElementById("update_car_title") as HTMLInputElement;
         const colorChoice = document.getElementById("update_car_color") as HTMLInputElement;
         const btn = document.querySelector(".btn-update") as HTMLButtonElement;
@@ -86,6 +86,7 @@ export class GarageRow extends BaseComponent {
         colorChoice.disabled = false;
         colorChoice.value = car.color;
         btn.disabled = false;
+        btn.setAttribute("car-id", String(id));
     }
 
     private async getInfoAboutCar(id: number): Promise<CarResponse> {
