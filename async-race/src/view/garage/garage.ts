@@ -122,13 +122,17 @@ export class Garage extends BaseComponent {
 
     public async renderCarsFromGarage(): Promise<void> {
         const cars = await this.getCarsFromGarage();
-        this.carsCount = cars.length;
         this.updateTitle();
         this.garagePage.renderCars(cars);
     }
 
     private async getCarsFromGarage(): Promise<CarResponse[]> {
-        const cars = await api.getCars(this.currentPage, carsPerPage);
+        const carResponce = await api.getCars(this.currentPage, carsPerPage);
+        const carsCount = carResponce.headers.get("X-Total-Count");
+        if (carsCount) {
+            this.carsCount = parseInt(carsCount);
+        }
+        const cars = await carResponce.json();
         return cars;
     }
 
