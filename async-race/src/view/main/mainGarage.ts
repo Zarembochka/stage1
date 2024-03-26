@@ -13,6 +13,7 @@ export class MainGarage extends BaseComponent {
 
     private prepareMain(): void {
         this.createSettings();
+        this.garage.renderCarsFromGarage();
         this.appendElement(this.garage.getElement());
     }
 
@@ -46,8 +47,12 @@ export class MainGarage extends BaseComponent {
     private createFormUpdateCar(): HTMLFormElement {
         const formCreate = this.createForm("form__update");
         const input = this.createInput(["input", "input__updateCar"], InputTYPES.text, "update_car_title");
+        input.disabled = true;
         const colorChoice = this.createInput(["input", "input__updateCarColor"], InputTYPES.color, "update_car_color");
+        colorChoice.disabled = true;
         const btn = this.createBtn(["btn", "btn__main", "btn-update"], "Update");
+        //btn.addEventListener("click", (event) => this.garage.updateCar(event));
+        btn.disabled = true;
         formCreate?.append(input, colorChoice, btn);
         return formCreate;
     }
@@ -79,8 +84,8 @@ export class MainGarage extends BaseComponent {
         return input;
     }
 
-    private createBtn(btnClass: string[], text: string): Element {
-        const btn = new BaseComponent({
+    private createBtn(btnClass: string[], text: string): HTMLButtonElement {
+        const btn = new BaseComponent<HTMLButtonElement>({
             tag: "button",
             classNames: btnClass,
             text: text,

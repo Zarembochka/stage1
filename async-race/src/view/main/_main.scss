@@ -33,8 +33,12 @@
 
 .btn__main {
     width: 60px;
+    &:disabled {
+        background-color: darken($color: white, $amount: 15%);
+        color: $font-color;
+    }
     @media screen and (hover: hover) {
-        &:hover {
+        &:hover:not(:disabled) {
             background-color: lighten($color: $font-color, $amount: 15%);
             color: white;
         }

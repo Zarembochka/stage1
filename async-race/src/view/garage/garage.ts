@@ -1,6 +1,6 @@
 import { api } from "../../api/work_with_api";
 import { BaseComponent } from "../utils/baseComponents";
-import { Car } from "../utils/interfaces";
+import { Car, CarResponse } from "../utils/interfaces";
 import { GaragePagination } from "./garage__pagination.scss/garage__pagination";
 
 const carsPerPage = 7;
@@ -10,6 +10,8 @@ export class Garage extends BaseComponent {
 
     private pageCount: number;
 
+    private currentPage: number;
+
     private garagePage: GaragePagination;
 
     constructor() {
@@ -17,6 +19,7 @@ export class Garage extends BaseComponent {
         this.garagePage = new GaragePagination();
         this.carsCount = 0;
         this.pageCount = 1;
+        this.currentPage = 1;
         this.prepareGarage();
     }
 
@@ -50,28 +53,41 @@ export class Garage extends BaseComponent {
 
     public async addCarToGarage(event: Event): Promise<void> {
         event.preventDefault();
-        const info = this.getInfoAboutNewCar();
+        const info = this.getInfoAboutCar("car_color", "car_title");
         this.carsCount += 1;
         this.updateTitle();
         const newCar = await api.createCar(info);
         if (this.carsCount <= carsPerPage) {
-            this.garagePage.addCarToPage(this.carsCount, newCar.color, newCar.name);
+            this.garagePage.addCarToPage(newCar);
         }
     }
 
-    private getInfoAboutNewCar(): Car {
-        const color = this.getColorToNewCar();
-        const title = this.getTitleToNewCar();
+    // public async updateCar(event: Event): Promise<void> {
+    //     event.preventDefault();
+    //     const id =
+    //     const info = this.getInfoAboutCar("update_car_color", "update_car_title");
+    //     await api.updateCar(info);
+    //     //const newCar = await api.createCar(info);
+    // }
+
+    // private getCarId(event: Event): number {
+    //     const target = event.target as HTMLElement;
+    //     const id = target.getAttribute('');
+    // }
+
+    private getInfoAboutCar(idColor: string, idTitle: string): Car {
+        const color = this.getColor(idColor);
+        const title = this.getTitle(idTitle);
         return { color: color, name: title };
     }
 
-    private getColorToNewCar(): string {
-        const colorInput = document.getElementById("car_color") as HTMLInputElement;
+    private getColor(id: string): string {
+        const colorInput = document.getElementById(id) as HTMLInputElement;
         return colorInput?.value;
     }
 
-    private getTitleToNewCar(): string {
-        const titleInput = document.getElementById("car_title") as HTMLInputElement;
+    private getTitle(id: string): string {
+        const titleInput = document.getElementById(id) as HTMLInputElement;
         const title = titleInput?.value;
         titleInput.value = "";
         return title;
@@ -88,5 +104,17 @@ export class Garage extends BaseComponent {
     public removeCarFromGarage(): void {
         this.carsCount -= 1;
         this.updateTitle();
+    }
+
+    public async renderCarsFromGarage(): Promise<void> {
+        const cars = await this.getCarsFromGarage();
+        this.carsCount = cars.length;
+        this.updateTitle();
+        this.garagePage.renderCars(cars);
+    }
+
+    private async getCarsFromGarage(): Promise<CarResponse[]> {
+        const cars = await api.getCars(this.currentPage, carsPerPage);
+        return cars;
     }
 }

@@ -1,23 +1,25 @@
 import { BaseComponent } from "../../utils/baseComponents";
 import { carSvg, finishSvg } from "../../../assets/image/logo";
+import { CarResponse } from "../../utils/interfaces";
+import { api } from "../../../api/work_with_api";
 
 export class GarageRow extends BaseComponent {
-    constructor(id: string, color: string, title: string) {
+    constructor(car: CarResponse) {
         super({ tag: "div", classNames: ["garage__race__row"] });
-        this.prepareGarageRow(id, color, title);
+        this.prepareGarageRow(car);
     }
 
-    private prepareGarageRow(id: string, color: string, title: string): void {
-        this.createInfo(id, title);
-        this.createCar(id, color);
+    private prepareGarageRow(car: CarResponse): void {
+        this.createInfo(car);
+        this.createCar(car);
         this.createFinish();
     }
 
-    private createCar(id: string, color: string): void {
+    private createCar(car: CarResponse): void {
         const rowCar = new BaseComponent({ tag: "div", classNames: ["garage__race__row__car"] }).getElement();
-        rowCar.id = id;
+        rowCar.id = String(car.id);
         rowCar.innerHTML = carSvg;
-        rowCar.style.fill = color;
+        rowCar.style.fill = car.color;
         this.appendElement(rowCar);
     }
 
@@ -27,46 +29,68 @@ export class GarageRow extends BaseComponent {
         this.appendElement(finish);
     }
 
-    private createInfo(id: string, title: string): void {
+    private createInfo(car: CarResponse): void {
         const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race__row__info"] }).getElement();
-        const btnStart = this.createBtnStart(id);
-        const btnRemove = this.createBtnRemove(id);
+        const btnSelect = this.createBtnSelect(car.id);
+        const btnRemove = this.createBtnRemove(car.id);
         const carTitle = new BaseComponent({
             tag: "span",
             classNames: ["garage__race__row__info-title"],
-            text: title,
+            text: car.name,
         }).getElement();
-        wrapper.append(btnStart, btnRemove, carTitle);
+        wrapper.append(btnSelect, btnRemove, carTitle);
         this.appendElement(wrapper);
     }
 
-    private createBtnStart(id: string): HTMLElement {
+    private createBtnSelect(id: number): HTMLElement {
         const btnStart = new BaseComponent({
             tag: "button",
-            classNames: ["btn", "btn-race"],
-            text: "Start",
+            classNames: ["btn", "btn-select"],
+            text: "Select",
         }).getElement();
-        btnStart.dataset.carId = id;
-        btnStart.addEventListener("click", () => this.startRace(id));
+        btnStart.dataset.carId = String(id);
+        //btnStart.addEventListener("click", () => this.startRace(id));
+        btnStart.addEventListener("click", () => this.selectCar(id));
         return btnStart;
     }
 
-    private createBtnRemove(id: string): HTMLElement {
+    private createBtnRemove(id: number): HTMLElement {
         const btnRemove = new BaseComponent({
             tag: "button",
             classNames: ["btn", "btn-remove"],
             text: "Remove",
         }).getElement();
-        btnRemove.dataset.carId = id;
+        btnRemove.dataset.carId = String(id);
         btnRemove.addEventListener("click", () => this.removeCar());
         return btnRemove;
     }
 
-    private startRace(id: string): void {
-        const car = document.getElementById(id) as HTMLElement;
-        const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
-        const start = car.getBoundingClientRect().left;
-        requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, start, finish));
+    // private startRace(id: string): void {
+    //     const car = document.getElementById(id) as HTMLElement;
+    //     const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
+    //     const start = car.getBoundingClientRect().left;
+    //     requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, start, finish));
+    // }
+
+    private async selectCar(id: number): Promise<void> {
+        const info = await this.getInfoAboutCar(id);
+        this.enableUpdateForm(info);
+    }
+
+    private enableUpdateForm(car: CarResponse): void {
+        const input = document.getElementById("update_car_title") as HTMLInputElement;
+        const colorChoice = document.getElementById("update_car_color") as HTMLInputElement;
+        const btn = document.querySelector(".btn-update") as HTMLButtonElement;
+        input.disabled = false;
+        input.value = car.name;
+        colorChoice.disabled = false;
+        colorChoice.value = car.color;
+        btn.disabled = false;
+    }
+
+    private async getInfoAboutCar(id: number): Promise<CarResponse> {
+        const info = await api.getCar(id);
+        return info;
     }
 
     private removeCar(): void {
