@@ -1,4 +1,4 @@
-import { Car, CarResponse } from "../view/utils/interfaces";
+import { Car, CarResponse, WinnerResponse } from "../view/utils/interfaces";
 
 const server = "http://127.0.0.1:3000";
 
@@ -55,6 +55,37 @@ class Api {
         };
 
         return fetch(`${server}/winners?_limit=${limit}&_page=${page}`, requestOptions);
+    }
+
+    public getAllWinners(): Promise<WinnerResponse[]> {
+        const requestOptions = {
+            method: "GET",
+        };
+
+        return fetch(`${server}/winners`, requestOptions).then((response: Response) => response.json());
+    }
+
+    public getWinner(id: number): Promise<Response> {
+        const requestOptions = {
+            method: "GET",
+        };
+
+        return fetch(`${server}/winners/${id}`, requestOptions);
+    }
+
+    public deleteCar(id: number): Promise<Response> {
+        const requestOptions = {
+            method: "DELETE",
+        };
+
+        return fetch(`${server}/garage/${id}`, requestOptions);
+    }
+
+    public async deleteWinner(id: number): Promise<void> {
+        const requestOptions = {
+            method: "DELETE",
+        };
+        await fetch(`${server}/winners/${id}`, requestOptions);
     }
 }
 

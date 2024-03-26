@@ -31,4 +31,20 @@ export class PageGarage {
     public getCarsPerPage(): number {
         return this.mainGarage.getCarsPerPage();
     }
+
+    public renderCars(): void {
+        this.mainGarage.renderCars();
+    }
+
+    public removeCarsFromGarage(): void {
+        this.mainGarage.removeCarsFromGarage();
+    }
+
+    public goToTheNextPage(): void {
+        this.mainGarage.goToTheNextPage();
+    }
+
+    public goToThePreviousPage(): void {
+        this.mainGarage.goToThePreviousPage();
+    }
 }

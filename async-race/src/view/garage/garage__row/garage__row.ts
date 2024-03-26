@@ -2,6 +2,7 @@ import { BaseComponent } from "../../utils/baseComponents";
 import { carSvg, finishSvg } from "../../../assets/image/logo";
 import { CarResponse } from "../../utils/interfaces";
 import { api } from "../../../api/work_with_api";
+import { app } from "../../..";
 
 export class GarageRow extends BaseComponent {
     constructor(car: CarResponse) {
@@ -61,7 +62,7 @@ export class GarageRow extends BaseComponent {
             text: "Remove",
         }).getElement();
         btnRemove.dataset.carId = String(id);
-        btnRemove.addEventListener("click", () => this.removeCar());
+        btnRemove.addEventListener("click", () => this.removeCar(id));
         return btnRemove;
     }
 
@@ -94,8 +95,22 @@ export class GarageRow extends BaseComponent {
         return info;
     }
 
-    private removeCar(): void {
-        this.removeElement();
+    private async removeCar(id: number): Promise<void> {
+        const result = await api.deleteCar(id);
+        if (result.status === 200) {
+            await this.removeCarFromWinners(id);
+            app.pageGarage.removeCarsFromGarage();
+            app.pageGarage.renderCars();
+            this.removeElement();
+        }
+    }
+
+    private async removeCarFromWinners(id: number) {
+        const winners = await api.getAllWinners();
+        const isIdInWinners = winners.findIndex((item) => item.id === id);
+        if (isIdInWinners !== -1) {
+            await api.deleteWinner(id);
+        }
     }
 
     private startAnimation(

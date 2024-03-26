@@ -152,7 +152,7 @@ export class Garage extends BaseComponent {
         return cars;
     }
 
-    private removeAllCarsFromGarage(): void {
+    public removeAllCarsFromGarage(): void {
         this.garagePage.removeAllCars();
     }
 
@@ -189,7 +189,6 @@ export class Garage extends BaseComponent {
     public async generateRandomCars(carsCount: number): Promise<void> {
         for (let i = 1; i <= carsCount; i += 1) {
             const car = getRandomCar();
-            console.log(car);
             await this.createCar(car);
         }
     }

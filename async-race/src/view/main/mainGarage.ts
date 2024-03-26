@@ -103,4 +103,20 @@ export class MainGarage extends BaseComponent {
     public getCarsPerPage(): number {
         return this.garage.getCarsPerPage();
     }
+
+    public renderCars(): void {
+        this.garage.renderCarsFromGarage();
+    }
+
+    public removeCarsFromGarage(): void {
+        this.garage.removeAllCarsFromGarage();
+    }
+
+    public goToTheNextPage(): void {
+        this.garage.goToNextPage();
+    }
+
+    public goToThePreviousPage(): void {
+        this.garage.goToPreviousPage();
+    }
 }

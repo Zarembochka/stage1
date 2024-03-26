@@ -1,3 +1,4 @@
+import { app } from "../..";
 import { BaseComponent } from "../utils/baseComponents";
 
 export class Footer extends BaseComponent {
@@ -12,10 +13,10 @@ export class Footer extends BaseComponent {
 
     private createPageButtons(): void {
         const btnPrevious = this.createBtn(["btn", "btn__main", "btn-previous"], "<< Page");
-        //btnPrevious.addEventListener("click", () => this.garage.goToPreviousPage());
+        btnPrevious.addEventListener("click", () => app.goToThePreviousPage());
         btnPrevious.disabled = true;
         const btnNext = this.createBtn(["btn", "btn__main", "btn-next"], "Page >>");
-        //btnNext.addEventListener("click", () => this.garage.goToNextPage());
+        btnNext.addEventListener("click", () => app.goToTheNextPage());
         btnNext.disabled = true;
         this.getElement().append(btnPrevious, btnNext);
     }
