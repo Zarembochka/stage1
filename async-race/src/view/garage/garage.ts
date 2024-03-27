@@ -143,13 +143,17 @@ export class Garage extends BaseComponent {
     }
 
     private async getCarsFromGarage(): Promise<CarResponse[]> {
-        const carResponce = await api.getCars(this.currentPage, carsPerPage);
-        const carsCount = carResponce.headers.get("X-Total-Count");
-        if (carsCount) {
-            this.carsCount = parseInt(carsCount);
+        try {
+            const carResponce = await api.getCars(this.currentPage, carsPerPage);
+            const carsCount = carResponce.headers.get("X-Total-Count");
+            if (carsCount) {
+                this.carsCount = parseInt(carsCount);
+            }
+            const cars = await carResponce.json();
+            return cars;
+        } catch {
+            return [];
         }
-        const cars = await carResponce.json();
-        return cars;
     }
 
     public removeAllCarsFromGarage(): void {

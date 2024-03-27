@@ -48,12 +48,14 @@ class Api {
         return fetch(`${server}/garage/${id}`, requestOptions).then((response: Response) => response.json());
     }
 
-    public getCars(page: number, limit: number): Promise<Response> {
+    public async getCars(page: number, limit: number): Promise<Response> {
         const requestOptions = {
             method: "GET",
         };
 
-        return fetch(`${server}/garage?_limit=${limit}&_page=${page}`, requestOptions);
+        return fetch(`${server}/garage?_limit=${limit}&_page=${page}`, requestOptions).then((res: Response) =>
+            this.errorCallback(res)
+        );
     }
 
     public getWinners(page: number, limit: number): Promise<Response> {
