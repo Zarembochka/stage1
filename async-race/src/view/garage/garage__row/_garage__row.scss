@@ -32,6 +32,7 @@
 }
 
 .garage__race__row__finish {
+    z-index: -1;
     position: absolute;
     right: calc(50px + 75px);
     bottom: -3px;

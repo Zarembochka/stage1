@@ -30,3 +30,8 @@ export interface CarAnimation {
     velocity: number;
     distance: number;
 }
+
+export interface CarAnimationWithId {
+    id: number;
+    car: CarAnimation;
+}

@@ -1,3 +1,4 @@
+import { api } from "../../api/work_with_api";
 import { Garage } from "../garage/garage";
 import { BaseComponent } from "../utils/baseComponents";
 import { InputTYPES } from "../utils/enums";
@@ -30,7 +31,9 @@ export class MainGarage extends BaseComponent {
     private createSettingButtons(): Element {
         const wrapper = this.createWrapperToField(["main__setting__buttons"]);
         const btnRace = this.createBtn(["btn", "btn__setting", "btn-race"], "Race");
+        btnRace.addEventListener("click", () => this.startRace());
         const btnReset = this.createBtn(["btn", "btn__setting", "btn-reset"], "Reset");
+        btnReset.disabled = true;
         const btnGenerate = this.createBtn(["btn", "btn__setting", "btn-generate"], "Generate cars");
         btnGenerate.addEventListener("click", () => this.garage.generateRandomCars(generateCarsCount));
         wrapper.append(btnRace, btnReset, btnGenerate);
@@ -118,5 +121,25 @@ export class MainGarage extends BaseComponent {
 
     public goToThePreviousPage(): void {
         this.garage.goToPreviousPage();
+    }
+
+    public disableBtn(classname: string): void {
+        const btn = this.element.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = true;
+    }
+
+    public enableBtn(classname: string): void {
+        const btn = this.element.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = false;
+    }
+
+    private async startRace(): Promise<void> {
+        const carsBtns = [...document.querySelectorAll<HTMLElement>(".btn-start")];
+        const cars = carsBtns.map((item) => Number(item.dataset.carId)).map((id) => api.startRace(id));
+        const result = (await Promise.all(cars)).map((car, index) => ({
+            id: Number(carsBtns[index].dataset.carId),
+            car,
+        }));
+        this.garage.startRace(result);
     }
 }

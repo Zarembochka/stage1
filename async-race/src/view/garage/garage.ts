@@ -1,7 +1,7 @@
 import { getRandomCar, getRandomTitle } from "../../utils/randomCar";
 import { api } from "../../api/work_with_api";
 import { BaseComponent } from "../utils/baseComponents";
-import { Car, CarResponse } from "../utils/interfaces";
+import { Car, CarAnimationWithId, CarResponse } from "../utils/interfaces";
 import { GaragePagination } from "./garage__pagination.scss/garage__pagination";
 
 const carsPerPage = 7;
@@ -199,5 +199,9 @@ export class Garage extends BaseComponent {
 
     public getCarsPerPage(): number {
         return carsPerPage;
+    }
+
+    public startRace(cars: CarAnimationWithId[]): void {
+        this.garagePage.startRace(cars);
     }
 }

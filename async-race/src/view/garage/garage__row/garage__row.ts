@@ -1,16 +1,19 @@
 import { BaseComponent } from "../../utils/baseComponents";
 import { carSvg, finishSvg } from "../../../assets/image/logo";
-import { CarResponse } from "../../utils/interfaces";
+import { CarAnimation, CarResponse } from "../../utils/interfaces";
 import { api } from "../../../api/work_with_api";
 import { app } from "../../..";
 
 export class GarageRow extends BaseComponent {
     private animation: number;
 
+    public id: number;
+
     constructor(car: CarResponse) {
         super({ tag: "div", classNames: ["garage__race__row"] });
         this.animation = 0;
         this.prepareGarageRow(car);
+        this.id = car.id;
     }
 
     private prepareGarageRow(car: CarResponse): void {
@@ -135,7 +138,7 @@ export class GarageRow extends BaseComponent {
             text: "Start",
         }).getElement();
         btnStart.dataset.carId = String(id);
-        btnStart.addEventListener("click", () => this.startRaceCar(id));
+        btnStart.addEventListener("click", () => this.startRace(id));
         return btnStart;
     }
 
@@ -159,24 +162,36 @@ export class GarageRow extends BaseComponent {
         this.appendElement(wrapper);
     }
 
-    private async startRaceCar(id: number): Promise<void> {
+    private async startRace(id: number): Promise<void> {
+        const data = await this.getDurationAnimation(id);
+        this.startRaceCar(data);
+    }
+
+    public async startRaceCar(data: CarAnimation): Promise<void> {
+        const duration = data.distance / data.velocity;
+        const car = document.getElementById(String(this.id)) as HTMLElement;
+        const finish = this.element.querySelector(".garage__race__row__finish") as HTMLElement;
+        this.animation = requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
         this.disableBtn(".btn-start");
         this.enableBtn(".btn-stop");
+        const success = await api.driveMode(this.id);
+        if (!success) {
+            cancelAnimationFrame(this.animation);
+        }
+    }
+
+    private async getDurationAnimation(id: number): Promise<CarAnimation> {
         const data = await api.startRace(id);
-        const duration = data.distance / data.velocity;
-        const car = document.getElementById(String(id)) as HTMLElement;
-        const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
-        this.animation = requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
+        return data;
     }
 
     private async stopRaceCar(id: number): Promise<void> {
-        this.disableBtn(".btn-stop");
-        this.enableBtn(".btn-start");
         const result = await api.stopRace(id);
-        const car = document.getElementById(String(id)) as HTMLElement;
         if (result.status === 200) {
+            this.disableBtn(".btn-stop");
+            this.enableBtn(".btn-start");
             cancelAnimationFrame(this.animation);
-            car.style.transform = "";
+            this.moveCarToStart(id);
         }
     }
 
@@ -188,5 +203,10 @@ export class GarageRow extends BaseComponent {
     private enableBtn(classname: string): void {
         const btn = this.element.querySelector(classname) as HTMLButtonElement;
         btn.disabled = false;
+    }
+
+    private moveCarToStart(id: number): void {
+        const car = document.getElementById(String(id)) as HTMLElement;
+        car.style.transform = "";
     }
 }

@@ -54,8 +54,12 @@
     &:last-of-type {
         min-width: 115px;
     }
+    &:disabled {
+        background-color: darken($color: white, $amount: 35%);
+        color: $font-color;
+    }
     @media screen and (hover: hover) {
-        &:hover {
+        &:hover:not(:disabled) {
             background-color: lighten($color: $font-color, $amount: 15%);
             color: white;
         }

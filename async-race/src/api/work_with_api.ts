@@ -3,6 +3,13 @@ import { Car, CarAnimation, CarResponse, WinnerResponse } from "../view/utils/in
 const server = "http://127.0.0.1:3000";
 
 class Api {
+    private errorCallback(res: Response): Response {
+        if (res.status !== 200) {
+            throw Error(res.statusText);
+        }
+        return res;
+    }
+
     public createCar(car: Car): Promise<CarResponse> {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -104,6 +111,15 @@ class Api {
         };
 
         return fetch(`${server}/engine/?id=${id}&status=stopped`, requestOptions);
+    }
+
+    public async driveMode(id: number): Promise<boolean> {
+        const requestOptions = {
+            method: "PATCH",
+        };
+
+        const response = await fetch(`${server}/engine?id=${id}&status=drive`, requestOptions);
+        return response?.status === 200;
     }
 }
 
