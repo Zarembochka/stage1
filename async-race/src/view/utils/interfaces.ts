@@ -25,3 +25,8 @@ export interface WinnerRow {
     wins: number;
     time: number;
 }
+
+export interface CarAnimation {
+    velocity: number;
+    distance: number;
+}

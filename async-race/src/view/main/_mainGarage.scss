@@ -1,5 +1,9 @@
-.main {
+.main__winners {
     padding: 15px 0;
+}
+
+.main__garage {
+    padding-top: 15px;
 }
 
 .main__settings {
@@ -34,7 +38,7 @@
 .btn__main {
     width: 60px;
     &:disabled {
-        background-color: darken($color: white, $amount: 15%);
+        background-color: darken($color: white, $amount: 35%);
         color: $font-color;
     }
     @media screen and (hover: hover) {

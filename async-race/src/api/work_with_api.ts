@@ -1,4 +1,4 @@
-import { Car, CarResponse, WinnerResponse } from "../view/utils/interfaces";
+import { Car, CarAnimation, CarResponse, WinnerResponse } from "../view/utils/interfaces";
 
 const server = "http://127.0.0.1:3000";
 
@@ -86,6 +86,16 @@ class Api {
             method: "DELETE",
         };
         await fetch(`${server}/winners/${id}`, requestOptions);
+    }
+
+    public startRace(id: number): Promise<CarAnimation> {
+        const requestOptions = {
+            method: "PATCH",
+        };
+
+        return fetch(`${server}/engine/?id=${id}&status=started`, requestOptions).then((response: Response) =>
+            response.json()
+        );
     }
 }
 

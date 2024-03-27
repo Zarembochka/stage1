@@ -12,6 +12,7 @@ export class GarageRow extends BaseComponent {
 
     private prepareGarageRow(car: CarResponse): void {
         this.createInfo(car);
+        this.createStartAndStop(car.id);
         this.createCar(car);
         this.createFinish();
     }
@@ -116,15 +117,59 @@ export class GarageRow extends BaseComponent {
     private startAnimation(
         timeStep: CSSNumberish,
         car: HTMLElement,
-        start: number,
         finish: HTMLElement,
-        percent = 0
+        duration: number,
+        zero: CSSNumberish = 0
     ): void {
-        const finishPosition = finish.getBoundingClientRect().right;
-        const carPosition = start + (car.getBoundingClientRect().width * percent) / 100;
-        if (finishPosition > carPosition) {
-            car.style.transform = `translateX(${percent + 5}%)`;
-            requestAnimationFrame((time) => this.startAnimation(time, car, start, finish, percent + 5));
+        if (zero === 0) {
+            zero = timeStep;
         }
+        const timeDrive = +timeStep - +zero;
+        const finishPosition = finish.offsetLeft;
+        const distance = (finishPosition * timeDrive) / duration;
+        if (timeDrive < duration) {
+            car.style.transform = `translateX(${distance}px)`;
+            requestAnimationFrame((time) => this.startAnimation(time, car, finish, duration, zero));
+        }
+    }
+
+    private createBtnStart(id: number): HTMLElement {
+        const btnStart = new BaseComponent({
+            tag: "button",
+            classNames: ["btn", "btn-start"],
+            text: "Start",
+        }).getElement();
+        btnStart.dataset.carId = String(id);
+        btnStart.addEventListener("click", () => this.startRaceCar(id));
+        //btnStart.addEventListener("click", () => this.selectCar(id));
+        return btnStart;
+    }
+
+    private createBtnStop(id: number): HTMLElement {
+        const btnStop = new BaseComponent({
+            tag: "button",
+            classNames: ["btn", "btn-stop"],
+            text: "Stop",
+        }).getElement();
+        btnStop.dataset.carId = String(id);
+        //btnStart.addEventListener("click", () => this.startRace(id));
+        //btnStart.addEventListener("click", () => this.selectCar(id));
+        return btnStop;
+    }
+
+    private createStartAndStop(id: number): void {
+        const wrapper = new BaseComponent({ tag: "div", classNames: ["garage__race__row__startAndStop"] }).getElement();
+        const btnStart = this.createBtnStart(id);
+        const btnStop = this.createBtnStop(id);
+        wrapper.append(btnStart, btnStop);
+        this.appendElement(wrapper);
+    }
+
+    private async startRaceCar(id: number): Promise<void> {
+        const data = await api.startRace(id);
+        const duration = data.distance / data.velocity;
+        const car = document.getElementById(String(id)) as HTMLElement;
+        const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
+        requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
     }
 }
