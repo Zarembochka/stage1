@@ -97,6 +97,14 @@ class Api {
             response.json()
         );
     }
+
+    public stopRace(id: number): Promise<Response> {
+        const requestOptions = {
+            method: "PATCH",
+        };
+
+        return fetch(`${server}/engine/?id=${id}&status=stopped`, requestOptions);
+    }
 }
 
 export const api = new Api();

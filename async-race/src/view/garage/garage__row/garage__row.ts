@@ -5,8 +5,11 @@ import { api } from "../../../api/work_with_api";
 import { app } from "../../..";
 
 export class GarageRow extends BaseComponent {
+    private animation: number;
+
     constructor(car: CarResponse) {
         super({ tag: "div", classNames: ["garage__race__row"] });
+        this.animation = 0;
         this.prepareGarageRow(car);
     }
 
@@ -51,7 +54,6 @@ export class GarageRow extends BaseComponent {
             text: "Select",
         }).getElement();
         btnStart.dataset.carId = String(id);
-        //btnStart.addEventListener("click", () => this.startRace(id));
         btnStart.addEventListener("click", () => this.selectCar(id));
         return btnStart;
     }
@@ -66,13 +68,6 @@ export class GarageRow extends BaseComponent {
         btnRemove.addEventListener("click", () => this.removeCar(id));
         return btnRemove;
     }
-
-    // private startRace(id: string): void {
-    //     const car = document.getElementById(id) as HTMLElement;
-    //     const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
-    //     const start = car.getBoundingClientRect().left;
-    //     requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, start, finish));
-    // }
 
     private async selectCar(id: number): Promise<void> {
         const info = await this.getInfoAboutCar(id);
@@ -129,31 +124,30 @@ export class GarageRow extends BaseComponent {
         const distance = (finishPosition * timeDrive) / duration;
         if (timeDrive < duration) {
             car.style.transform = `translateX(${distance}px)`;
-            requestAnimationFrame((time) => this.startAnimation(time, car, finish, duration, zero));
+            this.animation = requestAnimationFrame((time) => this.startAnimation(time, car, finish, duration, zero));
         }
     }
 
-    private createBtnStart(id: number): HTMLElement {
-        const btnStart = new BaseComponent({
+    private createBtnStart(id: number): HTMLButtonElement {
+        const btnStart = new BaseComponent<HTMLButtonElement>({
             tag: "button",
-            classNames: ["btn", "btn-start"],
+            classNames: ["btn", "btn-drive", "btn-start"],
             text: "Start",
         }).getElement();
         btnStart.dataset.carId = String(id);
         btnStart.addEventListener("click", () => this.startRaceCar(id));
-        //btnStart.addEventListener("click", () => this.selectCar(id));
         return btnStart;
     }
 
-    private createBtnStop(id: number): HTMLElement {
-        const btnStop = new BaseComponent({
+    private createBtnStop(id: number): HTMLButtonElement {
+        const btnStop = new BaseComponent<HTMLButtonElement>({
             tag: "button",
-            classNames: ["btn", "btn-stop"],
+            classNames: ["btn", "btn-drive", "btn-stop"],
             text: "Stop",
         }).getElement();
         btnStop.dataset.carId = String(id);
-        //btnStart.addEventListener("click", () => this.startRace(id));
-        //btnStart.addEventListener("click", () => this.selectCar(id));
+        btnStop.disabled = true;
+        btnStop.addEventListener("click", () => this.stopRaceCar(id));
         return btnStop;
     }
 
@@ -166,10 +160,33 @@ export class GarageRow extends BaseComponent {
     }
 
     private async startRaceCar(id: number): Promise<void> {
+        this.disableBtn(".btn-start");
+        this.enableBtn(".btn-stop");
         const data = await api.startRace(id);
         const duration = data.distance / data.velocity;
         const car = document.getElementById(String(id)) as HTMLElement;
         const finish = document.querySelector(".garage__race__row__finish") as HTMLElement;
-        requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
+        this.animation = requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
+    }
+
+    private async stopRaceCar(id: number): Promise<void> {
+        this.disableBtn(".btn-stop");
+        this.enableBtn(".btn-start");
+        const result = await api.stopRace(id);
+        const car = document.getElementById(String(id)) as HTMLElement;
+        if (result.status === 200) {
+            cancelAnimationFrame(this.animation);
+            car.style.transform = "";
+        }
+    }
+
+    private disableBtn(classname: string): void {
+        const btn = this.element.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = true;
+    }
+
+    private enableBtn(classname: string): void {
+        const btn = this.element.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = false;
     }
 }

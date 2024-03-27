@@ -41,3 +41,10 @@
     @include display-flex(column);
     row-gap: 3px;
 }
+
+.btn-drive {
+    &:disabled {
+        background-color: darken($color: white, $amount: 35%);
+        color: $font-color;
+    }
+}
