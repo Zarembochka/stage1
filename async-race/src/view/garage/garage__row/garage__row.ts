@@ -150,7 +150,7 @@ export class GarageRow extends BaseComponent {
         }).getElement();
         btnStop.dataset.carId = String(id);
         btnStop.disabled = true;
-        btnStop.addEventListener("click", () => this.stopRaceCar(id));
+        btnStop.addEventListener("click", () => this.stopRaceCar());
         return btnStop;
     }
 
@@ -174,7 +174,7 @@ export class GarageRow extends BaseComponent {
         this.animation = requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
         this.disableBtn(".btn-start");
         this.enableBtn(".btn-stop");
-        const success = await api.driveMode(this.id);
+        const success = await api.driveMode(this.id).catch(() => console.log(555));
         if (!success) {
             cancelAnimationFrame(this.animation);
         }
@@ -185,14 +185,18 @@ export class GarageRow extends BaseComponent {
         return data;
     }
 
-    private async stopRaceCar(id: number): Promise<void> {
-        const result = await api.stopRace(id);
+    private async stopRaceCar(): Promise<void> {
+        const result = await api.stopRace(this.id);
         if (result.status === 200) {
-            this.disableBtn(".btn-stop");
-            this.enableBtn(".btn-start");
-            cancelAnimationFrame(this.animation);
-            this.moveCarToStart(id);
+            this.resetRace();
         }
+    }
+
+    public resetRace(): void {
+        this.disableBtn(".btn-stop");
+        this.enableBtn(".btn-start");
+        cancelAnimationFrame(this.animation);
+        this.moveCarToStart(this.id);
     }
 
     private disableBtn(classname: string): void {

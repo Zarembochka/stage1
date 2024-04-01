@@ -120,7 +120,9 @@ class Api {
             method: "PATCH",
         };
 
-        const response = await fetch(`${server}/engine?id=${id}&status=drive`, requestOptions);
+        const response = await fetch(`${server}/engine?id=${id}&status=drive`, requestOptions)
+            .then((res) => this.errorCallback(res))
+            .catch((err) => console.log(err));
         return response?.status === 200;
     }
 }

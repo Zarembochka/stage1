@@ -33,6 +33,7 @@ export class MainGarage extends BaseComponent {
         const btnRace = this.createBtn(["btn", "btn__setting", "btn-race"], "Race");
         btnRace.addEventListener("click", () => this.startRace());
         const btnReset = this.createBtn(["btn", "btn__setting", "btn-reset"], "Reset");
+        btnReset.addEventListener("click", () => this.resetRace());
         btnReset.disabled = true;
         const btnGenerate = this.createBtn(["btn", "btn__setting", "btn-generate"], "Generate cars");
         btnGenerate.addEventListener("click", () => this.garage.generateRandomCars(generateCarsCount));
@@ -141,5 +142,23 @@ export class MainGarage extends BaseComponent {
             car,
         }));
         this.garage.startRace(result);
+        this.disableBtn(".btn-race");
+        this.enableBtn(".btn-reset");
+    }
+
+    private async resetRace(): Promise<void> {
+        this.disableBtn(".btn-reset");
+        this.enableBtn(".btn-race");
+        const carsBtns = [...document.querySelectorAll<HTMLElement>(".btn-stop")];
+        const cars = carsBtns
+            .map((item) => Number(item.dataset.carId))
+            .map((id) => ({ id: id, car: api.stopRace(id) }));
+        cars.forEach((car) =>
+            car.car.then((res: Response) => {
+                if (res.status === 200) {
+                    this.garage.resetRace(car.id);
+                }
+            })
+        );
     }
 }

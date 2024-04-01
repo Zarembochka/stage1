@@ -29,4 +29,8 @@ export class GaragePagination extends BaseComponent {
     public startRace(cars: CarAnimationWithId[]): void {
         cars.forEach((item) => this.cars.find((car) => car.id === item.id)?.startRaceCar(item.car));
     }
+
+    public resetRace(id: number): void {
+        this.cars.find((car) => car.id === id)?.resetRace();
+    }
 }

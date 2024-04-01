@@ -208,4 +208,8 @@ export class Garage extends BaseComponent {
     public startRace(cars: CarAnimationWithId[]): void {
         this.garagePage.startRace(cars);
     }
+
+    public resetRace(id: number): void {
+        this.garagePage.resetRace(id);
+    }
 }
