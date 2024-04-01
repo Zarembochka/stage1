@@ -1,4 +1,5 @@
 .footer {
     @include display-flex(row);
     column-gap: 15px;
+    z-index: 2;
 }

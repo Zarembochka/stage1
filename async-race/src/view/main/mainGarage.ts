@@ -160,5 +160,6 @@ export class MainGarage extends BaseComponent {
                 }
             })
         );
+        this.garage.removeWinner();
     }
 }

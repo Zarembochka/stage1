@@ -6,6 +6,10 @@ body {
     font-family: Dragon;
 }
 
+.container__garage {
+    @include display-flex(column);
+}
+
 .btn {
     &:not(:disabled) {
         cursor: pointer;

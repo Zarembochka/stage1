@@ -212,4 +212,8 @@ export class Garage extends BaseComponent {
     public resetRace(id: number): void {
         this.garagePage.resetRace(id);
     }
+
+    public removeWinner(): void {
+        this.garagePage.removeWinner();
+    }
 }
