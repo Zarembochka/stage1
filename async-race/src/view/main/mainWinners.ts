@@ -141,7 +141,7 @@ export class MainWinners extends BaseComponent {
     }
 
     public removeWinners(): void {
-        const table = document.querySelector(".main__table__winners");
+        const table = this.element.querySelector(".main__table__winners");
         if (table) {
             this.element.removeChild(table);
         }

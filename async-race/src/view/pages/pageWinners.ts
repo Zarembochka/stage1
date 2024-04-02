@@ -28,6 +28,7 @@ export class PageWinners {
     }
 
     public getPage(): HTMLElement {
+        this.removeWinners();
         this.renderWinners();
         return this.container;
     }
