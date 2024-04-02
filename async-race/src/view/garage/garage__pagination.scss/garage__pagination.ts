@@ -34,10 +34,12 @@ export class GaragePagination extends BaseComponent {
     }
 
     public async startRace(cars: CarAnimationWithId[]): Promise<void> {
-        cars.forEach((item) => this.cars.find((car) => car.car.id === item.id)?.startRaceCar(item.car, true));
+        await Promise.allSettled(
+            cars.map((item) => this.cars.find((car) => car.car.id === item.id)?.startRaceCar(item.car, true))
+        ).finally(() => this.enableResetBtn());
     }
 
-    public resetRace(id: number): void {
+    public async resetRace(id: number): Promise<void> {
         this.cars.find((car) => car.car.id === id)?.resetRace();
     }
 
@@ -73,9 +75,7 @@ export class GaragePagination extends BaseComponent {
             api.createWinner({ id: car.id, wins: 1, time: time }).finally(() => this.enableResetBtn());
             return;
         }
-        api.updateWinner({ id: car.id, wins: isWinners.wins + 1, time: Math.min(time, isWinners.time) }).finally(() =>
-            this.enableResetBtn()
-        );
+        api.updateWinner({ id: car.id, wins: isWinners.wins + 1, time: Math.min(time, isWinners.time) });
     }
 
     private enableResetBtn(): void {

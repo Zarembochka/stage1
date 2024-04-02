@@ -177,15 +177,16 @@ export class GarageRow extends BaseComponent {
         this.startRaceCar(data, checkWinner);
     }
 
-    private async checkEngine(checkWinner: boolean): Promise<void> {
-        api.driveMode(this.car.id).then((res: boolean) => {
+    private async checkEngine(checkWinner: boolean): Promise<boolean> {
+        return api.driveMode(this.car.id).then((res: boolean) => {
             if (!res) {
                 cancelAnimationFrame(this.animation);
-                return;
+                return false;
             }
             if (checkWinner) {
                 this.checkWinner();
             }
+            return true;
         });
     }
 
@@ -196,7 +197,7 @@ export class GarageRow extends BaseComponent {
         this.page?.setWinner(this.car, this.time);
     }
 
-    public async startRaceCar(data: CarAnimation, checkWinner: boolean): Promise<void> {
+    public async startRaceCar(data: CarAnimation, checkWinner: boolean): Promise<boolean> {
         const duration = data.distance / data.velocity;
         this.time = duration;
         const car = document.getElementById(String(this.car.id)) as HTMLElement;
@@ -204,7 +205,8 @@ export class GarageRow extends BaseComponent {
         this.animation = requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
         this.disableBtn(".btn-start");
         this.enableBtn(".btn-stop");
-        this.checkEngine(checkWinner);
+        const results = await this.checkEngine(checkWinner).then((value) => value);
+        return results;
     }
 
     private async getDurationAnimation(id: number): Promise<CarAnimation> {

@@ -136,6 +136,8 @@ export class MainGarage extends BaseComponent {
     }
 
     private async startRace(): Promise<void> {
+        app.pageGarage.disableBtn(".btn-winners");
+        this.disableBtn(".btn-race");
         const carsBtns = [...document.querySelectorAll<HTMLElement>(".btn-start")];
         const cars = carsBtns.map((item) => Number(item.dataset.carId)).map((id) => api.startRace(id));
         const result = (await Promise.all(cars)).map((car, index) => ({
@@ -143,9 +145,6 @@ export class MainGarage extends BaseComponent {
             car,
         }));
         this.garage.startRace(result);
-        this.disableBtn(".btn-race");
-        app.pageGarage.disableBtn(".btn-winners");
-        //this.enableBtn(".btn-reset");
     }
 
     private async resetRace(): Promise<void> {
@@ -155,14 +154,20 @@ export class MainGarage extends BaseComponent {
         const cars = carsBtns
             .map((item) => Number(item.dataset.carId))
             .map((id) => ({ id: id, car: api.stopRace(id) }));
-        cars.forEach((car) =>
-            car.car.then((res: Response) => {
-                if (res.status === 200) {
-                    this.garage.resetRace(car.id);
-                }
-            })
-        );
-        this.garage.removeWinner();
-        app.pageGarage.enableBtn(".btn-winners");
+        await Promise.allSettled(
+            cars.map((car) =>
+                car.car.then((res: Response) => {
+                    if (res.status === 200) {
+                        this.garage.resetRace(car.id);
+                    }
+                })
+            )
+        ).finally(() => {
+            this.garage.removeWinner();
+            app.pageGarage.enableBtn(".btn-winners");
+        });
+
+        // this.garage.removeWinner();
+        // app.pageGarage.enableBtn(".btn-winners");
     }
 }
