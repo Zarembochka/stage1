@@ -65,6 +65,7 @@ export class MainWinners extends BaseComponent {
         this.createRowToTable(wrapper, ["Number", "Image", "Model", "Wins", "Best time"]);
         this.createWinnersTable(wrapper, winners);
         this.element.append(wrapper);
+        this.checkNextPage();
     }
 
     private updateTitle(): void {
@@ -143,6 +144,37 @@ export class MainWinners extends BaseComponent {
         const table = document.querySelector(".main__table__winners");
         if (table) {
             this.element.removeChild(table);
+        }
+    }
+
+    private checkNextPage(): void {
+        if (this.winnersCount <= this.currentPage * winnersPerPage) {
+            this.setEnableStatus(".btn-next", true);
+            return;
+        }
+        this.setEnableStatus(".btn-next", false);
+    }
+
+    private setEnableStatus(classname: string, flag: boolean): void {
+        const btn = document.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = flag;
+    }
+
+    public goToNextPage(): void {
+        this.currentPage += 1;
+        this.removeWinners();
+        this.renderWinners();
+        //enable previos page btn
+        this.setEnableStatus(".btn-previous", false);
+    }
+
+    public goToPreviousPage(): void {
+        this.currentPage -= 1;
+        this.removeWinners();
+        this.renderWinners();
+        //this.renderCarsFromGarage();
+        if (this.currentPage === 1) {
+            this.setEnableStatus(".btn-previous", true);
         }
     }
 }

@@ -3,6 +3,7 @@ import { BaseComponent } from "../../utils/baseComponents";
 import { CarAnimationWithId, CarResponse, WinnerResponse } from "../../utils/interfaces";
 import { GarageRow } from "../garage__row/garage__row";
 import { api } from "../../../api/work_with_api";
+import { app } from "../../..";
 
 export class GaragePagination extends BaseComponent {
     public cars: GarageRow[];
@@ -68,10 +69,16 @@ export class GaragePagination extends BaseComponent {
         }
         const isWinners = winners.find((item) => item.id === car.id);
         if (!isWinners) {
-            api.createWinner({ id: car.id, wins: 1, time: time });
+            api.createWinner({ id: car.id, wins: 1, time: time }).finally(() => this.enableResetBtn());
             return;
         }
-        api.updateWinner({ id: car.id, wins: isWinners.wins + 1, time: Math.min(time, isWinners.time) });
+        api.updateWinner({ id: car.id, wins: isWinners.wins + 1, time: Math.min(time, isWinners.time) }).finally(() =>
+            this.enableResetBtn()
+        );
+    }
+
+    private enableResetBtn(): void {
+        app.pageGarage.mainGarage.enableBtn(".btn-reset");
     }
 
     public async getWinners(): Promise<WinnerResponse[]> {

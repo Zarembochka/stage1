@@ -143,7 +143,7 @@ export class MainGarage extends BaseComponent {
         }));
         this.garage.startRace(result);
         this.disableBtn(".btn-race");
-        this.enableBtn(".btn-reset");
+        //this.enableBtn(".btn-reset");
     }
 
     private async resetRace(): Promise<void> {

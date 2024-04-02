@@ -37,6 +37,7 @@ class App {
             this.pageGarage.mainGarage.goToTheNextPage();
             return;
         }
+        this.pageWinners.mainWinners.goToNextPage();
     }
 
     public goToThePreviousPage(): void {
@@ -44,6 +45,7 @@ class App {
             this.pageGarage.mainGarage.goToThePreviousPage();
             return;
         }
+        this.pageWinners.mainWinners.goToPreviousPage();
     }
 }
 
