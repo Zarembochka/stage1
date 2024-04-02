@@ -213,7 +213,7 @@ export class GarageRow extends BaseComponent {
     }
 
     private async stopRaceCar(): Promise<void> {
-        const result = await api.stopRace(this.car.id);
+        const result = await api.stopRace(this.car.id).catch();
         if (result.status === 200) {
             this.time = 0;
             this.resetRace();

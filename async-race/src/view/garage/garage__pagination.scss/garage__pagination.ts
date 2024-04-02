@@ -29,6 +29,7 @@ export class GaragePagination extends BaseComponent {
     }
 
     public removeAllCars(): void {
+        this.cars = [];
         this.getElement().innerHTML = "";
     }
 
