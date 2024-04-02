@@ -1,3 +1,4 @@
+import { app } from "../..";
 import { api } from "../../api/work_with_api";
 import { Garage } from "../garage/garage";
 import { BaseComponent } from "../utils/baseComponents";
@@ -143,6 +144,7 @@ export class MainGarage extends BaseComponent {
         }));
         this.garage.startRace(result);
         this.disableBtn(".btn-race");
+        app.pageGarage.disableBtn(".btn-winners");
         //this.enableBtn(".btn-reset");
     }
 
@@ -161,5 +163,6 @@ export class MainGarage extends BaseComponent {
             })
         );
         this.garage.removeWinner();
+        app.pageGarage.enableBtn(".btn-winners");
     }
 }

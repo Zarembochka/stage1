@@ -47,4 +47,14 @@ export class PageGarage {
     public goToThePreviousPage(): void {
         this.mainGarage.goToThePreviousPage();
     }
+
+    public disableBtn(classname: string): void {
+        const btn = document.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = true;
+    }
+
+    public enableBtn(classname: string): void {
+        const btn = document.querySelector(classname) as HTMLButtonElement;
+        btn.disabled = false;
+    }
 }
