@@ -125,6 +125,36 @@ class Api {
             .catch((err) => console.log(err));
         return response?.status === 200;
     }
+
+    public async createWinner(winner: WinnerResponse): Promise<Response> {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const newWinner = JSON.stringify(winner);
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: newWinner,
+        };
+
+        return fetch(`${server}/winners`, requestOptions);
+    }
+
+    public async updateWinner(winner: WinnerResponse): Promise<Response> {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const newWinner = JSON.stringify(winner);
+
+        const requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: newWinner,
+        };
+
+        return fetch(`${server}/winners/${winner.id}`, requestOptions);
+    }
 }
 
 export const api = new Api();

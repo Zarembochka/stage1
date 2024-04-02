@@ -23,17 +23,13 @@ class Modal extends BaseComponent {
         this.getElement().append(this.title, this.winner);
     }
 
-    private setWinner(carTitle: string): void {
-        this.addWinner(carTitle);
-    }
-
-    private addWinner(text: string): void {
-        this.winner.textContent = text;
+    private addWinner(text: string, time: number): void {
+        this.winner.textContent = `${text} with time ${time.toString()}`;
         this.appendElement(this.winner);
     }
 
-    public showModal(carTitle: string): void {
-        this.setWinner(carTitle);
+    public showModal(carTitle: string, time: number): void {
+        this.addWinner(carTitle, time);
         this.addModalToDOM();
         setTimeout(() => this.hideModal(), 3500);
     }

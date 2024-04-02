@@ -10,6 +10,8 @@ export class GarageRow extends BaseComponent {
 
     public car: CarResponse;
 
+    private time: number;
+
     private page: GaragePagination | null;
 
     constructor(car: CarResponse, page: GaragePagination) {
@@ -18,6 +20,7 @@ export class GarageRow extends BaseComponent {
         this.car = car;
         this.prepareGarageRow(car);
         this.page = page;
+        this.time = 0;
     }
 
     private prepareGarageRow(car: CarResponse): void {
@@ -108,8 +111,11 @@ export class GarageRow extends BaseComponent {
         }
     }
 
-    private async removeCarFromWinners() {
-        const winners = await api.getAllWinners();
+    private async removeCarFromWinners(): Promise<void> {
+        const winners = await this.page?.getWinners();
+        if (!winners) {
+            return;
+        }
         const isIdInWinners = winners.findIndex((item) => item.id === this.car.id);
         if (isIdInWinners !== -1) {
             await api.deleteWinner(this.car.id);
@@ -187,11 +193,12 @@ export class GarageRow extends BaseComponent {
         if (this.page?.isWinner()) {
             return;
         }
-        this.page?.setWinner(this.car);
+        this.page?.setWinner(this.car, this.time);
     }
 
     public async startRaceCar(data: CarAnimation, checkWinner: boolean): Promise<void> {
         const duration = data.distance / data.velocity;
+        this.time = duration;
         const car = document.getElementById(String(this.car.id)) as HTMLElement;
         const finish = this.element.querySelector(".garage__race__row__finish") as HTMLElement;
         this.animation = requestAnimationFrame((timeStep) => this.startAnimation(timeStep, car, finish, duration));
@@ -208,6 +215,7 @@ export class GarageRow extends BaseComponent {
     private async stopRaceCar(): Promise<void> {
         const result = await api.stopRace(this.car.id);
         if (result.status === 200) {
+            this.time = 0;
             this.resetRace();
         }
     }
