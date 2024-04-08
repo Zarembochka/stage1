@@ -1,0 +1,13 @@
+@import "./abstracts/fonts";
+@import "./abstracts/mixins";
+@import "./abstracts/variables";
+@import "./pages/loginPage";
+@import "./pages/forms/loginForm";
+
+* {
+    box-sizing: border-box;
+}
+
+.btn {
+    cursor: pointer;
+}

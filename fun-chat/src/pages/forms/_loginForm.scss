@@ -1,0 +1,74 @@
+.login__form {
+    @include display-flex(column);
+    row-gap: 15px;
+    user-select: none;
+    min-width: 310px;
+    max-width: 350px;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 1px -1px 23px -5px $shadow-color;
+    background-color: $background-color;
+    color: $form-font-color;
+    font-size: 1.5em;
+    font-family: Dragon;
+}
+
+.login__form__item {
+    @include display-flex(column);
+    width: 100%;
+    row-gap: 10px;
+    &:last-of-type {
+        margin-bottom: 10px;
+    }
+}
+
+.login__form__input {
+    font-size: inherit;
+    outline: none;
+    border: 1px solid $form-border-color;
+    padding: 2px 5px;
+    font-family: inherit;
+}
+
+.login__form__input-password {
+    font-family: "Courier New", Courier, monospace;
+}
+
+.login__form__item__message {
+    font-family: Hexen;
+    font-size: 0.55em;
+    color: $color-error;
+}
+
+.form__login__item-notvalid {
+    border: 1px solid $color-error;
+}
+
+.form__login__item-valid {
+    border: 1px solid $color-valid;
+}
+
+.btn-login {
+    font-size: inherit;
+    font-family: inherit;
+    color: $color-btn;
+    padding: 10px 25px;
+    align-self: center;
+    transition:
+        transform,
+        background-color,
+        border-color,
+        color,
+        opacity 0.3s ease-in-out;
+    border-radius: 10px;
+    background-color: $color-orange-btn;
+    border: 1px solid $color-orange-btn;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: lighten($color-orange-btn, 5%);
+            border: 1px solid lighten($color-orange-btn, 10%);
+            color: lighten($color-btn, 7%);
+            transform: scale(1.05);
+        }
+    }
+}
