@@ -41,7 +41,7 @@ const baseConfig = {
         assetModuleFilename: "assets/[name][ext]",
     },
     plugins: [
-        new htmlWebpackPlugin({ title: "Fun-chat", favicon: "" }),
+        new htmlWebpackPlugin({ title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg" }),
         new miniCssExtractPlugin({ filename: "[name].css" }),
         new CleanWebpackPlugin(),
     ],
