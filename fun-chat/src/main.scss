@@ -1,13 +1,27 @@
 @import "./abstracts/fonts";
 @import "./abstracts/mixins";
 @import "./abstracts/variables";
-@import "./pages/loginPage";
-@import "./pages/forms/loginForm";
+@import "./pages/login/loginPage";
+@import "./pages/login/forms/loginForm";
+@import "./pages/main/mainPage";
+@import "./pages/main/header/header";
+@import "./pages/main/footer/footer";
 
 * {
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    background-image: url("./assets/images/background/bg.png");
+    background-size: cover;
+    height: 100dvh;
+}
+
 .btn {
     cursor: pointer;
+}
+
+.container {
+    padding: 15px;
 }

@@ -1,4 +1,4 @@
-import { BaseComponent } from "../../utils/baseComponents";
+import { BaseComponent } from "../../../utils/baseComponents";
 import { checkValidationBeforeSaving, checkValidation, focusValidation } from "./validation";
 
 export class LoginForm extends BaseComponent {

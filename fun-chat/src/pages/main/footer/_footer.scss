@@ -1,0 +1,19 @@
+.footer {
+    @include display-flex(row, space-between, center);
+    font-family: Dragon;
+    color: $color-orange-btn;
+    user-select: none;
+}
+
+.footer__ico {
+    fill: $color-orange-btn;
+    transition:
+        fill,
+        transform 0.3s ease-in;
+    @media screen and (hover: hover) {
+        &:hover {
+            fill: lighten($color-orange-btn, 5%);
+            transform: scale(1.05);
+        }
+    }
+}

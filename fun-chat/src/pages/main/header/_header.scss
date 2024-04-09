@@ -1,0 +1,10 @@
+.header {
+    @include display-flex(row, space-between, center);
+    font-family: Dragon;
+    color: $color-orange-btn;
+    user-select: none;
+}
+
+.header__title {
+    margin: 0;
+}

@@ -1,4 +1,4 @@
-import { BaseComponent } from "../utils/baseComponents";
+import { BaseComponent } from "../../utils/baseComponents";
 import { LoginForm } from "./forms/loginForm";
 
 export class LoginPage {

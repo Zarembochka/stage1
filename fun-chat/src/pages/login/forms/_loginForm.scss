@@ -48,18 +48,18 @@
     border: 1px solid $color-valid;
 }
 
-.btn-login {
+.btn-login,
+.btn-logout {
     font-size: inherit;
     font-family: inherit;
     color: $color-btn;
     padding: 10px 25px;
     align-self: center;
     transition:
-        transform,
         background-color,
         border-color,
         color,
-        opacity 0.3s ease-in-out;
+        transform 0.3s ease-in;
     border-radius: 10px;
     background-color: $color-orange-btn;
     border: 1px solid $color-orange-btn;
