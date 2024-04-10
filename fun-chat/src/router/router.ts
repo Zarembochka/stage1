@@ -61,5 +61,5 @@ class Router {
     }
 }
 
-const pathSegmentsToKeep = 2;
+const pathSegmentsToKeep = 3;
 export const router = new Router(pathSegmentsToKeep);
