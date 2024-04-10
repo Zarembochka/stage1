@@ -55,15 +55,15 @@ class Router {
     private addListenerToWindow(): void {
         window.addEventListener("popstate", () => {
             const path = this.getShortPath(window.location.pathname);
-            this.goTo(`/${path}`);
+            this.goTo(`${path}`);
         });
-        window.addEventListener("DOMContentLoaded", () => {
-            // const currentPath = window.location.pathname
-            //     .split("/")
-            //     .slice(this.pathSegmentsToKeep + 1)
-            //     .join("/");
-            //this.goToPath(this.config["/login"]);
-        });
+        // window.addEventListener("DOMContentLoaded", () => {
+        //     // const currentPath = window.location.pathname
+        //     //     .split("/")
+        //     //     .slice(this.pathSegmentsToKeep + 1)
+        //     //     .join("/");
+        //     //this.goToPath(this.config["/login"]);
+        // });
     }
 }
 

@@ -18,8 +18,3 @@ export enum PathToPage {
     login = 0,
     main = 1,
 }
-
-// export interface ConfigRouting {
-//     "/login": Routing;
-//     "/main": Routing;
-// }
