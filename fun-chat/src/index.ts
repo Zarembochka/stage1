@@ -5,7 +5,7 @@ import { PagesView } from "./utils/interfaces";
 import { router } from "./router/router";
 
 (function (l) {
-    if (l.search[2] === "/") {
+    if (l.search[1] === "/") {
         const decoded = l.search
             .slice(1)
             .split("&")

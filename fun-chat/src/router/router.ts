@@ -50,12 +50,10 @@ class Router {
             console.log(window.location.pathname);
         });
         window.addEventListener("DOMContentLoaded", () => {
-            console.log(111);
-            const currentPath = window.location.pathname
-                .split("/")
-                .slice(this.pathSegmentsToKeep + 1)
-                .join("/");
-            console.log(currentPath);
+            // const currentPath = window.location.pathname
+            //     .split("/")
+            //     .slice(this.pathSegmentsToKeep + 1)
+            //     .join("/");
             this.goTo(this.config["/login"]);
         });
     }
