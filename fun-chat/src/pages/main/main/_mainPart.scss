@@ -1,0 +1,4 @@
+.main {
+    //100% - 2 * padding - header height - footer height
+    height: calc(100dvh - 30px - 40px - 70px);
+}
