@@ -1,5 +1,9 @@
+import { router } from "../../../router/router";
 import { BaseComponent } from "../../../utils/baseComponents";
 import { checkValidationBeforeSaving, checkValidation, focusValidation } from "./validation";
+//import { router } from "../../../router/router";
+//import { app } from "../../..";
+//import { PagesView } from "../../../utils/interfaces";
 
 export class LoginForm extends BaseComponent {
     private user: HTMLInputElement;
@@ -81,6 +85,7 @@ export class LoginForm extends BaseComponent {
         event.preventDefault();
         if (checkValidationBeforeSaving([this.user, this.password])) {
             //TODO add actions after success validation
+            router.main();
         }
     }
 }

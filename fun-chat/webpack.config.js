@@ -5,7 +5,10 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const baseConfig = {
-    entry: "./src/index.ts",
+    entry: {
+        index: "./src/index.ts",
+        404: "./src/404.ts"
+    },
     mode: "development",
     module: {
         rules: [
@@ -37,11 +40,13 @@ const baseConfig = {
     },
     output: {
         path: path.resolve(__dirname, "./dist"),
-        filename: "index.js",
+        publicPath: '/',
+        //filename: "index.js",
         assetModuleFilename: "assets/[name][ext]",
     },
     plugins: [
-        new htmlWebpackPlugin({ title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg" }),
+        new htmlWebpackPlugin({ filename: 'index.html', title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg", chunks: ['index']}),
+        new htmlWebpackPlugin({ filename: '404.html', title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg", chunks: ['404'] }),
         new miniCssExtractPlugin({ filename: "[name].css" }),
         new CleanWebpackPlugin(),
     ],
