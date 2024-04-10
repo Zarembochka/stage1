@@ -3,11 +3,11 @@ import { ConfigRouting, PagesView, Routing } from "../utils/interfaces";
 
 const config = {
     "/login": {
-        path: "/login",
+        path: "login",
         view: PagesView.login,
     },
     "/main": {
-        path: "/main",
+        path: "main",
         view: PagesView.main,
     },
 };
