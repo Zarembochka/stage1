@@ -44,7 +44,7 @@ const baseConfig = {
         assetModuleFilename: "assets/[name][ext]",
     },
     plugins: [
-        new htmlWebpackPlugin({ filename: 'index.html', title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg", chunks: ['index']}),
+        new htmlWebpackPlugin({ base: {'href': '/zarembochka-JSFE2023Q4/fun-chat/'}, filename: 'index.html', title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg", chunks: ['index']}),
         new htmlWebpackPlugin({ filename: '404.html', title: "Fun-chat", favicon: "./src/assets/images/favicon/favicon.svg", chunks: ['404'] }),
         new miniCssExtractPlugin({ filename: "[name].css" }),
         new CleanWebpackPlugin(),

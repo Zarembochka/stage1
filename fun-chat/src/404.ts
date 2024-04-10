@@ -1,6 +1,7 @@
-const pathSegmentsToKeep = 3;
+const pathSegmentsToKeep = 2;
 
 const l = window.location;
+console.log(l.pathname);
 l.replace(
     l.protocol +
         "//" +
