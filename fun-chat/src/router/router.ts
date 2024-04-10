@@ -1,19 +1,19 @@
 import { app } from "..";
-import { ConfigRouting, PagesView, Routing } from "../utils/interfaces";
+import { PagesView, PathToPage, Routing } from "../utils/interfaces";
 
-const config = {
-    "/login": {
+const config = [
+    {
         path: "login",
         view: PagesView.login,
     },
-    "/main": {
+    {
         path: "main",
         view: PagesView.main,
     },
-};
+];
 
 class Router {
-    private config: ConfigRouting;
+    private config: Routing[];
 
     private pathSegmentsToKeep: number;
 
@@ -23,24 +23,15 @@ class Router {
         this.addListenerToWindow();
     }
 
-    private redirectToLogin(): void {
-        this.goTo(this.config["/login"]);
-    }
-
     public start(): void {
-        const localPath = window.location.pathname;
-        if (!["/login", "/main"].includes(localPath)) {
-            this.redirectToLogin();
-            return;
-        }
-        this.goTo(this.config["/login"]);
+        this.goToPath(this.config[PathToPage.login]);
     }
 
     public main(): void {
-        this.goTo(this.config["/main"]);
+        this.goToPath(this.config[PathToPage.main]);
     }
 
-    private goTo(rout: Routing): void {
+    private goToPath(rout: Routing): void {
         const pathnameApp = window.location.pathname
             .split("/")
             .slice(1, this.pathSegmentsToKeep + 1)
@@ -49,16 +40,29 @@ class Router {
         app.render(rout.view);
     }
 
+    private getShortPath(path: string): string {
+        const pathInArray = path.split("/");
+        return pathInArray.at(-1) || "";
+    }
+
+    private goTo(path: string) {
+        const roting = this.config.find((key) => key.path === path);
+        if (roting) {
+            app.render(roting.view);
+        }
+    }
+
     private addListenerToWindow(): void {
         window.addEventListener("popstate", () => {
-            console.log(window.location.pathname);
+            const path = this.getShortPath(window.location.pathname);
+            this.goTo(`/${path}`);
         });
         window.addEventListener("DOMContentLoaded", () => {
             // const currentPath = window.location.pathname
             //     .split("/")
             //     .slice(this.pathSegmentsToKeep + 1)
             //     .join("/");
-            this.goTo(this.config["/login"]);
+            //this.goToPath(this.config["/login"]);
         });
     }
 }

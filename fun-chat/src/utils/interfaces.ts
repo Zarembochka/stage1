@@ -5,7 +5,6 @@ export interface ParamsToComponent {
 }
 
 export enum PagesView {
-    home,
     login,
     main,
 }
@@ -15,7 +14,12 @@ export interface Routing {
     view: PagesView;
 }
 
-export interface ConfigRouting {
-    "/login": Routing;
-    "/main": Routing;
+export enum PathToPage {
+    login = 0,
+    main = 1,
 }
+
+// export interface ConfigRouting {
+//     "/login": Routing;
+//     "/main": Routing;
+// }
