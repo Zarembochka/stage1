@@ -45,6 +45,11 @@ function checkInputValidation(element: HTMLInputElement): boolean {
     if (!checkTextValidation(element, /.{4}/, "The field should contain minimal 4 characters")) {
         return false;
     }
+    if (element.type === "password") {
+        if (!checkTextValidation(element, /[a-zA-Z]+/, "The passwors should contain minimal one English letters")) {
+            return false;
+        }
+    }
     return true;
 }
 
