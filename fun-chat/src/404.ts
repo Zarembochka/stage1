@@ -1,4 +1,4 @@
-const pathSegmentsToKeep = 0;
+const pathSegmentsToKeep = 3;
 
 const l = window.location;
 l.replace(
