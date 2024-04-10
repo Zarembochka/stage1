@@ -41,7 +41,11 @@ class Router {
     }
 
     private goTo(rout: Routing): void {
-        history.pushState({}, "", window.location.origin + rout.path);
+        const pathnameApp = window.location.pathname
+            .split("/")
+            .slice(1, this.pathSegmentsToKeep + 1)
+            .join("/");
+        history.pushState({}, "", `/${pathnameApp}/${rout.path}`);
         app.render(rout.view);
     }
 

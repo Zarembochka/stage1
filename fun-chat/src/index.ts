@@ -13,7 +13,8 @@ import { router } from "./router/router";
                 return s.replace(/~and~/g, "&");
             })
             .join("?");
-        window.history.replaceState(null, "", l.pathname.slice(0, -1) + decoded + l.hash);
+        const newPath = l.pathname.slice(0, -1) + decoded + l.hash;
+        window.history.replaceState(null, "", newPath);
     }
 })(window.location);
 
