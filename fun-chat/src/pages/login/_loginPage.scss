@@ -1,3 +1,4 @@
 .container__login {
+    height: 100%;
     @include display-flex(row, center, center);
 }
