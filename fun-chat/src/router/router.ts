@@ -15,8 +15,11 @@ const config = {
 class Router {
     private config: ConfigRouting;
 
-    constructor() {
+    private pathSegmentsToKeep: number;
+
+    constructor(pathSegmentsToKeep: number) {
         this.config = config;
+        this.pathSegmentsToKeep = pathSegmentsToKeep;
         this.addListenerToWindow();
     }
 
@@ -46,8 +49,17 @@ class Router {
         window.addEventListener("popstate", () => {
             console.log(window.location.pathname);
         });
-        //window.addEventListener("DOMContentLoaded", () => console.log(window.location.pathname));
+        window.addEventListener("DOMContentLoaded", () => {
+            console.log(111);
+            const currentPath = window.location.pathname
+                .split("/")
+                .slice(this.pathSegmentsToKeep + 1)
+                .join("/");
+            console.log(currentPath);
+            this.goTo(this.config["/login"]);
+        });
     }
 }
 
-export const router = new Router();
+const pathSegmentsToKeep = 2;
+export const router = new Router(pathSegmentsToKeep);

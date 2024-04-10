@@ -40,8 +40,7 @@ const baseConfig = {
     },
     output: {
         path: path.resolve(__dirname, "./dist"),
-        publicPath: '/',
-        //filename: "index.js",
+         //filename: "index.js",
         assetModuleFilename: "assets/[name][ext]",
     },
     plugins: [
