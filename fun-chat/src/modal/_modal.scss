@@ -1,0 +1,46 @@
+.modalBackground {
+    width: 100vw;
+    height: 100dvh;
+    position: fixed;
+    top: 0;
+    @include display-flex(column, center, center);
+    background-color: rgba($color: #fff, $alpha: 0.45);
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal {
+    user-select: none;
+    @include display-flex(column, center, center);
+    row-gap: 15px;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 250px;
+    max-width: 100%;
+    background-color: #f3efdd;
+    margin: 5px;
+    border: 2px solid $shadow-color;
+    transition: transform 0.5s ease-in-out;
+    position: relative;
+    transform: translateY(-45%);
+    //transform: scale(1.5);
+    //box-shadow: 1px -1px 23px -5px $shadow-color;
+    color: $form-font-color;
+    font-family: Dragon;
+    .modalBackground.show & {
+        transform: translateY(0%);
+        //transform: scale(1);
+    }
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal__title {
+    margin: 0;
+    font-family: Hexen;
+}

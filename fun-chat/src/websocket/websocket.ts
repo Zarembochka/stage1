@@ -1,3 +1,4 @@
+import { myModal } from "../modal/modal";
 import { router } from "../router/router";
 import { sStorage } from "../sessionStorage/storage";
 import { LoginRequest, LoginResponse, TypesMessages, TypesRequests } from "../utils/interfaces";
@@ -30,7 +31,10 @@ class MyWebSocket {
     }
 
     private readError(event: Event): void {
-        console.log(event);
+        if (this.checkServerStatus()) {
+            console.log(event);
+        }
+        //console.log(this.socket.readyState);
     }
 
     private readMessage(msg: MessageEvent): void {
@@ -45,14 +49,13 @@ class MyWebSocket {
     }
 
     private readMessageLogin(data: LoginResponse): void {
-        try {
-            sStorage.saveUserToLS(data.payload.user);
-            router.main(data.payload.user.login);
-        } catch {
-            if (data.type === TypesMessages.error) {
-                //TODO modal with error
-            }
+        if (data.type === TypesMessages.error) {
+            //TODO modal with error
+            myModal.showModal("Incorrect password!");
+            return;
         }
+        sStorage.saveUserToLS(data.payload.user);
+        router.main(data.payload.user.login);
     }
 
     private userLogin(msg: LoginRequest): void {
@@ -61,9 +64,19 @@ class MyWebSocket {
         this.id += 1;
     }
 
+    private checkServerStatus(): boolean {
+        if (this.socket.readyState === 3) {
+            myModal.showModal("No connection with server!");
+            return false;
+        }
+        return true;
+    }
+
     public sendRequestForUserLogin(login: string, password: string): void {
-        const msg = this.getRequestForLogin(login, password);
-        this.userLogin(msg);
+        if (this.checkServerStatus()) {
+            const msg = this.getRequestForLogin(login, password);
+            this.userLogin(msg);
+        }
     }
 
     private getRequestForLogin(login: string, password: string): LoginRequest {

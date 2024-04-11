@@ -3,6 +3,7 @@ import { LoginPage } from "./pages/login/loginPage";
 import { MainPage } from "./pages/main/mainPage";
 import { PagesView } from "./utils/interfaces";
 import { router } from "./router/router";
+import { myModal } from "./modal/modal";
 
 (function (l) {
     if (l.search[1] === "/") {
@@ -30,7 +31,7 @@ class App {
 
     private renderPage(page: LoginPage | MainPage): void {
         document.body.innerHTML = "";
-        document.body.append(page.getPage());
+        document.body.append(page.getPage(), myModal.getElement());
     }
 
     public render(view: PagesView): void {
@@ -43,6 +44,10 @@ class App {
 
     public setActiveUser(name: string): void {
         this.mainPage.setActiveUser(name);
+    }
+
+    public clearLoginForm(): void {
+        this.loginPage.clearLoginForm();
     }
 }
 

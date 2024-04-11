@@ -36,6 +36,7 @@ class Router {
     public main(name: string): void {
         this.goToPath(this.config[PathToPage.main]);
         app.setActiveUser(name);
+        app.clearLoginForm();
     }
 
     private goToPath(rout: Routing): void {
@@ -43,7 +44,12 @@ class Router {
             .split("/")
             .slice(1, this.pathSegmentsToKeep + 1)
             .join("/");
-        history.pushState({}, "", `/${pathnameApp}/${rout.path}`);
+        try {
+            history.pushState({}, "", `/${pathnameApp}/${rout.path}`);
+        } catch {
+            history.pushState({}, "", `/${rout.path}`);
+        }
+        //history.pushState({}, "", `/${pathnameApp}/${rout.path}`);
         app.render(rout.view);
     }
 
@@ -74,5 +80,6 @@ class Router {
     }
 }
 
-const pathSegmentsToKeep = 2;
+//const pathSegmentsToKeep = 2;
+const pathSegmentsToKeep = 0;
 export const router = new Router(pathSegmentsToKeep);

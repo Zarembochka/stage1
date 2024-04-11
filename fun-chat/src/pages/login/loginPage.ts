@@ -19,4 +19,8 @@ export class LoginPage {
     public getPage(): HTMLElement {
         return this.container;
     }
+
+    public clearLoginForm(): void {
+        this.loginForm.clearForm();
+    }
 }

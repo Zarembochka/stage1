@@ -87,11 +87,11 @@ export class LoginForm extends BaseComponent {
             //TODO add actions after success validation
             //router.main();
             socket.sendRequestForUserLogin(this.user.value.trim(), this.password.value.trim());
-            this.clearForm();
+            //this.clearForm();
         }
     }
 
-    private clearForm(): void {
+    public clearForm(): void {
         this.user.value = "";
         this.password.value = "";
         this.user.classList.remove("form__login__item-valid");
