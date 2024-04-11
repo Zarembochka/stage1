@@ -1,3 +1,5 @@
+import { router } from "../../../router/router";
+import { sStorage } from "../../../sessionStorage/storage";
 import { BaseComponent } from "../../../utils/baseComponents";
 
 export class Header extends BaseComponent {
@@ -26,11 +28,17 @@ export class Header extends BaseComponent {
             tag: "button",
             classNames: ["btn", "btn-logout"],
             text: "Logout",
-        });
-        return btn.getElement();
+        }).getElement();
+        btn.addEventListener("click", () => this.logout());
+        return btn;
     }
 
     public setUserName(name: string): void {
         this.title.textContent = `Fun-chat: ${name}`;
+    }
+
+    private logout(): void {
+        sStorage.removeUser();
+        router.start();
     }
 }

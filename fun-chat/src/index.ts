@@ -40,6 +40,10 @@ class App {
         }
         this.renderPage(this.mainPage);
     }
+
+    public setActiveUser(name: string): void {
+        this.mainPage.setActiveUser(name);
+    }
 }
 
 export const app = new App();

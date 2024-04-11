@@ -28,4 +28,8 @@ export class MainPage {
     public getPage(): HTMLElement {
         return this.container;
     }
+
+    public setActiveUser(name: string): void {
+        this.header.setUserName(name);
+    }
 }

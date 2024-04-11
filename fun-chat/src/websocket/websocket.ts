@@ -35,7 +35,7 @@ class MyWebSocket {
         if (msgType.type === TypesMessages.login) {
             //const data: LoginResponse = JSON.parse(msg.data);
             sStorage.saveUserToLS(data.payload.user);
-            router.main();
+            router.main(data.payload.user.login);
         }
     }
 

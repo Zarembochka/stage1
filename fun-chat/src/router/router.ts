@@ -1,4 +1,5 @@
 import { app } from "..";
+import { sStorage } from "../sessionStorage/storage";
 import { PagesView, PathToPage, Routing } from "../utils/interfaces";
 
 const config = [
@@ -24,11 +25,17 @@ class Router {
     }
 
     public start(): void {
+        const user = sStorage.getActiveUser();
+        if (user) {
+            this.main(user.login);
+            return;
+        }
         this.goToPath(this.config[PathToPage.login]);
     }
 
-    public main(): void {
+    public main(name: string): void {
         this.goToPath(this.config[PathToPage.main]);
+        app.setActiveUser(name);
     }
 
     private goToPath(rout: Routing): void {
