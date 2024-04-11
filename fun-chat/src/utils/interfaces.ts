@@ -60,3 +60,22 @@ export interface TypesRequests {
     id: string;
     type: TypesMessages;
 }
+
+export interface AllUsersRequest {
+    id: string;
+    type: TypesMessages;
+    payload: null;
+}
+
+export interface AllUsersResponse {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        users: UserResponse[];
+    };
+}
+
+export enum StatusUser {
+    active = "active",
+    nonactive = "nonactive",
+}

@@ -1,7 +1,17 @@
+import { app } from "..";
 import { myModal } from "../modal/modal";
 import { router } from "../router/router";
 import { sStorage } from "../sessionStorage/storage";
-import { LoginRequest, LoginResponse, TypesMessages, TypesRequests } from "../utils/interfaces";
+import {
+    AllUsersRequest,
+    AllUsersResponse,
+    LoginRequest,
+    LoginResponse,
+    StatusUser,
+    TypesMessages,
+    TypesRequests,
+} from "../utils/interfaces";
+import { Message } from "./message";
 
 const url = "ws://localhost:4000";
 
@@ -12,10 +22,13 @@ class MyWebSocket {
 
     private requests: TypesRequests[];
 
+    private message: Message;
+
     constructor() {
         this.id = 1;
         this.socket = new WebSocket(url);
         this.requests = [];
+        this.message = new Message();
         this.addListeners();
     }
 
@@ -46,6 +59,12 @@ class MyWebSocket {
         if (msgType.type === TypesMessages.login) {
             this.readMessageLogin(data);
         }
+        if (msgType.type === TypesMessages.usersActive) {
+            this.readMessageAllUsers(data, StatusUser.active);
+        }
+        if (msgType.type === TypesMessages.usersNonActive) {
+            this.readMessageAllUsers(data, StatusUser.nonactive);
+        }
     }
 
     private readMessageLogin(data: LoginResponse): void {
@@ -55,10 +74,16 @@ class MyWebSocket {
             return;
         }
         sStorage.saveUserToLS(data.payload.user);
+        this.sendRequestsForAllUsers();
         router.main(data.payload.user.login);
     }
 
-    private userLogin(msg: LoginRequest): void {
+    private readMessageAllUsers(data: AllUsersResponse, status: StatusUser): void {
+        const users = data.payload.users;
+        app.updateUsers(users, status);
+    }
+
+    private sendMessage(msg: LoginRequest | AllUsersRequest): void {
         this.socket.send(JSON.stringify(msg));
         this.requests.push({ id: msg.id, type: msg.type });
         this.id += 1;
@@ -74,23 +99,28 @@ class MyWebSocket {
 
     public sendRequestForUserLogin(login: string, password: string): void {
         if (this.checkServerStatus()) {
-            const msg = this.getRequestForLogin(login, password);
-            this.userLogin(msg);
+            const msg = this.message.getRequestForLogin(this.id, login, password);
+            this.sendMessage(msg);
         }
     }
 
-    private getRequestForLogin(login: string, password: string): LoginRequest {
-        const msg = {
-            id: String(this.id),
-            type: TypesMessages.login,
-            payload: {
-                user: {
-                    login: login,
-                    password: password,
-                },
-            },
-        };
-        return msg;
+    private sendRequestForOnlineUsers(): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForOnlineUsers(this.id);
+            this.sendMessage(msg);
+        }
+    }
+
+    private sendRequestForOfflineUsers(): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForOfflineUsers(this.id);
+            this.sendMessage(msg);
+        }
+    }
+
+    private sendRequestsForAllUsers(): void {
+        this.sendRequestForOnlineUsers();
+        this.sendRequestForOfflineUsers();
     }
 }
 

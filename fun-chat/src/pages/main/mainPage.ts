@@ -1,4 +1,5 @@
 import { BaseComponent } from "../../utils/baseComponents";
+import { StatusUser, UserResponse } from "../../utils/interfaces";
 import { Footer } from "./footer/footer";
 import { Header } from "./header/header";
 import { MainPart } from "./main/mainPart";
@@ -31,5 +32,9 @@ export class MainPage {
 
     public setActiveUser(name: string): void {
         this.header.setUserName(name);
+    }
+
+    public updateUsers(users: UserResponse[], status: StatusUser): void {
+        this.main.updateUsers(users, status);
     }
 }
