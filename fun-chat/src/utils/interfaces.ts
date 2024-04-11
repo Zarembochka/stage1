@@ -27,6 +27,7 @@ export enum TypesMessages {
     msgSend = "MSG_SEND",
     msgHistory = "MSG_FROM_USER",
     msgRead = "MSG_READ",
+    error = "ERROR",
 }
 
 export interface User {

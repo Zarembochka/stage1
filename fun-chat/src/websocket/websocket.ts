@@ -1,6 +1,6 @@
 import { router } from "../router/router";
 import { sStorage } from "../sessionStorage/storage";
-import { LoginRequest, TypesMessages, TypesRequests } from "../utils/interfaces";
+import { LoginRequest, LoginResponse, TypesMessages, TypesRequests } from "../utils/interfaces";
 
 const url = "ws://localhost:4000";
 
@@ -24,6 +24,13 @@ class MyWebSocket {
         this.socket.onmessage = (message: MessageEvent) => {
             this.readMessage(message);
         };
+        this.socket.onerror = (event: Event) => {
+            this.readError(event);
+        };
+    }
+
+    private readError(event: Event): void {
+        console.log(event);
     }
 
     private readMessage(msg: MessageEvent): void {
@@ -33,9 +40,18 @@ class MyWebSocket {
             return;
         }
         if (msgType.type === TypesMessages.login) {
-            //const data: LoginResponse = JSON.parse(msg.data);
+            this.readMessageLogin(data);
+        }
+    }
+
+    private readMessageLogin(data: LoginResponse): void {
+        try {
             sStorage.saveUserToLS(data.payload.user);
             router.main(data.payload.user.login);
+        } catch {
+            if (data.type === TypesMessages.error) {
+                //TODO modal with error
+            }
         }
     }
 
