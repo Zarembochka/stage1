@@ -15,6 +15,7 @@ export class Users extends BaseComponent {
     }
 
     private prepareUsers(): void {
+        this.search.addEventListener("keyup", () => this.findUsers());
         this.getElement().append(this.search, this.userList);
     }
 
@@ -68,6 +69,20 @@ export class Users extends BaseComponent {
         while (this.userList.firstChild) {
             this.userList.firstChild.remove();
         }
+    }
+
+    private findUsers(): void {
+        const str = this.search.value;
+        this.hideOtherUsers(str);
+    }
+
+    private hideOtherUsers(str: string): void {
+        //const users = [...this.userList.childNodes] as HTMLElement[];
+        //users.forEach((item) => item.classList.add("hide"));
+        const users = [...document.querySelectorAll(`.users__list__item__login`)];
+        users.forEach((item) => item.parentElement?.classList.add("hide"));
+        const resultUsers = users.filter((item) => item.textContent?.includes(str));
+        resultUsers.forEach((item) => item.parentElement?.classList.remove("hide"));
     }
 
     // public addUser(user: User, status: StatusUser): void {

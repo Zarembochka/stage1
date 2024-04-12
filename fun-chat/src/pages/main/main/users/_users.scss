@@ -13,6 +13,7 @@
 
 .users__search {
     font-size: inherit;
+    color: inherit;
     outline: none;
     border: 1px solid $form-border-color;
     padding: 2px 5px 2px 15px;
@@ -45,6 +46,9 @@
         &:hover .status__ico {
             transform: scale(1.2);
         }
+    }
+    &.hide {
+        display: none;
     }
 }
 
