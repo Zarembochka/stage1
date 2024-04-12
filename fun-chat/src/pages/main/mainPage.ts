@@ -15,7 +15,7 @@ export class MainPage {
 
     constructor() {
         this.container = new BaseComponent({ tag: "div", classNames: ["container", "container__main"] }).getElement();
-        this.header = new Header();
+        this.header = new Header(this);
         this.main = new MainPart();
         this.footer = new Footer();
 
@@ -30,11 +30,24 @@ export class MainPage {
         return this.container;
     }
 
-    public setActiveUser(name: string): void {
-        this.header.setUserName(name);
+    public setActiveUser(): void {
+        this.header.setUserName();
+        this.main.setActiveUser();
+    }
+
+    public saveCurrentUser(login: string, password: string): void {
+        this.main.setCurrentUser(login, password);
     }
 
     public updateUsers(users: UserResponse[], status: StatusUser): void {
         this.main.updateUsers(users, status);
+    }
+
+    public getUsername(): string {
+        return this.main.getUsername();
+    }
+
+    public logout(): void {
+        this.main.logout();
     }
 }

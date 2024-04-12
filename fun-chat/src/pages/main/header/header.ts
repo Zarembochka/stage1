@@ -1,14 +1,18 @@
 import { router } from "../../../router/router";
 import { sStorage } from "../../../sessionStorage/storage";
 import { BaseComponent } from "../../../utils/baseComponents";
+import { MainPage } from "../mainPage";
 
 export class Header extends BaseComponent {
+    private readonly parentPage: MainPage;
+
     private title: HTMLElement;
 
     private btnLogout: HTMLButtonElement;
 
-    constructor() {
+    constructor(main: MainPage) {
         super({ tag: "header", classNames: ["header"] });
+        this.parentPage = main;
         this.title = this.createTitle();
         this.btnLogout = this.createBtnLogout();
         this.prepareHeader();
@@ -33,12 +37,13 @@ export class Header extends BaseComponent {
         return btn;
     }
 
-    public setUserName(name: string): void {
-        this.title.textContent = `Fun-chat: ${name}`;
+    public setUserName(): void {
+        this.title.textContent = `Fun-chat: ${this.parentPage.getUsername()}`;
     }
 
     private logout(): void {
         sStorage.removeUser();
         router.start();
+        this.parentPage.logout();
     }
 }

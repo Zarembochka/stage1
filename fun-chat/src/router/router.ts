@@ -27,15 +27,15 @@ class Router {
     public start(): void {
         const user = sStorage.getActiveUser();
         if (user) {
-            this.main(user.login);
+            this.main();
             return;
         }
         this.goToPath(this.config[PathToPage.login]);
     }
 
-    public main(name: string): void {
+    public main(): void {
         this.goToPath(this.config[PathToPage.main]);
-        app.setActiveUser(name);
+        app.mainPage.setActiveUser();
         app.clearLoginForm();
     }
 

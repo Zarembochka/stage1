@@ -3,9 +3,10 @@ import { myModal } from "../modal/modal";
 import { router } from "../router/router";
 import { sStorage } from "../sessionStorage/storage";
 import {
+    ActiveUser,
     AllUsersRequest,
     AllUsersResponse,
-    LoginRequest,
+    LoginLogoutRequest,
     LoginResponse,
     StatusUser,
     TypesMessages,
@@ -75,7 +76,7 @@ class MyWebSocket {
         }
         sStorage.saveUserToLS(data.payload.user);
         this.sendRequestsForAllUsers();
-        router.main(data.payload.user.login);
+        router.main();
     }
 
     private readMessageAllUsers(data: AllUsersResponse, status: StatusUser): void {
@@ -83,7 +84,7 @@ class MyWebSocket {
         app.updateUsers(users, status);
     }
 
-    private sendMessage(msg: LoginRequest | AllUsersRequest): void {
+    private sendMessage(msg: LoginLogoutRequest | AllUsersRequest): void {
         this.socket.send(JSON.stringify(msg));
         this.requests.push({ id: msg.id, type: msg.type });
         this.id += 1;
@@ -100,6 +101,13 @@ class MyWebSocket {
     public sendRequestForUserLogin(login: string, password: string): void {
         if (this.checkServerStatus()) {
             const msg = this.message.getRequestForLogin(this.id, login, password);
+            this.sendMessage(msg);
+        }
+    }
+
+    public sendRequestForUserLogout(user: ActiveUser): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForLogout(this.id, user);
             this.sendMessage(msg);
         }
     }

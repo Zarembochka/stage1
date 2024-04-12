@@ -20,9 +20,9 @@ import { myModal } from "./modal/modal";
 })(window.location);
 
 class App {
-    private loginPage: LoginPage;
+    public loginPage: LoginPage;
 
-    private mainPage: MainPage;
+    public mainPage: MainPage;
 
     constructor() {
         this.loginPage = new LoginPage();
@@ -40,10 +40,6 @@ class App {
             return;
         }
         this.renderPage(this.mainPage);
-    }
-
-    public setActiveUser(name: string): void {
-        this.mainPage.setActiveUser(name);
     }
 
     public clearLoginForm(): void {

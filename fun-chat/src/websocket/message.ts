@@ -1,7 +1,7 @@
-import { AllUsersRequest, LoginRequest, TypesMessages } from "../utils/interfaces";
+import { ActiveUser, AllUsersRequest, LoginLogoutRequest, TypesMessages } from "../utils/interfaces";
 
 export class Message {
-    public getRequestForLogin(id: number, login: string, password: string): LoginRequest {
+    public getRequestForLogin(id: number, login: string, password: string): LoginLogoutRequest {
         const msg = {
             id: String(id),
             type: TypesMessages.login,
@@ -9,6 +9,20 @@ export class Message {
                 user: {
                     login: login,
                     password: password,
+                },
+            },
+        };
+        return msg;
+    }
+
+    public getRequestForLogout(id: number, user: ActiveUser): LoginLogoutRequest {
+        const msg = {
+            id: String(id),
+            type: TypesMessages.logout,
+            payload: {
+                user: {
+                    login: user.login,
+                    password: user.password,
                 },
             },
         };

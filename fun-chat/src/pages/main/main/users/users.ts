@@ -55,10 +55,18 @@ export class Users extends BaseComponent {
         return list;
     }
 
-    public updateUsers(userArray: UserResponse[], status: StatusUser): void {
+    public updateUsers(userArray: UserResponse[], status: StatusUser, currentUser: UserResponse | null): void {
         userArray.forEach((user) => {
-            const item = this.createUsersItem(user.login, status);
-            this.userList.append(item);
+            if (user.login !== currentUser?.login) {
+                const item = this.createUsersItem(user.login, status);
+                this.userList.append(item);
+            }
         });
+    }
+
+    public clearUsers(): void {
+        while (this.userList.firstChild) {
+            this.userList.firstChild.remove();
+        }
     }
 }

@@ -40,7 +40,7 @@ export interface UserResponse {
     isLogined: boolean;
 }
 
-export interface LoginRequest {
+export interface LoginLogoutRequest {
     id: string;
     type: TypesMessages;
     payload: {
@@ -78,4 +78,10 @@ export interface AllUsersResponse {
 export enum StatusUser {
     active = "active",
     nonactive = "nonactive",
+}
+
+export interface ActiveUser {
+    login: string;
+    password: string;
+    isLogined: boolean;
 }
