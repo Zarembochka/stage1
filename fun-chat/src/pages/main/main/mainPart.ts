@@ -48,4 +48,12 @@ export class MainPart extends BaseComponent {
             this.clearUsers();
         }
     }
+
+    // public addUser(user: User, status: StatusUser): void {
+    //     this.users.addUser(user, status);
+    // }
+
+    public removeUsers(): void {
+        this.users.clearUsers();
+    }
 }

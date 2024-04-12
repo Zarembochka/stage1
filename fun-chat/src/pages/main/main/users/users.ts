@@ -69,4 +69,35 @@ export class Users extends BaseComponent {
             this.userList.firstChild.remove();
         }
     }
+
+    // public addUser(user: User, status: StatusUser): void {
+    //     const oldUser = this.findUser(user);
+    //     if (oldUser) {
+    //         oldUser.classList.remove("active");
+    //         oldUser.classList.remove("nonactive");
+    //         oldUser.classList.add(status);
+    //         return;
+    //     }
+    //     const lastItem = this.findLastItemWithStatus(status);
+    //     const newUser = this.createUsersItem(user.login, status);
+    //     if (lastItem === null) {
+    //         this.userList.append(newUser);
+    //         return;
+    //     }
+    //     lastItem.prepend(newUser);
+    // }
+
+    // private findLastItemWithStatus(status: StatusUser): Element | null {
+    //     const items = [...document.querySelectorAll(`.users__list__item.${status}`)];
+    //     if (items.length === 0) {
+    //         return null;
+    //     }
+    //     return items[items.length - 1];
+    // }
+
+    // private findUser(user: User): Element | undefined | null {
+    //     const users = [...document.querySelectorAll(`.users__list__item__login`)];
+    //     const result = users.find((item) => item.textContent === user.login)?.parentElement;
+    //     return result;
+    // }
 }

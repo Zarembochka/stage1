@@ -28,6 +28,8 @@ export enum TypesMessages {
     msgHistory = "MSG_FROM_USER",
     msgRead = "MSG_READ",
     error = "ERROR",
+    externalLogin = "USER_EXTERNAL_LOGIN",
+    externalLogout = "USER_EXTERNAL_LOGOUT",
 }
 
 export interface User {
@@ -84,4 +86,12 @@ export interface ActiveUser {
     login: string;
     password: string;
     isLogined: boolean;
+}
+
+export interface ErrorResponse {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        error: string;
+    };
 }

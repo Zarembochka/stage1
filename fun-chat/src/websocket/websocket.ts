@@ -6,6 +6,7 @@ import {
     ActiveUser,
     AllUsersRequest,
     AllUsersResponse,
+    ErrorResponse,
     LoginLogoutRequest,
     LoginResponse,
     StatusUser,
@@ -48,13 +49,20 @@ class MyWebSocket {
         if (this.checkServerStatus()) {
             console.log(event);
         }
-        //console.log(this.socket.readyState);
     }
 
     private readMessage(msg: MessageEvent): void {
         const data = JSON.parse(msg.data);
+        if (data.id === null) {
+            this.readMessageFromServer(data);
+            return;
+        }
         const msgType = this.requests.find((item) => item.id === data.id);
         if (!msgType) {
+            return;
+        }
+        if (data.type === TypesMessages.error) {
+            this.readErrorMessage(data);
             return;
         }
         if (msgType.type === TypesMessages.login) {
@@ -68,20 +76,34 @@ class MyWebSocket {
         }
     }
 
-    private readMessageLogin(data: LoginResponse): void {
-        if (data.type === TypesMessages.error) {
-            //TODO modal with error
-            myModal.showModal("Incorrect password!");
-            return;
+    private readMessageFromServer(data: LoginLogoutRequest): void {
+        if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
+            app.mainPage.removeUsers();
+            this.sendRequestsForAllUsers();
         }
+        // if (data.type === TypesMessages.externalLogout) {
+        //     this.readMessageExternalUsers(data, StatusUser.nonactive);
+        // }
+    }
+
+    private readErrorMessage(data: ErrorResponse) {
+        myModal.showModal(data.payload.error);
+    }
+
+    private readMessageLogin(data: LoginResponse): void {
         sStorage.saveUserToLS(data.payload.user);
         this.sendRequestsForAllUsers();
         router.main();
     }
 
+    // private readMessageExternalUsers(data: LoginLogoutRequest, status: StatusUser): void {
+    //     const user = data.payload.user;
+    //     app.mainPage.addUser(user, status);
+    // }
+
     private readMessageAllUsers(data: AllUsersResponse, status: StatusUser): void {
         const users = data.payload.users;
-        app.updateUsers(users, status);
+        app.mainPage.updateUsers(users, status);
     }
 
     private sendMessage(msg: LoginLogoutRequest | AllUsersRequest): void {

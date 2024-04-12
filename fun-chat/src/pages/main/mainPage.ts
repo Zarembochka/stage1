@@ -50,4 +50,12 @@ export class MainPage {
     public logout(): void {
         this.main.logout();
     }
+
+    // public addUser(user: User, status: StatusUser): void {
+    //     this.main.addUser(user, status);
+    // }
+
+    public removeUsers(): void {
+        this.main.removeUsers();
+    }
 }

@@ -1,7 +1,7 @@
 import "./main.scss";
 import { LoginPage } from "./pages/login/loginPage";
 import { MainPage } from "./pages/main/mainPage";
-import { PagesView, StatusUser, UserResponse } from "./utils/interfaces";
+import { PagesView } from "./utils/interfaces";
 import { router } from "./router/router";
 import { myModal } from "./modal/modal";
 
@@ -44,10 +44,6 @@ class App {
 
     public clearLoginForm(): void {
         this.loginPage.clearLoginForm();
-    }
-
-    public updateUsers(users: UserResponse[], status: StatusUser): void {
-        this.mainPage.updateUsers(users, status);
     }
 }
 
