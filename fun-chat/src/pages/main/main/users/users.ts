@@ -1,3 +1,4 @@
+import { heartLogo } from "../../../../abstracts/logos";
 import { BaseComponent } from "../../../../utils/baseComponents";
 import { StatusUser, UserResponse } from "../../../../utils/interfaces";
 
@@ -44,8 +45,9 @@ export class Users extends BaseComponent {
             tag: "span",
             classNames: ["users__list__item__status"],
         }).getElement();
+        status.innerHTML = heartLogo;
         const label = new BaseComponent<HTMLLabelElement>({
-            tag: "label",
+            tag: "span",
             classNames: ["users__list__item__login"],
             text: name,
         }).getElement();

@@ -6,9 +6,9 @@
     row-gap: 15px;
     width: 25%;
     color: $form-font-color;
-    border: 2px solid $form-font-color;
     height: 100%;
-    background-color: rgba($color: #fff, $alpha: 0.35);
+    //border-radius: 10px;
+    background-color: rgba($color: $form-font-color, $alpha: 0.15);
 }
 
 .users__search {
@@ -17,6 +17,7 @@
     border: 1px solid $form-border-color;
     padding: 2px 5px 2px 15px;
     font-family: inherit;
+    border-radius: 10px;
 }
 
 .users__list {
@@ -28,20 +29,31 @@
 }
 
 .users__list__item {
-    padding-left: 0;
+    padding-left: 5px;
+    border-radius: 10px;
+    transition:
+        background-color,
+        color 0.3s ease-in-out;
     @include display-flex(row, flex-start, center);
+    column-gap: 7px;
+    cursor: pointer;
+    @media screen and (hover: hover) {
+        &:hover {
+            background-color: lighten($color-orange, 20%);
+            color: $background-color;
+        }
+        &:hover .status__ico {
+            transform: scale(1.2);
+        }
+    }
 }
 
-.users__list__item__status {
-    @include display-flex(column);
-    width: 10px;
-    height: 10px;
-    margin: 0 10px;
-    border-radius: 50%;
+.status__ico {
+    transition: transform 0.3s ease-in-out;
     .users__list__item.active & {
-        background-color: $shadow-color;
+        fill: $shadow-color;
     }
     .users__list__item.nonactive & {
-        background-color: $color-nonactive;
+        fill: $color-nonactive;
     }
 }

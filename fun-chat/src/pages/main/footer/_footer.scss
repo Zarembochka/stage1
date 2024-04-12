@@ -3,6 +3,8 @@
     font-family: Dragon;
     color: $color-orange-btn;
     user-select: none;
+    border-top: 2px solid $form-font-color;
+    //padding: 10px 0;
 }
 
 .footer__ico {
