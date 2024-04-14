@@ -4,6 +4,7 @@ import { MainPage } from "./pages/main/mainPage";
 import { PagesView } from "./utils/interfaces";
 import { router } from "./router/router";
 import { myModal } from "./modal/modal";
+import { Controller } from "./controller/controller";
 
 (function (l) {
     if (l.search[1] === "/") {
@@ -48,4 +49,5 @@ class App {
 }
 
 export const app = new App();
+export const controller = new Controller();
 router.start();

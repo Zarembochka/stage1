@@ -2,4 +2,6 @@
     //100% - 2* margin - 2 * border - 2 * padding - header height - footer height
     height: calc(100dvh - 20px - 4px - 30px - 40px - 70px);
     user-select: none;
+    @include display-flex(row);
+    width: 100%;
 }

@@ -1,0 +1,19 @@
+.chat__header {
+    @include display-flex(row);
+    column-gap: 10px;
+    font-family: Hexen;
+    font-size: 1.5em;
+    color: $form-font-color;
+    padding: 13px 10px;
+    border-bottom: 2px solid $form-font-color;
+    height: 56px;
+}
+
+.chat__header__userStatus {
+    &.online {
+        color: $shadow-color;
+    }
+    &.offline {
+        color: $color-nonactive;
+    }
+}

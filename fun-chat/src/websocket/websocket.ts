@@ -1,4 +1,4 @@
-import { app } from "..";
+import { app, controller } from "..";
 import { myModal } from "../modal/modal";
 import { router } from "../router/router";
 import { sStorage } from "../sessionStorage/storage";
@@ -76,10 +76,11 @@ class MyWebSocket {
         }
     }
 
-    private readMessageFromServer(data: LoginLogoutRequest): void {
+    private readMessageFromServer(data: LoginResponse): void {
         if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
             app.mainPage.removeUsers();
             this.sendRequestsForAllUsers();
+            controller.updateStatusUser(data.payload.user);
         }
         // if (data.type === TypesMessages.externalLogout) {
         //     this.readMessageExternalUsers(data, StatusUser.nonactive);

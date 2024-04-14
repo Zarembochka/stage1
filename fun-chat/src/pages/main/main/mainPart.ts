@@ -2,9 +2,12 @@ import { BaseComponent } from "../../../utils/baseComponents";
 import { ActiveUser, StatusUser, UserResponse } from "../../../utils/interfaces";
 import { Users } from "./users/users";
 import { socket } from "../../../websocket/websocket";
+import { Chat } from "./chat/chat";
 
 export class MainPart extends BaseComponent {
     private users: Users;
+
+    private chat: Chat;
 
     private activeUser: ActiveUser | null;
 
@@ -12,11 +15,12 @@ export class MainPart extends BaseComponent {
         super({ tag: "main", classNames: ["main"] });
         this.activeUser = null;
         this.users = new Users();
+        this.chat = new Chat();
         this.prepareMainPart();
     }
 
     private prepareMainPart(): void {
-        this.getElement().append(this.users.getElement());
+        this.getElement().append(this.users.getElement(), this.chat.getElement());
     }
 
     public updateUsers(userArray: UserResponse[], status: StatusUser): void {

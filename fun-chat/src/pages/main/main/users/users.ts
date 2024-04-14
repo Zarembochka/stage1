@@ -1,3 +1,4 @@
+import { controller } from "../../../..";
 import { heartLogo } from "../../../../abstracts/logos";
 import { BaseComponent } from "../../../../utils/baseComponents";
 import { StatusUser, UserResponse } from "../../../../utils/interfaces";
@@ -53,7 +54,12 @@ export class Users extends BaseComponent {
             text: name,
         }).getElement();
         list.append(status, label);
+        list.addEventListener("click", () => this.showUserInfo(name, classname));
         return list;
+    }
+
+    private showUserInfo(name: string, classname: string): void {
+        controller.selectUser({ login: name, isLogined: classname === "active" ? true : false });
     }
 
     public updateUsers(userArray: UserResponse[], status: StatusUser, currentUser: UserResponse | null): void {

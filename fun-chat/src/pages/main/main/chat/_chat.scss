@@ -1,0 +1,4 @@
+.chat {
+    width: 75%;
+    @include display-flex(column);
+}
