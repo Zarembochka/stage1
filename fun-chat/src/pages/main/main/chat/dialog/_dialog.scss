@@ -1,10 +1,19 @@
 .chat__dialog {
+    height: 100%;
     width: 100%;
     @include display-flex(column, flex-start);
     padding: 10px;
     row-gap: 15px;
     max-height: 100%;
     overflow-y: scroll;
+}
+
+.chat__startDialog {
+    align-self: center;
+    margin: auto 0;
+    font-size: 1.5em;
+    font-family: Hexen;
+    color: $form-font-color;
 }
 
 ::-webkit-scrollbar {

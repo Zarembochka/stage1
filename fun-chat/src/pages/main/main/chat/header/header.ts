@@ -20,6 +20,7 @@ export class ChatHeader extends BaseComponent {
         this.getElement().append(this.userName, this.userStatus);
         window.addEventListener("user-change", (event) => this.updateInfo(event));
         window.addEventListener("user-change-status", (event) => this.updateStatus(event));
+        window.addEventListener("logout", () => this.logout());
     }
 
     private updateInfo(event: Event): void {
@@ -45,5 +46,11 @@ export class ChatHeader extends BaseComponent {
                 this.changeUserStatus(info.isLogined);
             }
         }
+    }
+
+    private logout(): void {
+        this.user = null;
+        this.userName.textContent = "";
+        this.userStatus.textContent = "";
     }
 }
