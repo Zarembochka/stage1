@@ -7,10 +7,13 @@ import {
     AllUsersRequest,
     AllUsersResponse,
     ErrorResponse,
+    HistoryRequest,
+    HistoryResponse,
     LoginLogoutRequest,
     LoginResponse,
     MessageRequest,
     MessageResponse,
+    MessageStatusRequest,
     StatusUser,
     TypesMessages,
     TypesRequests,
@@ -76,6 +79,14 @@ class MyWebSocket {
         if (msgType.type === TypesMessages.usersNonActive) {
             this.readMessageAllUsers(data, StatusUser.nonactive);
         }
+        if (msgType.type === TypesMessages.msgHistory) {
+            this.readMessageHistory(data);
+        }
+    }
+
+    private readMessageHistory(data: HistoryResponse): void {
+        controller.showUnreadMessages(data);
+        controller.showDialogHistory(data);
     }
 
     private readMessageFromServer(data: LoginResponse | MessageResponse): void {
@@ -105,6 +116,7 @@ class MyWebSocket {
 
     private readMessageLogin(data: LoginResponse): void {
         sStorage.saveUserToLS(data.payload.user);
+        controller.setActiveUser();
         this.sendRequestsForAllUsers();
         router.main();
     }
@@ -114,7 +126,9 @@ class MyWebSocket {
         app.mainPage.updateUsers(users, status);
     }
 
-    private sendMessage(msg: LoginLogoutRequest | AllUsersRequest | MessageRequest): void {
+    private sendMessage(
+        msg: LoginLogoutRequest | AllUsersRequest | MessageRequest | HistoryRequest | MessageStatusRequest
+    ): void {
         this.socket.send(JSON.stringify(msg));
         this.requests.push({ id: msg.id, type: msg.type });
         this.id += 1;
@@ -161,9 +175,23 @@ class MyWebSocket {
         this.sendRequestForOfflineUsers();
     }
 
-    public senfRequestForMessage(user: string, text: string): void {
+    public sendRequestForMessage(user: string, text: string): void {
         if (this.checkServerStatus()) {
             const msg = this.message.getRequestForMessageToUser(this.id, user, text);
+            this.sendMessage(msg);
+        }
+    }
+
+    public sendRequestForUnreadMessage(user: string): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForHistoryMessageFromUser(this.id, user);
+            this.sendMessage(msg);
+        }
+    }
+
+    public sentRequestForStatusRead(idMessage: string): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForStatusRead(this.id, idMessage);
             this.sendMessage(msg);
         }
     }

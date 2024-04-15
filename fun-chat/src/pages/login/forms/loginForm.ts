@@ -2,7 +2,7 @@ import { BaseComponent } from "../../../utils/baseComponents";
 import { socket } from "../../../websocket/websocket";
 import { checkValidationBeforeSaving, checkValidation, focusValidation } from "./validation";
 //import { router } from "../../../router/router";
-import { app } from "../../..";
+import { controller } from "../../..";
 //import { PagesView } from "../../../utils/interfaces";
 
 export class LoginForm extends BaseComponent {
@@ -86,7 +86,8 @@ export class LoginForm extends BaseComponent {
         if (checkValidationBeforeSaving([this.user, this.password])) {
             //TODO add actions after success validation
             //router.main();
-            app.mainPage.saveCurrentUser(this.user.value.trim(), this.password.value.trim());
+            //app.mainPage.saveCurrentUser(this.user.value.trim(), this.password.value.trim());
+            controller.setCurrentUser(this.user.value.trim(), this.password.value.trim());
             socket.sendRequestForUserLogin(this.user.value.trim(), this.password.value.trim());
             //this.clearForm();
         }

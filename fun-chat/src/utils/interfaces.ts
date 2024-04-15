@@ -96,7 +96,7 @@ export interface ErrorResponse {
     };
 }
 
-export interface Message {
+export interface MessageToUser {
     to: string;
     text: string;
 }
@@ -105,7 +105,20 @@ export interface MessageRequest {
     id: string;
     type: TypesMessages;
     payload: {
-        message: Message;
+        message: MessageToUser;
+    };
+}
+
+export interface Message {
+    id: string;
+    from: string;
+    to: string;
+    text: string;
+    datetime: number;
+    status: {
+        isDelivered: boolean;
+        isReaded: boolean;
+        isEdited: boolean;
     };
 }
 
@@ -113,22 +126,34 @@ export interface MessageResponse {
     id: string;
     type: TypesMessages;
     payload: {
-        message: {
-            id: string;
-            from: string;
-            to: string;
-            text: string;
-            datetime: number;
-            status: {
-                isDelivered: boolean;
-                isReaded: boolean;
-                isEdited: boolean;
-            };
+        message: Message;
+    };
+}
+
+export interface HistoryRequest {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        user: {
+            login: string;
         };
     };
 }
 
-export interface ServerResponse {
+export interface HistoryResponse {
     id: string;
     type: TypesMessages;
+    payload: {
+        messages: Message[];
+    };
+}
+
+export interface MessageStatusRequest {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        message: {
+            id: string;
+        };
+    };
 }

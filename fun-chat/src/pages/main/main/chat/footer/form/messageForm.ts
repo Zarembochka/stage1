@@ -1,3 +1,4 @@
+import { controller } from "../../../../../..";
 import { BaseComponent } from "../../../../../../utils/baseComponents";
 import { socket } from "../../../../../../websocket/websocket";
 
@@ -61,8 +62,12 @@ export class MessageForm extends BaseComponent {
 
     private sendMessage(event: Event): void {
         event.preventDefault();
-        socket.senfRequestForMessage(this.user, this.message.value.trim());
-        this.clearForm();
+        const currentUser = controller.getActiveUser();
+        if (currentUser) {
+            socket.sendRequestForMessage(this.user, this.message.value.trim());
+            socket.sendRequestForUnreadMessage(this.user);
+            this.clearForm();
+        }
     }
 
     private clearForm(): void {

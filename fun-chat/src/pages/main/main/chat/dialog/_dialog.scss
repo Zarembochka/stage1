@@ -1,0 +1,7 @@
+.chat__dialog {
+    height: 100%;
+    width: 100%;
+    @include display-flex(column, flex-end);
+    padding: 10px;
+    row-gap: 15px;
+}

@@ -1,4 +1,12 @@
-import { ActiveUser, AllUsersRequest, LoginLogoutRequest, MessageRequest, TypesMessages } from "../utils/interfaces";
+import {
+    ActiveUser,
+    AllUsersRequest,
+    HistoryRequest,
+    LoginLogoutRequest,
+    MessageRequest,
+    MessageStatusRequest,
+    TypesMessages,
+} from "../utils/interfaces";
 
 export class Message {
     public getRequestForLogin(id: number, login: string, password: string): LoginLogoutRequest {
@@ -55,6 +63,32 @@ export class Message {
                 message: {
                     to: login,
                     text: text,
+                },
+            },
+        };
+        return msg;
+    }
+
+    public getRequestForHistoryMessageFromUser(id: number, login: string): HistoryRequest {
+        const msg = {
+            id: String(id),
+            type: TypesMessages.msgHistory,
+            payload: {
+                user: {
+                    login: login,
+                },
+            },
+        };
+        return msg;
+    }
+
+    public getRequestForStatusRead(id: number, idMessage: string): MessageStatusRequest {
+        const msg = {
+            id: String(id),
+            type: TypesMessages.msgRead,
+            payload: {
+                message: {
+                    id: idMessage,
                 },
             },
         };

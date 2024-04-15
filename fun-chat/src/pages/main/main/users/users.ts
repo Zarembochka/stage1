@@ -2,6 +2,7 @@ import { controller } from "../../../..";
 import { heartLogo } from "../../../../abstracts/logos";
 import { BaseComponent } from "../../../../utils/baseComponents";
 import { StatusUser, UserResponse } from "../../../../utils/interfaces";
+import { socket } from "../../../../websocket/websocket";
 
 export class Users extends BaseComponent {
     private search: HTMLInputElement;
@@ -19,6 +20,8 @@ export class Users extends BaseComponent {
         this.search.addEventListener("keyup", () => this.findUsers());
         this.getElement().append(this.search, this.userList);
         window.addEventListener("new-message", (event) => this.showNewMessageIco(event));
+        window.addEventListener("unread-messages", (event) => this.showUnreadMessagesIco(event));
+        window.addEventListener("logout", () => this.clearUsers());
     }
 
     private createInputElement(): HTMLInputElement {
@@ -59,8 +62,13 @@ export class Users extends BaseComponent {
             classNames: ["users__list__item__ico"],
         }).getElement();
         list.append(status, label, ico);
-        list.addEventListener("click", () => this.showUserInfo(name, classname));
+        list.addEventListener("click", () => this.selectUser(name, classname));
         return list;
+    }
+
+    private selectUser(name: string, classname: string): void {
+        this.showUserInfo(name, classname);
+        socket.sendRequestForUnreadMessage(name);
     }
 
     private showUserInfo(name: string, classname: string): void {
@@ -72,6 +80,7 @@ export class Users extends BaseComponent {
             if (user.login !== currentUser?.login) {
                 const item = this.createUsersItem(user.login, status);
                 this.userList.append(item);
+                socket.sendRequestForUnreadMessage(user.login);
             }
         });
     }
@@ -120,5 +129,29 @@ export class Users extends BaseComponent {
         const users = [...document.querySelectorAll(`.users__list__item__login`)];
         const result = users.find((item) => item.textContent === login);
         return result;
+    }
+
+    private showUnreadMessagesIco(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const messageFrom = event.detail.from;
+            const user = this.findUser(messageFrom);
+            const msgs = event.detail.count;
+            if (user && user.nextElementSibling) {
+                user.nextElementSibling.textContent = String(msgs);
+                if (msgs > 0) {
+                    user.nextElementSibling.classList.add("show");
+                    return;
+                }
+                user.nextElementSibling.classList.remove("show");
+            }
+        }
+    }
+
+    private hideMessageCoiuntIco(name: string): void {
+        const user = this.findUser(name);
+        if (user && user.nextElementSibling) {
+            user.nextElementSibling.textContent = "";
+            user.nextElementSibling.classList.remove("show");
+        }
     }
 }

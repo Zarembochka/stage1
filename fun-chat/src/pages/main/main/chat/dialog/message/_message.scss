@@ -1,0 +1,27 @@
+.chat__dialog__message {
+    width: 100%;
+    @include display-flex(column, flex-start);
+    width: fit-content;
+    font-family: Hexen;
+    color: $form-font-color;
+    &.author {
+        margin-left: auto;
+    }
+}
+
+.chat__dialog__message__header {
+    margin-left: auto;
+}
+
+.chat__dialog__message__body {
+    padding: 10px;
+    border: 2px solid lighten($color-orange, 20%);
+    color: #594f48;
+    border-radius: 10px;
+    width: fit-content;
+    min-width: 150px;
+    .chat__dialog__message.author & {
+        background-color: lighten($color-orange, 20%);
+        color: darken($form-font-color, 50%);
+    }
+}
