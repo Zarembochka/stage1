@@ -6,9 +6,8 @@
     row-gap: 15px;
     width: 25%;
     color: $form-font-color;
-    height: 100%;
-    //border-radius: 10px;
-    //background-color: rgba($color: $form-font-color, $alpha: 0.15);
+    max-height: 100%;
+    overflow-y: scroll;
     border-right: 2px solid $form-font-color;
 }
 
