@@ -9,6 +9,8 @@ import {
     ErrorResponse,
     LoginLogoutRequest,
     LoginResponse,
+    MessageRequest,
+    MessageResponse,
     StatusUser,
     TypesMessages,
     TypesRequests,
@@ -76,15 +78,25 @@ class MyWebSocket {
         }
     }
 
-    private readMessageFromServer(data: LoginResponse): void {
+    private readMessageFromServer(data: LoginResponse | MessageResponse): void {
         if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
-            app.mainPage.removeUsers();
-            this.sendRequestsForAllUsers();
-            controller.updateStatusUser(data.payload.user);
+            this.readMessageLoginLogoutFromServer(data as LoginResponse);
+            return;
         }
-        // if (data.type === TypesMessages.externalLogout) {
-        //     this.readMessageExternalUsers(data, StatusUser.nonactive);
-        // }
+        if (data.type === TypesMessages.msgSend) {
+            this.readMessageNewMessageFromServer(data as MessageResponse);
+            return;
+        }
+    }
+
+    private readMessageLoginLogoutFromServer(data: LoginResponse): void {
+        app.mainPage.removeUsers();
+        this.sendRequestsForAllUsers();
+        controller.updateStatusUser(data.payload.user);
+    }
+
+    private readMessageNewMessageFromServer(data: MessageResponse): void {
+        controller.showNewMessage(data);
     }
 
     private readErrorMessage(data: ErrorResponse) {
@@ -97,17 +109,12 @@ class MyWebSocket {
         router.main();
     }
 
-    // private readMessageExternalUsers(data: LoginLogoutRequest, status: StatusUser): void {
-    //     const user = data.payload.user;
-    //     app.mainPage.addUser(user, status);
-    // }
-
     private readMessageAllUsers(data: AllUsersResponse, status: StatusUser): void {
         const users = data.payload.users;
         app.mainPage.updateUsers(users, status);
     }
 
-    private sendMessage(msg: LoginLogoutRequest | AllUsersRequest): void {
+    private sendMessage(msg: LoginLogoutRequest | AllUsersRequest | MessageRequest): void {
         this.socket.send(JSON.stringify(msg));
         this.requests.push({ id: msg.id, type: msg.type });
         this.id += 1;
@@ -152,6 +159,13 @@ class MyWebSocket {
     private sendRequestsForAllUsers(): void {
         this.sendRequestForOnlineUsers();
         this.sendRequestForOfflineUsers();
+    }
+
+    public senfRequestForMessage(user: string, text: string): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForMessageToUser(this.id, user, text);
+            this.sendMessage(msg);
+        }
     }
 }
 

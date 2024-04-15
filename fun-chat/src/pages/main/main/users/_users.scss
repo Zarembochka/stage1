@@ -8,7 +8,8 @@
     color: $form-font-color;
     height: 100%;
     //border-radius: 10px;
-    background-color: rgba($color: $form-font-color, $alpha: 0.15);
+    //background-color: rgba($color: $form-font-color, $alpha: 0.15);
+    border-right: 2px solid $form-font-color;
 }
 
 .users__search {
@@ -24,13 +25,12 @@
 .users__list {
     margin: 0;
     @include display-flex(column);
-    row-gap: 10px;
     list-style: none;
     padding-left: 0;
 }
 
 .users__list__item {
-    padding-left: 5px;
+    padding: 10px 5px;
     border-radius: 10px;
     transition:
         background-color,
@@ -40,7 +40,7 @@
     cursor: pointer;
     @media screen and (hover: hover) {
         &:hover {
-            background-color: lighten($color-orange, 20%);
+            background-color: lighten($color-orange, 35%);
             color: $background-color;
         }
         &:hover .status__ico {
@@ -59,5 +59,19 @@
     }
     .users__list__item.nonactive & {
         fill: $color-nonactive;
+    }
+}
+
+.users__list__item__ico {
+    font-size: 1em;
+    margin-left: auto;
+    padding: 0 5px;
+    border-radius: 10px;
+    color: $background-color;
+    border: 1px solid lighten($color-orange, 20%);
+    background-color: lighten($color-orange, 20%);
+    visibility: hidden;
+    &.show {
+        visibility: visible;
     }
 }

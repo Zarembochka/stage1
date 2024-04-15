@@ -1,0 +1,9 @@
+.chat__footer {
+    font-family: Hexen;
+    font-size: 1em;
+    color: $form-font-color;
+    padding: 13px 10px;
+    border-top: 2px solid $form-font-color;
+    @include display-flex(row);
+    width: 100%;
+}

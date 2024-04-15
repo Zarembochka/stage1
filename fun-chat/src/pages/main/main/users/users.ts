@@ -18,6 +18,7 @@ export class Users extends BaseComponent {
     private prepareUsers(): void {
         this.search.addEventListener("keyup", () => this.findUsers());
         this.getElement().append(this.search, this.userList);
+        window.addEventListener("new-message", (event) => this.showNewMessageIco(event));
     }
 
     private createInputElement(): HTMLInputElement {
@@ -48,12 +49,16 @@ export class Users extends BaseComponent {
             classNames: ["users__list__item__status"],
         }).getElement();
         status.innerHTML = heartLogo;
-        const label = new BaseComponent<HTMLLabelElement>({
+        const label = new BaseComponent({
             tag: "span",
             classNames: ["users__list__item__login"],
             text: name,
         }).getElement();
-        list.append(status, label);
+        const ico = new BaseComponent({
+            tag: "span",
+            classNames: ["users__list__item__ico"],
+        }).getElement();
+        list.append(status, label, ico);
         list.addEventListener("click", () => this.showUserInfo(name, classname));
         return list;
     }
@@ -83,42 +88,37 @@ export class Users extends BaseComponent {
     }
 
     private hideOtherUsers(str: string): void {
-        //const users = [...this.userList.childNodes] as HTMLElement[];
-        //users.forEach((item) => item.classList.add("hide"));
         const users = [...document.querySelectorAll(`.users__list__item__login`)];
         users.forEach((item) => item.parentElement?.classList.add("hide"));
         const resultUsers = users.filter((item) => item.textContent?.includes(str));
         resultUsers.forEach((item) => item.parentElement?.classList.remove("hide"));
     }
 
-    // public addUser(user: User, status: StatusUser): void {
-    //     const oldUser = this.findUser(user);
-    //     if (oldUser) {
-    //         oldUser.classList.remove("active");
-    //         oldUser.classList.remove("nonactive");
-    //         oldUser.classList.add(status);
-    //         return;
-    //     }
-    //     const lastItem = this.findLastItemWithStatus(status);
-    //     const newUser = this.createUsersItem(user.login, status);
-    //     if (lastItem === null) {
-    //         this.userList.append(newUser);
-    //         return;
-    //     }
-    //     lastItem.prepend(newUser);
-    // }
+    private showNewMessageIco(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const messageFrom = event.detail.from;
+            const user = this.findUser(messageFrom);
+            const msgs = this.msgsCount(user);
+            if (user && user.nextElementSibling) {
+                user.nextElementSibling.textContent = String(msgs + 1);
+                user.nextElementSibling.classList.add("show");
+            }
+        }
+    }
 
-    // private findLastItemWithStatus(status: StatusUser): Element | null {
-    //     const items = [...document.querySelectorAll(`.users__list__item.${status}`)];
-    //     if (items.length === 0) {
-    //         return null;
-    //     }
-    //     return items[items.length - 1];
-    // }
+    private msgsCount(user: Element | undefined): number {
+        let msgs = 0;
+        if (user && user.nextElementSibling) {
+            if (user.nextElementSibling.textContent) {
+                msgs = parseInt(user.nextElementSibling.textContent);
+            }
+        }
+        return msgs;
+    }
 
-    // private findUser(user: User): Element | undefined | null {
-    //     const users = [...document.querySelectorAll(`.users__list__item__login`)];
-    //     const result = users.find((item) => item.textContent === user.login)?.parentElement;
-    //     return result;
-    // }
+    private findUser(login: string): Element | undefined {
+        const users = [...document.querySelectorAll(`.users__list__item__login`)];
+        const result = users.find((item) => item.textContent === login);
+        return result;
+    }
 }

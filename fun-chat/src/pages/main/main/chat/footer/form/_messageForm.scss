@@ -1,0 +1,16 @@
+.message__form {
+    @include display-flex(row);
+    column-gap: 10px;
+    width: 100%;
+}
+
+.message__form__input {
+    font-size: 1.5em;
+    color: inherit;
+    outline: none;
+    border: 1px solid $form-border-color;
+    padding: 2px 5px 2px 15px;
+    font-family: inherit;
+    border-radius: 10px;
+    width: 100%;
+}

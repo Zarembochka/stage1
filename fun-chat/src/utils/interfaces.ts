@@ -95,3 +95,40 @@ export interface ErrorResponse {
         error: string;
     };
 }
+
+export interface Message {
+    to: string;
+    text: string;
+}
+
+export interface MessageRequest {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        message: Message;
+    };
+}
+
+export interface MessageResponse {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        message: {
+            id: string;
+            from: string;
+            to: string;
+            text: string;
+            datetime: number;
+            status: {
+                isDelivered: boolean;
+                isReaded: boolean;
+                isEdited: boolean;
+            };
+        };
+    };
+}
+
+export interface ServerResponse {
+    id: string;
+    type: TypesMessages;
+}

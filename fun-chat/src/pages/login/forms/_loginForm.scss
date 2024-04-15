@@ -47,29 +47,3 @@
 .form__login__item-valid {
     border: 1px solid $color-valid;
 }
-
-.btn-login,
-.btn-logout,
-.btn-close {
-    font-size: inherit;
-    font-family: inherit;
-    color: $color-btn;
-    padding: 10px 25px;
-    align-self: center;
-    transition:
-        background-color,
-        border-color,
-        color,
-        transform 0.3s ease-in;
-    border-radius: 10px;
-    background-color: $color-orange-btn;
-    border: 1px solid $color-orange-btn;
-    @media screen and (hover: hover) {
-        &:hover {
-            background-color: lighten($color-orange-btn, 5%);
-            border: 1px solid lighten($color-orange-btn, 10%);
-            color: lighten($color-btn, 7%);
-            transform: scale(1.05);
-        }
-    }
-}

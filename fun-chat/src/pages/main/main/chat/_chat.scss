@@ -1,4 +1,4 @@
 .chat {
     width: 75%;
-    @include display-flex(column);
+    @include display-flex(column, space-between);
 }
