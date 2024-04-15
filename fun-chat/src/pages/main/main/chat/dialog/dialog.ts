@@ -24,6 +24,7 @@ export class ChatDialog extends BaseComponent {
         this.showStartMessage();
         window.addEventListener("user-change", (event) => this.updateUser(event));
         window.addEventListener("history-dialog", (event) => this.showDialog(event));
+        window.addEventListener("new-message", (event) => this.showNewMessage(event));
         window.addEventListener("logout", () => this.logout());
     }
 
@@ -63,6 +64,7 @@ export class ChatDialog extends BaseComponent {
                 socket.sentRequestForStatusRead(item.id);
             }
         });
+        //this.scrollToLastMessage();
         if (this.user) {
             controller.allMessagesRead(this.user.login);
         }
@@ -78,5 +80,26 @@ export class ChatDialog extends BaseComponent {
         this.user = null;
         this.removeOldMessades();
         this.showStartMessage();
+    }
+
+    private scrollToLastMessage(message: HTMLElement): void {
+        message.scrollIntoView({ block: "end", inline: "nearest", behavior: "smooth" });
+    }
+
+    private showNewMessage(event: Event): void {
+        if (this.user) {
+            if (event instanceof CustomEvent) {
+                const message = new MessageElement(
+                    event.detail.id,
+                    event.detail.datetime,
+                    event.detail.text
+                ).getElement();
+                if (event.detail.from === controller.getActiveUser()?.login) {
+                    message.classList.add("author");
+                }
+                this.appendElement(message);
+                this.scrollToLastMessage(message);
+            }
+        }
     }
 }

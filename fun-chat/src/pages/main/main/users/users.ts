@@ -9,10 +9,13 @@ export class Users extends BaseComponent {
 
     private userList: HTMLUListElement;
 
+    private user: UserResponse | null;
+
     constructor() {
         super({ tag: "aside", classNames: ["users"] });
         this.search = this.createInputElement();
         this.userList = this.createUsersList();
+        this.user = null;
         this.prepareUsers();
     }
 
@@ -21,7 +24,15 @@ export class Users extends BaseComponent {
         this.getElement().append(this.search, this.userList);
         window.addEventListener("new-message", (event) => this.showNewMessageIco(event));
         window.addEventListener("unread-messages", (event) => this.showUnreadMessagesIco(event));
+        window.addEventListener("user-change", (event) => this.updateUser(event));
         window.addEventListener("logout", () => this.clearUsers());
+    }
+
+    private updateUser(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const info = event.detail.user;
+            this.user = info;
+        }
     }
 
     private createInputElement(): HTMLInputElement {
@@ -86,6 +97,7 @@ export class Users extends BaseComponent {
     }
 
     public clearUsers(): void {
+        this.user = null;
         while (this.userList.firstChild) {
             this.userList.firstChild.remove();
         }
@@ -106,11 +118,13 @@ export class Users extends BaseComponent {
     private showNewMessageIco(event: Event): void {
         if (event instanceof CustomEvent) {
             const messageFrom = event.detail.from;
-            const user = this.findUser(messageFrom);
-            const msgs = this.msgsCount(user);
-            if (user && user.nextElementSibling) {
-                user.nextElementSibling.textContent = String(msgs + 1);
-                user.nextElementSibling.classList.add("show");
+            if (messageFrom !== this.user?.login) {
+                const user = this.findUser(messageFrom);
+                const msgs = this.msgsCount(user);
+                if (user && user.nextElementSibling) {
+                    user.nextElementSibling.textContent = String(msgs + 1);
+                    user.nextElementSibling.classList.add("show");
+                }
             }
         }
     }
@@ -147,7 +161,7 @@ export class Users extends BaseComponent {
         }
     }
 
-    private hideMessageCoiuntIco(name: string): void {
+    private hideMessageCountIco(name: string): void {
         const user = this.findUser(name);
         if (user && user.nextElementSibling) {
             user.nextElementSibling.textContent = "";

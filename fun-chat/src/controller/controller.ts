@@ -20,7 +20,18 @@ export class Controller {
 
     public showNewMessage(data: MessageResponse): void {
         const newMessage = new CustomEvent("new-message", {
-            detail: { from: data.payload.message.from, to: data.payload.message.to, text: data.payload.message.text },
+            detail: {
+                id: data.payload.message.id,
+                from: data.payload.message.from,
+                to: data.payload.message.to,
+                text: data.payload.message.text,
+                datetime: data.payload.message.datetime,
+                status: {
+                    isDelivered: data.payload.message.status.isDelivered,
+                    isReaded: data.payload.message.status.isReaded,
+                    isEdited: data.payload.message.status.isEdited,
+                },
+            },
         });
         window.dispatchEvent(newMessage);
     }

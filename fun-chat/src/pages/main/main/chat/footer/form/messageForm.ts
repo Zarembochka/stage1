@@ -65,7 +65,7 @@ export class MessageForm extends BaseComponent {
         const currentUser = controller.getActiveUser();
         if (currentUser) {
             socket.sendRequestForMessage(this.user, this.message.value.trim());
-            socket.sendRequestForUnreadMessage(this.user);
+            //socket.sendRequestForUnreadMessage(this.user);
             this.clearForm();
         }
     }

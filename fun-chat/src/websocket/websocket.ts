@@ -82,6 +82,13 @@ class MyWebSocket {
         if (msgType.type === TypesMessages.msgHistory) {
             this.readMessageHistory(data);
         }
+        if (msgType.type === TypesMessages.msgSend) {
+            this.readMessageFromUser(data);
+        }
+    }
+
+    private readMessageFromUser(data: MessageResponse): void {
+        controller.showNewMessage(data);
     }
 
     private readMessageHistory(data: HistoryResponse): void {
