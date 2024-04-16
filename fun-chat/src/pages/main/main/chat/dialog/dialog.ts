@@ -169,6 +169,9 @@ export class ChatDialog extends BaseComponent {
                     if (!this.isUnreadMessages() && event.detail.from !== controller.getActiveUser()?.login) {
                         this.appendElement(this.separateLine);
                     }
+                    if (!event.detail.status.isReaded && this.user.login === event.detail.from) {
+                        this.unreadMessages.push(event.detail);
+                    }
                     this.appendElement(message);
                     this.scrollToLastMessage(message);
                 }
