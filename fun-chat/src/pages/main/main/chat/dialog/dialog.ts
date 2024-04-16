@@ -19,7 +19,7 @@ export class ChatDialog extends BaseComponent {
         this.startMessage = new BaseComponent({
             tag: "div",
             classNames: ["chat__startDialog"],
-            text: "Send your first message!",
+            text: "Select user to start chat!",
         }).getElement();
         this.separateLine = new BaseComponent({
             tag: "div",
@@ -77,6 +77,7 @@ export class ChatDialog extends BaseComponent {
         if (event instanceof CustomEvent) {
             const info = event.detail.user;
             this.user = info;
+            this.startMessage.textContent = "Send your first message!";
             this.showStartMessage();
         }
     }
