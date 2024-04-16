@@ -87,6 +87,7 @@ export class Users extends BaseComponent {
     }
 
     public updateUsers(userArray: UserResponse[], status: StatusUser, currentUser: UserResponse | null): void {
+        this.removeOldUsers(status);
         userArray.forEach((user) => {
             if (user.login !== currentUser?.login) {
                 const item = this.createUsersItem(user.login, status);
@@ -94,6 +95,11 @@ export class Users extends BaseComponent {
                 socket.sendRequestForUnreadMessage(user.login);
             }
         });
+    }
+
+    private removeOldUsers(status: StatusUser): void {
+        const users = [...document.querySelectorAll(`.users__list__item.${status}`)];
+        users.forEach((item) => item.remove());
     }
 
     public clearUsers(): void {
