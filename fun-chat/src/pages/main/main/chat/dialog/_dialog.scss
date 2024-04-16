@@ -3,7 +3,7 @@
     width: 100%;
     @include display-flex(column, flex-start);
     padding: 10px;
-    row-gap: 15px;
+    //row-gap: 15px;
     max-height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;

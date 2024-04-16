@@ -3,6 +3,7 @@
     @include display-flex(column, flex-start);
     width: fit-content;
     font-family: Hexen;
+    padding: 7px 0;
     color: $form-font-color;
     &.author {
         margin-left: auto;
@@ -10,7 +11,10 @@
 }
 
 .chat__dialog__message__header {
-    margin-left: auto;
+    //margin-right: auto;
+    .chat__dialog__message.author & {
+        margin-left: auto;
+    }
 }
 
 .chat__dialog__message__body {
@@ -23,5 +27,20 @@
     .chat__dialog__message.author & {
         background-color: lighten($color-orange, 20%);
         color: darken($form-font-color, 50%);
+        text-align: right;
+    }
+}
+
+.chat__dialog__message__footer {
+    font-size: 0.85em;
+    @include display-flex(row, flex-end, center);
+    column-gap: 10px;
+}
+
+.chat__dialog__message__footer__status {
+    stroke: #594f48;
+    display: none;
+    .chat__dialog__message.author & {
+        display: flex;
     }
 }

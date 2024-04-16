@@ -116,7 +116,7 @@ export class ChatDialog extends BaseComponent {
 
     private showDialogWithUser(msg: Message[]): void {
         msg.forEach((item) => {
-            const message = new MessageElement(item.id, item.datetime, item.text).getElement();
+            const message = new MessageElement(item.id, item.from, item.datetime, item.text).getElement();
             if (item.from === controller.getActiveUser()?.login) {
                 message.classList.add("author");
             }
@@ -159,6 +159,7 @@ export class ChatDialog extends BaseComponent {
                     this.removeStartMessage();
                     const message = new MessageElement(
                         event.detail.id,
+                        event.detail.from,
                         event.detail.datetime,
                         event.detail.text
                     ).getElement();
