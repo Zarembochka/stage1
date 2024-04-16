@@ -1,11 +1,12 @@
-import { UserResponse } from "../utils/interfaces";
+import { ActiveUser, UserResponse } from "../utils/interfaces";
 
 class SessionStorage {
-    public saveUserToLS(user: UserResponse): void {
-        sessionStorage.setItem("LH_user", JSON.stringify(user));
+    public saveUserToLS(user: UserResponse, password = ""): void {
+        const userToSave = { login: user.login, password: password, isLogined: user.isLogined };
+        sessionStorage.setItem("LH_user", JSON.stringify(userToSave));
     }
 
-    public getActiveUser(): null | UserResponse {
+    public getActiveUser(): null | ActiveUser {
         const user = sessionStorage.getItem("LH_user");
         if (!user) {
             return null;

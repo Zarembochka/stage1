@@ -39,9 +39,23 @@ class MyWebSocket {
         this.addListeners();
     }
 
-    public openConnection(): void {}
+    public openConnection(): void {
+        this.socket = new WebSocket(url);
+        this.addListeners();
+        const user = controller.getActiveUser();
+        if (user) {
+            controller.logout();
+            controller.setCurrentUser(user.login, user.password);
+            this.sendRequestForUserLogin(user.login, user.password);
+        }
+    }
 
     private addListeners(): void {
+        this.socket.onopen = () => myModal.hideModal();
+        this.socket.onclose = () => {
+            myModal.showModal("No connection with server!");
+            this.openConnection();
+        };
         this.socket.onmessage = (message: MessageEvent) => {
             this.readMessage(message);
         };
@@ -122,7 +136,7 @@ class MyWebSocket {
     }
 
     private readMessageLogin(data: LoginResponse): void {
-        sStorage.saveUserToLS(data.payload.user);
+        sStorage.saveUserToLS(data.payload.user, controller.getActiveUser()?.password);
         controller.setActiveUser();
         this.sendRequestsForAllUsers();
         router.main();
@@ -136,17 +150,48 @@ class MyWebSocket {
     private sendMessage(
         msg: LoginLogoutRequest | AllUsersRequest | MessageRequest | HistoryRequest | MessageStatusRequest
     ): void {
-        this.socket.send(JSON.stringify(msg));
+        this.waitForSendMessage(() => this.socket.send(JSON.stringify(msg)));
+        //this.socket.send(JSON.stringify(msg));
         this.requests.push({ id: msg.id, type: msg.type });
         this.id += 1;
     }
 
-    private checkServerStatus(): boolean {
+    public checkServerStatus(): boolean {
+        if (this.socket.readyState === 0) {
+            this.waitForConnect(() => myModal.showModal("Connecting to server!"));
+            //myModal.showModal("Connecting to server!");
+            //return false;
+        }
+        if (this.socket.readyState === 1) {
+            return true;
+        }
         if (this.socket.readyState === 3) {
-            myModal.showModal("No connection with server!");
-            return false;
+            this.waitForConnect(() => myModal.showModal("No connection with server!"));
+            //myModal.showModal("No connection with server!");
+            //return false;
         }
         return true;
+    }
+
+    public waitForConnect(callback: () => void): void {
+        setTimeout(() => {
+            if (this.socket.readyState === 1) {
+                myModal.hideModal();
+            } else {
+                this.waitForConnect(callback);
+            }
+        }, 5);
+    }
+
+    public waitForSendMessage(callback: () => void): void {
+        setTimeout(() => {
+            if (this.socket.readyState === 1) {
+                myModal.hideModal();
+                callback();
+            } else {
+                this.waitForSendMessage(callback);
+            }
+        }, 5);
     }
 
     public sendRequestForUserLogin(login: string, password: string): void {
@@ -177,7 +222,7 @@ class MyWebSocket {
         }
     }
 
-    private sendRequestsForAllUsers(): void {
+    public sendRequestsForAllUsers(): void {
         this.sendRequestForOnlineUsers();
         this.sendRequestForOfflineUsers();
     }
@@ -201,6 +246,10 @@ class MyWebSocket {
             const msg = this.message.getRequestForStatusRead(this.id, idMessage);
             this.sendMessage(msg);
         }
+    }
+
+    public closeConnection(): void {
+        this.socket.close();
     }
 }
 

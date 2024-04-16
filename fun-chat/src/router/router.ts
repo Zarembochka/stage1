@@ -1,6 +1,7 @@
-import { app } from "..";
+import { app, controller } from "..";
 import { sStorage } from "../sessionStorage/storage";
 import { PagesView, PathToPage, Routing } from "../utils/interfaces";
+import { socket } from "../websocket/websocket";
 
 const config = [
     {
@@ -27,6 +28,8 @@ class Router {
     public start(): void {
         const user = sStorage.getActiveUser();
         if (user) {
+            socket.sendRequestForUserLogin(user.login, user.password);
+            controller.setCurrentUser(user.login, user.password);
             this.main();
             return;
         }
@@ -34,7 +37,12 @@ class Router {
     }
 
     public main(): void {
+        const user = controller.getActiveUser();
+        if (!user) {
+            return;
+        }
         this.goToPath(this.config[PathToPage.main]);
+        controller.setActiveUser();
         app.mainPage.setActiveUser();
         app.clearLoginForm();
     }
@@ -70,6 +78,9 @@ class Router {
             const path = this.getShortPath(window.location.pathname);
             this.goTo(`${path}`);
         });
+        window.addEventListener("beforeunload", () => {
+            socket.closeConnection();
+        });
         // window.addEventListener("DOMContentLoaded", () => {
         //     // const currentPath = window.location.pathname
         //     //     .split("/")
@@ -80,6 +91,6 @@ class Router {
     }
 }
 
-const pathSegmentsToKeep = 2;
-//const pathSegmentsToKeep = 0;
+//const pathSegmentsToKeep = 2;
+const pathSegmentsToKeep = 0;
 export const router = new Router(pathSegmentsToKeep);

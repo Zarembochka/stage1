@@ -42,7 +42,7 @@ class ModalForm extends BaseComponent {
         this.getElement().classList.add("show");
     }
 
-    private hideModal(): void {
+    public hideModal(): void {
         this.getElement().classList.remove("show");
         //this.getElement().remove();
     }
