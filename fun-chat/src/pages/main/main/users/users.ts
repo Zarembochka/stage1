@@ -118,14 +118,14 @@ export class Users extends BaseComponent {
     private showNewMessageIco(event: Event): void {
         if (event instanceof CustomEvent) {
             const messageFrom = event.detail.from;
-            if (messageFrom !== this.user?.login) {
-                const user = this.findUser(messageFrom);
-                const msgs = this.msgsCount(user);
-                if (user && user.nextElementSibling) {
-                    user.nextElementSibling.textContent = String(msgs + 1);
-                    user.nextElementSibling.classList.add("show");
-                }
+            //if (messageFrom !== this.user?.login) {
+            const user = this.findUser(messageFrom);
+            const msgs = this.msgsCount(user);
+            if (user && user.nextElementSibling) {
+                user.nextElementSibling.textContent = String(msgs + 1);
+                user.nextElementSibling.classList.add("show");
             }
+            //}
         }
     }
 

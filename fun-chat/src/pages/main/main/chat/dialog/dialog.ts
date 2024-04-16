@@ -11,6 +11,8 @@ export class ChatDialog extends BaseComponent {
 
     private separateLine: HTMLElement;
 
+    private unreadMessages: Message[];
+
     constructor() {
         super({ tag: "main", classNames: ["chat__dialog"] });
         this.user = null;
@@ -24,6 +26,7 @@ export class ChatDialog extends BaseComponent {
             classNames: ["chat__separateLine"],
             text: "Unread messages",
         }).getElement();
+        this.unreadMessages = [];
         this.prepareMain();
     }
 
@@ -33,6 +36,40 @@ export class ChatDialog extends BaseComponent {
         window.addEventListener("history-dialog", (event) => this.showDialog(event));
         window.addEventListener("new-message", (event) => this.showNewMessage(event));
         window.addEventListener("logout", () => this.logout());
+        //this.getElement().addEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this));
+    }
+
+    private startListenToReadMessages(): void {
+        //this.getElement().addEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this), false);
+        //this.getElement().addEventListener("scroll", this.readAllMessages.bind(this));
+        this.startListenToReadMessagesClick();
+    }
+
+    private startListenToReadMessagesScroll(): void {
+        this.getElement().addEventListener("scroll", this.readAllMessages.bind(this), false);
+    }
+
+    private startListenToReadMessagesClick(): void {
+        this.getElement().addEventListener("click", this.readAllMessages.bind(this), false);
+    }
+
+    public readAllMessages(): void {
+        this.removeSeparateLine();
+        if (this.user) {
+            controller.allMessagesRead(this.user.login);
+        }
+        this.changeStatusForRead();
+        this.stopListenToReadMessages();
+    }
+
+    private stopListenToReadMessages(): void {
+        this.getElement().removeEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this), false);
+        this.getElement().removeEventListener("scroll", this.readAllMessages, false);
+        this.getElement().removeEventListener("click", this.readAllMessages, false);
+    }
+
+    private removeSeparateLine(): void {
+        this.separateLine.remove();
     }
 
     private updateUser(event: Event): void {
@@ -68,11 +105,12 @@ export class ChatDialog extends BaseComponent {
             this.appendElement(this.separateLine);
             this.showDialogWithUser(msgNew);
             this.scrollToUnreadMessages();
+            this.startListenToReadMessages();
         }
         //this.scrollToLastMessage();
-        if (this.user) {
-            controller.allMessagesRead(this.user.login);
-        }
+        // if (this.user) {
+        //     controller.allMessagesRead(this.user.login);
+        // }
     }
 
     private showDialogWithUser(msg: Message[]): void {
@@ -83,7 +121,8 @@ export class ChatDialog extends BaseComponent {
             }
             this.appendElement(message);
             if (!item.status.isReaded && item.to === controller.getActiveUser()?.login) {
-                socket.sentRequestForStatusRead(item.id);
+                this.unreadMessages.push(item);
+                //socket.sentRequestForStatusRead(item.id);
             }
         });
     }
@@ -101,6 +140,10 @@ export class ChatDialog extends BaseComponent {
     }
 
     private scrollToLastMessage(message: HTMLElement): void {
+        if (this.isUnreadMessages()) {
+            this.scrollToUnreadMessages();
+            return;
+        }
         message.scrollIntoView({ block: "end", inline: "nearest", behavior: "smooth" });
     }
 
@@ -111,22 +154,41 @@ export class ChatDialog extends BaseComponent {
     private showNewMessage(event: Event): void {
         if (this.user) {
             if (event instanceof CustomEvent) {
-                this.removeStartMessage();
-                const message = new MessageElement(
-                    event.detail.id,
-                    event.detail.datetime,
-                    event.detail.text
-                ).getElement();
-                if (event.detail.from === controller.getActiveUser()?.login) {
-                    message.classList.add("author");
+                if (this.user.login === event.detail.from || event.detail.from === controller.getActiveUser()?.login) {
+                    this.removeStartMessage();
+                    const message = new MessageElement(
+                        event.detail.id,
+                        event.detail.datetime,
+                        event.detail.text
+                    ).getElement();
+                    if (event.detail.from === controller.getActiveUser()?.login) {
+                        message.classList.add("author");
+                        this.readAllMessages();
+                    }
+                    if (!this.isUnreadMessages() && event.detail.from !== controller.getActiveUser()?.login) {
+                        this.appendElement(this.separateLine);
+                    }
+                    this.appendElement(message);
+                    this.scrollToLastMessage(message);
                 }
-                this.appendElement(message);
-                this.scrollToLastMessage(message);
             }
         }
     }
 
     private removeStartMessage(): void {
         this.startMessage.remove();
+    }
+
+    private changeStatusForRead(): void {
+        this.unreadMessages.forEach((item) => socket.sentRequestForStatusRead(item.id));
+        this.unreadMessages.length = 0;
+    }
+
+    private isUnreadMessages(): boolean {
+        const line = this.getElement().querySelector(".chat__separateLine");
+        if (line) {
+            return true;
+        }
+        return false;
     }
 }
