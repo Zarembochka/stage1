@@ -57,8 +57,18 @@ body {
         border: 1px solid desaturate($color: $color-orange-btn, $amount: 45%);
         color: desaturate($color: $color-btn, $amount: 10%);
     }
+    @media screen and (max-width: 470px) {
+        & {
+            padding: 5px 10px;
+        }
+    }
 }
 
 .container {
     padding: 0 15px;
+    @media screen and (max-width: 470px) {
+        & {
+            padding: 0 3px;
+        }
+    }
 }

@@ -13,4 +13,9 @@
     font-family: inherit;
     border-radius: 10px;
     width: 100%;
+    @media screen and (max-width: 470px) {
+        & {
+            font-size: 1em;
+        }
+    }
 }

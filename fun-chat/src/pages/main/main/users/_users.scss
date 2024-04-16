@@ -3,12 +3,18 @@
     font-family: Hexen;
     font-size: 1.5em;
     @include display-flex(column);
-    row-gap: 15px;
-    width: 25%;
+    row-gap: 10px;
+    width: 30%;
     color: $form-font-color;
     max-height: 100%;
     overflow-y: scroll;
     border-right: 2px solid $form-font-color;
+    @media screen and (max-width: 630px) {
+        & {
+            padding: 10px 0px;
+            font-size: 1em;
+        }
+    }
 }
 
 .users__search {
@@ -19,6 +25,7 @@
     padding: 2px 5px 2px 15px;
     font-family: inherit;
     border-radius: 10px;
+    width: 100%;
 }
 
 .users__list {
@@ -49,6 +56,12 @@
     &.hide {
         display: none;
     }
+    @media screen and (max-width: 630px) {
+        & {
+            padding: 10px 0px;
+            column-gap: 2px;
+        }
+    }
 }
 
 .status__ico {
@@ -58,6 +71,12 @@
     }
     .users__list__item.nonactive & {
         fill: $color-nonactive;
+    }
+    @media screen and (max-width: 470px) {
+        & {
+            width: 12px;
+            height: 12px;
+        }
     }
 }
 
@@ -72,5 +91,10 @@
     visibility: hidden;
     &.show {
         visibility: visible;
+    }
+    @media screen and (max-width: 630px) {
+        & {
+            font-size: 0.75em;
+        }
     }
 }
