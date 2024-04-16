@@ -148,15 +148,17 @@ export class Users extends BaseComponent {
     private showUnreadMessagesIco(event: Event): void {
         if (event instanceof CustomEvent) {
             const messageFrom = event.detail.from;
-            const user = this.findUser(messageFrom);
-            const msgs = event.detail.count;
-            if (user && user.nextElementSibling) {
-                user.nextElementSibling.textContent = String(msgs);
-                if (msgs > 0) {
-                    user.nextElementSibling.classList.add("show");
-                    return;
+            if (messageFrom !== this.user?.login || !event.detail.count) {
+                const user = this.findUser(messageFrom);
+                const msgs = event.detail.count;
+                if (user && user.nextElementSibling) {
+                    user.nextElementSibling.textContent = String(msgs);
+                    if (msgs > 0) {
+                        user.nextElementSibling.classList.add("show");
+                        return;
+                    }
+                    user.nextElementSibling.classList.remove("show");
                 }
-                user.nextElementSibling.classList.remove("show");
             }
         }
     }

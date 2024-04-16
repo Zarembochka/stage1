@@ -6,6 +6,7 @@
     row-gap: 15px;
     max-height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .chat__startDialog {
@@ -26,4 +27,30 @@
 
 ::-webkit-scrollbar-thumb {
     background-color: lighten($color: $form-font-color, $amount: 25%);
+}
+
+.chat__separateLine {
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-family: Hexen;
+    color: $shadow-color;
+    text-align: center;
+    &::before,
+    &::after {
+        content: "";
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        width: 50%;
+        height: 2px;
+        background-color: $shadow-color;
+    }
+    &::before {
+        right: 10px;
+        margin-left: -50%;
+    }
+    &::after {
+        left: 10px;
+        margin-right: -50%;
+    }
 }

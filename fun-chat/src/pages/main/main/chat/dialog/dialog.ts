@@ -9,6 +9,8 @@ export class ChatDialog extends BaseComponent {
 
     private startMessage: HTMLElement;
 
+    private separateLine: HTMLElement;
+
     constructor() {
         super({ tag: "main", classNames: ["chat__dialog"] });
         this.user = null;
@@ -16,6 +18,11 @@ export class ChatDialog extends BaseComponent {
             tag: "div",
             classNames: ["chat__startDialog"],
             text: "Send your first message!",
+        }).getElement();
+        this.separateLine = new BaseComponent({
+            tag: "div",
+            classNames: ["chat__separateLine"],
+            text: "Unread messages",
         }).getElement();
         this.prepareMain();
     }
@@ -54,6 +61,21 @@ export class ChatDialog extends BaseComponent {
     }
 
     private showHistoryMessage(msg: Message[]): void {
+        const msgOld = msg.filter((item) => item.status.isReaded || item.from === controller.getActiveUser()?.login);
+        const msgNew = msg.filter((item) => !item.status.isReaded && item.from !== controller.getActiveUser()?.login);
+        this.showDialogWithUser(msgOld);
+        if (msgNew.length) {
+            this.appendElement(this.separateLine);
+            this.showDialogWithUser(msgNew);
+            this.scrollToUnreadMessages();
+        }
+        //this.scrollToLastMessage();
+        if (this.user) {
+            controller.allMessagesRead(this.user.login);
+        }
+    }
+
+    private showDialogWithUser(msg: Message[]): void {
         msg.forEach((item) => {
             const message = new MessageElement(item.id, item.datetime, item.text).getElement();
             if (item.from === controller.getActiveUser()?.login) {
@@ -64,10 +86,6 @@ export class ChatDialog extends BaseComponent {
                 socket.sentRequestForStatusRead(item.id);
             }
         });
-        //this.scrollToLastMessage();
-        if (this.user) {
-            controller.allMessagesRead(this.user.login);
-        }
     }
 
     private removeOldMessades(): void {
@@ -86,9 +104,14 @@ export class ChatDialog extends BaseComponent {
         message.scrollIntoView({ block: "end", inline: "nearest", behavior: "smooth" });
     }
 
+    private scrollToUnreadMessages(): void {
+        this.separateLine.scrollIntoView({ block: "start", inline: "nearest", behavior: "smooth" });
+    }
+
     private showNewMessage(event: Event): void {
         if (this.user) {
             if (event instanceof CustomEvent) {
+                this.removeStartMessage();
                 const message = new MessageElement(
                     event.detail.id,
                     event.detail.datetime,
@@ -101,5 +124,9 @@ export class ChatDialog extends BaseComponent {
                 this.scrollToLastMessage(message);
             }
         }
+    }
+
+    private removeStartMessage(): void {
+        this.startMessage.remove();
     }
 }
