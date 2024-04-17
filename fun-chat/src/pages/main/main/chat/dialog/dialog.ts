@@ -40,7 +40,8 @@ export class ChatDialog extends BaseComponent {
         window.addEventListener("new-message", (event) => this.showNewMessage(event));
         window.addEventListener("logout", () => this.logout());
         window.addEventListener("delete-message", (event) => this.removeMessageFromChat(event));
-        this.startListenToReadMessagesScroll();
+        window.addEventListener("edited-message", (event) => this.editedMessageInChat(event));
+        this.startListenToReadMessagesClick();
         //this.getElement().addEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this));
     }
 
@@ -68,7 +69,7 @@ export class ChatDialog extends BaseComponent {
     }
 
     private stopListenToReadMessages(): void {
-        this.getElement().removeEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this), false);
+        //this.getElement().removeEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this), false);
         this.getElement().removeEventListener("scroll", this.readAllMessages, false);
         this.getElement().removeEventListener("click", this.readAllMessages, false);
     }
@@ -121,7 +122,7 @@ export class ChatDialog extends BaseComponent {
 
     private showDialogWithUser(msg: Message[]): void {
         msg.forEach((item) => {
-            const newMsg = new MessageElement(item.id, item.from, item.datetime, item.text);
+            const newMsg = new MessageElement(item.id, item.from, item.datetime, item.text, item.status);
             this.allMessages.push(newMsg);
             const message = newMsg.getElement();
             if (item.from === controller.getActiveUser()?.login) {
@@ -168,7 +169,8 @@ export class ChatDialog extends BaseComponent {
                         event.detail.id,
                         event.detail.from,
                         event.detail.datetime,
-                        event.detail.text
+                        event.detail.text,
+                        event.detail.status
                     );
                     this.allMessages.push(newMsg);
                     const message = newMsg.getElement();
@@ -217,34 +219,27 @@ export class ChatDialog extends BaseComponent {
         const msg = this.findMesssage(id);
         if (msg) {
             msg.removeElement();
+            this.removeMessageFromAll(id);
             this.removeMessageFromUnread(id);
             this.checkChatLength();
         }
     }
 
     private findMesssage(id: string): MessageElement | undefined {
-        const itemIndex = this.allMessages.findIndex((msg) => msg.id === id);
-        if (itemIndex !== -1) {
-            const item = this.allMessages[itemIndex];
-            for (let i = itemIndex; i < this.allMessages.length - 1; i += 1) {
-                this.allMessages[i] = this.allMessages[i + 1];
-            }
-            this.allMessages.pop();
-            return item;
-        }
-        return undefined;
+        const item = this.allMessages.find((msg) => msg.id === id);
+        return item;
+    }
+
+    private removeMessageFromAll(id: string): void {
+        const newMsg = this.allMessages.filter((msg) => msg.id !== id);
+        this.allMessages = [...newMsg];
     }
 
     private removeMessageFromUnread(id: string): void {
-        const item = this.unreadMessages.findIndex((msg) => msg.id === id);
-        if (item !== -1) {
-            for (let i = item; i < this.unreadMessages.length - 1; i += 1) {
-                this.unreadMessages[i] = this.unreadMessages[i + 1];
-            }
-            this.unreadMessages.pop();
-            if (!this.unreadMessages.length) {
-                this.removeSeparateLine();
-            }
+        const newUnread = this.unreadMessages.filter((msg) => msg.id !== id);
+        this.unreadMessages = [...newUnread];
+        if (!this.unreadMessages.length) {
+            this.removeSeparateLine();
         }
     }
 
@@ -252,6 +247,21 @@ export class ChatDialog extends BaseComponent {
         const childs = this.getElement().childElementCount;
         if (!childs) {
             this.showStartMessage();
+        }
+    }
+
+    private editedMessageInChat(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const id = event.detail.id;
+            const text = event.detail.text;
+            this.editMessage(id, text);
+        }
+    }
+
+    private editMessage(id: string, text: string): void {
+        const msg = this.findMesssage(id);
+        if (msg) {
+            msg.editTextMessage(text);
         }
     }
 }

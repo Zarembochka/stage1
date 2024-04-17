@@ -5,6 +5,7 @@ import {
     MessageResponse,
     UserResponse,
     UnreadMessage,
+    MessageEditResponse,
 } from "../utils/interfaces";
 import { socket } from "../websocket/websocket";
 
@@ -146,5 +147,22 @@ export class Controller {
             const newUnread = this.unreadMessages.filter((item) => item.id !== id);
             this.unreadMessages = [...newUnread];
         }
+    }
+
+    public editMessage(id: string, text: string): void {
+        const ediMsg = new CustomEvent("edit-message", {
+            detail: { id: id, text: text },
+        });
+        window.dispatchEvent(ediMsg);
+    }
+
+    public editMessageInChat(data: MessageEditResponse): void {
+        if (!data.payload.message.status.isEdited) {
+            return;
+        }
+        const ediMsg = new CustomEvent("edited-message", {
+            detail: { id: data.payload.message.id, text: data.payload.message.text },
+        });
+        window.dispatchEvent(ediMsg);
     }
 }

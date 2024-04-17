@@ -12,6 +12,7 @@ import {
     LoginLogoutRequest,
     LoginResponse,
     MessageDeleteResponse,
+    MessageEditResponse,
     MessageRequest,
     MessageResponse,
     MessageStatusRequest,
@@ -101,11 +102,18 @@ class MyWebSocket {
             this.readMessageFromUser(data);
         }
         if (msgType.type === TypesMessages.msgDelete) {
-            this.readMessageDeleteMyMessage(data);
+            this.readMessageDeleteMessage(data);
+        }
+        if (msgType.type === TypesMessages.msgEdit) {
+            this.readMessageEditMessage(data);
         }
     }
 
-    private readMessageDeleteMyMessage(data: MessageDeleteResponse): void {
+    private readMessageEditMessage(data: MessageEditResponse): void {
+        controller.editMessageInChat(data);
+    }
+
+    private readMessageDeleteMessage(data: MessageDeleteResponse): void {
         controller.deleteMessage(data);
     }
 
@@ -118,7 +126,9 @@ class MyWebSocket {
         controller.showDialogHistory(data);
     }
 
-    private readMessageFromServer(data: LoginResponse | MessageResponse | MessageDeleteResponse): void {
+    private readMessageFromServer(
+        data: LoginResponse | MessageResponse | MessageDeleteResponse | MessageEditResponse
+    ): void {
         if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
             this.readMessageLoginLogoutFromServer(data as LoginResponse);
             return;
@@ -131,6 +141,14 @@ class MyWebSocket {
             this.readMessageDeleteMessageFromServer(data as MessageDeleteResponse);
             return;
         }
+        if (data.type === TypesMessages.msgEdit) {
+            this.readMessageEditMessageFromServer(data as MessageEditResponse);
+            return;
+        }
+    }
+
+    private readMessageEditMessageFromServer(data: MessageEditResponse): void {
+        controller.editMessageInChat(data);
     }
 
     private readMessageDeleteMessageFromServer(data: MessageDeleteResponse): void {
@@ -271,6 +289,13 @@ class MyWebSocket {
     public sendRequestForMessageDelete(idMessage: string): void {
         if (this.checkServerStatus()) {
             const msg = this.message.getRequestForMessageDelete(this.id, idMessage);
+            this.sendMessage(msg);
+        }
+    }
+
+    public sendRequestForMessageEdit(idMessage: string, text: string): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForMessageEdit(this.id, idMessage, text);
             this.sendMessage(msg);
         }
     }

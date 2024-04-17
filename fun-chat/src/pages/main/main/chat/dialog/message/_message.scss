@@ -39,7 +39,12 @@
 .message__footer {
     font-size: 0.85em;
     @include display-flex(row, flex-end, center);
-    column-gap: 10px;
+    column-gap: 7px;
+    & .actionMessage__ico {
+        width: 12px;
+        height: 12px;
+        margin-left: 3px;
+    }
 }
 
 .message__footer__status {
@@ -77,4 +82,6 @@
 .actionMessage__ico {
     stroke: black;
     transition: stroke 0.3s ease-in-out;
+    width: 16px;
+    height: 16px;
 }

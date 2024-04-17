@@ -3,6 +3,7 @@ import {
     AllUsersRequest,
     HistoryRequest,
     LoginLogoutRequest,
+    MessageEditRequest,
     MessageRequest,
     MessageStatusRequest,
     TypesMessages,
@@ -102,6 +103,20 @@ export class Message {
             payload: {
                 message: {
                     id: idMessage,
+                },
+            },
+        };
+        return msg;
+    }
+
+    public getRequestForMessageEdit(id: number, idMessage: string, text: string): MessageEditRequest {
+        const msg = {
+            id: String(id),
+            type: TypesMessages.msgEdit,
+            payload: {
+                message: {
+                    id: idMessage,
+                    text: text,
                 },
             },
         };

@@ -1,5 +1,7 @@
+import { controller } from "../../../../../..";
 import { deleteLogo, editLogo, statusLogo } from "../../../../../../abstracts/logos";
 import { BaseComponent } from "../../../../../../utils/baseComponents";
+import { MessageStatus } from "../../../../../../utils/interfaces";
 import { socket } from "../../../../../../websocket/websocket";
 
 export class MessageElement extends BaseComponent {
@@ -21,7 +23,9 @@ export class MessageElement extends BaseComponent {
 
     private content: HTMLElement;
 
-    constructor(id: string, login: string, datetime: number, content: string) {
+    private statusEdited: HTMLElement;
+
+    constructor(id: string, login: string, datetime: number, content: string, options: MessageStatus) {
         super({ tag: "div", classNames: ["message"] });
         this.id = id;
         this.header = this.createHTMLElement("message__header", login);
@@ -32,14 +36,19 @@ export class MessageElement extends BaseComponent {
         this.footer = this.createHTMLElement("message__footer");
         this.time = this.createHTMLElement("message__footer__time", this.getDate(datetime));
         this.status = this.createHTMLElement("message__footer__status");
+        this.statusEdited = this.createHTMLElement("message__footer__statusEdited");
+        if (options.isEdited) {
+            this.changeStatusToEdited();
+        }
         this.status.innerHTML = statusLogo;
         this.prepareMessage();
     }
 
     private prepareMessage(): void {
         this.btnDelete.addEventListener("click", () => this.deleteMessage());
+        this.btnEdit.addEventListener("click", () => this.editMessage());
         this.body.append(this.btnDelete, this.btnEdit, this.content);
-        this.footer.append(this.time, this.status);
+        this.footer.append(this.time, this.statusEdited, this.status);
         this.getElement().append(this.header, this.body, this.footer);
     }
 
@@ -74,5 +83,21 @@ export class MessageElement extends BaseComponent {
 
     private deleteMessage(): void {
         socket.sendRequestForMessageDelete(this.id);
+    }
+
+    private editMessage(): void {
+        if (!this.content.textContent) {
+            return;
+        }
+        controller.editMessage(this.id, this.content.textContent);
+    }
+
+    public editTextMessage(text: string): void {
+        this.content.textContent = text;
+        this.changeStatusToEdited();
+    }
+
+    private changeStatusToEdited(): void {
+        this.statusEdited.innerHTML = editLogo;
     }
 }

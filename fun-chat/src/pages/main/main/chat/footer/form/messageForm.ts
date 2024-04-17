@@ -9,11 +9,14 @@ export class MessageForm extends BaseComponent {
 
     private user: string;
 
+    private idEditMessage: string | null;
+
     constructor() {
         super({ tag: "form", classNames: ["message__form"] });
         this.message = this.createFormInputElement(["message__form__input"]);
         this.btnSend = this.createFormSubmitElement();
         this.user = "";
+        this.idEditMessage = null;
         this.prepareForm();
     }
 
@@ -43,6 +46,7 @@ export class MessageForm extends BaseComponent {
     private prepareForm(): void {
         this.getElement().append(this.message, this.btnSend);
         window.addEventListener("user-change", (event) => this.enableForm(event));
+        window.addEventListener("edit-message", (event) => this.editMessage(event));
     }
 
     private enableForm(event: Event): void {
@@ -64,13 +68,26 @@ export class MessageForm extends BaseComponent {
         event.preventDefault();
         const currentUser = controller.getActiveUser();
         if (currentUser) {
-            socket.sendRequestForMessage(this.user, this.message.value.trim());
-            //socket.sendRequestForUnreadMessage(this.user);
+            if (this.idEditMessage) {
+                socket.sendRequestForMessageEdit(this.idEditMessage, this.message.value.trim());
+            } else {
+                socket.sendRequestForMessage(this.user, this.message.value.trim());
+            }
             this.clearForm();
         }
     }
 
     private clearForm(): void {
         this.message.value = "";
+        this.idEditMessage = null;
+    }
+
+    private editMessage(event: Event): void {
+        if (event instanceof CustomEvent) {
+            this.idEditMessage = event.detail.id;
+            this.message.value = event.detail.text;
+            this.message.disabled = false;
+            this.btnSend.disabled = false;
+        }
     }
 }
