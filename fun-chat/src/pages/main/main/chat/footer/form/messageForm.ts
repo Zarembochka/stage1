@@ -20,7 +20,7 @@ export class MessageForm extends BaseComponent {
     private createFormSubmitElement(): HTMLButtonElement {
         const btn = new BaseComponent<HTMLButtonElement>({
             tag: "button",
-            classNames: ["btn", "btn-send"],
+            classNames: ["btn", "btn-action", "btn-send"],
             text: "Send",
         }).getElement();
         btn.disabled = true;

@@ -27,7 +27,7 @@ export class Header extends BaseComponent {
     private createBtnLogout(): HTMLButtonElement {
         const btn = new BaseComponent<HTMLButtonElement>({
             tag: "button",
-            classNames: ["btn", "btn-logout"],
+            classNames: ["btn", "btn-action", "btn-logout"],
             text: "Logout",
         }).getElement();
         btn.addEventListener("click", () => this.logout());

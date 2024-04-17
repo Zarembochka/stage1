@@ -1,4 +1,4 @@
-.chat__dialog__message {
+.message {
     width: 100%;
     @include display-flex(column, flex-start);
     width: fit-content;
@@ -10,37 +10,71 @@
     }
 }
 
-.chat__dialog__message__header {
+.message__header {
     //margin-right: auto;
-    .chat__dialog__message.author & {
+    .message.author & {
         margin-left: auto;
     }
 }
 
-.chat__dialog__message__body {
+.message__body {
+    @include display-flex(row, flex-start, center);
+    column-gap: 5px;
+}
+
+.message__body__content {
     padding: 10px;
     border: 2px solid lighten($color-orange, 20%);
     color: #594f48;
     border-radius: 10px;
     width: fit-content;
     min-width: 150px;
-    .chat__dialog__message.author & {
+    .message.author & {
         background-color: lighten($color-orange, 20%);
         color: darken($form-font-color, 50%);
         text-align: right;
     }
 }
 
-.chat__dialog__message__footer {
+.message__footer {
     font-size: 0.85em;
     @include display-flex(row, flex-end, center);
     column-gap: 10px;
 }
 
-.chat__dialog__message__footer__status {
+.message__footer__status {
     stroke: #594f48;
     display: none;
-    .chat__dialog__message.author & {
+    .message.author & {
         display: flex;
     }
+}
+
+.btn-message {
+    @include display-flex(row);
+    display: none;
+    background-color: transparent;
+    padding: 6px;
+    border-radius: 50%;
+    border: 1px solid lighten($color-orange, 20%);
+    .message.author & {
+        display: flex;
+    }
+    transition-property: transform, bacbackground-color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    @media screen and (hover: hover) {
+        &:hover {
+            transform: scale(1.1);
+            background-color: lighten($color-orange, 20%);
+            .actionMessage__ico {
+                stroke: white;
+            }
+        }
+    }
+}
+
+.actionMessage__ico {
+    stroke: black;
+    transition: stroke 0.3s ease-in-out;
 }

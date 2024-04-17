@@ -27,7 +27,7 @@ export class LoginForm extends BaseComponent {
     private createFormSubmitElement(): HTMLButtonElement {
         const btn = new BaseComponent<HTMLButtonElement>({
             tag: "button",
-            classNames: ["btn", "btn-login"],
+            classNames: ["btn", "btn-action", "btn-login"],
             text: "Login",
         }).getElement();
         btn.addEventListener("click", (event) => this.login(event));

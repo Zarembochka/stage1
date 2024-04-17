@@ -19,7 +19,7 @@ class ModalForm extends BaseComponent {
         }).getElement();
         this.btnClose = new BaseComponent<HTMLButtonElement>({
             tag: "button",
-            classNames: ["btn", "btn-close"],
+            classNames: ["btn", "btn-action", "btn-close"],
             text: "Ok",
         }).getElement();
         this.prepareModal();
