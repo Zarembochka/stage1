@@ -85,6 +85,8 @@ export class ChatDialog extends BaseComponent {
             this.user = info;
             this.startMessage.textContent = "Send your first message!";
             this.showStartMessage();
+            this.allMessages = [];
+            this.unreadMessages = [];
         }
     }
 
