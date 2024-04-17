@@ -40,6 +40,7 @@ export class ChatDialog extends BaseComponent {
         window.addEventListener("new-message", (event) => this.showNewMessage(event));
         window.addEventListener("logout", () => this.logout());
         window.addEventListener("delete-message", (event) => this.removeMessageFromChat(event));
+        this.startListenToReadMessagesScroll();
         //this.getElement().addEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this));
     }
 
@@ -217,9 +218,7 @@ export class ChatDialog extends BaseComponent {
         if (msg) {
             msg.removeElement();
             this.removeMessageFromUnread(id);
-            if (!this.allMessages.length) {
-                this.showStartMessage();
-            }
+            this.checkChatLength();
         }
     }
 
@@ -246,6 +245,13 @@ export class ChatDialog extends BaseComponent {
             if (!this.unreadMessages.length) {
                 this.removeSeparateLine();
             }
+        }
+    }
+
+    private checkChatLength(): void {
+        const childs = this.getElement().childElementCount;
+        if (!childs) {
+            this.showStartMessage();
         }
     }
 }
