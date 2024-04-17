@@ -1,11 +1,21 @@
-import { ActiveUser, HistoryResponse, MessageResponse, UserResponse } from "../utils/interfaces";
+import {
+    ActiveUser,
+    HistoryResponse,
+    MessageDeleteResponse,
+    MessageResponse,
+    UserResponse,
+    UnreadMessage,
+} from "../utils/interfaces";
 import { socket } from "../websocket/websocket";
 
 export class Controller {
     private activeUser: ActiveUser | null;
 
+    private unreadMessages: UnreadMessage[];
+
     constructor() {
         this.activeUser = null;
+        this.unreadMessages = [];
     }
 
     public selectUser(user: UserResponse): void {
@@ -33,19 +43,24 @@ export class Controller {
                 },
             },
         });
+        this.unreadMessages.push({ login: data.payload.message.from, id: data.payload.message.id });
         window.dispatchEvent(newMessage);
     }
 
     public showUnreadMessages(data: HistoryResponse): void {
         if (this.activeUser) {
             const msgs = data.payload.messages.filter((users) => users.to === this.activeUser?.login);
-            const msgsCount = msgs.filter((item) => !item.status.isReaded).length;
+            const msgUnread = msgs.filter((item) => !item.status.isReaded);
+            const msgsCount = msgUnread.length;
             if (msgsCount > 0) {
                 const unreadMessages = new CustomEvent("unread-messages", {
                     detail: { from: msgs[0].from, count: msgsCount },
                 });
                 window.dispatchEvent(unreadMessages);
             }
+            msgUnread.forEach((item) => {
+                this.unreadMessages.push({ login: item.to, id: item.id });
+            });
         }
     }
 
@@ -68,6 +83,12 @@ export class Controller {
             detail: { from: from, count: 0 },
         });
         window.dispatchEvent(unreadMessages);
+        this.removeUnreadMessagesFromUser(from);
+    }
+
+    private removeUnreadMessagesFromUser(from: string): void {
+        const msgs = this.unreadMessages.filter((item) => item.login !== from);
+        this.unreadMessages = [...msgs];
     }
 
     public setCurrentUser(login: string, password: string): void {
@@ -96,6 +117,34 @@ export class Controller {
                 detail: {},
             });
             window.dispatchEvent(logout);
+        }
+    }
+
+    public deleteMessage(data: MessageDeleteResponse): void {
+        if (!data.payload.message.status.isDeleted) {
+            return;
+        }
+        const deteleMessage = new CustomEvent("delete-message", {
+            detail: { id: data.payload.message.id },
+        });
+        window.dispatchEvent(deteleMessage);
+        this.checkUnreadMessage(data.payload.message.id);
+    }
+
+    public updateUnreadMessages(login: string, count: number): void {
+        const unreadMessages = new CustomEvent("unread-messages", {
+            detail: { from: login, count: count },
+        });
+        window.dispatchEvent(unreadMessages);
+    }
+
+    private checkUnreadMessage(id: string): void {
+        const msg = this.unreadMessages.find((item) => item.id === id);
+        if (msg) {
+            const count = this.unreadMessages.filter((item) => item.login === msg.login && item.id !== id).length;
+            this.updateUnreadMessages(msg.login, count);
+            const newUnread = this.unreadMessages.filter((item) => item.id !== id);
+            this.unreadMessages = [...newUnread];
         }
     }
 }

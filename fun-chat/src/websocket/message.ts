@@ -94,4 +94,17 @@ export class Message {
         };
         return msg;
     }
+
+    public getRequestForMessageDelete(id: number, idMessage: string): MessageStatusRequest {
+        const msg = {
+            id: String(id),
+            type: TypesMessages.msgDelete,
+            payload: {
+                message: {
+                    id: idMessage,
+                },
+            },
+        };
+        return msg;
+    }
 }

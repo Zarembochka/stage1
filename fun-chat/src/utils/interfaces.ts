@@ -30,6 +30,7 @@ export enum TypesMessages {
     error = "ERROR",
     externalLogin = "USER_EXTERNAL_LOGIN",
     externalLogout = "USER_EXTERNAL_LOGOUT",
+    msgDelete = "MSG_DELETE",
 }
 
 export interface User {
@@ -156,4 +157,22 @@ export interface MessageStatusRequest {
             id: string;
         };
     };
+}
+
+export interface MessageDeleteResponse {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDeleted: boolean;
+            };
+        };
+    };
+}
+
+export interface UnreadMessage {
+    login: string;
+    id: string;
 }

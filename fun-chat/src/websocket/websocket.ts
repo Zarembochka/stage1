@@ -11,6 +11,7 @@ import {
     HistoryResponse,
     LoginLogoutRequest,
     LoginResponse,
+    MessageDeleteResponse,
     MessageRequest,
     MessageResponse,
     MessageStatusRequest,
@@ -99,6 +100,13 @@ class MyWebSocket {
         if (msgType.type === TypesMessages.msgSend) {
             this.readMessageFromUser(data);
         }
+        if (msgType.type === TypesMessages.msgDelete) {
+            this.readMessageDeleteMyMessage(data);
+        }
+    }
+
+    private readMessageDeleteMyMessage(data: MessageDeleteResponse): void {
+        controller.deleteMessage(data);
     }
 
     private readMessageFromUser(data: MessageResponse): void {
@@ -110,7 +118,7 @@ class MyWebSocket {
         controller.showDialogHistory(data);
     }
 
-    private readMessageFromServer(data: LoginResponse | MessageResponse): void {
+    private readMessageFromServer(data: LoginResponse | MessageResponse | MessageDeleteResponse): void {
         if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
             this.readMessageLoginLogoutFromServer(data as LoginResponse);
             return;
@@ -119,6 +127,14 @@ class MyWebSocket {
             this.readMessageNewMessageFromServer(data as MessageResponse);
             return;
         }
+        if (data.type === TypesMessages.msgDelete) {
+            this.readMessageDeleteMessageFromServer(data as MessageDeleteResponse);
+            return;
+        }
+    }
+
+    private readMessageDeleteMessageFromServer(data: MessageDeleteResponse): void {
+        controller.deleteMessage(data);
     }
 
     private readMessageLoginLogoutFromServer(data: LoginResponse): void {
@@ -250,6 +266,13 @@ class MyWebSocket {
 
     public closeConnection(): void {
         this.socket.close();
+    }
+
+    public sendRequestForMessageDelete(idMessage: string): void {
+        if (this.checkServerStatus()) {
+            const msg = this.message.getRequestForMessageDelete(this.id, idMessage);
+            this.sendMessage(msg);
+        }
     }
 }
 

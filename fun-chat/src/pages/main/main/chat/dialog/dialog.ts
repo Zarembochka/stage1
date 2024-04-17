@@ -13,6 +13,8 @@ export class ChatDialog extends BaseComponent {
 
     private unreadMessages: Message[];
 
+    private allMessages: MessageElement[];
+
     constructor() {
         super({ tag: "main", classNames: ["chat__dialog"] });
         this.user = null;
@@ -27,6 +29,7 @@ export class ChatDialog extends BaseComponent {
             text: "Unread messages",
         }).getElement();
         this.unreadMessages = [];
+        this.allMessages = [];
         this.prepareMain();
     }
 
@@ -36,6 +39,7 @@ export class ChatDialog extends BaseComponent {
         window.addEventListener("history-dialog", (event) => this.showDialog(event));
         window.addEventListener("new-message", (event) => this.showNewMessage(event));
         window.addEventListener("logout", () => this.logout());
+        window.addEventListener("delete-message", (event) => this.removeMessageFromChat(event));
         //this.getElement().addEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this));
     }
 
@@ -116,7 +120,9 @@ export class ChatDialog extends BaseComponent {
 
     private showDialogWithUser(msg: Message[]): void {
         msg.forEach((item) => {
-            const message = new MessageElement(item.id, item.from, item.datetime, item.text).getElement();
+            const newMsg = new MessageElement(item.id, item.from, item.datetime, item.text);
+            this.allMessages.push(newMsg);
+            const message = newMsg.getElement();
             if (item.from === controller.getActiveUser()?.login) {
                 message.classList.add("author");
             }
@@ -157,12 +163,14 @@ export class ChatDialog extends BaseComponent {
             if (event instanceof CustomEvent) {
                 if (this.user.login === event.detail.from || event.detail.from === controller.getActiveUser()?.login) {
                     this.removeStartMessage();
-                    const message = new MessageElement(
+                    const newMsg = new MessageElement(
                         event.detail.id,
                         event.detail.from,
                         event.detail.datetime,
                         event.detail.text
-                    ).getElement();
+                    );
+                    this.allMessages.push(newMsg);
+                    const message = newMsg.getElement();
                     if (event.detail.from === controller.getActiveUser()?.login) {
                         message.classList.add("author");
                         this.readAllMessages();
@@ -195,5 +203,49 @@ export class ChatDialog extends BaseComponent {
             return true;
         }
         return false;
+    }
+
+    private removeMessageFromChat(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const id = event.detail.id;
+            this.removeMessage(id);
+        }
+    }
+
+    private removeMessage(id: string): void {
+        const msg = this.findMesssage(id);
+        if (msg) {
+            msg.removeElement();
+            this.removeMessageFromUnread(id);
+            if (!this.allMessages.length) {
+                this.showStartMessage();
+            }
+        }
+    }
+
+    private findMesssage(id: string): MessageElement | undefined {
+        const itemIndex = this.allMessages.findIndex((msg) => msg.id === id);
+        if (itemIndex !== -1) {
+            const item = this.allMessages[itemIndex];
+            for (let i = itemIndex; i < this.allMessages.length - 1; i += 1) {
+                this.allMessages[i] = this.allMessages[i + 1];
+            }
+            this.allMessages.pop();
+            return item;
+        }
+        return undefined;
+    }
+
+    private removeMessageFromUnread(id: string): void {
+        const item = this.unreadMessages.findIndex((msg) => msg.id === id);
+        if (item !== -1) {
+            for (let i = item; i < this.unreadMessages.length - 1; i += 1) {
+                this.unreadMessages[i] = this.unreadMessages[i + 1];
+            }
+            this.unreadMessages.pop();
+            if (!this.unreadMessages.length) {
+                this.removeSeparateLine();
+            }
+        }
     }
 }

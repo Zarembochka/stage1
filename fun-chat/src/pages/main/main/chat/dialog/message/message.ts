@@ -1,5 +1,6 @@
 import { deleteLogo, editLogo, statusLogo } from "../../../../../../abstracts/logos";
 import { BaseComponent } from "../../../../../../utils/baseComponents";
+import { socket } from "../../../../../../websocket/websocket";
 
 export class MessageElement extends BaseComponent {
     private header: HTMLElement;
@@ -12,7 +13,7 @@ export class MessageElement extends BaseComponent {
 
     private status: HTMLElement;
 
-    private id: string;
+    public id: string;
 
     private btnDelete: HTMLButtonElement;
 
@@ -36,6 +37,7 @@ export class MessageElement extends BaseComponent {
     }
 
     private prepareMessage(): void {
+        this.btnDelete.addEventListener("click", () => this.deleteMessage());
         this.body.append(this.btnDelete, this.btnEdit, this.content);
         this.footer.append(this.time, this.status);
         this.getElement().append(this.header, this.body, this.footer);
@@ -68,5 +70,9 @@ export class MessageElement extends BaseComponent {
         btn.title = `${title} message`;
         //btn.addEventListener("click", (event) => this.sendMessage(event));
         return btn;
+    }
+
+    private deleteMessage(): void {
+        socket.sendRequestForMessageDelete(this.id);
     }
 }
