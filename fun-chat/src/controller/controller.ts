@@ -7,6 +7,7 @@ import {
     UnreadMessage,
     MessageEditResponse,
     MessageDeliveryResponse,
+    MessageReadResponse,
 } from "../utils/interfaces";
 import { socket } from "../websocket/websocket";
 
@@ -176,5 +177,15 @@ export class Controller {
             detail: { id: data.payload.message.id, status: { isDelivered: true, isReaded: false, isEdited: false } },
         });
         window.dispatchEvent(deliveryMsg);
+    }
+
+    public changeStatusToRead(data: MessageReadResponse): void {
+        if (!data.payload.message.status.isReaded) {
+            return;
+        }
+        const readMsg = new CustomEvent("change-status", {
+            detail: { id: data.payload.message.id, status: { isDelivered: true, isReaded: true, isEdited: false } },
+        });
+        window.dispatchEvent(readMsg);
     }
 }

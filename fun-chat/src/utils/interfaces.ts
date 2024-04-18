@@ -219,3 +219,16 @@ export interface MessageDeliveryResponse {
         };
     };
 }
+
+export interface MessageReadResponse {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isReaded: boolean;
+            };
+        };
+    };
+}

@@ -14,6 +14,7 @@ import {
     MessageDeleteResponse,
     MessageDeliveryResponse,
     MessageEditResponse,
+    MessageReadResponse,
     MessageRequest,
     MessageResponse,
     MessageStatusRequest,
@@ -128,7 +129,13 @@ class MyWebSocket {
     }
 
     private readMessageFromServer(
-        data: LoginResponse | MessageResponse | MessageDeleteResponse | MessageEditResponse | MessageDeliveryResponse
+        data:
+            | LoginResponse
+            | MessageResponse
+            | MessageDeleteResponse
+            | MessageEditResponse
+            | MessageDeliveryResponse
+            | MessageReadResponse
     ): void {
         if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
             this.readMessageLoginLogoutFromServer(data as LoginResponse);
@@ -150,6 +157,14 @@ class MyWebSocket {
             this.readMessageDeliveryMessageFromServer(data as MessageDeliveryResponse);
             return;
         }
+        if (data.type === TypesMessages.msgRead) {
+            this.readMessageReadMessageFromServer(data as MessageReadResponse);
+            return;
+        }
+    }
+
+    private readMessageReadMessageFromServer(data: MessageReadResponse): void {
+        controller.changeStatusToRead(data);
     }
 
     private readMessageDeliveryMessageFromServer(data: MessageDeliveryResponse): void {
