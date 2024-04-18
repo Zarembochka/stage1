@@ -32,6 +32,7 @@ export enum TypesMessages {
     externalLogout = "USER_EXTERNAL_LOGOUT",
     msgDelete = "MSG_DELETE",
     msgEdit = "MSG_EDIT",
+    msgDelivery = "MSG_DELIVER",
 }
 
 export interface User {
@@ -63,6 +64,7 @@ export interface LoginResponse {
 export interface TypesRequests {
     id: string;
     type: TypesMessages;
+    user: string;
 }
 
 export interface AllUsersRequest {
@@ -200,6 +202,19 @@ export interface MessageEditResponse {
             text: string;
             status: {
                 isEdited: boolean;
+            };
+        };
+    };
+}
+
+export interface MessageDeliveryResponse {
+    id: string;
+    type: TypesMessages;
+    payload: {
+        message: {
+            id: string;
+            status: {
+                isDelivered: boolean;
             };
         };
     };

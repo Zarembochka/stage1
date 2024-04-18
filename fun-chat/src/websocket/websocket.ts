@@ -12,6 +12,7 @@ import {
     LoginLogoutRequest,
     LoginResponse,
     MessageDeleteResponse,
+    MessageDeliveryResponse,
     MessageEditResponse,
     MessageRequest,
     MessageResponse,
@@ -96,7 +97,7 @@ class MyWebSocket {
             this.readMessageAllUsers(data, StatusUser.nonactive);
         }
         if (msgType.type === TypesMessages.msgHistory) {
-            this.readMessageHistory(data);
+            this.readMessageHistory(data, msgType.user);
         }
         if (msgType.type === TypesMessages.msgSend) {
             this.readMessageFromUser(data);
@@ -121,13 +122,13 @@ class MyWebSocket {
         controller.showNewMessage(data);
     }
 
-    private readMessageHistory(data: HistoryResponse): void {
-        controller.showUnreadMessages(data);
-        controller.showDialogHistory(data);
+    private readMessageHistory(data: HistoryResponse, login: string): void {
+        controller.showUnreadMessages(data, login);
+        controller.showDialogHistory(data, login);
     }
 
     private readMessageFromServer(
-        data: LoginResponse | MessageResponse | MessageDeleteResponse | MessageEditResponse
+        data: LoginResponse | MessageResponse | MessageDeleteResponse | MessageEditResponse | MessageDeliveryResponse
     ): void {
         if (data.type === TypesMessages.externalLogin || data.type === TypesMessages.externalLogout) {
             this.readMessageLoginLogoutFromServer(data as LoginResponse);
@@ -145,6 +146,14 @@ class MyWebSocket {
             this.readMessageEditMessageFromServer(data as MessageEditResponse);
             return;
         }
+        if (data.type === TypesMessages.msgDelivery) {
+            this.readMessageDeliveryMessageFromServer(data as MessageDeliveryResponse);
+            return;
+        }
+    }
+
+    private readMessageDeliveryMessageFromServer(data: MessageDeliveryResponse): void {
+        controller.changeStatusToDelivery(data);
     }
 
     private readMessageEditMessageFromServer(data: MessageEditResponse): void {
@@ -156,8 +165,8 @@ class MyWebSocket {
     }
 
     private readMessageLoginLogoutFromServer(data: LoginResponse): void {
-        app.mainPage.removeUsers();
-        this.sendRequestsForAllUsers();
+        //app.mainPage.removeUsers();
+        //this.sendRequestsForAllUsers();
         controller.updateStatusUser(data.payload.user);
     }
 
@@ -186,8 +195,20 @@ class MyWebSocket {
     ): void {
         this.waitForSendMessage(() => this.socket.send(JSON.stringify(msg)));
         //this.socket.send(JSON.stringify(msg));
-        this.requests.push({ id: msg.id, type: msg.type });
+        this.requests.push({ id: msg.id, type: msg.type, user: this.getUserFromMsg(msg) });
         this.id += 1;
+    }
+
+    private getUserFromMsg(
+        msg: LoginLogoutRequest | AllUsersRequest | MessageRequest | HistoryRequest | MessageStatusRequest
+    ): string {
+        if (msg.payload) {
+            if ("user" in msg.payload) {
+                const user = msg.payload.user.login;
+                return user;
+            }
+        }
+        return "";
     }
 
     public checkServerStatus(): boolean {

@@ -1,5 +1,5 @@
 import { controller } from "../../../../../..";
-import { deleteLogo, editLogo, statusLogo } from "../../../../../../abstracts/logos";
+import { deleteLogo, editLogo, statusLogo, statusLogoDelivered } from "../../../../../../abstracts/logos";
 import { BaseComponent } from "../../../../../../utils/baseComponents";
 import { MessageStatus } from "../../../../../../utils/interfaces";
 import { socket } from "../../../../../../websocket/websocket";
@@ -37,19 +37,38 @@ export class MessageElement extends BaseComponent {
         this.time = this.createHTMLElement("message__footer__time", this.getDate(datetime));
         this.status = this.createHTMLElement("message__footer__status");
         this.statusEdited = this.createHTMLElement("message__footer__statusEdited");
-        if (options.isEdited) {
-            this.changeStatusToEdited();
-        }
         this.status.innerHTML = statusLogo;
-        this.prepareMessage();
+        this.prepareMessage(options);
     }
 
-    private prepareMessage(): void {
+    private prepareMessage(options: MessageStatus): void {
+        this.setStatusesForMessage(options);
         this.btnDelete.addEventListener("click", () => this.deleteMessage());
         this.btnEdit.addEventListener("click", () => this.editMessage());
         this.body.append(this.btnDelete, this.btnEdit, this.content);
         this.footer.append(this.time, this.statusEdited, this.status);
         this.getElement().append(this.header, this.body, this.footer);
+    }
+
+    public setStatusesForMessage(options: MessageStatus): void {
+        if (options.isEdited) {
+            this.changeStatusToEdited();
+        }
+        if (options.isDelivered) {
+            this.setStatusDelivered();
+        }
+        if (options.isReaded) {
+            this.setStatusRead();
+        }
+    }
+
+    private setStatusDelivered(): void {
+        this.status.innerHTML = statusLogoDelivered;
+    }
+
+    private setStatusRead(): void {
+        this.status.innerHTML = statusLogo;
+        this.status.classList.add("readed");
     }
 
     private getDate(datetime: number): string {

@@ -11,11 +11,17 @@ export class Users extends BaseComponent {
 
     private user: UserResponse | null;
 
+    private onlineUsers: UserResponse[];
+
+    private offlineUsers: UserResponse[];
+
     constructor() {
         super({ tag: "aside", classNames: ["users"] });
         this.search = this.createInputElement();
         this.userList = this.createUsersList();
         this.user = null;
+        this.onlineUsers = [];
+        this.offlineUsers = [];
         this.prepareUsers();
     }
 
@@ -24,6 +30,7 @@ export class Users extends BaseComponent {
         this.getElement().append(this.search, this.userList);
         window.addEventListener("new-message", (event) => this.showNewMessageIco(event));
         window.addEventListener("unread-messages", (event) => this.showUnreadMessagesIco(event));
+        window.addEventListener("user-change-status", (event) => this.updateStatus(event));
         window.addEventListener("user-change", (event) => this.updateUser(event));
         window.addEventListener("logout", () => this.clearUsers());
     }
@@ -93,6 +100,22 @@ export class Users extends BaseComponent {
                 const item = this.createUsersItem(user.login, status);
                 this.userList.append(item);
                 socket.sendRequestForUnreadMessage(user.login);
+                if (status === StatusUser.active) {
+                    this.onlineUsers.push(user);
+                } else {
+                    this.offlineUsers.push(user);
+                }
+            }
+        });
+    }
+
+    private updateUserList(userArray: UserResponse[], status: StatusUser, currentUser: UserResponse | null): void {
+        this.removeOldUsers(status);
+        userArray.forEach((user) => {
+            if (user.login !== currentUser?.login) {
+                const item = this.createUsersItem(user.login, status);
+                this.userList.append(item);
+                socket.sendRequestForUnreadMessage(user.login);
             }
         });
     }
@@ -104,6 +127,8 @@ export class Users extends BaseComponent {
 
     public clearUsers(): void {
         this.user = null;
+        this.onlineUsers.length = 0;
+        this.offlineUsers.length = 0;
         while (this.userList.firstChild) {
             this.userList.firstChild.remove();
         }
@@ -169,11 +194,61 @@ export class Users extends BaseComponent {
         }
     }
 
-    private hideMessageCountIco(name: string): void {
-        const user = this.findUser(name);
-        if (user && user.nextElementSibling) {
-            user.nextElementSibling.textContent = "";
-            user.nextElementSibling.classList.remove("show");
+    private updateStatus(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const info = event.detail.user.login;
+            if (!this.changeStatusForUser(info)) {
+                if (event.detail.user.isLogined) {
+                    this.onlineUsers.push(event.detail.user);
+                } else {
+                    this.offlineUsers.push(event.detail.user);
+                }
+            }
+            this.showNewUsers();
         }
+    }
+
+    private showNewUsers(): void {
+        this.onlineUsers.sort((a, b) => a.login.localeCompare(b.login));
+        this.offlineUsers.sort((a, b) => a.login.localeCompare(b.login));
+        this.updateUserList(this.onlineUsers, StatusUser.active, controller.getActiveUser());
+        this.updateUserList(this.offlineUsers, StatusUser.nonactive, controller.getActiveUser());
+    }
+
+    private changeStatusForUser(login: string): boolean {
+        const activeUser = this.findActiveUser(login);
+        if (activeUser) {
+            this.removeUserFromActive(activeUser);
+            return true;
+        } else {
+            const inactiveUser = this.findInactiveUser(login);
+            if (inactiveUser) {
+                this.removeUserFromInactive(inactiveUser);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private findActiveUser(login: string): UserResponse | undefined {
+        const activeUser = this.onlineUsers.find((user) => user.login === login);
+        return activeUser;
+    }
+
+    private removeUserFromActive(user: UserResponse): void {
+        const newOnlineUsers = this.onlineUsers.filter((onlineUsers) => onlineUsers.login !== user.login);
+        this.onlineUsers = [...newOnlineUsers];
+        this.offlineUsers.push(user);
+    }
+
+    private findInactiveUser(login: string): UserResponse | undefined {
+        const inactiveUser = this.offlineUsers.find((user) => user.login === login);
+        return inactiveUser;
+    }
+
+    private removeUserFromInactive(user: UserResponse): void {
+        const newOfflineUsers = this.offlineUsers.filter((offlineUsers) => offlineUsers.login !== user.login);
+        this.offlineUsers = [...newOfflineUsers];
+        this.onlineUsers.push(user);
     }
 }

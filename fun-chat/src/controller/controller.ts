@@ -6,6 +6,7 @@ import {
     UserResponse,
     UnreadMessage,
     MessageEditResponse,
+    MessageDeliveryResponse,
 } from "../utils/interfaces";
 import { socket } from "../websocket/websocket";
 
@@ -48,14 +49,15 @@ export class Controller {
         window.dispatchEvent(newMessage);
     }
 
-    public showUnreadMessages(data: HistoryResponse): void {
+    public showUnreadMessages(data: HistoryResponse, login: string): void {
         if (this.activeUser) {
             const msgs = data.payload.messages.filter((users) => users.to === this.activeUser?.login);
             const msgUnread = msgs.filter((item) => !item.status.isReaded);
             const msgsCount = msgUnread.length;
             if (msgsCount > 0) {
                 const unreadMessages = new CustomEvent("unread-messages", {
-                    detail: { from: msgs[0].from, count: msgsCount },
+                    //detail: { from: msgs[0].from, count: msgsCount },
+                    detail: { from: login, count: msgsCount },
                 });
                 window.dispatchEvent(unreadMessages);
             }
@@ -65,14 +67,14 @@ export class Controller {
         }
     }
 
-    public showDialogHistory(data: HistoryResponse): void {
+    public showDialogHistory(data: HistoryResponse, login: string): void {
         if (this.activeUser) {
             const msgs = data.payload.messages.filter(
                 (users) => users.to === this.activeUser?.login || users.from === this.activeUser?.login
             );
             if (msgs.length) {
                 const historyDialog = new CustomEvent("history-dialog", {
-                    detail: { from: msgs[0].from, messages: msgs },
+                    detail: { user: login, messages: { messages: msgs } },
                 });
                 window.dispatchEvent(historyDialog);
             }
@@ -164,5 +166,15 @@ export class Controller {
             detail: { id: data.payload.message.id, text: data.payload.message.text },
         });
         window.dispatchEvent(ediMsg);
+    }
+
+    public changeStatusToDelivery(data: MessageDeliveryResponse): void {
+        if (!data.payload.message.status.isDelivered) {
+            return;
+        }
+        const deliveryMsg = new CustomEvent("change-status", {
+            detail: { id: data.payload.message.id, status: { isDelivered: true, isReaded: false, isEdited: false } },
+        });
+        window.dispatchEvent(deliveryMsg);
     }
 }

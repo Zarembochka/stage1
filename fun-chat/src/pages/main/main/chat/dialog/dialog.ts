@@ -1,6 +1,6 @@
 import { controller } from "../../../../..";
 import { BaseComponent } from "../../../../../utils/baseComponents";
-import { Message, UserResponse } from "../../../../../utils/interfaces";
+import { Message, MessageStatus, UserResponse } from "../../../../../utils/interfaces";
 import { socket } from "../../../../../websocket/websocket";
 import { MessageElement } from "./message/message";
 
@@ -41,6 +41,7 @@ export class ChatDialog extends BaseComponent {
         window.addEventListener("logout", () => this.logout());
         window.addEventListener("delete-message", (event) => this.removeMessageFromChat(event));
         window.addEventListener("edited-message", (event) => this.editedMessageInChat(event));
+        window.addEventListener("change-status", (event) => this.changeStatus(event));
         this.startListenToReadMessagesClick();
         //this.getElement().addEventListener("scrollend", this.startListenToReadMessagesScroll.bind(this));
     }
@@ -93,10 +94,12 @@ export class ChatDialog extends BaseComponent {
     private showDialog(event: Event): void {
         if (this.user) {
             if (event instanceof CustomEvent) {
-                this.removeOldMessades();
-                const messages: Message[] = event.detail.messages;
-                if (messages.length) {
-                    this.showHistoryMessage(messages);
+                if (this.user.login === event.detail.user) {
+                    this.removeOldMessades();
+                    const messages: Message[] = event.detail.messages.messages;
+                    if (messages.length) {
+                        this.showHistoryMessage(messages);
+                    }
                 }
             }
         }
@@ -264,6 +267,21 @@ export class ChatDialog extends BaseComponent {
         const msg = this.findMesssage(id);
         if (msg) {
             msg.editTextMessage(text);
+        }
+    }
+
+    private changeStatus(event: Event): void {
+        if (event instanceof CustomEvent) {
+            const id = event.detail.id;
+            const status = event.detail.status;
+            this.changeStatusForMessage(id, status);
+        }
+    }
+
+    private changeStatusForMessage(id: string, status: MessageStatus): void {
+        const msg = this.findMesssage(id);
+        if (msg) {
+            msg.setStatusesForMessage(status);
         }
     }
 }
