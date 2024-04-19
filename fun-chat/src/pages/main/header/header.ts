@@ -1,4 +1,5 @@
 import { controller } from "../../..";
+import { aboutLogo } from "../../../abstracts/logos";
 import { router } from "../../../router/router";
 import { sStorage } from "../../../sessionStorage/storage";
 import { BaseComponent } from "../../../utils/baseComponents";
@@ -8,15 +9,18 @@ export class Header extends BaseComponent {
 
     private btnLogout: HTMLButtonElement;
 
+    private btnAbout: HTMLButtonElement;
+
     constructor() {
         super({ tag: "header", classNames: ["header"] });
         this.title = this.createTitle();
         this.btnLogout = this.createBtnLogout();
+        this.btnAbout = this.createBtnAbout();
         this.prepareHeader();
     }
 
     private prepareHeader(): void {
-        this.getElement().append(this.title, this.btnLogout);
+        this.getElement().append(this.title, this.btnAbout, this.btnLogout);
     }
 
     private createTitle(): HTMLElement {
@@ -31,6 +35,17 @@ export class Header extends BaseComponent {
             text: "Logout",
         }).getElement();
         btn.addEventListener("click", () => this.logout());
+        return btn;
+    }
+
+    private createBtnAbout(): HTMLButtonElement {
+        const btn = new BaseComponent<HTMLButtonElement>({
+            tag: "button",
+            classNames: ["btn", "btn-about"],
+        }).getElement();
+        btn.innerHTML = aboutLogo;
+        btn.title = "About app";
+        //btn.addEventListener("click", () => this.logout());
         return btn;
     }
 

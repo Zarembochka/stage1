@@ -17,3 +17,32 @@
         }
     }
 }
+
+.btn-about {
+    margin-left: auto;
+    margin-right: 15px;
+    padding: 6px;
+    @include display-flex(row);
+    border: none;
+    background-color: $color-orange-btn;
+    transition: transform 0.3s ease-in;
+    border-radius: 10px;
+    //border: 2px solid $color-orange-btn;
+    @media screen and (hover: hover) {
+        &:hover {
+            transform: scale(1.05);
+            background-color: lighten($color-orange-btn, 10%);
+            //background-color: $color-orange-btn;
+        }
+        &:hover .about__ico {
+            fill: white;
+        }
+    }
+}
+
+.about__ico {
+    width: 26px;
+    height: 26px;
+    fill: $color-btn;
+    transition: fill 0.3s ease-in;
+}

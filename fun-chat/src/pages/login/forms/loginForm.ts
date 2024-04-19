@@ -3,6 +3,7 @@ import { socket } from "../../../websocket/websocket";
 import { checkValidationBeforeSaving, checkValidation, focusValidation } from "./validation";
 //import { router } from "../../../router/router";
 import { controller } from "../../..";
+import { aboutLogo } from "../../../abstracts/logos";
 //import { PagesView } from "../../../utils/interfaces";
 
 export class LoginForm extends BaseComponent {
@@ -11,6 +12,8 @@ export class LoginForm extends BaseComponent {
     private password: HTMLInputElement;
 
     private btnLogin: HTMLButtonElement;
+
+    private btnAbout: HTMLButtonElement;
 
     constructor() {
         super({ tag: "form", classNames: ["login__form"] });
@@ -21,7 +24,19 @@ export class LoginForm extends BaseComponent {
             "password"
         );
         this.btnLogin = this.createFormSubmitElement();
+        this.btnAbout = this.createBtnAbout();
         this.prepareForm();
+    }
+
+    private createBtnAbout(): HTMLButtonElement {
+        const btn = new BaseComponent<HTMLButtonElement>({
+            tag: "button",
+            classNames: ["btn", "btn-login-about"],
+        }).getElement();
+        btn.innerHTML = aboutLogo;
+        btn.title = "About app";
+        //btn.addEventListener("click", () => this.logout());
+        return btn;
     }
 
     private createFormSubmitElement(): HTMLButtonElement {
@@ -50,7 +65,7 @@ export class LoginForm extends BaseComponent {
     private prepareForm(): void {
         const userItem = this.createFormItem("Login", this.user, "login_login");
         const passwordItem = this.createFormItem("Password", this.password, "login_password");
-        this.getElement().append(userItem, passwordItem, this.btnLogin);
+        this.getElement().append(this.btnAbout, userItem, passwordItem, this.btnLogin);
     }
 
     private createFormItem(title: string, element: HTMLElement, id: string): HTMLElement {
