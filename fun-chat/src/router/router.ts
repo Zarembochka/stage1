@@ -30,6 +30,15 @@ class Router {
     }
 
     public start(): void {
+        const path = this.getShortPath(window.location.pathname);
+        if (path === "about") {
+            this.about();
+            return;
+        }
+        this.login();
+    }
+
+    private login(): void {
         const user = sStorage.getActiveUser();
         if (user) {
             socket.sendRequestForUserLogin(user.login, user.password);
