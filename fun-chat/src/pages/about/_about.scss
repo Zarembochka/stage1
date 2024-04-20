@@ -13,6 +13,11 @@
     color: $color-orange-btn;
     font-size: 1.25em;
     font-family: Hexen;
+    @media screen and (max-width: 470px) {
+        & {
+            font-size: 1em;
+        }
+    }
 }
 
 .about__title {
@@ -22,6 +27,7 @@
 
 .about__description {
     margin: 0;
+    text-align: center;
 }
 
 .about__author {

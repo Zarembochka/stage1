@@ -46,7 +46,7 @@ function checkInputValidation(element: HTMLInputElement): boolean {
         return false;
     }
     if (element.type === "password") {
-        if (!checkTextValidation(element, /[a-zA-Z]+/, "The passwors should contain minimal one English letters")) {
+        if (!checkTextValidation(element, /[a-zA-Z]+/, "The passwors should contain minimal one English letter")) {
             return false;
         }
     }

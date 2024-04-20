@@ -11,7 +11,7 @@
 
 .header__title {
     margin: 0;
-    @media screen and (max-width: 470px) {
+    @media screen and (max-width: 520px) {
         & {
             font-size: 1.2em;
         }
@@ -38,6 +38,11 @@
             fill: white;
         }
     }
+    @media screen and (max-width: 470px) {
+        & {
+            padding: 3px;
+        }
+    }
 }
 
 .about__ico {
@@ -45,4 +50,10 @@
     height: 26px;
     fill: $color-btn;
     transition: fill 0.3s ease-in;
+    @media screen and (max-width: 470px) {
+        & {
+            width: 22px;
+            height: 22px;
+        }
+    }
 }
