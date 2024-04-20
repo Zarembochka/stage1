@@ -5,6 +5,7 @@ import { PagesView } from "./utils/interfaces";
 import { router } from "./router/router";
 import { myModal } from "./modal/modal";
 import { Controller } from "./controller/controller";
+import { AboutPage } from "./pages/about/about";
 
 (function (l) {
     if (l.search[1] === "/") {
@@ -25,12 +26,15 @@ class App {
 
     public mainPage: MainPage;
 
+    private aboutPage: AboutPage;
+
     constructor() {
         this.loginPage = new LoginPage();
         this.mainPage = new MainPage();
+        this.aboutPage = new AboutPage();
     }
 
-    private renderPage(page: LoginPage | MainPage): void {
+    private renderPage(page: LoginPage | MainPage | AboutPage): void {
         document.body.innerHTML = "";
         document.body.append(page.getPage(), myModal.getElement());
     }
@@ -40,7 +44,11 @@ class App {
             this.renderPage(this.loginPage);
             return;
         }
-        this.renderPage(this.mainPage);
+        if (view === PagesView.main) {
+            this.renderPage(this.mainPage);
+            return;
+        }
+        this.renderPage(this.aboutPage);
     }
 
     public clearLoginForm(): void {

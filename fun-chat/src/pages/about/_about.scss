@@ -1,0 +1,38 @@
+.container__about {
+    height: 100%;
+    @include display-flex(row, center, center);
+}
+
+.about {
+    @include display-flex(column, center, center);
+    row-gap: 15px;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 1px -1px 23px -5px $shadow-color;
+    background-color: $background-color;
+    color: $color-orange-btn;
+    font-size: 1.25em;
+    font-family: Hexen;
+}
+
+.about__title {
+    margin: 0;
+    font-family: Dragon;
+}
+
+.about__description {
+    margin: 0;
+}
+
+.about__author {
+    color: inherit;
+    transition-property: transform, color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    @media screen and (hover: hover) {
+        &:hover {
+            transform: scale(1.05);
+            color: $color-status;
+        }
+    }
+}

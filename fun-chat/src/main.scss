@@ -15,6 +15,7 @@
 @import "./pages/main/main/chat/footer/form/messageForm";
 @import "./pages/main/main/chat/dialog/dialog";
 @import "./pages/main/main/chat/dialog/message/message";
+@import "./pages/about/about";
 
 * {
     box-sizing: border-box;
@@ -32,6 +33,7 @@ body {
     cursor: pointer;
     font-size: inherit;
     font-family: Dragon;
+    user-select: none;
 }
 
 .btn-action {

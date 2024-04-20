@@ -7,6 +7,7 @@ export interface ParamsToComponent {
 export enum PagesView {
     login,
     main,
+    about,
 }
 
 export interface Routing {
@@ -17,6 +18,7 @@ export interface Routing {
 export enum PathToPage {
     login = 0,
     main = 1,
+    about = 2,
 }
 
 export enum TypesMessages {

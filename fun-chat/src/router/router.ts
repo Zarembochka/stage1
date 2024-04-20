@@ -12,6 +12,10 @@ const config = [
         path: "main",
         view: PagesView.main,
     },
+    {
+        path: "about",
+        view: PagesView.about,
+    },
 ];
 
 class Router {
@@ -47,6 +51,10 @@ class Router {
         app.clearLoginForm();
     }
 
+    public about(): void {
+        this.goToPath(this.config[PathToPage.about]);
+    }
+
     private goToPath(rout: Routing): void {
         const pathnameApp = window.location.pathname
             .split("/")
@@ -73,14 +81,18 @@ class Router {
         }
     }
 
+    public goBack(): void {
+        history.back();
+    }
+
     private addListenerToWindow(): void {
         window.addEventListener("popstate", () => {
             const path = this.getShortPath(window.location.pathname);
             this.goTo(`${path}`);
         });
-        window.addEventListener("beforeunload", () => {
-            socket.closeConnection();
-        });
+        // window.addEventListener("beforeunload", () => {
+        //     socket.closeConnection();
+        // });
         // window.addEventListener("DOMContentLoaded", () => {
         //     // const currentPath = window.location.pathname
         //     //     .split("/")

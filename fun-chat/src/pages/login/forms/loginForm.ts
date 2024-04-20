@@ -4,6 +4,7 @@ import { checkValidationBeforeSaving, checkValidation, focusValidation } from ".
 //import { router } from "../../../router/router";
 import { controller } from "../../..";
 import { aboutLogo } from "../../../abstracts/logos";
+import { router } from "../../../router/router";
 //import { PagesView } from "../../../utils/interfaces";
 
 export class LoginForm extends BaseComponent {
@@ -35,7 +36,7 @@ export class LoginForm extends BaseComponent {
         }).getElement();
         btn.innerHTML = aboutLogo;
         btn.title = "About app";
-        //btn.addEventListener("click", () => this.logout());
+        btn.addEventListener("click", () => this.goToPageAbout());
         return btn;
     }
 
@@ -113,5 +114,9 @@ export class LoginForm extends BaseComponent {
         this.password.value = "";
         this.user.classList.remove("form__login__item-valid");
         this.password.classList.remove("form__login__item-valid");
+    }
+
+    private goToPageAbout(): void {
+        router.about();
     }
 }

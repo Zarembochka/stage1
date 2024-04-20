@@ -45,7 +45,7 @@ export class Header extends BaseComponent {
         }).getElement();
         btn.innerHTML = aboutLogo;
         btn.title = "About app";
-        //btn.addEventListener("click", () => this.logout());
+        btn.addEventListener("click", () => this.about());
         return btn;
     }
 
@@ -61,5 +61,9 @@ export class Header extends BaseComponent {
 
     private getUsername(): string {
         return controller.getActiveUser()?.login || "";
+    }
+
+    private about(): void {
+        router.about();
     }
 }
