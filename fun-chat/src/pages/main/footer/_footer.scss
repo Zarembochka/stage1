@@ -14,7 +14,8 @@
         transform 0.3s ease-in;
     @media screen and (hover: hover) {
         &:hover {
-            fill: lighten($color-orange-btn, 5%);
+            //fill: lighten($color-orange-btn, 5%);
+            fill: $color-status;
             transform: scale(1.05);
         }
     }
