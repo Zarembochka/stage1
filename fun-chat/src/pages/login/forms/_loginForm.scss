@@ -27,7 +27,11 @@
     outline: none;
     border: 1px solid $form-border-color;
     padding: 2px 5px;
-    font-family: inherit;
+    font-family: Hexen;
+    color: darken($color: $form-font-color, $amount: 25%);
+    &:focus {
+        color: darken($color: $form-font-color, $amount: 25%);
+    }
 }
 
 .login__form__input-password {

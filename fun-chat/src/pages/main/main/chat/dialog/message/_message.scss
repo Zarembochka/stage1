@@ -2,7 +2,7 @@
     width: 100%;
     @include display-flex(column, flex-start);
     width: fit-content;
-    font-family: Hexen;
+    font-family: Hexen, Arial;
     padding: 7px 0;
     color: $form-font-color;
     &.author {
