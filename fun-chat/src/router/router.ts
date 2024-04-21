@@ -97,6 +97,10 @@ class Router {
     private addListenerToWindow(): void {
         window.addEventListener("popstate", () => {
             const path = this.getShortPath(window.location.pathname);
+            if (path === "login" && controller.getActiveUser()) {
+                this.goToPath(this.config[PathToPage.main]);
+                return;
+            }
             this.goTo(`${path}`);
         });
         // window.addEventListener("beforeunload", () => {
