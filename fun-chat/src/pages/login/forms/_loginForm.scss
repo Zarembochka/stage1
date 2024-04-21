@@ -4,9 +4,9 @@
     user-select: none;
     min-width: 310px;
     max-width: 350px;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 1px -1px 23px -5px $shadow-color;
+    //border-radius: 20px;
+    //padding: 10px;
+    //box-shadow: 1px -1px 23px -5px $shadow-color;
     background-color: $background-color;
     color: $form-font-color;
     font-size: 1.5em;
@@ -50,30 +50,6 @@
 
 .form__login__item-valid {
     border: 1px solid $color-valid;
-}
-
-.btn-login-about {
-    margin-left: auto;
-    margin-bottom: -15px;
-    padding: 3px;
-    @include display-flex(row);
-    border: none;
-    background-color: transparent;
-    transition-property: transform, background-color, border-color;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-    border-radius: 10px;
-    border: 2px solid $color-orange-btn;
-    @media screen and (hover: hover) {
-        &:hover {
-            transform: scale(1.1);
-            background-color: lighten($color-orange-btn, 10%);
-            border: 2px solid lighten($color-orange-btn, 10%);
-        }
-        &:hover .about__ico {
-            fill: white;
-        }
-    }
 }
 
 .btn-login-about .about__ico {

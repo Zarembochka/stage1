@@ -2,7 +2,7 @@
     width: 100%;
     @include display-flex(column, flex-start);
     width: fit-content;
-    font-family: Hexen, Arial;
+    font-family: Hexen;
     padding: 7px 0;
     color: $form-font-color;
     &.author {
@@ -23,6 +23,7 @@
 }
 
 .message__body__content {
+    //font-family: Spectral;
     padding: 10px;
     border: 2px solid lighten($color-orange, 20%);
     color: #594f48;
