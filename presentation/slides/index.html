@@ -4,11 +4,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-        <title>reveal.js</title>
+        <title>Presentation</title>
 
         <link rel="stylesheet" href="slide/reset.css" />
         <link rel="stylesheet" href="slide/reveal.css" />
-        <link rel="stylesheet" href="slide/theme/black.css" />
+        <link rel="stylesheet" href="slide/theme/serif.css" />
 
         <!-- Theme used for syntax highlighted code -->
         <link rel="stylesheet" href="plugin/highlight/monokai.css" />
@@ -16,8 +16,81 @@
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>Slide 1</section>
-                <section>Slide 2</section>
+                <section>
+					<h2>REACT</h2>
+					<h2>VirtualDOM</h2>
+					<p>
+						<small>Created by <a href="https://github.com/Zarembochka">Liubou Hadunova</a></small>
+					</p>
+				</section>
+				<section>
+					<section">
+						<h3>What is DOM?</h3>
+						<p class="fragment" data-fragment-index="0">DOM stands for "Document Object Model"</p>
+						<img class="fragment" data-fragment-index="1" src="./images/DOM.gif" alt="Dom model image">
+					</section>
+					<section>
+						<h3>Updating the DOM</h3>
+						<p class="fragment" data-fragment-index="0">Every time the DOM gets updated, the updated element and its children have to be rendered again to update the UI of our page.</p>
+						<img class="fragment" data-fragment-index="1" src="./images/pipeline.png" alt="Pixel pipeline model image">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Virtual DOM</h3>
+						<p class="fragment" data-fragment-index="0">React JS Virtual DOM is a virtual representation of the DOM or a lightweight copy of the actual DOM</p>
+					</section>
+					<section>
+						<h3>How Does the Virtual DOM Work?</h3>
+						<p class="fragment" data-fragment-index="0">In React, everything is treated as a component.</p>
+						<p class="fragment" data-fragment-index="1">A component can contain a state. </p>
+					</section>
+					<section>
+						<h3>Process of working with the Virtual DOM</h3>
+						<p class="fragment" data-fragment-index="0">1. Creating a Virtual DOM</p>
+						<p class="fragment" data-fragment-index="1">2. Diffing</p>
+						<p class="fragment" data-fragment-index="2">3. Reconciliation</p>
+					</section>
+					<section>
+						<h3>1. Creating a Virtual DOM</h3>
+						<p class="fragment" data-fragment-index="0">Whenever a React application is first loaded or rendered i.e component's state changes, a new Virtual DOM is created. This Virtual DOM representation is a tree of React elements</p>
+					</section>
+					<section>
+						<h3>2. Diffing</h3>
+						<p class="fragment" data-fragment-index="0">React compares the new Virtual DOM with the previous one. This process is called "diffing". During diffing, React figures out what has changed between the two Virtual DOMs.</p>
+					</section>
+					<section>
+						<h3>3. Reconciliation</h3>
+						<p class="fragment" data-fragment-index="0">React updates the real DOM to match the new Virtual DOM, but it only updates those objects in the real DOM that changed in the Virtual DOM. This process is called "reconciliation"</p>
+					</section>
+					<section>
+						<h3>React Virtual DOM</h3>
+						<img src="./images/Repaint.avif" alt="React Virtual DOM model image">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>The React diff algorithm</h3>
+						<p class="fragment" data-fragment-index="0">The diffing algorithm is heuristic algorithm ( O(n) ) predicated on two suppositions:</p>
+						<p class="fragment" data-fragment-index="1">1. Elements of different types will produce different trees</p>
+						<p class="fragment" data-fragment-index="2">2. We can set (using key prop) which elements are static and do not need to be checked</p>
+					</section>
+					<section>
+						<h3>The React diffing process</h3>
+						<p class="fragment" data-fragment-index="0">React checks the root elements for changes and the updates depend on the types of the root elements:</p>
+						<p class="fragment" data-fragment-index="1"><b>Element in different types:</b> Whenever the type of the element changes in the root, react will scrap the old tree and build a new one i.e a full rebuild of the tree</p>
+						<p class="fragment" data-fragment-index="2"><b>Elements of the same type:</b> When the type of changed element is the same, React then checks for attributes of both versions and then only updates the node which has changes without any changes in the tree. The component will be updated in the next lifecycle call.</p>
+					</section>
+					<section>
+						<h3>The React diff algorithm</h3>
+						<img src="./images/Diff.jpg" alt="React diff algorithm model image">
+					</section>
+				</section>
+				<section>
+					<h3>Conclusion</h3>
+					<p class="fragment" data-fragment-index="0">React uses the virtual DOM as a strategy to compute minimal DOM operations when re-rendering the UI</p>
+				</section>
+
             </div>
         </div>
 
