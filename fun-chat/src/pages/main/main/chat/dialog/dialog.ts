@@ -112,6 +112,7 @@ export class ChatDialog extends BaseComponent {
     private showHistoryMessage(msg: Message[]): void {
         const msgOld = msg.filter((item) => item.status.isReaded || item.from === controller.getActiveUser()?.login);
         const msgNew = msg.filter((item) => !item.status.isReaded && item.from !== controller.getActiveUser()?.login);
+        this.allMessages = [];
         this.showDialogWithUser(msgOld);
         if (msgNew.length) {
             this.appendElement(this.separateLine);
@@ -201,7 +202,9 @@ export class ChatDialog extends BaseComponent {
     }
 
     private changeStatusForRead(): void {
-        this.unreadMessages.forEach((item) => socket.sentRequestForStatusRead(item.id));
+        this.unreadMessages.forEach((item) => {
+            socket.sentRequestForStatusRead(item.id);
+        });
         this.unreadMessages.length = 0;
     }
 
