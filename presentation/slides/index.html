@@ -78,8 +78,8 @@
 					<section>
 						<h3>The React diffing process</h3>
 						<p class="fragment" data-fragment-index="0">React checks the root elements for changes and the updates depend on the types of the root elements:</p>
-						<p class="fragment" data-fragment-index="1"><b>Element in different types:</b> Whenever the type of the element changes in the root, react will scrap the old tree and build a new one i.e a full rebuild of the tree</p>
-						<p class="fragment" data-fragment-index="2"><b>Elements of the same type:</b> When the type of changed element is the same, React then checks for attributes of both versions and then only updates the node which has changes without any changes in the tree. The component will be updated in the next lifecycle call.</p>
+						<p class="fragment" data-fragment-index="1"><b>Element in different types:</b> Whenever the type of the element changes in the root, React will scrap the old tree and build a new one i.e a full rebuild of the tree</p>
+						<p class="fragment" data-fragment-index="2"><b>Elements of the same type:</b> When the type of changed element is the same, React then checks for attributes of both versions and then only updates the node which has changes without any changes in the tree.</p>
 					</section>
 					<section>
 						<h3>The React diff algorithm</h3>
@@ -90,7 +90,16 @@
 					<h3>Conclusion</h3>
 					<p class="fragment" data-fragment-index="0">React uses the virtual DOM as a strategy to compute minimal DOM operations when re-rendering the UI</p>
 				</section>
-
+				<section>
+					<h3>Looking to the future</h3>
+					<p class="fragment" data-fragment-index="0">Currently, React doesn't automatically re-render on state change.</p>
+					<p class="fragment" data-fragment-index="1">A way to optimise these re-renders is to manually use useMemo(), useCallback(), and memo APIs.</p>
+					<p class="fragment" data-fragment-index="2">In React 19 will be represent React compiler, which will be manage these re-renders.</p>
+					<p class="fragment" data-fragment-index="3">React will be decide automatically how and when to change the state and update the UI.</p>
+				</section>
+				<section>
+					<h3>Thank you for your attention!</h3>
+				</section>
             </div>
         </div>
 
