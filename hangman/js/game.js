@@ -1,4 +1,4 @@
-import quizList from "./quiz.json" assert { type: "json" };
+import quizList from "./quiz.json" with { type: "json" };
 
 let container;
 let hangman;
