@@ -1,4 +1,4 @@
-import productsList from './productsList.json'assert {type: 'json'};
+import productsList from './productsList.json' with {type: 'json'};
 
 import { addListenerForModal } from './modal.js';
 
